@@ -20,7 +20,6 @@ class Home extends React.Component {
     render() {
         return (<>
             這裡是首頁
-            以下測試
             <button onClick={()=>this.test()}>測試用</button>
             {this.state.test.map(item => {
                 return (<div>{ item.id }</div>)

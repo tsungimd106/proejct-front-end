@@ -1,0 +1,26 @@
+.sign {
+    text-align: center;
+}
+
+.sign>div {
+    margin: 30px 0;
+}
+
+input{
+    border-radius: 5px;
+    border: 2px solid #4F586B;
+    height: 3vw;
+}
+
+#continue{
+    background-color: #4F586B;
+}
+
+.sign button,
+.sign input {
+    width: 28vw;
+}
+
+h5{
+    display: inline;
+}
