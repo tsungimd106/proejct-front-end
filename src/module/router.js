@@ -1,11 +1,12 @@
 import Home from "./pages/home.js"
-import Sign from "./pages/sign.js"
+import {sign,login} from "./pages/sign.js"
 
 
 
 export const main = [
     Home,
-    Sign,
+    sign,
+    login
 ]
 
 export const navUrl = {

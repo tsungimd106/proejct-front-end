@@ -11,19 +11,22 @@ class Home extends React.Component {
 
     test = () => {
         TestRequest.forTest().then(response => {
-            
+
             console.log(response)
-            this.setState({"test": response.data})
+            this.setState({ "test": response.data })
         }).catch(error => console.log(error))
     }
 
     render() {
         return (<>
             這裡是首頁
-            <button onClick={()=>this.test()}>測試用</button>
+            <button onClick={() => this.test()}>測試用</button>
+            {document.location.href}
             {this.state.test.map(item => {
-                return (<div>{ item.id }</div>)
-            }) }
+                return (<div>{item.id}</div>)
+            })}
+
+
         </>)
     }
 }
