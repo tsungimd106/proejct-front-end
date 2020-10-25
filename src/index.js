@@ -4,19 +4,15 @@ import { Route, HashRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap"
 import Nav from "./module/pages/nav"
 import { main } from "./module/router.js";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
 	render() {
 		return (
-			<div className="App">
-				<Container fluid="xl">
-					<Row>
-						<Col>
-							<Nav />
-						</Col>
-					</Row>
-					<Row className="justify-content-center">
+			<div className="App" enabled={true}>
+				<Container fluid="true">					
+					<Row className="justify-content-center" noGutters="true">
 						<Col >
 							<div >
 								{ main.map((router, index) => (

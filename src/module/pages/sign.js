@@ -2,28 +2,25 @@ import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
 import TestRequest from "../request/test"
 import { ModalBase } from "../modal"
+import logo_light from '../../imgs/logo(light).png'
+import home_icon from '../../imgs/homeKey.png'
+import logo_dark from '../../imgs/LOGO1.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/sign.css"
 
 class Base extends React.Component {
 
-    // TestRequest.sign(requestData).then(response => {
-    //     this.showinfo(response.message)
-    // }).catch(error => console.log(error))
-
-
     render() {
-
         return (<>
-            <Row className="justify-content-end sign">
+            <Row className="sign" noGutters="true">
                 <Col sm={6} id="left">
                     <h4>Welcome</h4>
                     <h6>__</h6>
-                    <img src={require('../../imgs/logo(light).png')}></img>
+                    <img src={logo_light}/>
                 </Col>
-                <Col sm={6} id="right">
-                    <a href="home.js"><img src={require('../../imgs/homeKey.png')} id="homeKey"></img></a>
-                    <img src={require('../../imgs/LOGO1.png')}></img>
+                <Col sm={6} id="right" >
+                    <a href="./#/"><img src={home_icon} id="homeKey"></img></a>
+                    <img src={logo_dark}></img>
                     {this.props.content}
                 </Col>
             </Row>
@@ -40,17 +37,17 @@ class Sign extends React.Component {
             "message": ""
         }
     }
+    
     send = () => {
         this.showinfo("測試")
     }
-
 
     showinfo = (msg) => {
         this.setState({ showinfo: !this.state.showinfo, message: msg })
     }
 
     render() {
-        return (<Base content={<>
+        return (<Base content={<div>
             <p><input type="text" placeholder="帳號" id="account" /></p>
             <p><input type="text" placeholder="密碼" id="password" /></p>
             <p><input type="text" placeholder="確認密碼" id="checkpsd" /></p>
@@ -72,34 +69,39 @@ class Sign extends React.Component {
             <p>記住我</p>
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號註冊</Button></p>
-            <a>已有帳號  &nbsp; &nbsp;</a><h5>登入</h5>
+            <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
             <ModalBase
                 show={this.state.showinfo}
                 close={() => { this.showinfo() }}
                 ok={() => { this.showinfo() }}
                 message={this.state.message}
             />
-        </>}></Base>)
+        </div>}></Base>)
     }
 }
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            "showInfo": false,
+            "message": ""
+        }
+    }
     render() {
-        return (<Base content={<>
+        return (<Base content={<div className="need_to_center">
             <p><input type="text" placeholder="帳號" id="account" /></p>
-            <p><input type="text" placeholder="密碼" id="password" /></p>
-
-            <p>記住我</p>
+            <p><input type="text" placeholder="密碼" id="password" /></p>          
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
-            <p><Button variant="success" >以LINE帳號註冊</Button></p>
-            <a>已有帳號  &nbsp; &nbsp;</a><h5>登入</h5>
+            <p><Button variant="success" >以LINE帳號登入</Button></p>
+            
             <ModalBase
                 show={this.state.showinfo}
                 close={() => { this.showinfo() }}
                 ok={() => { this.showinfo() }}
                 message={this.state.message}
             />
-        </>}></Base>)
+        </div>}></Base>)
     }
 }
 
@@ -109,7 +111,7 @@ export const sign = {
         path: "/sign",
         component: Sign
     },
-    name: "首頁"
+    name: "註冊"
 }
 
 export const login = {
@@ -117,5 +119,5 @@ export const login = {
         path: "/login",
         component: Login
     },
-    name: "首頁"
+    name: "登入"
 }
