@@ -1,5 +1,5 @@
 import Home from "./pages/home.js"
-import {sign,login} from "./pages/sign.js"
+import { sign, login } from "./pages/sign.js"
 
 
 

@@ -1,40 +1,41 @@
+* {
+    padding: 0;
+}
+
 .sign {
     text-align: center;
+    height: 100vh;
 }
 
-.sign>div {
-    margin: 30px 0;
-}
-
-img{
-    margin-top:15px;
+img {
+    margin-top: 15px;
     width: 30vw;
-    height:auto;
+    height: auto;
 }
 
-
-input,select{
-    width:20vw;
+input,
+select {
+    width: 20vw;
     border-radius: 5px;
     border: 2px solid #4F586B;
     height: 3vw;
 }
 
-#continue{
+#continue {
     background-color: #4F586B;
 }
 
-#left{
+#left {
     background-color: #4F586B;
     color: #FFF;
     text-align: center;
 }
 
-h4{
-    margin-top:15vw;
+h4 {
+    margin-top: 15vw;
 }
 
-#right>p{
+#right>p {
     margin-bottom: 10px;
 }
 
@@ -43,12 +44,21 @@ h4{
     width: 20vw;
 }
 
-#homeKey{
+#homeKey {
     width: 5vw;
-    margin:0px;
+    margin: 0px;
     float: right;
 }
 
-h5{
+h5 {
     display: inline;
+}
+
+.need_to_center::before {
+    content: '';
+    width: 0;
+    height: 20vh;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
 }

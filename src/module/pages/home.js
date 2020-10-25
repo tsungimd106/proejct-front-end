@@ -1,33 +1,18 @@
 import React from 'react';
-import TestRequest from "../request/test"
+import { Pages } from "../pages.js"
 
 class Home extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            "test": []
-        }
-    }
-
-    test = () => {
-        TestRequest.forTest().then(response => {
-
-            console.log(response)
-            this.setState({ "test": response.data })
-        }).catch(error => console.log(error))
     }
 
     render() {
-        return (<>
-            這裡是首頁
-            <button onClick={() => this.test()}>測試用</button>
-            {document.location.href}
-            {this.state.test.map(item => {
-                return (<div>{item.id}</div>)
-            })}
+        return (<Pages page={
+            (<>
+                這裡是首頁
 
-
-        </>)
+            </>)
+        } />)
     }
 }
 
