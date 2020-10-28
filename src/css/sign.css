@@ -7,8 +7,15 @@
     height: 100vh;
 }
 
-img {
+#left>img {
     margin-top: 15px;
+    width: 35vw;
+    height: auto;
+}
+
+#right>img {
+    margin-top: 15px;
+    margin-left: 5vw;
     width: 30vw;
     height: auto;
 }
@@ -37,6 +44,11 @@ h4 {
 
 #right>p {
     margin-bottom: 10px;
+}
+
+#remember{
+    height: 2vh;
+    width: 2vw;
 }
 
 .sign button,

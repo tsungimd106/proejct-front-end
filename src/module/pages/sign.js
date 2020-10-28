@@ -48,10 +48,10 @@ class Sign extends React.Component {
 
     render() {
         return (<Base content={<div>
-            <p><input type="text" placeholder="帳號" id="account" /></p>
-            <p><input type="text" placeholder="密碼" id="password" /></p>
-            <p><input type="text" placeholder="確認密碼" id="checkpsd" /></p>
-            <p><input type="text" placeholder="暱稱" id="name" /></p>
+            <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
+            <p><input type="text" placeholder="&nbsp;密碼" id="password" /></p>
+            <p><input type="text" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
+            <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
             <p><select id="year">
                 <option value=" ">出生年</option>
                 <option value="year">1920</option>
@@ -66,7 +66,6 @@ class Sign extends React.Component {
                 <option value="year">新北市</option>
                 <option value="year">桃園市</option>
             </select></p>
-            <p>記住我</p>
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號註冊</Button></p>
             <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
@@ -90,11 +89,12 @@ class Login extends React.Component {
     }
     render() {
         return (<Base content={<div className="need_to_center">
-            <p><input type="text" placeholder="帳號" id="account" /></p>
-            <p><input type="text" placeholder="密碼" id="password" /></p>          
+            <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
+            <p><input type="text" placeholder="&nbsp;密碼" id="password" /></p>
+            <p><i>忘記密碼</i></p>       
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號登入</Button></p>
-            
+            <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
             <ModalBase
                 show={this.state.showinfo}
                 close={() => { this.showinfo() }}
