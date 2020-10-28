@@ -46,9 +46,9 @@ h4 {
     margin-bottom: 10px;
 }
 
-#remember{
-    height: 2vh;
-    width: 2vw;
+#agree{
+    height: 3vh;
+    width: 3vw;
 }
 
 .sign button,
@@ -73,4 +73,12 @@ h5 {
     display: inline-block;
     position: relative;
     vertical-align: middle;
+}
+
+#rule{
+    width: 30vw;
+    height: auto;
+    border: 5px solid #4F586B;
+    border-radius: 20px;
+    padding: 5px;
 }
