@@ -7,8 +7,15 @@
     height: 100vh;
 }
 
-img {
+#left>img {
     margin-top: 15px;
+    width: 35vw;
+    height: auto;
+}
+
+#right>img {
+    margin-top: 15px;
+    margin-left: 5vw;
     width: 30vw;
     height: auto;
 }
@@ -39,6 +46,11 @@ h4 {
     margin-bottom: 10px;
 }
 
+#agree{
+    height: 3vh;
+    width: 3vw;
+}
+
 .sign button,
 .sign input {
     width: 20vw;
@@ -61,4 +73,12 @@ h5 {
     display: inline-block;
     position: relative;
     vertical-align: middle;
+}
+
+#rule{
+    width: 30vw;
+    height: auto;
+    border: 5px solid #4F586B;
+    border-radius: 20px;
+    padding: 5px;
 }
