@@ -1,0 +1,73 @@
+.multicolor-bar {
+    width: 75%
+}
+
+.multicolor-bar .values .value {
+    float: left;
+    text-align: center;
+}
+
+.multicolor-bar .scale .graduation {
+    float: left;
+    text-align: center;
+}
+
+.multicolor-bar .bars .bar {
+    float: left;
+    height: 10px;
+}
+
+.multicolor-bar .bars div.bar:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.multicolor-bar .bars div.bar:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.multicolor-bar .legends {
+    text-align: center;
+}
+
+.multicolor-bar .legends .legend {
+    display: inline-block;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.multicolor-bar .legends .legend .dot {
+    font-size: 25px;
+    vertical-align: middle;
+}
+
+.multicolor-bar .legends .legend .label {
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+.topicBox {
+    width: 85%;
+    margin: 5px auto;
+    border: 1px solid #000;
+}
+
+.slider {
+    padding: 5px 15%;
+    margin-bottom: 30px;
+}
+
+.awssld {
+    --slider-height-percentage: 30%;
+}
+
+.awssld__content {
+    --content-background-color: #fff
+}
+
+.awssld__content>img {
+    width: auto;
+    top: auto;
+    left: auto;
+}
