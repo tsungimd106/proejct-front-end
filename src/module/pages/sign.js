@@ -59,6 +59,7 @@ class Sign extends React.Component {
                 <option value="year">1922</option>
                 <option value="year">1923</option>
             </select></p>
+            <p >出生日期</p><p><input type="date" placeholder="出生日期"></input></p>
             <p><select id="city">
                 <option value=" ">現居地</option>
                 <option value="year">基隆市</option>
