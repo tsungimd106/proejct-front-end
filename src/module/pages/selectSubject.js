@@ -21,26 +21,25 @@ class SelectSubject extends React.Component {
     render() {
         return (<Pages page={
             (<>
-                <div className="ss_lineheight">
                 <center>
-                    <img id="logo" src={logo_dark}></img>
-                    <p>Hi! XXX歡迎您使用<img src={logo_dark}></img></p>
-                    <p>請選擇您所感興趣的議題</p>
-                    <Row className="select" >
-                        {
-                            (this.state.data || false ? (<>   {/* 看data在不在，不再會執行39行(傳回空的)。在就會接著執行 */}
-                                {this.state.data.map(item => {      {/*data跑回圈，裡面的值取變數名稱叫item。map類似foreach*/}
-                                    return (<>
-                                        <Col sm={4}><button className="need_to_center ss_subjectbtn">{item}</button> {/*data內的item一個一個跑回圈*/}
-                                        </Col>
-                                    </>)
-                                })}
-                            </>) : (<></>))
-                        }
-                    </Row>
+                    <div className="ss_lineheight">
+                        <img id="logo" src={logo_dark}></img>
+                        <p>Hi! XXX歡迎您使用<img src={logo_dark}></img><br></br>請選擇您所感興趣的議題</p>              
+                        <Row className="select" >
+                            {
+                                (this.state.data || false ? (<>   {/* 看data在不在，不再會執行39行(傳回空的)。在就會接著執行 */}
+                                    {this.state.data.map(item => {      {/*data跑回圈，裡面的值取變數名稱叫item。map類似foreach*/}
+                                        return (<>
+                                            <Col sm={4}><button className="need_to_center ss_subjectbtn">{item}</button> {/*data內的item一個一個跑回圈*/}
+                                            </Col>
+                                        </>)
+                                    })}
+                                </>) : (<></>))
+                            }
+                        </Row>
+                        <p><a href="./#/"><Button className="ss_checkbtn" onClick={this.send}>確認</Button></a></p>
+                    </div>
                 </center>
-                </div>
-                <p><Button className="ss_checkbtn" onClick={this.send}>確認</Button></p>
             </>)
         } />)
     }
