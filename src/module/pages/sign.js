@@ -114,6 +114,10 @@ class SignNext extends React.Component {
             "message": ""
         }
     }
+    send = () => {
+        window.location.href = "./#/selectSubject"
+    }
+
     render() {
         return (<Base content={<div className="need_to_center">
             <center><p id="rule">我們絕不會將您的個資販售給廣告商，且除非您授予我們特定權限，否則我們也不會與廣告商分享可識別您個人身分的資訊（例如姓名、電子郵件地址或其他聯絡資訊）。 然而廣告商可以告知我們想要顯示廣告的目標受眾類型，我們再針對可能會感興趣的對象顯示他們的廣告。 我們為廣告商提供廣告成效報告，協助他們瞭解用戶與廣告內容的互動情形。 請參考後續第 2 節瞭解詳情。</p></center>

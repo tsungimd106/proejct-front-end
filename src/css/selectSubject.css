@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+}
+
+.ss_lineheight p{
+    line-height: 10px;
+    margin: 0px;
+}
+
+#logo{
+    width: 30vw;
+    height: auto;
+} 
+
+p>img{
+    width: 8vw;
+    height: auto;
+}
+
+#select{
+    background-color: #4F586B;
+    margin-top: 20px;
+}
+
+
+.need_to_center::before {
+    content: '';
+    width: 0;
+    height: 30vh;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+
+.ss_subjectbtn{
+    background: #4F586B;
+    border-radius: 10px;
+    height:30vh;
+    margin:5% auto;
+    color:#fff;
+    text-align: center;
+}
+
+.ss_lineheight .select{
+    width: 70%;
+}
+
+.ss_checkbtn{
+    background: #4F586B;
+    width: 15vw;
+    float: right;
+    margin-top: 5vh;
+    margin-right: 10vw;
+}
