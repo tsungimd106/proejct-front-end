@@ -24,38 +24,40 @@ class Home extends React.Component {
         }
     }
 
-
-
     render() {
         return (<Pages page={
             (<>
 
                 <div className="slider">
-                    { this.state.imageData || false ? (<>
+                    {this.state.imageData || false ? (<>
                         <AwesomeSlider
-                            animation="foldOutAnimation"                           
+                            animation="foldOutAnimation"
                         >
-                            {this.state.imageData.map(item=>{
-                                return( <div data-src={item} />)
+                            {this.state.imageData.map(item => {
+                                return (<div data-src={item} />)
                             })}
                         </AwesomeSlider>
-                    </>) : (<></>) }
+                    </>) : (<></>)}
 
 
                 </div>
-                <hr />
+                <div className="line"></div>
 
                 { this.state.data || false ? (<>
-                    猜你喜歡
+                   <p className="GuessYouLike">猜你喜歡?</p> 
                     {this.state.data.map(placement => {
                         return (<div className="topicBox justify-content-center">
-                            <h3>{ placement.title }</h3>
-                            <p>{ placement.content }</p>
-                            <h6><Row>{ placement.tag.map(item => (<Col sm={ "auto" }>{ item }</Col>)) }</Row></h6>
-                            <p><MultiColorProgressBar readings={ placement.vote } /></p>
+                            <h3 className="topicBoxBold">{placement.title}</h3>
+                            <p>{placement.content}</p>
+                            <h6 className ="topicBoxBold">
+                                <Row>
+                                    {placement.tag.map(item => (<Col sm={"auto"}>#{item}</Col>))}
+                                </Row>
+                            </h6>
+                            <p><MultiColorProgressBar readings={placement.vote} /></p>
                         </div>)
-                    }) }
-                </>) : (<></>) }
+                    })}
+                </>) : (<></>)}
             </>)
         } />)
     }
@@ -74,8 +76,8 @@ class MultiColorProgressBar extends React.Component {
         let values = parent.readings && parent.readings.length && parent.readings.map(function (item, i) {
             if (item > 0) {
                 return (
-                    <div className="value" style={ { 'color': color[i], 'width': item + '%' } } key={ i }>
-                        <span>{ item }%</span>
+                    <div className="value" style={{ 'color': color[i], 'width': item + '%' }} key={i}>
+                        <span>{item}%</span>
                     </div>
                 )
             }
@@ -84,7 +86,7 @@ class MultiColorProgressBar extends React.Component {
         let calibrations = parent.readings && parent.readings.length && parent.readings.map(function (item, i) {
             if (item > 0) {
                 return (
-                    <div className="graduation" style={ { 'color': color[i], 'width': item + '%' } } key={ i }>
+                    <div className="graduation" style={{ 'color': color[i], 'width': item + '%' }} key={i}>
                         <span>|</span>
                     </div>
                 )
@@ -94,7 +96,7 @@ class MultiColorProgressBar extends React.Component {
         let bars = parent.readings && parent.readings.length && parent.readings.map(function (item, i) {
             if (item > 0) {
                 return (
-                    <div className="bar" style={ { 'backgroundColor': color[i], 'width': item + '%' } } key={ i } />
+                    <div className="bar" style={{ 'backgroundColor': color[i], 'width': item + '%' }} key={i} />
                 )
             }
         }, this);
@@ -102,7 +104,7 @@ class MultiColorProgressBar extends React.Component {
         let legends = parent.readings && parent.readings.length && parent.readings.map(function (item, i) {
             if (item > 0) {
                 return (
-                    <div className="legend" key={ i } />
+                    <div className="legend" key={i} />
                 )
             }
         }, this);
@@ -110,41 +112,21 @@ class MultiColorProgressBar extends React.Component {
         return (
             <div className="multicolor-bar">
                 <div className="values">
-                    { values == '' ? '' : values }
+                    {values == '' ? '' : values}
                 </div>
                 <div className="scale">
-                    { calibrations == '' ? '' : calibrations }
+                    {calibrations == '' ? '' : calibrations}
                 </div>
                 <div className="bars">
-                    { bars == '' ? '' : bars }
+                    {bars == '' ? '' : bars}
                 </div>
                 <div className="legends">
-                    { legends == '' ? '' : legends }
+                    {legends == '' ? '' : legends}
                 </div>
             </div>
         );
     }
 }
-
-let readings = [
-    {
-        name: 'Apples',
-        value: 60,
-        color: '#eb4d4b'
-    },
-    {
-        name: 'Blueberries',
-        value: 7,
-        color: '#22a6b3'
-    },
-    {
-        name: 'Guavas',
-        value: 23,
-        color: '#6ab04c'
-    }
-];
-
-
 
 
 export default Home = {
