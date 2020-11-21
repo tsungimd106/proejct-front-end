@@ -1,0 +1,16 @@
+.navtop{
+    border-bottom: 1.4px solid #4F586B;
+     text-align:  center;   /*讓圖片致中 */
+     margin-bottom: 10px;
+}
+
+.navPicture {
+    width:40%;
+    height: auto;    
+}
+
+.justify-content-center{
+    color:#4F586B;
+    font-size: 18px;
+    font-weight: bolder;
+}
