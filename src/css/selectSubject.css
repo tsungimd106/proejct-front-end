@@ -4,7 +4,7 @@
 
 .ss_lineheight p{
     line-height: 10px;
-    margin: 0px;
+    margin: 10px 0px 30px 0px;
 }
 
 #logo{
@@ -36,9 +36,11 @@ p>img{
 .ss_subjectbtn{
     background: #4F586B;
     border-radius: 10px;
+    width: 20vw;
     height:30vh;
     margin:5% auto;
     color:#fff;
+    font-size: 35px;
     text-align: center;
 }
 
