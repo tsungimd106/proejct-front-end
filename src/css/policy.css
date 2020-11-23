@@ -1,0 +1,39 @@
+
+.topicBox {
+    width: 85%;
+    margin: 5px auto;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    font-weight: 400;
+}
+
+.topicBoxBold{
+    font-weight: bold;
+    
+}
+
+
+
+.line{
+    margin:10px auto;
+    border-bottom: 1.5px solid #4F586B;
+    width: 85%;
+}
+
+.awssld {
+    --slider-height-percentage: 30%;
+}
+
+.awssld__bullets button{
+    margin: 5px 5px 20px;
+}
+
+.awssld__content {
+    --content-background-color: #fff
+}
+
+.awssld__content>img {
+    width: auto;
+    top: auto;
+    left: auto;
+}

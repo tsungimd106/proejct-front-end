@@ -22,7 +22,8 @@ export default class Nav extends React.Component {
                 </Col> */}
                 <Col sm={ "auto" }>
                     <a href="./#/">議題大小事</a></Col>
-                <Col sm={ "auto" }>政策專區</Col>
+                <Col sm={ "auto" }>
+                    <a href="./#/policy/">政策專區</a></Col>
                 <Col sm={ "auto" }>人物專區</Col>
                 <Col sm={ "auto" }>進度專區</Col>
                 { (this.state.login || false ? (<>
