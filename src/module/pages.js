@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from "react-bootstrap"
 import Nav from "./pages/nav"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "../css/pages.css"
 
 export  class Pages extends React.Component {
     constructor(props){
@@ -18,6 +19,7 @@ export  class Pages extends React.Component {
             <Row><Col>
             {this.props.page||(<></>)}
             </Col></Row>
+            <div className="footer">tsungimd106@gmail.com</div>
         </>)
     }
 }

@@ -1,3 +1,11 @@
+.select{
+    border:0;
+    width:60px;
+    color:#4F586B;
+    font-weight: 900;
+    margin:0 0 0 86%;
+}
+
 .multicolor-bar {
     width: 75%
 }

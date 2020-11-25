@@ -1,0 +1,9 @@
+.footer {
+    height:20vh; 
+    width:auto; 
+    background:#4F586B;
+    text-align: center;
+    line-height: 150px;
+    color:white;
+    font-weight: 30;
+}
