@@ -44,7 +44,6 @@ class Home extends React.Component {
                 <div className="line"></div>
 
                 { this.state.data || false ? (<>
-<<<<<<< HEAD
                    <p className="GuessYouLike">猜你喜歡?
                    <select className="select" name="議題">
                         <option value="" selected>議題</option>
@@ -62,9 +61,6 @@ class Home extends React.Component {
                         <option value="pe">體育</option>
                         <option value="eve">能源轉型</option>
                     </select></p> 
-=======
-                   <p className="GuessYouLike">猜你喜歡?</p> 
->>>>>>> development
                     {this.state.data.map(placement => {
                         return (<div className="topicBox justify-content-center">
                             <h3 className="topicBoxBold">{placement.title}</h3>
