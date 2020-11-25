@@ -1,7 +1,10 @@
 import React from 'react';
 import { Row, Col, Container } from "react-bootstrap"
 import logo_dark from '../../imgs/LOGO1.png'
+<<<<<<< HEAD
 import search from '../../imgs/search.png'
+=======
+>>>>>>> development
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/nav.css"
 
@@ -33,8 +36,12 @@ export default class Nav extends React.Component {
                     <Col sm={ "auto" }><a href="./#/login">登入</a></Col>
                     <Col sm={ "auto" }><a href="./#/sign">註冊</a></Col>
                 </>)) }
+<<<<<<< HEAD
                 <Col sm={ "auto" }><input className="searchbar" type="text" name="搜尋"></input>
                 <img className="searchimg" src={search}></img></Col>
+=======
+                <Col sm={ "auto" }>搜尋</Col>
+>>>>>>> development
 
             </Row>
         </Container>)
