@@ -1,0 +1,42 @@
+img {
+    width: 100px;
+}
+
+.box {
+    border: 1px solid;
+    margin: 10px;
+}
+
+.pp {
+    padding: 30px;
+}
+
+.pp .box {
+    padding-bottom: 0;
+}
+
+.e {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.read {
+    border: 1px solid brown;
+    margin: 0 -15px;
+    background: brown;
+    color: wheat;
+    text-align: center;
+}
+
+.ttt {
+    text-align: center;
+}
+
+.ttt .box {
+    text-align: left;
+}
