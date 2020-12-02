@@ -17,11 +17,20 @@ p>img{
     height: auto;
 }
 
-#select{
+#selectbtn{
     background-color: #4F586B;
     margin-top: 20px;
 }
 
+button:hover {
+    /* 設定滑鼠移經的連結 */
+    background-color:#2a2f35;
+}
+
+button:active {
+    /* 設定正在點選的連結 */
+    background-color:#2a2f35;
+}
 
 .need_to_center::before {
     content: '';

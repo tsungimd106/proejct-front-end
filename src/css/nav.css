@@ -14,3 +14,28 @@
     font-size: 18px;
     font-weight: bolder;
 }
+
+a{
+    text-decoration: none;
+    color:#4F586B;
+}
+
+.searchbar{
+    background-color: #dcdff0;
+    border: 0;
+    height: 22px;
+    width: 180px;
+    padding: 3px;
+    margin: 0;
+    position: absolute;
+    z-index: 100;
+    outline:none;
+}
+
+.searchimg{
+    height: 50px;
+    position: relative;
+    z-index:200;
+    float:left;
+    margin:-15px 0 0 140px;
+}
