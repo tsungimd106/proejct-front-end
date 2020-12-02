@@ -25,7 +25,8 @@ export default class Nav extends React.Component {
                     <a href="./#/">議題大小事</a></Col>
                 <Col sm={ "auto" }>
                     <a href="./#/policy/">提案專區</a></Col>
-                <Col sm={ "auto" }>人物專區</Col>
+                <Col sm={ "auto" }>
+                    <a href="./#/figure/">人物專區</a></Col>
                 { (this.state.login || false ? (<>
                     <Col sm={ "auto" }>個人檔案</Col><Col sm={ "auto" }>登出</Col>
                 </>) : (<>
