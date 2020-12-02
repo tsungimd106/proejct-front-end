@@ -44,12 +44,28 @@ class Home extends React.Component {
                 <div className="line"></div>
 
                 { this.state.data || false ? (<>
-                   <p className="GuessYouLike">猜你喜歡?</p> 
+                    <p className="GuessYouLike">猜你喜歡?
+                   <select className="select" name="議題">
+                            <option value="" selected>議題</option>
+                            <option value="eco">金融經濟</option>
+                            <option value="edu">教育</option>
+                            <option value="tec">科技發展</option>
+                            <option value="pol">政治</option>
+                            <option value="art">藝術音樂</option>
+                            <option value="gen">性別平等</option>
+                            <option value="ani">動物保育</option>
+                            <option value="wor">勞資關係</option>
+                            <option value="tra">交通</option>
+                            <option value="old">高齡化社會</option>
+                            <option value="ind">在地文化</option>
+                            <option value="pe">體育</option>
+                            <option value="eve">能源轉型</option>
+                        </select></p>
                     {this.state.data.map(placement => {
                         return (<div className="topicBox justify-content-center">
                             <h3 className="topicBoxBold">{placement.title}</h3>
                             <p>{placement.content}</p>
-                            <h6 className ="topicBoxBold">
+                            <h6 className="topicBoxBold">
                                 <Row>
                                     {placement.tag.map(item => (<Col sm={"auto"}>#{item}</Col>))}
                                 </Row>
