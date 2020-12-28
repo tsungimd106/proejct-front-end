@@ -1,11 +1,12 @@
 import { FetchUtil } from "../util/fetchUtil";
 
-export default class TestRequest {
+export  class TestRequest {
     static sign(data) {
         return FetchUtil.postAPI("/sign", data)
     }
 
-    static forTest() {
-        return FetchUtil.getAPI("/area")
+    static login(data){
+        return FetchUtil.postAPI("user/login",data)
     }
+
 }

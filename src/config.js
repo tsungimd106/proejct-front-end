@@ -4,7 +4,7 @@ const master = {
 }
 
 const dev = {
-    API_URL: "http://localhost:8081"
+    API_URL: "https://tsungimd-project-backend.herokuapp.com/"
 }
 
 export const config = process.env.NODE_ENV === "development" ? dev : master;
