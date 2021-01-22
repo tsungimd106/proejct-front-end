@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Carousel } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import 'react-awesome-slider/dist/styles.css';
-import "../../css/policy.css"
+import "../../css/policyDetail.css"
 
 class Policy extends React.Component {
     constructor(props) {
