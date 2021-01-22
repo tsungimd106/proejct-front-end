@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
-import TestRequest from "../request/test"
+import {TestRequest} from "../request/member.js"
 import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
@@ -16,7 +16,7 @@ class Base extends React.Component {
                 <Col sm={6} id="left">
                     <h4>Welcome</h4>
                     <h6>__</h6>
-                    <img src={logo_light}/>
+                    <img src={logo_light} />
                 </Col>
                 <Col sm={6} id="right" >
                     <a href="./#/"><img src={home_icon} id="homeKey"></img></a>
@@ -37,7 +37,7 @@ class Sign extends React.Component {
             "message": ""
         }
     }
-    
+
     send = () => {
         window.location.href = "./#/sign2"
     }
@@ -88,11 +88,25 @@ class Login extends React.Component {
             "message": ""
         }
     }
+
+    send = () => {
+        var account=document.getElementById("account").value
+        var password=document.getElementById("password").value
+        
+        TestRequest.login({ "account": account, "password": password }).then(response => {
+            console.log(response)
+            localStorage.setItem("login",account)
+            window.location.href = "./#/"
+
+        })
+
+
+    }
     render() {
         return (<Base content={<div className="need_to_center">
             <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
             <p><input type="text" placeholder="&nbsp;密碼" id="password" /></p>
-            <p><i>忘記密碼</i></p>       
+            <p><i>忘記密碼</i></p>
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號登入</Button></p>
             <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>

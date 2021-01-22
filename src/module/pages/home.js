@@ -23,6 +23,7 @@ class Home extends React.Component {
 
         }
     }
+    
 
     render() {
         return (<Pages page={
@@ -42,7 +43,6 @@ class Home extends React.Component {
 
                 </div>
                 <div className="line"></div>
-
                 { this.state.data || false ? (<>
                     <p className="GuessYouLike">猜你喜歡?
                    <select className="select" name="議題">

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
-import TestRequest from "../request/test"
 import { ModalBase } from "../modal"
 import logo_dark from '../../imgs/LOGO1.png'
 // import { Pages } from "../pages.js"
