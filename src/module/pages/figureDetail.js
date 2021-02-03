@@ -3,6 +3,7 @@ import { Row, Col, CardDeck, Card } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import "../../css/figureDetail.css"
 import Chart from 'react-apexcharts'
+import "../../css/figureDetail.css"
 
 
 class FigureDetail extends React.Component {
@@ -22,13 +23,16 @@ class FigureDetail extends React.Component {
                 kpi: {
                     series: [50, 50],
                     options: {
-
-
+                        colors: ['#c5b7a1', '#b05553'],
                     },
                 },
                 attendanceRate: {
-                    series: [88, 12],
+                    series: [88, 12],                    
                     options: {
+                        fill:{
+                            colors: ['#c5b7a1', '#b05553'],
+                        },
+                        
                         chart: {
                             type: 'donut',
                         },
@@ -39,6 +43,10 @@ class FigureDetail extends React.Component {
                     option: {
                         xaxis: {
                             categories: ["step 1", "step 2", "step 3", "step 4", "step 5", "step 6", "step 7"]
+                        },
+                        fill:{
+                            colors: ['#c5b7a1',],
+                            opacity: 1.0,
                         },
 
 
@@ -80,11 +88,11 @@ class FigureDetail extends React.Component {
                             </Col>
                             <Col sm={ 10 } className="">經歷</Col>
                             <Col sm={ 5 } ><p>證件績效評分</p>
-                                <Chart options={ this.state.options } series={ this.state.data.kpi.series } type="donut" />
+                                <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="donut" />
 
                             </Col>
                             <Col sm={ 5 } ><p>出席率</p>
-                                <Chart options={ this.state.options } series={ this.state.data.attendanceRate.series } type="donut" />
+                                <Chart options={ this.state.data.kpi.options } series={ this.state.data.attendanceRate.series } type="donut" />
 
                             </Col>
                             <Col sm={ 10 } >提案

@@ -4,7 +4,7 @@ import { Pages } from "../pages.js"
 import 'react-awesome-slider/dist/styles.css';
 import "../../css/policyDetail.css"
 
-class Policy extends React.Component {
+class PolicyDetail extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
