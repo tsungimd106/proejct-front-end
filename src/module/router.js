@@ -1,10 +1,10 @@
 import Home from "./pages/home.js"
-import { sign, login,signNext } from "./pages/sign.js"
+import { sign, login, signNext } from "./pages/sign.js"
 import SelectSubject from "./pages/selectSubject.js"
 import Policy from "./pages/policy.js"
 import Figure from "./pages/figure.js"
 import FigureDetail from "./pages/figureDetail.js"
-
+import Task from "./pages/task.js"
 
 
 export const main = [
@@ -15,9 +15,8 @@ export const main = [
     SelectSubject,
     Policy,
     Figure,
-    FigureDetail
-
-
+    FigureDetail,
+    Task
 ]
 
 export const navUrl = {
