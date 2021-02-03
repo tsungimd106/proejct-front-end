@@ -20,7 +20,11 @@ export class FetchUtil {
 
     static async getAPI(url, data) {
         const requestOptions = {
-            method: GET
+            method: GET,
+            headers: {
+                "Content-Type": APPLICATION_JSON,
+                'Access-Control-Allow-Origin': '*',
+            },
         };
         return await this.getPromise(url, requestOptions, data);
     }
