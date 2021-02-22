@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
 import { ModalBase } from "../modal"
-import logo_dark from '../../imgs/LOGO1.png'
+import logo_dark from '../../imgs/LOGO1.jpg'
 // import { Pages } from "../pages.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/selectSubject.css"

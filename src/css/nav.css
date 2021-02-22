@@ -1,23 +1,23 @@
 .navtop{
-    border-bottom: 1.4px solid #4F586B;
+    border-bottom: 1.4px solid #000000;
      text-align:  center;   /*讓圖片致中 */
      margin-bottom: 10px;
 }
 
 .navPicture {
-    width:40%;
+    width:20%;
     height: auto;    
 }
 
 .justify-content-center{
-    color:#4F586B;
+    color:#000000;
     font-size: 18px;
     font-weight: bolder;
 }
 
 a{
     text-decoration: none;
-    color:#4F586B;
+    color:#000000;
 }
 
 .searchbar{
@@ -27,15 +27,6 @@ a{
     width: 180px;
     padding: 3px;
     margin: 0;
-    position: absolute;
-    z-index: 100;
     outline:none;
 }
 
-.searchimg{
-    height: 50px;
-    position: relative;
-    z-index:200;
-    float:left;
-    margin:-15px 0 0 140px;
-}

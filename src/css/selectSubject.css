@@ -18,18 +18,18 @@ p>img{
 }
 
 #selectbtn{
-    background-color: #4F586B;
+    background-color:#555555;
     margin-top: 20px;
 }
 
 button:hover {
     /* 設定滑鼠移經的連結 */
-    background-color:#2a2f35;
+    background-color:#000000;
 }
 
 button:active {
     /* 設定正在點選的連結 */
-    background-color:#2a2f35;
+    background-color:#000000;
 }
 
 .need_to_center::before {
@@ -43,7 +43,7 @@ button:active {
 
 
 .ss_subjectbtn{
-    background: #4F586B;
+    background: #555555;
     border-radius: 10px;
     width: 20vw;
     height:30vh;
@@ -58,7 +58,7 @@ button:active {
 }
 
 .ss_checkbtn{
-    background: #4F586B;
+    background: #555555;
     width: 15vw;
     float: right;
     margin-top: 5vh;

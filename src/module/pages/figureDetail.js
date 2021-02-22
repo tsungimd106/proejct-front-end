@@ -46,7 +46,7 @@ class FigureDetail extends React.Component {
                         },
                         fill:{
                             colors: ['#c5b7a1',],
-                            opacity: 1.0,
+                            opacity: 1.0    ,
                         },
 
 
