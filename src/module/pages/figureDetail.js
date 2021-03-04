@@ -87,7 +87,7 @@ class FigureDetail extends React.Component {
                                 <Row></Row>
                             </Col>
                             <Col sm={ 10 } className="">經歷</Col>
-                            <Col sm={ 5 } ><p>證件績效評分</p>
+                            <Col sm={ 5 } ><p>政見績效評分</p>
                                 <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="donut" />
 
                             </Col>

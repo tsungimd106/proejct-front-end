@@ -36,7 +36,7 @@ export default class Nav extends React.Component {
                     <input className="searchbar" type="text" name="搜尋"></input>
                     <Search /></Col>
 
-                {(this.state.login || true ? (<>
+                {(this.state.login || false ? (<>
                     <Col sm={"auto"}> <a href="./#/user/"><Person /></a></Col>
                     <Col sm={"auto"}>
                         <Dropdown>

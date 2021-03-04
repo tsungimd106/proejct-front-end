@@ -49,8 +49,8 @@ class Sign extends React.Component {
     render() {
         return (<Base content={<div>
             <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
-            <p><input type="text" placeholder="&nbsp;密碼" id="password" /></p>
-            <p><input type="text" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
+            <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
+            <p><input type="password" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
             <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
             <p><select id="year">
                 <option value=" ">出生年</option>
@@ -105,7 +105,7 @@ class Login extends React.Component {
     render() {
         return (<Base content={<div className="need_to_center">
             <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
-            <p><input type="text" placeholder="&nbsp;密碼" id="password" /></p>
+            <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
             <p><i>忘記密碼</i></p>
             <p><Button id="continue" onClick={this.send}>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號登入</Button></p>
