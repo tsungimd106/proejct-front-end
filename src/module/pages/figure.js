@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Carousel, Accordion, Card } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
+import CAccordion from "../accordion"
 // import "../../css/policy.css"
 
 class Figure extends React.Component {
@@ -91,7 +92,8 @@ class Figure extends React.Component {
     render() {
         return (<Pages page={
             (<>
-               
+                               <CAccordion ></CAccordion>
+
                 {
                     this.state.data.map(placement => {
                         return this.cut(placement)
