@@ -1,7 +1,7 @@
 import React from 'react';
-import { Row, Col, Container, Button, Dropdown,  } from "react-bootstrap"
+import { Row, Col, Container, Button, Dropdown, } from "react-bootstrap"
 import logo_dark from '../../imgs/LOGO1.jpg'
-import { Search, Person, CircleChevronDown, SignOut } from 'akar-icons';
+import { Search, Person, CircleChevronDown, SignOut, Info, Envelope } from 'akar-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/nav.css"
 
@@ -36,22 +36,40 @@ export default class Nav extends React.Component {
                     <input className="searchbar" type="text" name="搜尋"></input>
                     <Search /></Col>
 
-                {(this.state.login || true ? (<>
-                    <Col sm={"auto"}><Person /></Col>
+                {(this.state.login || false ? (<>
+                    <Col sm={"auto"}> <a href="./#/user/"><Person /></a></Col>
                     <Col sm={"auto"}>
-                    <Dropdown>
-                        <Dropdown.Toggle  id="dropdown-basic">
-                            <CircleChevronDown />
-                        </Dropdown.Toggle>
+                        <Dropdown>
+                            <Dropdown.Toggle id="dropdown-basic">
+                                <CircleChevronDown />
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                        
-                    <SignOut onClick={this.logout} /></Col>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">
+                                    <Row className="align-items-center" noGutters={true}>
+                                        <Col sm={"auto"}> <Envelope /></Col>
+                                        
+                                        <Col>提出問題與反饋</Col>
+                                    </Row>
+                                </Dropdown.Item>
+                                <Dropdown.Item href="./#/">
+                                    <Row className="align-items-center" noGutters={true}>
+                                        <Col sm={"auto"}> <Info /> </Col>
+                                        
+                                        <Col>法規與條款資訊</Col>
+                                    </Row>
+                                </Dropdown.Item>
+                                <Dropdown.Item href="./#/">
+                                    <Row className="align-items-center" noGutters={true}>
+                                        <Col sm={"auto"}>
+                                            <SignOut onClick={this.logout} /> </Col>
+                                    
+                                        <Col> 登出</Col>
+                                    </Row>
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
                 </>) : (<>
                     <Col sm={"auto"}><a href="./#/login">登入</a></Col>
                     <Col sm={"auto"}><a href="./#/sign">註冊</a></Col>
