@@ -1,10 +1,15 @@
 import React from 'react';
-import { Row, Col, Carousel } from "react-bootstrap"
-import { Pages } from "../pages.js"
+import { Row, Col, Carousel, InputGroup, FormControl, Button } from "react-bootstrap"
+import Selector from '../mutiSelect/mutiSelect';
+import 'react-awesome-selector/dist/style.css';
+import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
 import "../../css/policy.css"
 
 class Policy extends React.Component {
+    data = [
+
+    ]
     constructor(props) {
         super(props)
         this.state = {
@@ -18,6 +23,24 @@ class Policy extends React.Component {
                 "https://i2.kknews.cc/SIG=fduuh/31pq00046psp1o455n95.jpg",
                 "https://i1.kknews.cc/SIG=rf6m48/31p9000467p4po554154.jpg"
 
+            ],
+            sndata: [
+                { category: 'calculate', name: '王婉諭', value: 89519 },
+                { category: 'calculate', name: '賴品妤', value: 49024 },
+                { category: 'lavender', name: '蔡適應', value: 90170 },
+                { category: 'lavender', name: '林昶佐', value: 56963 },
+                { category: 'lavender', name: '莊瑞雄', value: 12343 },
+                { category: 'lavender', name: '傅崐萁', value: 22673 },
+                { category: 'lavender', name: '劉建國', value: 45723 },
+            ],
+            scdata: [
+                { category: 'calculate', name: '財政金融', value: 89519 },
+                { category: 'calculate', name: '教育', value: 49024 },
+                { category: 'lavender', name: '內政', value: 90170 },
+                { category: 'lavender', name: '司法及法制', value: 56963 },
+                { category: 'lavender', name: '科技', value: 12343 },
+                { category: 'lavender', name: '文化', value: 22673 },
+                { category: 'lavender', name: '外交國防', value: 45723 },
             ]
 
         }
@@ -26,7 +49,7 @@ class Policy extends React.Component {
     render() {
         return (<Pages page={
             (<>
-                <div className="selectLeft">
+                {/* <div className="selectLeft">
                     <select className="select" name="議題">
                         <option value="" selected>議題</option>
                         <option value="eco">金融經濟</option>
@@ -62,8 +85,31 @@ class Policy extends React.Component {
                         <option value="eve">台南市</option>
                         <option value="eve">屏東縣</option>
                     </select>
+                </div> */}
+                <div className="searchBar">
+                    <div className="selectTitle">屆別：</div>
+                    <Selector
+                        data={this.state.sndata}
+                        selectedTitle="姓名："
+                        getSelected={values => alert(JSON.stringify(values))}
+                    />
+                    <Selector
+                        data={this.state.scdata}
+                        selectedTitle="分類："
+                        getSelected={values => alert(JSON.stringify(values))}
+                    />
+                    <div className="selectTitle">關鍵字搜尋：
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                            />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary">確認</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </div>
                 </div>
-                <div></div>
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className="topicBox justify-content-center">
