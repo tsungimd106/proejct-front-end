@@ -1,4 +1,4 @@
-
+/* 
 .select{
     border:0;
     width:60px;
@@ -11,7 +11,7 @@
 .selectLeft{
     width:80vw;
     margin: 0 0 48px 200px;
-}
+} */
 
 .topicBox {
     width: 85%;
@@ -50,4 +50,17 @@
     width: auto;
     top: auto;
     left: auto;
+}
+
+.searchBar{
+    margin:3% auto;
+    height: auto;
+    width: 85%;
+    background-color: #f5f5f5;
+    border-color: black;
+}
+
+.selectTitle{
+    font-size: 1rem;
+    padding: 1rem;
 }
