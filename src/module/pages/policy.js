@@ -45,6 +45,9 @@ class Policy extends React.Component {
 
         }
     }
+    toContent = () => {
+        document.location.href = `.#/policyContent/`
+    }
 
     render() {
         return (<Pages page={
@@ -87,7 +90,35 @@ class Policy extends React.Component {
                     </select>
                 </div> */}
                 <div className="searchBar">
-                    <div className="selectTitle">屆別：</div>
+                    <Row>
+                        <Col  className="selectTitle">屆別：
+                            <select className="select" name="屆別">
+                                <option value="" selected>當屆</option>
+                                <option value="eco">1</option>
+                                <option value="edu">2</option>
+                                <option value="tec">3</option>
+                                <option value="pol">4</option>
+                                <option value="art">5</option>
+                                <option value="gen">6</option>
+                                <option value="ani">7</option>
+                                <option value="wor">8</option>
+                                <option value="tra">9</option>
+                                <option value="old">10</option>
+                                <option value="ind">11</option>
+                            </select>
+                        </Col>
+                        <Col sm={10} className="selectTitle">提案進度：
+                            <select className="select" name="提案進度">
+                                <option value="" selected>不限</option>
+                                <option value="eco">退回程序</option>
+                                <option value="eco">審查完畢</option>
+                                <option value="tec">交付審查</option>
+                                <option value="pol">排入院會</option>
+                                <option value="art">三讀</option>
+                                <option value="gen">逕付二讀</option>
+                            </select>
+                        </Col>
+                    </Row>
                     <Selector
                         data={this.state.sndata}
                         selectedTitle="姓名："
@@ -108,11 +139,12 @@ class Policy extends React.Component {
                                 <Button variant="outline-secondary">確認</Button>
                             </InputGroup.Append>
                         </InputGroup>
+                        <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{' '}</div>
                     </div>
                 </div>
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
-                        return (<div className="topicBox justify-content-center">
+                        return (<div className="topicBox justify-content-center" onClick={ () => { this.toContent(placement.id) } }>
                             <h3 className="topicBoxBold">{placement.title}</h3>
                             <h6 className="topicBoxBold">
                                 <Row>
@@ -139,5 +171,5 @@ export default Policy = {
         path: "/Policy",
         component: Policy
     },
-    name: "政策專區"
+    name: "提案專區"
 }

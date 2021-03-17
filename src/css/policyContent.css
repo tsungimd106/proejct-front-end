@@ -1,0 +1,28 @@
+
+.topic{
+    width: 85%;
+    margin: 5px auto;
+    padding: 10px 20px;
+    border: 0;
+    font-weight: 400;
+}
+
+.topicBold{
+    text-align: center;
+    margin: 5% 0;    
+}
+
+.lable{
+    margin: 3% 0;
+    font-weight: 600;    
+}
+
+.content{
+    padding: 10px 0;
+}
+
+.mesTitle{
+    margin: 3% 0;
+    font-weight: 600;
+    font-size: 20px;    
+}

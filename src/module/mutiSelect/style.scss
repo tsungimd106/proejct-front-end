@@ -85,6 +85,6 @@
   
     &-item-icon {
       @extend .react-awesome-selector-icon;
-      margin: 0 0.5%;
+      margin: 0 0 0 0.5% !important;
     }
   }
