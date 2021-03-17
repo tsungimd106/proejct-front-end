@@ -1,9 +1,12 @@
 import React from 'react';
-import { Row, Col, Carousel, Accordion, Card } from "react-bootstrap"
+import { Row, Col, Carousel, Accordion, Card, InputGroup, FormControl, Button } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
+import Selector from '../mutiSelect/mutiSelect';
+import 'react-awesome-selector/dist/style.css';
 import CAccordion from "../accordion"
-// import "../../css/policy.css"
+import 'react-awesome-slider/dist/styles.css';
+import "../../css/policy.css"
 
 class Figure extends React.Component {
     constructor(props) {
@@ -40,7 +43,35 @@ class Figure extends React.Component {
                         ]
                     }
                 ]
-            }]
+            }],
+            sndata: [
+                { category: 'calculate', name: '王婉諭', value: 89519 },
+                { category: 'calculate', name: '賴品妤', value: 49024 },
+                { category: 'lavender', name: '蔡適應', value: 90170 },
+                { category: 'lavender', name: '林昶佐', value: 56963 },
+                { category: 'lavender', name: '莊瑞雄', value: 12343 },
+                { category: 'lavender', name: '傅崐萁', value: 22673 },
+                { category: 'lavender', name: '劉建國', value: 45723 },
+            ],
+            scdata: [
+                { category: 'calculate', name: '財政金融', value: 89519 },
+                { category: 'calculate', name: '教育', value: 49024 },
+                { category: 'lavender', name: '內政', value: 90170 },
+                { category: 'lavender', name: '司法及法制', value: 56963 },
+                { category: 'lavender', name: '科技', value: 12343 },
+                { category: 'lavender', name: '文化', value: 22673 },
+                { category: 'lavender', name: '外交國防', value: 45723 },
+            ],
+            sadata: [
+                { category: 'calculate', name: '台北市', value: 89519 },
+                { category: 'calculate', name: '新北市', value: 49024 },
+                { category: 'lavender', name: '基隆市', value: 90170 },
+                { category: 'lavender', name: '桃園市', value: 56963 },
+                { category: 'lavender', name: '新竹縣', value: 12343 },
+                { category: 'lavender', name: '新竹市', value: 22673 },
+                { category: 'lavender', name: '苗栗縣', value: 45723 },
+            ]
+
 
 
         }
@@ -92,6 +123,68 @@ class Figure extends React.Component {
     render() {
         return (<Pages page={
             (<>
+                <div className="searchBar">
+                    <Row>
+                        <Col  className="selectTitle">屆別：
+                            <select className="select" name="屆別">
+                                <option value="" selected>當屆</option>
+                                <option value="eco">1</option>
+                                <option value="edu">2</option>
+                                <option value="tec">3</option>
+                                <option value="pol">4</option>
+                                <option value="art">5</option>
+                                <option value="gen">6</option>
+                                <option value="ani">7</option>
+                                <option value="wor">8</option>
+                                <option value="tra">9</option>
+                                <option value="old">10</option>
+                                <option value="ind">11</option>
+                            </select>
+                        </Col>
+                        <Col sm={10} className="selectTitle">提案進度：
+                            <select className="select" name="提案進度">
+                                <option value="" selected>1</option>
+                                <option value="eco">2</option>
+                                <option value="tec">3</option>
+                                <option value="pol">4</option>
+                                <option value="art">5</option>
+                                <option value="gen">6</option>
+                                <option value="ani">7</option>
+                                <option value="wor">8</option>
+                                <option value="tra">9</option>
+                                <option value="old">10</option>
+                                <option value="ind">11</option>
+                            </select>
+                        </Col>
+                    </Row>
+                    <Selector
+                        data={this.state.sndata}
+                        selectedTitle="姓名："
+                        getSelected={values => alert(JSON.stringify(values))}
+                    />
+                    <Selector
+                        data={this.state.scdata}
+                        selectedTitle="分類："
+                        getSelected={values => alert(JSON.stringify(values))}
+                    />
+                    <Selector
+                        data={this.state.sadata}
+                        selectedTitle="地區："
+                        getSelected={values => alert(JSON.stringify(values))}
+                    />
+                    <div className="selectTitle">關鍵字搜尋：
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                            />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary">確認</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{' '}</div>
+                    </div>
+                </div>
                                <CAccordion ></CAccordion>
 
                 {
