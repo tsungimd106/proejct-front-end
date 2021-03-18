@@ -6,6 +6,7 @@ import Figure from "./pages/figure.js"
 import FigureDetail from "./pages/figureDetail.js"
 import Task from "./pages/task.js"
 import User from "./pages/user.js"
+import Election from "./pages/election"
 import PolicyContent from "./pages/policyContent.js"
 
 
@@ -20,7 +21,8 @@ export const main = [
     Figure,
     FigureDetail,
     Task,
-    User
+    User,
+    Election
 ]
 
 export const navUrl = {
