@@ -1,49 +1,17 @@
 import React from 'react';
-import { Row, Col, Carousel, Accordion, Card, InputGroup, FormControl, Button } from "react-bootstrap"
+import { Row, Col, Carousel, CardColumns, Card, InputGroup, FormControl, Button } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
-import CAccordion from "../accordion"
-import 'react-awesome-slider/dist/styles.css';
 import "../../css/policy.css"
+import { CAccordion, Test } from "../accordion"
+import { trackPromise } from 'react-promise-tracker'
 
 class Figure extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            item: [
-                { name: "賴品妤", id: "534" }
-            ],
-            data: [{
-                "name": "貓咪",
-                "d": [{
-                    "name": "第1屆",
-                    "d": [
-                        {
-                            "name": "餅乾區",
-                            "d": [
-                                { "name": "常爾維斯" }
-                            ]
-                        }
-                    ]
-                }]
-            }, {
-                "name": "兔子",
-                "d": [
-                    {
-                        "name": "第1屆",
-                        "d": [
-                            {
-                                "name": "餅乾區",
-                                "d": [
-                                    { "name": "兔毛" }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }],
             sndata: [
                 { category: 'calculate', name: '王婉諭', value: 89519 },
                 { category: 'calculate', name: '賴品妤', value: 49024 },
@@ -70,30 +38,77 @@ class Figure extends React.Component {
                 { category: 'lavender', name: '新竹縣', value: 12343 },
                 { category: 'lavender', name: '新竹市', value: 22673 },
                 { category: 'lavender', name: '苗栗縣', value: 45723 },
-            ]
+            ],
 
 
 
+            listD: []
         }
     }
     componentDidMount() {
+        // var myHeaders = new Headers({
+        //     "Content-Type": "text/plain",
+        //     "Access-Control-Allow-Origin": '*'
+        // });
 
-        PoliticianR.list().then(response => {
-            console.log(response)
-        })
+        // var myInit = {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        //     // mode: 'cors',
+        // };
+        // fetch("http://localhost:8088/get",
+        //     myInit
+        // ).then(function (response) {
+        //     return response.json();
+        // })
+        //     .then(function (myJson) {
+        //         console.log(myJson);
+        //     }).catch(function (error) {
+        //         console.log('There has been a problem with your fetch operation: ', error.message);
+        //     });;
+
+
+        // trackPromise(
+            PoliticianR.list().then(response => {
+                this.setState({ "data": response.data })
+                console.log(response)
+            })
+        // )
+
+
+        // PoliticianR.getList().then(response => {
+        //     this.setState({ "listD": response.data.data })
+        //     console.log(response.data.data)
+        //     // console.log(response)
+        // })
+
+    }
+    loading = () => {
+
     }
     toDetail = (toName) => {
         document.location.href = `.#/figure/${toName}`
     }
 
     cut = (obj, n) => {
-        console.log(obj)
-        console.log("d" in obj)
+        var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
+
         if ("d" in obj) {
             return (<div>
+                <p>{ obj["name"] }</p>
+                {(!regPos.test(obj["name"]) ? <>
+                    { obj["d"].map(placement => {
+                        return this.cut(placement, obj["name"])
+                    }) }
+                </> : <CardColumns>
+                    { obj["d"].map(placement => {
+                        return this.cut(placement, obj["name"])
+                    }) }
+                </CardColumns>) }
 
-                {/* if {obj["name"] } */}
-                <Accordion >
+
+                {/* if {obj["name"] } */ }
+                {/* <Accordion >
                     <Card>
                         <Accordion.Toggle as={ Card.Header } eventKey={ obj["name"] }>
                             { obj["name"] }
@@ -105,24 +120,39 @@ class Figure extends React.Component {
                         </Accordion.Collapse>
                     </Card>
 
-                </Accordion>
+                </Accordion> */}
             </div>)
         } else {
             return (<div>
 
+                <Card border="light" onClick={ () => { this.toDetail(obj["id"]) } }>
+                    <Card.Header>{ }</Card.Header>
+                    <Card.Body>
+                        <Card.Title></Card.Title>
+                        <Row>
+                            <Col>
+                                <Card.Text>
+                                    <img src={ obj["photo"] } className={ "figurePh" }></img>
+                                </Card.Text>
+                            </Col>
+                            <Col> <p>{ obj["name"] }</p> { obj["area"] }</Col>
+                        </Row>
 
-                {
-                    <Card>
-                        政治人物{ obj["name"] }
-                    </Card>
-                }
+                    </Card.Body>
+
+                </Card>
+
             </div>)
         }
     }
 
     render() {
-        return (<Pages page={
+        return (<Pages id={3}page={
             (<>
+
+            <Row>
+                <Col></Col>
+            </Row>
                 <div className="searchBar">
                     <Row>
                         <Col  className="selectTitle">屆別：
@@ -185,28 +215,14 @@ class Figure extends React.Component {
                         <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{' '}</div>
                     </div>
                 </div>
-                               <CAccordion ></CAccordion>
+                        
 
                 {
-                    this.state.data.map(placement => {
+                    this.state.data && this.state.data.map(placement => {
+                        
                         return this.cut(placement)
                     })
                 }
-
-                {this.state.item.map((placement, index) => {
-                    return (<div>
-
-                        <button onClick={ () => { this.toDetail(placement.id) } } >
-                            <div >
-                                { placement.name }
-                            </div>
-                            <div>50</div>
-                        </button>
-
-
-                    </div>)
-                }) }
-
 
 
             </>)
