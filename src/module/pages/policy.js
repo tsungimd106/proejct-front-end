@@ -3,18 +3,31 @@ import { Row, Col, Carousel, InputGroup, FormControl, Button } from "react-boots
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
+import Chart from 'react-apexcharts'
 import 'react-awesome-slider/dist/styles.css';
 import "../../css/policy.css"
 
+
 class Policy extends React.Component {
+    
     data = [
 
     ]
     constructor(props) {
         super(props)
         this.state = {
+            kpi: {
+                series: [10, 50 ,40],
+                options: {
+                    colors: ['#95c95d', '#e3e53a','#e52125'],                
+                    labels: ["同意", "中立", "反對"],
+
+                },
+            },
             data: [
-                { title: "公民投票法部分條文修正草案", content: "兒童及少年扶養津貼條例草案總說明\
+                
+                {
+                    title: "公民投票法部分條文修正草案", content: "兒童及少年扶養津貼條例草案總說明\
                 一、依行政院經濟建設委員會所作人口推計的中推計，2018 年新生兒的出生數預估會減少至 17.5\
                 萬人左右，與死亡數接近後邁入人口減少的時代，如果少子女化現象繼續下降，則人口開始\
                 負成長時間會更早，影響未來我國的人口結構將更趨嚴重，亦將造成高齡社會的提前到來，\
@@ -37,7 +50,8 @@ class Policy extends React.Component {
                 之資格條件（第三條）、委託辦理機關（第四條）、請領程序（第五條）、審核流程及期限\
                 （第六條）、相關機關協助義務（第七條）、生效日期及發給期限與方式（第八條）、再行\
                 、改定申請之程序（第九條）、溢領處置（第十條）、領取權利之保護（第十一條）、委辦\
-                機關應辦事項（第十二條）、經費來源（第十三條）、授權事項（第十四條）、施行日期", tag: ["金融", "國防"], date: "2020/11/22" },
+                機關應辦事項（第十二條）、經費來源（第十三條）、授權事項（第十四條）、施行日期", tag: ["金融", "國防"], date: "2020/11/22"
+                },
                 { title: "兒童及少年扶養津貼條例草案", content: "我是內文2", tag: ["金融", "國防"], date: "2020/11/22" }
             ],
             imageData: [
@@ -72,8 +86,10 @@ class Policy extends React.Component {
         document.location.href = `.#/policyContent/`
     }
 
+    
+
     render() {
-        return (<Pages id={ 2 } page={
+        return (<Pages id={2} page={
             (<>
                 {/* <div className="selectLeft">
                     <select className="select" name="議題">
@@ -113,24 +129,36 @@ class Policy extends React.Component {
                     </select>
                 </div> */}
                 <div className="searchBar">
+                    <div className="selectTitle">
+                        <InputGroup className="mb-3">
+                            <Col md="auto" className="search" >關鍵字搜尋：</Col>
+                            <FormControl
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                            />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary">搜尋</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </div>
                     <Row>
                         <Col className="selectTitle">屆別：
                             <select className="select" name="屆別">
                                 <option value="" selected>當屆</option>
-                                <option value="eco">1</option>
-                                <option value="edu">2</option>
-                                <option value="tec">3</option>
-                                <option value="pol">4</option>
-                                <option value="art">5</option>
+                                <option value="eco">11</option>
+                                <option value="edu">10</option>
+                                <option value="tec">9</option>
+                                <option value="pol">8</option>
+                                <option value="art">7</option>
                                 <option value="gen">6</option>
-                                <option value="ani">7</option>
-                                <option value="wor">8</option>
-                                <option value="tra">9</option>
-                                <option value="old">10</option>
-                                <option value="ind">11</option>
+                                <option value="ani">5</option>
+                                <option value="wor">4</option>
+                                <option value="tra">3</option>
+                                <option value="old">2</option>
+                                <option value="ind">1</option>
                             </select>
                         </Col>
-                        <Col sm={ 10 } className="selectTitle">提案進度：
+                        <Col sm={10} className="selectTitle">提案進度：
                             <select className="select" name="提案進度">
                                 <option value="" selected>不限</option>
                                 <option value="eco">退回程序</option>
@@ -143,43 +171,39 @@ class Policy extends React.Component {
                         </Col>
                     </Row>
                     <Selector
-                        data={ this.state.sndata }
+                        data={this.state.sndata}
                         selectedTitle="姓名："
-                        getSelected={ values => alert(JSON.stringify(values)) }
+                        getSelected={values => alert(JSON.stringify(values))}
                     />
                     <Selector
-                        data={ this.state.scdata }
+                        data={this.state.scdata}
                         selectedTitle="分類："
-                        getSelected={ values => alert(JSON.stringify(values)) }
+                        getSelected={values => alert(JSON.stringify(values))}
                     />
-                    <div className="selectTitle">關鍵字搜尋：
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                aria-label="Recipient's username"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                <Button variant="outline-secondary">確認</Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                        <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{ ' ' }</div>
-                    </div>
+
                 </div>
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
-                        return (<div className="topicBox justify-content-center" onClick={ () => { this.toContent(placement.id) } }>
-                            <h3 className="topicBoxBold ">{ placement.title }</h3>
-                            <p className="topicBoxBold ">
-                                <Row>
-                                    <Col sm={ "auto" }>{ placement.date }</Col>
-                                    { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) }
-                                </Row>
-                            </p>
-                            <p className="ellipsis">{ placement.content }</p>
+                        return (<div className="topicBox justify-content-center" onClick={() => { this.toContent(placement.id) }}>
+                            <Row>
+                                <Col>
+                                    <h3 className="topicBoxBold ">{placement.title}</h3>
+                                    <p className="topicBoxBold ">
+                                        <Row>
+                                            <Col sm={"auto"}>{placement.date}</Col>
+                                            {placement.tag.map(item => (<Col sm={"auto"}>#{item}</Col>))}
+                                        </Row>
+                                    </p>
+                                    <p className="ellipsis">{placement.content}</p>
+                                </Col>
+                                <Col sm={4} >
+                                    <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
+                                </Col>
+                            </Row>
 
                         </div>)
-                    }) }
-                </>) : (<></>) }
+                    })}
+                </>) : (<></>)}
             </>)
         } />)
     }

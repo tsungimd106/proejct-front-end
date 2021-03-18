@@ -4,6 +4,7 @@ import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
+import Chart from 'react-apexcharts'
 import "../../css/policyContent.css"
 import agree from "../../imgs/agree.png"
 class PolicyContent extends React.Component {
@@ -13,6 +14,14 @@ class PolicyContent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            kpi: {
+                series: [10, 50 ,40],
+                options: {
+                    colors: ['#95c95d', '#e3e53a','#e52125'],                
+                    labels: ["同意", "中立", "反對"],
+
+                },
+            },
             data: [
                 { title: "提案標題", content: "兒童及少年扶養津貼條例草案總說明\
                 一、依行政院經濟建設委員會所作人口推計的中推計，2018 年新生兒的出生數預估會減少至 17.5\
@@ -76,6 +85,8 @@ class PolicyContent extends React.Component {
                                   
                                     <Col sm={ 12 }>
                                         <div className="lable">RUN民看法！</div>
+                                        <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
+
                                     </Col>
                                     <Col sm={ 12 }>
                                         <div className="mes">
