@@ -1,46 +1,52 @@
-.navtop{
+.navtop {
     border-bottom: 1.4px solid #000000;
-     text-align:  center;   /*讓圖片致中 */
-     margin-bottom: 10px;
+    /* text-align: center; */
+    /*讓圖片致中 */
+    margin: 10px;
 }
 
 .navPicture {
-    width:20%;
-    height: auto;    
+    width: 50%;
+    height: auto;
 }
 
-.justify-content-center{
-    color:#000000;
+.justify-content-center {
+    color: #000000;
     font-size: 18px;
     font-weight: bolder;
 }
 
-a{
+.navtop a {
     text-decoration: none;
-    color:#000000;
+    color: #000000;
 }
 
-.searchbar{
+.navtop a:hover {
+    color: #c0c0c0
+}
+
+.searchbar {
     background-color: #dcdff0;
     border: 0;
     height: 22px;
     width: 180px;
     padding: 3px;
     margin: 0;
-    outline:none;
+    outline: none;
 }
 
-#dropdown-basic{
+#dropdown-basic {
     background-color: #ffffff;
     color: #000000;
-    padding:0px;
-    border:0px;
+    padding: 0px;
+    border: 0px;
     box-shadow: none;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
     content: none;
 }
-.dropdown-item{
+
+.dropdown-item {
     padding: .25rem .5rem;
 }

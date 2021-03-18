@@ -4,7 +4,7 @@ import {TestRequest} from "../request/member.js"
 import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
-import logo_dark from '../../imgs/LOGO1.png'
+import logo_dark from '../../imgs/LOGO1.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/sign.css"
 

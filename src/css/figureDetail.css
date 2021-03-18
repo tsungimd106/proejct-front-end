@@ -4,11 +4,15 @@
 }
 
 .people>.row>div {
-    background: #404855;
-    padding: 5px;
+    background: #4f4f4f;
     color: white;
     border: 5px solid white;
     box-sizing: border-box;
+    padding: 15px;
+}
+
+.name>div {
+    padding: 20px 0px;
 }
 
 .people img {
@@ -19,6 +23,6 @@
     color: black;
 }
 
-#SvgjsPath1025{
+#SvgjsPath1025 {
     background-color: #c5b7a1;
 }

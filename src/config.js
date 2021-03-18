@@ -5,7 +5,7 @@ const master = {
 }
 
 const dev = {
-    API_URL: "https://tsungimd-project-backend.herokuapp.com/"
+    API_URL: "https://test1022ntubimd.herokuapp.com/"
 }
 
 export const config = process.env.NODE_ENV === "development" ? dev : master;

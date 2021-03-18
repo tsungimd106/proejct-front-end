@@ -19,51 +19,64 @@ export default class Nav extends React.Component {
         window.location.href = "./"
 
     }
+    
     render() {
         return (<Container>
-            <div className="navtop">
-                <img className="navPicture" src={logo_dark}></img>
+            <div className="">
             </div>
-            <Row className="justify-content-center">
-
-                <Col sm={"auto"}>
-                    <a href="./#/">選舉專區</a></Col>
-                <Col sm={"auto"}>
-                    <a href="./#/policy/">提案專區</a></Col>
-                <Col sm={"auto"}>
-                    <a href="./#/figure/">人物專區</a></Col>
-                <Col sm={"auto"}>
-                    <input className="searchbar" type="text" name="搜尋"></input>
+            <Row className="justify-content-center navtop align-items-center">
+                <Col >                 <img className="navPicture" src={ logo_dark }></img>
+                </Col>
+                <Col sm={ "auto" } >
+                    <a href="./#/" className={ this.props.id == 0 ? "pageOn" : "" }>首頁</a>
+                </Col>
+                <Col sm={ "auto" }>
+                    <a href="./#/election" className={ this.props.id == 1 ? "pageOn" : "" }>選舉報你知</a>
+                </Col>
+                <Col sm={ "auto" } >
+                    <a href="./#/policy/" className={ this.props.id == 2 ? "pageOn" : "" }>提案專區</a>
+                </Col>
+                <Col sm={ "auto" }>
+                    <a href="./#/figure/" className={ this.props.id == 3 ? "pageOn" : "" }>政治人物</a>
+                </Col>
+                <Col sm={ "auto" }>
+                    {/* <input className="searchbar" type="text" name="搜尋"></input> */ }
                     <Search /></Col>
 
-                {(this.state.login || false ? (<>
-                    <Col sm={"auto"}> <a href="./#/user/"><Person /></a></Col>
-                    <Col sm={"auto"}>
+                { (this.state.login || false ? (<>
+                    <Col sm={ "auto" }>
                         <Dropdown>
                             <Dropdown.Toggle id="dropdown-basic">
                                 <CircleChevronDown />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
+                            <Dropdown.Item href="#/user">
+                                    <Row className="align-items-center" noGutters={ true }>
+                                        <Col sm={ "auto" }> <Person /></Col>
+
+                                        <Col>個人檔案</Col>
+                                    </Row>
+                                </Dropdown.Item>
                                 <Dropdown.Item href="#/action-1">
-                                    <Row className="align-items-center" noGutters={true}>
-                                        <Col sm={"auto"}> <Envelope /></Col>
-                                        
+                                    <Row className="align-items-center" noGutters={ true }>
+                                        <Col sm={ "auto" }> <Envelope /></Col>
+
                                         <Col>提出問題與反饋</Col>
                                     </Row>
                                 </Dropdown.Item>
                                 <Dropdown.Item href="./#/">
-                                    <Row className="align-items-center" noGutters={true}>
-                                        <Col sm={"auto"}> <Info /> </Col>
-                                        
+                                    <Row className="align-items-center" noGutters={ true }>
+                                        <Col sm={ "auto" }> <Info /> </Col>
+
                                         <Col>法規與條款資訊</Col>
                                     </Row>
                                 </Dropdown.Item>
                                 <Dropdown.Item href="./#/">
-                                    <Row className="align-items-center" noGutters={true}>
-                                        <Col sm={"auto"}>
-                                            <SignOut onClick={this.logout} /> </Col>
-                                    
+                                    <Row className="align-items-center" noGutters={ true }>
+                                        <Col sm={ "auto" }>
+                                            <SignOut onClick={ this.logout } /> </Col>
+
                                         <Col> 登出</Col>
                                     </Row>
                                 </Dropdown.Item>
@@ -71,9 +84,9 @@ export default class Nav extends React.Component {
                         </Dropdown>
                     </Col>
                 </>) : (<>
-                    <Col sm={"auto"}><a href="./#/login">登入</a></Col>
-                    <Col sm={"auto"}><a href="./#/sign">註冊</a></Col>
-                </>))}
+                    <Col sm={ "auto" }><a href="./#/login">登入</a></Col>
+                    <Col sm={ "auto" }><a href="./#/sign">註冊</a></Col>
+                </>)) }
 
 
             </Row>

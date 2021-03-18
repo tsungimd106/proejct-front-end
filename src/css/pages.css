@@ -1,9 +1,19 @@
 .footer {
-    height:20vh; 
-    width:auto; 
-    background:#4F586B;
+    height: 150px;
+    width: auto;
+    background: #000;
     text-align: center;
     line-height: 150px;
-    color:white;
+    color: white;
     font-weight: 30;
+    position: relative;
+    bottom: 100%;
+}
+
+.pagesC {
+    min-height: calc(100vh - 150px);
+}
+
+a.pageOn {
+    color: #c0c0c0;
 }
