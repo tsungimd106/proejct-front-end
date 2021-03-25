@@ -35,7 +35,8 @@ class Election extends React.Component {
                             animation="foldOutAnimation"
                         >
                             {this.state.imageData.map(item => {
-                                return (<div data-src={item} />)
+                                return (<div 
+                                    data-src={item} />)
                             })}
                         </AwesomeSlider>
                     </>) : (<></>)}

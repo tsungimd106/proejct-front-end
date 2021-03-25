@@ -1,11 +1,16 @@
 import React from 'react';
-import { Row, Col, Carousel, InputGroup, FormControl, Button } from "react-bootstrap"
+import { Row, Col, Carousel, InputGroup, Form, textarea, Button, ListGroup } from "react-bootstrap"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
+import Chart from 'react-apexcharts'
 import "../../css/policyContent.css"
 import agree from "../../imgs/agree.png"
+import neutral from "../../imgs/neutral.png"
+import oppose from "../../imgs/oppose.png"
+import person from "../../imgs/person.png"
+import { Width } from 'akar-icons';
 class PolicyContent extends React.Component {
     data = [
 
@@ -13,8 +18,17 @@ class PolicyContent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            kpi: {
+                series: [10, 50, 40],
+                options: {
+                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    labels: ["同意", "中立", "反對"],
+
+                },
+            },
             data: [
-                { title: "提案標題", content: "兒童及少年扶養津貼條例草案總說明\
+                {
+                    title: "公民投票法部分條文修正草案", content: "兒童及少年扶養津貼條例草案總說明\
                 一、依行政院經濟建設委員會所作人口推計的中推計，2018 年新生兒的出生數預估會減少至 17.5\
                 萬人左右，與死亡數接近後邁入人口減少的時代，如果少子女化現象繼續下降，則人口開始\
                 負成長時間會更早，影響未來我國的人口結構將更趨嚴重，亦將造成高齡社會的提前到來，\
@@ -37,8 +51,16 @@ class PolicyContent extends React.Component {
                 之資格條件（第三條）、委託辦理機關（第四條）、請領程序（第五條）、審核流程及期限\
                 （第六條）、相關機關協助義務（第七條）、生效日期及發給期限與方式（第八條）、再行\
                 、改定申請之程序（第九條）、溢領處置（第十條）、領取權利之保護（第十一條）、委辦\
-                機關應辦事項（第十二條）、經費來源（第十三條）、授權事項（第十四條）、施行日期", tag: ["金融", "國防"], date: "2020/11/22" },
-               
+                機關應辦事項（第十二條）、經費來源（第十三條）、授權事項（第十四條）、施行日期",
+                    tag: ["金融", "國防"], date: "2020/11/22",
+                    message: []
+                }
+            ],
+            message: [
+                {
+                    m: { name: "1", content: "這真的很讚ㄟ" },
+                    d: [{ name: "1.1", content: "希望不會大排長榮" },{ name: "1.2", content: "希望不會大排長榮" }]
+                },
             ],
             imageData: [
                 "https://i2.kknews.cc/SIG=v2a4sv/31pr00022o71o8p5p001.jpg",
@@ -57,37 +79,57 @@ class PolicyContent extends React.Component {
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className="topic justify-content-center">
-                            <h2 className="topicBold">{ placement.title }</h2>
+                            <h2 className="topicBold">{placement.title}</h2>
                             <p >
                                 <Row>
-                                    <Col sm={ "auto" } className="lable" >{ placement.date }</Col>
-                                    { placement.tag.map(item => (<Col sm={ "auto" } className="lable">#{item }</Col>)) }
-                                    <Col sm={ 12 }>
-                                        <div className="content">{ placement.content }</div>
+                                    <Col sm={"auto"} className="lable" >{placement.date}</Col>
+                                    {placement.tag.map(item => (<Col sm={"auto"} className="lable">#{item}</Col>))}
+                                    <Col sm={12}>
+                                        <div className="content">{placement.content}</div>
                                     </Col>
-                                    <Col sm={ 12 }>
-                                        <div className="lable">您的看法！</div>
+                                    <Col sm={12}>
+                                        <div className="lable">
+                                            您的看法：<div>(請點選投票)</div>
+                                        </div>
                                         <Row>
-                                            <Col ><img src={agree} alt=""/></Col>
-                                            <Col></Col>
-                                            <Col></Col>
+                                            <Col sm={4}><img src={agree} alt="" /></Col>
+                                            <Col sm={4}><img src={neutral} alt="" /></Col>
+                                            <Col sm={4}><img src={oppose} alt="" /></Col>
                                         </Row>
                                     </Col>
-                                  
-                                    <Col sm={ 12 }>
-                                        <div className="lable">RUN民看法！</div>
+                                    <Col sm={3}><div className="lable">RUN民看法：</div></Col>
+                                    <Col sm={12}></Col> <Col sm={3}></Col>
+                                    <Col sm={6}>
+                                        <Chart options={this.state.kpi.options} series={this.state.kpi.series} type="donut" />
                                     </Col>
-                                    <Col sm={ 12 }>
+                                    <Col sm={12}>
                                         <div className="mes">
                                             <div className="mesTitle">RUN民討論專區</div>
+                                            <ListGroup variant="flush">
+                                                <ListGroup.Item><img src={person} className="pimg" />
+                                                    {placement.message}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item><img src={person} className="pimg" />
+                                                    {placement.message}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                                                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                                                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                            </ListGroup>
+                                            <Form>
+                                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                                    <Form.Label>我的留言：</Form.Label>
+                                                    <Form.Control as="textarea" rows={3} />
+                                                </Form.Group>
+                                            </Form>
                                         </div>
                                     </Col>
                                 </Row>
                             </p>
 
                         </div>)
-                    }) }
-                </>) : (<></>) }
+                    })}
+                </>) : (<></>)}
             </>)
         } />)
     }
