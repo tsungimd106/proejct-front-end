@@ -4,6 +4,7 @@ import logo_dark from '../../imgs/LOGO1.jpg'
 import { Search, Person, CircleChevronDown, SignOut, Info, Envelope } from 'akar-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/nav.css"
+import style from "../../css/pages.module.css"
 
 
 export default class Nav extends React.Component {
@@ -28,16 +29,16 @@ export default class Nav extends React.Component {
                 <Col >                 <img className="navPicture" src={ logo_dark }></img>
                 </Col>
                 <Col sm={ "auto" } >
-                    <a href="./#/" className={ this.props.id == 0 ? "pageOn" : "" }>首頁</a>
+                    <a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" }>首頁</a>
                 </Col>
                 <Col sm={ "auto" }>
-                    <a href="./#/election" className={ this.props.id == 1 ? "pageOn" : "" }>選舉報你知</a>
+                    <a href="./#/election" className={ this.props.id == 1 ? style.pageOn : "" }>選舉報你知</a>
                 </Col>
                 <Col sm={ "auto" } >
-                    <a href="./#/policy/" className={ this.props.id == 2 ? "pageOn" : "" }>提案專區</a>
+                    <a href="./#/policy/" className={ this.props.id == 2 ? style.pageOn : "" }>提案專區</a>
                 </Col>
                 <Col sm={ "auto" }>
-                    <a href="./#/figure/" className={ this.props.id == 3 ? "pageOn" : "" }>政治人物</a>
+                    <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a>
                 </Col>
                 <Col sm={ "auto" }>
                     {/* <input className="searchbar" type="text" name="搜尋"></input> */ }

@@ -13,4 +13,8 @@ export class PoliticianR {
         return FetchUtil.getAPI(`politician/${id}`)
     }
 
+    static area() {
+        return FetchUtil.getAPI(`politician/area`)
+    }
+
 }

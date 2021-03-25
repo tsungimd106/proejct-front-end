@@ -1,13 +1,15 @@
 import React from 'react';
-import { Row, Col, Carousel, CardColumns, Card, InputGroup, FormControl, Button } from "react-bootstrap"
+import {
+    Row, Col, CardColumns, Card, InputGroup, FormControl, Button, CardGroup
+} from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import "../../css/policy.css"
-import { CAccordion, Test } from "../accordion"
+// import { CAccordion, Test } from "../accordion"
 import { trackPromise } from 'react-promise-tracker'
-
+import Search from "../bar/search"
 class Figure extends React.Component {
     constructor(props) {
         super(props)
@@ -38,7 +40,12 @@ class Figure extends React.Component {
                 { category: 'lavender', name: '新竹縣', value: 12343 },
                 { category: 'lavender', name: '新竹市', value: 22673 },
                 { category: 'lavender', name: '苗栗縣', value: 45723 },
-            ],
+            ], like: {
+                "種類一": { "灰色": false, "白色": false, "綠色": false, "紅色": false, "淺灰色": false, "淺白色": false, "深灰色": false, "深白色": false, "輝灰色": false, "聖光我要湊字數白色": false, "繼續需要湊字數所以貓咪出來了": false },
+                "種類二": { "白色": false }
+
+            },
+
 
 
 
@@ -69,11 +76,23 @@ class Figure extends React.Component {
 
 
         // trackPromise(
-            PoliticianR.list().then(response => {
-                this.setState({ "data": response.data })
-                console.log(response)
-            })
+        PoliticianR.list().then(response => {
+            this.setState({ "data": response.data })
+        })
+        PoliticianR.area().then(response => {
+            let d = this.state.like
+            let dd={}
+            for (let j of response.data.data) {
+                dd[j.other]=false
+            }
+            d["地區"] =dd
+            this.setState({ area: response.data })
+            console.log(response)
+        })
+
         // )
+
+
 
 
         // PoliticianR.getList().then(response => {
@@ -100,11 +119,11 @@ class Figure extends React.Component {
                     { obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
                     }) }
-                </> : <CardColumns>
+                </> : <CardGroup>
                     { obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
                     }) }
-                </CardColumns>) }
+                </CardGroup>) }
 
 
                 {/* if {obj["name"] } */ }
@@ -123,7 +142,7 @@ class Figure extends React.Component {
                 </Accordion> */}
             </div>)
         } else {
-            return (<div>
+            return (<Col sm={ 3 }>
 
                 <Card border="light" onClick={ () => { this.toDetail(obj["id"]) } }>
                     <Card.Header>{ }</Card.Header>
@@ -142,20 +161,20 @@ class Figure extends React.Component {
 
                 </Card>
 
-            </div>)
+            </Col>)
         }
     }
 
     render() {
-        return (<Pages id={3}page={
+        return (<Pages id={ 3 } page={
             (<>
 
-            <Row>
-                <Col></Col>
-            </Row>
+
                 <div className="searchBar">
+                    <Search like={ this.state.like } />
+                    <hr></hr>
                     <Row>
-                        <Col  className="selectTitle">屆別：
+                        <Col className="selectTitle">屆別：
                             <select className="select" name="屆別">
                                 <option value="" selected>當屆</option>
                                 <option value="eco">1</option>
@@ -171,7 +190,7 @@ class Figure extends React.Component {
                                 <option value="ind">11</option>
                             </select>
                         </Col>
-                        <Col sm={10} className="selectTitle">提案進度：
+                        <Col sm={ 10 } className="selectTitle">提案進度：
                             <select className="select" name="提案進度">
                                 <option value="" selected>1</option>
                                 <option value="eco">2</option>
@@ -188,19 +207,19 @@ class Figure extends React.Component {
                         </Col>
                     </Row>
                     <Selector
-                        data={this.state.sndata}
+                        data={ this.state.sndata }
                         selectedTitle="姓名："
-                        getSelected={values => alert(JSON.stringify(values))}
+                        getSelected={ values => alert(JSON.stringify(values)) }
                     />
                     <Selector
-                        data={this.state.scdata}
+                        data={ this.state.scdata }
                         selectedTitle="分類："
-                        getSelected={values => alert(JSON.stringify(values))}
+                        getSelected={ values => alert(JSON.stringify(values)) }
                     />
                     <Selector
-                        data={this.state.sadata}
+                        data={ this.state.sadata }
                         selectedTitle="地區："
-                        getSelected={values => alert(JSON.stringify(values))}
+                        getSelected={ values => alert(JSON.stringify(values)) }
                     />
                     <div className="selectTitle">關鍵字搜尋：
                         <InputGroup className="mb-3">
@@ -212,14 +231,14 @@ class Figure extends React.Component {
                                 <Button variant="outline-secondary">確認</Button>
                             </InputGroup.Append>
                         </InputGroup>
-                        <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{' '}</div>
+                        <div className="searchBtn"><Button variant="dark">開始搜尋</Button>{ ' ' }</div>
                     </div>
                 </div>
-                        
+
 
                 {
                     this.state.data && this.state.data.map(placement => {
-                        
+
                         return this.cut(placement)
                     })
                 }

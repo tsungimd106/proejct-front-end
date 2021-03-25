@@ -22,13 +22,30 @@ class FigureDetail extends React.Component {
                 session: 10,
                 area: "貓咪星球第一選區",
                 degree: "貓咪星球地衣勢力北區南靈子計畫高等教育學院博士班畢業",
-                experience: [{ y: 2016, thing: "擔任貓咪興起計畫總負責人", y: 2014, thing: "貓咪學員創始人" }],
-                todo: [{ tag: "環境", t: "因應全球氣候變遷，大幅提高原住民地區禁伐補償及造林補助，推動原住民土地受限補償，保障原住民生存權。" }, 
+                experience: [{ y: 2016, thing: "擔任貓咪興起計畫總負責人" }, { y: 2014, thing: "貓咪學員創始人" }],
+                todo: [{ tag: "環境", t: "因應全球氣候變遷，大幅提高原住民地區禁伐補償及造林補助，推動原住民土地受限補償，保障原住民生存權。" },
                 { tag: "教育", t: "要求教育部應制訂尊重原住民為台灣歷史主人的教綱與課程，創立原住民大學、廣設原住民族教育資源中心。" }],
                 kpi: {
-                    series: [50, 50],
+                    series: [50],
+
                     options: {
-                        colors: ['#E4E7f0', '#955242'],
+                        // colors: ['#E4E7f0', '#955242'],
+                        colors: ['#955242'],
+                        labels: ["50"],
+                        legend: {
+                            show: false,
+                        }, plotOptions: {
+                            radialBar: {
+                                dataLabels: {                                    
+                                    name:{                                        
+                                        fontSize: '20px',
+                                        color: "#fff",
+                                    },
+                                    value: { show: false }
+                                }
+                            }
+
+                        }
                     },
                 },
                 attendanceRate: {
@@ -41,6 +58,9 @@ class FigureDetail extends React.Component {
                         chart: {
                             type: 'donut',
                         },
+                        legend: {
+                            show: false,
+                        }
                     },
                 },
                 persoal: {
@@ -58,7 +78,10 @@ class FigureDetail extends React.Component {
                         {
                             data: [20, 45, 64, 26, 27, 85, 24]
                         }
-                    ]
+                    ],
+                    legend: {
+                        show: false,
+                    }
                 }
 
             },
@@ -74,26 +97,26 @@ class FigureDetail extends React.Component {
                 console.log(res.data.data[0])
                 let cond = [{
                     no:
-                    "area_id",name:"地區"},{no: "address",name:"地址"},{no:"degree" ,name:"學歷"},{no:"tel",name:"電話"}] 
-                let selfD=[]
-                cond.map(placement=>{
-                    if(placement["no"] in res.data.data[0]){
-                        let title=placement.name
-                        selfD.push({"title":res.data.data[0][placement.no]})
+                        "area_id", name: "地區"
+                }, { no: "address", name: "地址" }, { no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+                let selfD = []
+                cond.map(placement => {
+                    if (placement["no"] in res.data.data[0]) {
+                        selfD.push({ "title": res.data.data[0][placement.no] })
                     }
                 })
-                this.setState({selfD:selfD})
+                this.setState({ selfD: selfD })
             })
         )
 
     }
 
     render() {
-        return (<Pages id={3}page={
+        return (<Pages id={ 3 } page={
             (<>
                 <div className="people">
                     {
-                        <Row className="justify-content-center align-items-center">
+                        <Row className="justify-content-center ">
 
                             <Col sm={ 4 } className="name">
                                 <Row className=" align-items-center">
@@ -105,21 +128,32 @@ class FigureDetail extends React.Component {
                             <Col sm={ 6 } className="self">
 
                                 <Row>
-                                    {this.state.selfD&&this.state.selfD.map(placement=>{
-                                        return(<>
-                                        <p>{placement.title}</p>
+                                    { this.state.selfD && this.state.selfD.map(placement => {
+                                        return (<>
+                                            <p>{ placement.title }</p>
                                         </>)
-                                    })}
+                                    }) }
                                 </Row>
                             </Col>
                             <Col sm={ 10 } className=""><p>經歷</p>
                                 { this.state.resData?.experience }
                             </Col>
-                            <Col sm={ 5 } ><p>政見績效評分</p>
-                                <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="donut" />
+                            <Col sm={ 5 }>
+                                <Row>
+                                    <Col sm={ 6 } ><p>政見績效評分</p>
+                                        <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
 
+                                    </Col>
+                                    <Col sm={ 6 } ><p>出席率</p>
+                                        <Chart options={ this.state.data.kpi.options } series={ this.state.data.attendanceRate.series } type="donut" />
+
+                                    </Col>
+                                    <Col  >提案
+                        <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
+                                    </Col>
+                                </Row>
                             </Col>
-                           
+
                             <Col sm={ 5 }>
                                 政見
                                 { this.state.data.todo.map((placement, index) => {
@@ -136,13 +170,8 @@ class FigureDetail extends React.Component {
                             }) }
 
                             </Col>
-                            <Col sm={ 5 } ><p>出席率</p>
-                                <Chart options={ this.state.data.kpi.options } series={ this.state.data.attendanceRate.series } type="donut" />
 
-                            </Col>
-                            <Col sm={ 5 } >提案
-                        <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
-                            </Col>
+
 
                         </Row>
                     }</div>

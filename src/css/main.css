@@ -100,10 +100,7 @@
     margin: auto 10%;
 }
 
-.row {
-    margin-right: auto !important;
-    margin-left: auto !important;
-}
+.row {}
 
 .show_loading {
     display: flex;

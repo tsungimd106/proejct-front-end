@@ -1,6 +1,4 @@
 import React from 'react';
-import { Row, Col, Carousel } from "react-bootstrap";
-import { Pencil } from  'akar-icons';
 import { Pages } from "../pages.js"
 import 'react-awesome-slider/dist/styles.css';
 import "../../css/user.css"
@@ -26,7 +24,7 @@ class User extends React.Component {
                     {this.state.data.map(placement => {
                         return (
                         <div className="profile"> 
-                            <img className="pic" src={this.state.imageData}></img>
+                            <img className="pic" src={this.state.imageData} alt=""/>
                             <div className="data">
                                 <h5 className="topicBold">暱稱</h5>
                                 <div><input type="text" className="textBox"></input></div>   

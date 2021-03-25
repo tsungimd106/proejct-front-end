@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Row, Col, Carousel, Accordion, Card } from "react-bootstrap"
+import React from 'react';
+import { Row } from "react-bootstrap"
 import { TaskModal } from "../modal"
 import { Pages } from "../pages.js"
 
