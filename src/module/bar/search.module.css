@@ -1,0 +1,50 @@
+.searchBox {
+    background: rgb(182, 119, 119);
+}
+
+.selectE,
+.selectN {
+    border-inline: none;
+    margin: 3px;
+}
+
+.input {
+    height: 75%;
+}
+
+.button {
+    height: 75%;
+    padding: 1px;
+    text-align: center;
+}
+
+.button svg {
+    /* vertical-align: text-top;
+    width: 15 !important;
+    height: 15 !important; */
+}
+
+.checkbox {
+    margin: 3px;
+}
+
+.label {
+    margin: 3px;
+}
+
+.border {
+    /* border-top: 3px solid rgb(216, 178, 178); */
+    padding: 4px 0;
+    box-sizing: content-box;
+    margin: 5px 0;
+    align-items: center;
+}
+
+.box {
+    height: 30px;
+    overflow: hidden;
+}
+
+.box_see {
+    height: auto;
+}

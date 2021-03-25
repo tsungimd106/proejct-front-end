@@ -6,21 +6,21 @@ import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
 import logo_dark from '../../imgs/LOGO1.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../css/sign.css"
+import style from "../../css/sign.module.css"
 
 class Base extends React.Component {
 
     render() {
         return (<>
-            <Row className="sign" noGutters="true">
+            <Row className={style.sign} noGutters="true">
                 <Col sm={6} id="left">
                     <h4>Welcome</h4>
                     <h6>__</h6>
-                    <img src={logo_light} />
+                    <img src={logo_light} alt=""/>
                 </Col>
                 <Col sm={6} id="right" >
-                    <a href="./#/"><img src={home_icon} id="homeKey"></img></a>
-                    <img src={logo_dark}></img>
+                    <a href="./#/"><img src={home_icon} id="homeKey" alt=""/></a>
+                    <img src={logo_dark} alt="" />
                     {this.props.content}
                 </Col>
             </Row>
@@ -103,7 +103,7 @@ class Login extends React.Component {
 
     }
     render() {
-        return (<Base content={<div className="need_to_center">
+        return (<Base content={<div className={style.need_to_center}>
             <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
             <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
             <p><i>忘記密碼</i></p>
@@ -133,7 +133,7 @@ class SignNext extends React.Component {
     }
 
     render() {
-        return (<Base content={<div className="need_to_center">
+        return (<Base content={<div className={style.need_to_center}>
             <center><p id="rule">我們絕不會將您的個資販售給廣告商，且除非您授予我們特定權限，否則我們也不會與廣告商分享可識別您個人身分的資訊（例如姓名、電子郵件地址或其他聯絡資訊）。 然而廣告商可以告知我們想要顯示廣告的目標受眾類型，我們再針對可能會感興趣的對象顯示他們的廣告。 我們為廣告商提供廣告成效報告，協助他們瞭解用戶與廣告內容的互動情形。 請參考後續第 2 節瞭解詳情。</p></center>
             <p><input type="checkbox" id="agree" />我同意以上內容</p>
             <p><Button id="continue" onClick={this.send}>確認註冊</Button></p>

@@ -68,13 +68,14 @@ class PolicyContent extends React.Component {
                 "https://i2.kknews.cc/SIG=fduuh/31pq00046psp1o455n95.jpg",
                 "https://i1.kknews.cc/SIG=rf6m48/31p9000467p4po554154.jpg"
 
-            ]
+            ],
+            vote: { title: "我是標題", content: "我是內文", tag: ["金融", "國防"], vote: [43, 53, 4] },
 
         }
     }
 
     render() {
-        return (<Pages id={2} page={
+        return (<Pages id={ 2 } page={
             (<>{ }
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {

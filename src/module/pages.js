@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from "react-bootstrap"
 import Nav from "./pages/nav"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../css/pages.css"
+import style from "../css/pages.module.css"
 
 export class Pages extends React.Component {
     constructor(props) {
@@ -10,7 +10,7 @@ export class Pages extends React.Component {
     }
     render() {
         return (<>
-            <div className="pagesC">
+            <div className={style.pagesC}>
                 <Row>
                     <Col>
                         <Nav id={this.props.id}>
@@ -21,7 +21,7 @@ export class Pages extends React.Component {
                     { this.props.page || (<></>) }
                 </Col></Row>
             </div>
-            <div className="footer">tsungimd106@gmail.com</div>
+            <div className={style.footer}>tsungimd106@gmail.com</div>
         </>)
     }
 }

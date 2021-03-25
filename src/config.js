@@ -1,7 +1,6 @@
 const master = {
     // 正式機URL，勿動
-    // API_URL: "https://tsungimd-project-backend.herokuapp.com/"
-    API_URL: "140.131.114.148:8080"
+    API_URL: "https://test1022ntubimd.herokuapp.com/"
 }
 
 const dev = {

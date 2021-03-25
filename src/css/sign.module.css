@@ -20,8 +20,8 @@
     height: auto;
 }
 
-input,
-select {
+.sign input,
+.sign select {
     width: 20vw;
     border-radius: 5px;
     border: 2px solid #4F586B;
@@ -46,7 +46,7 @@ h4 {
     margin-bottom: 10px;
 }
 
-#agree{
+#agree {
     height: 3vh;
     width: 3vw;
 }
@@ -75,7 +75,7 @@ h5 {
     vertical-align: middle;
 }
 
-#rule{
+#rule {
     width: 30vw;
     height: auto;
     border: 5px solid #4F586B;

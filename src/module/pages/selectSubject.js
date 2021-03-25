@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
-import { ModalBase } from "../modal"
 import logo_dark from '../../imgs/LOGO1.jpg'
-// import { Pages } from "../pages.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/selectSubject.css"
 
@@ -22,8 +20,8 @@ class SelectSubject extends React.Component {
             (<>
                 <center>
                     <div className="ss_lineheight">
-                        <img id="logo" src={logo_dark}></img>
-                        <p>Hi! XXX歡迎您使用<img src={logo_dark}></img><br></br>請選擇您所感興趣的議題</p>              
+                        <img id="logo" src={logo_dark} alt=""/>
+                        <p>Hi! XXX歡迎您使用<img src={logo_dark}alt=""/><br></br>請選擇您所感興趣的議題</p>              
                         <Row className="selectbtn" >
                             {
                                 (this.state.data || false ? (<>   {/* 看data在不在，不再會執行39行(傳回空的)。在就會接著執行 */}

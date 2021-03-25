@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Carousel, InputGroup, FormControl, Button } from "react-bootstrap"
+import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
