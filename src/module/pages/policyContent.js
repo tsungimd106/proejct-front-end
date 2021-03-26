@@ -107,20 +107,63 @@ class PolicyContent extends React.Component {
                                         <div className="mes">
                                             <div className="mesTitle">RUN民討論專區</div>
                                             <ListGroup variant="flush">
-                                                <ListGroup.Item><img src={person} className="pimg" />
-                                                    {placement.message}
+                                                <ListGroup.Item>
+                                                    <Row className="align-items-center" noGutters={true}>
+                                                        <Col sm={"auto"}><img src={person} className="pimg" /></Col>
+                                                        <Col>   
+                                                            <Row className="align-items-center">
+                                                                <Col  sm={"auto"}><span className="mesTitle">曹阿砲</span></Col>
+                                                                <Col  sm={"auto"}> <span className="lable">2021/3/24 12:35</span></Col>
+                                                                <Col><a href="" className="mesrp">檢舉</a></Col>
+                                                            </Row>
+                                                            <Row>
+                                                                <Col>希望不會大排長榮</Col>
+                                                            </Row>
+                                                        </Col>
+                                                    </Row>
                                                 </ListGroup.Item>
-                                                <ListGroup.Item><img src={person} className="pimg" />
-                                                    {placement.message}
+                                                <ListGroup.Item>
+                                                    <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={"auto"}><img src={person} className="pimg" /></Col>
+                                                            <Col>   
+                                                                <Row className="align-items-center">
+                                                                    <Col  sm={"auto"}><span className="mesTitle">羅阿翔</span></Col>
+                                                                    <Col  sm={"auto"}> <span className="lable">2021/3/20 12:22</span></Col>
+                                                                    <Col><a href="" className="mesrp">檢舉</a></Col>
+                                                                </Row>
+                                                                <Row>
+                                                                    <Col>這真的很讚ㄟ!</Col>
+                                                                </Row>
+                                                            </Col>
+                                                        </Row>
                                                 </ListGroup.Item>
-                                                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                                <ListGroup.Item>
+                                                    <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={"auto"}><img src={person} className="pimg" /></Col>
+                                                            <Col>   
+                                                                <Row className="align-items-center">
+                                                                    <Col  sm={"auto"}><span className="mesTitle">黃阿淇</span></Col>
+                                                                    <Col  sm={"auto"}> <span className="lable">2021/3/20 12:22</span></Col>
+                                                                    <Col><a href="" className="mesrp">檢舉</a></Col>
+                                                                </Row>
+                                                                <Row>
+                                                                    <Col>一路順風</Col>
+                                                                </Row>
+                                                            </Col>
+                                                        </Row>
+                                                </ListGroup.Item>
+                                                
                                             </ListGroup>
                                             <Form>
                                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                                     <Form.Label>我的留言：</Form.Label>
-                                                    <Form.Control as="textarea" rows={3} />
+                                                    <InputGroup >
+                                                        <Form.Control as="textarea" rows={2} />
+                                                        <InputGroup.Append>
+                                                            <Button variant="outline-secondary">送出</Button>
+                                                        </InputGroup.Append>
+                                                    </InputGroup>
+                                                    
                                                 </Form.Group>
                                             </Form>
                                         </div>

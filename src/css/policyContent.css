@@ -36,5 +36,14 @@ list-group{
 }
 
 .pimg{
-    width:7%;
+    width:100%;
+}
+
+.mesrp{
+    float:right;
+}
+
+.mesent{
+    position: absolute;
+    left: 50%;
 }
