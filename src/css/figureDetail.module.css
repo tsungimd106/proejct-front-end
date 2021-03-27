@@ -26,3 +26,23 @@
 #SvgjsPath1025 {
     background-color: #c5b7a1;
 }
+
+.dashboard {
+    width: 100vw;
+    background: #4f4f4f;
+}
+
+.dashboardcard {
+    border: 5px solid #fff;
+    padding: 10px;
+}
+
+.dashboard .row {}
+
+.white {
+    color: #fff
+}
+
+img.figurePh {
+    width: 50%;
+}

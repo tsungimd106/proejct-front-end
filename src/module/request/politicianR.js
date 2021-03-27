@@ -16,5 +16,11 @@ export class PoliticianR {
     static area() {
         return FetchUtil.getAPI(`politician/area`)
     }
+    static name() {
+        return FetchUtil.getAPI(`politician/name`)
+    }
+    static term() {
+        return FetchUtil.getAPI(`politician/term`)
+    }
 
 }

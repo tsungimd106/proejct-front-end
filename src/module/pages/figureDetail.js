@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, CardDeck, Card } from "react-bootstrap"
 import { Pages } from "../pages.js"
-import "../../css/figureDetail.css"
+
 import Chart from 'react-apexcharts'
-import "../../css/figureDetail.css"
+import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
 
@@ -24,7 +24,8 @@ class FigureDetail extends React.Component {
                 degree: "貓咪星球地衣勢力北區南靈子計畫高等教育學院博士班畢業",
                 experience: [{ y: 2016, thing: "擔任貓咪興起計畫總負責人" }, { y: 2014, thing: "貓咪學員創始人" }],
                 todo: [{ tag: "環境", t: "因應全球氣候變遷，大幅提高原住民地區禁伐補償及造林補助，推動原住民土地受限補償，保障原住民生存權。" },
-                { tag: "教育", t: "要求教育部應制訂尊重原住民為台灣歷史主人的教綱與課程，創立原住民大學、廣設原住民族教育資源中心。" }],
+                { tag: "教育", t: "要求教育部應制訂尊重原住民為台灣歷史主人的教綱與課程，創立原住民大學、廣設原住民族教育資源中心。" },
+                { tag: "環境發展", t: "推動商圈補助計劃。針對舊產業部落加以輔導。讓歷史產業部落可以脫胎換骨。國發會地方創生計劃納入六都傳統社區。" }],
                 kpi: {
                     series: [50],
 
@@ -49,17 +50,23 @@ class FigureDetail extends React.Component {
                     },
                 },
                 attendanceRate: {
-                    series: [88, 12],
+                    series: [88],
                     options: {
-                        fill: {
-                            colors: ['#c5b7a1', '#b05553'],
-                        },
-
-                        chart: {
-                            type: 'donut',
-                        },
+                        colors: ['#955242'],
+                        labels: ["88"],
                         legend: {
                             show: false,
+                        }, plotOptions: {
+                            radialBar: {
+                                dataLabels: {                                    
+                                    name:{                                        
+                                        fontSize: '20px',
+                                        color: "#fff",
+                                    },
+                                    value: { show: false }
+                                }
+                            }
+
                         }
                     },
                 },
@@ -97,7 +104,7 @@ class FigureDetail extends React.Component {
                 console.log(res.data.data[0])
                 let cond = [{
                     no:
-                        "area_id", name: "地區"
+                        "a_n", name: "地區"
                 }, { no: "address", name: "地址" }, { no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
                 cond.map(placement => {
@@ -114,20 +121,69 @@ class FigureDetail extends React.Component {
     render() {
         return (<Pages id={ 3 } page={
             (<>
-                <div className="people">
+                <div className={style.people}>
                     {
                         <Row className="justify-content-center ">
+                            <div>
+                                <Row className={style.dashboard}>
+                                    <Col sm={3} className={style.dashboardcard}>
+                                        
+                                        <img src={ this.state.resData?.photo } className={style.figurePh}></img>
+                                        { this.state.selfD && this.state.selfD.map(placement => {
+                                        return (<>
+                                            <div className={style.white}>{ placement.title }</div>
+                                        </>)
+                                    }) }
+                                    </Col>
+                                    <Col sm={6}>
+                                        <Row className={style.dashboardcard}>
+                                            <Col className={style.white}>政見分數
+                                            <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
 
-                            <Col sm={ 4 } className="name">
+                                            </Col>
+                                            <Col className={style.white}>走勢圖</Col>
+                                        </Row>
+                                        <Row className={style.dashboardcard}>
+                                        <Col className={style.white}>出席率
+                                        <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" /></Col>
+                                            <Col className={style.white}> 走勢圖</Col>
+                                        </Row>
+                                        <Row className={style.dashboardcard}>
+                                            <Col  className={style.white}>
+                                            提案圖
+                                            <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
+                                            </Col>
+                                           
+                                        </Row>
+                                    </Col>
+                                    <Col sm={3} className={style.dashboardcard}>
+                                        <span className={style.white}>政見</span>
+                                    { this.state.data.todo.map((placement, index) => {
+                                return (<>
+                                    <div><CardDeck><Card>
+                                        <Card.Header>#{ placement.tag }</Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>{ placement.t }</Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>Read more</Card.Footer>
+                                    </Card></CardDeck>
+                                        <hr /></div>
+                                </>)
+                            }) }
+                                    </Col>
+                                </Row>
+                            </div>
+
+                            <Col sm={ 4 } className={style.name}>
                                 <Row className=" align-items-center">
                                     <Col ><img src={ this.state.resData?.photo ?? "" }></img></Col>
                                     <Col>{ this.state.resData?.name ?? "" }</Col>
 
                                 </Row>
                             </Col>
-                            <Col sm={ 6 } className="self">
+                            <Col sm={ 6 } className={style.self}>
 
-                                <Row>
+                                <Row dashboardcard>
                                     { this.state.selfD && this.state.selfD.map(placement => {
                                         return (<>
                                             <p>{ placement.title }</p>
