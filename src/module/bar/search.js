@@ -9,7 +9,7 @@ export default class Search extends React.Component {
         super(props)
         this.state = {
 
-            count: 0
+            count: 0, hasMore: [], t: {}
         }
 
     }
@@ -20,6 +20,23 @@ export default class Search extends React.Component {
             console.log(i.scrollHeight)
         }
         this.setState({ like: this.props.like })
+    }
+    componentDidUpdate() {
+        let d = document.getElementsByClassName(style.box)
+        let hasMore = []
+        for (let i of d) {
+
+            hasMore.push(i.scrollHeight > 40)
+
+        }
+        console.log(hasMore.length)
+        console.log(this.state.hasMore.length)
+        console.log(hasMore.length >= this.state.hasMore.length)
+        if (hasMore.length != this.state.hasMore.length) {
+            console.log(hasMore.length)
+            console.log(Object.keys(this.state.like).length)
+            this.setState({ hasMore: hasMore })
+        }
     }
 
     remove = (c, v) => {
@@ -53,20 +70,20 @@ export default class Search extends React.Component {
         console.log(a.scrollHeight)
         console.log(a.offsetHeight)
         console.log(a.clientHeight)
-        if (a.offsetHeight < 40){
+        if (a.offsetHeight < 40) {
             a.classList.remove(style.box)
         }
-        else{
+        else {
             a.classList.add(style.box)
         }
-            
+
     }
 
     render() {
         return (<>
 
             <Row className={ style.border }>
-                <Col sm={ "auto" }>關鍵字搜尋</Col>
+                <Col sm={ "auto" }>關鍵字搜尋{ this.state.hasMore }</Col>
                 <Col ><input type="text" className={ style.input } /></Col>
             </Row>
             {this.state.count > 0 ? <div>
@@ -105,7 +122,7 @@ export default class Search extends React.Component {
                                         <label for={ `${placement}-${item}` } className={ style.label }>{ item }</label>
                                     </Col></>)
                                 }) }</Row></Col>
-                            <Col sm={ "auto" }><Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button></Col>
+                            <Col sm={ "auto" }>{this.state.hasMore[index]?(<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>):""}</Col>
                         </Row></>)
                     }) }
 
