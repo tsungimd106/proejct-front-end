@@ -66,11 +66,6 @@
     font-weight: bold;
 }
 
-.slider {
-    padding:0;
-    margin-bottom: 30px;
-    height:100%;
-}
 
 .line {
     margin: 10px auto;
@@ -91,17 +86,16 @@
 }
 
 .awssld__content>img {
-    width: auto;
+    width: 100%;
+    
     top: auto;
     left: auto;
 }
 
-.GuessYouLike {
-    font-weight: bold;
-    margin: auto 10%;
+.awssld__wrapper{
+    height: 300px !important;
 }
 
-.row {}
 
 .show_loading {
     display: flex;
@@ -117,4 +111,14 @@
     position: fixed;
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 10000000;
+}
+
+.slider_item {
+    padding:0;
+    margin-bottom: 30px;
+}
+
+.width85{
+    width: 85%;
+    margin: 5px auto;
 }

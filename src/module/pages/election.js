@@ -4,7 +4,8 @@ import { Pages } from "../pages.js"
 import AwesomeSlider from 'react-awesome-slider';
 import MultiColorProgressBar from "../bar/mutiProcessBar"
 import 'react-awesome-slider/dist/styles.css';
-import "../../css/main.css"
+// import "../../css/main.css"
+import style from "../../css/main.module.css"
 
 class Election extends React.Component {
     constructor(props) {
