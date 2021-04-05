@@ -8,55 +8,44 @@ export default class Search extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
             count: 0, hasMore: [], t: {}
         }
-
     }
+
     componentDidMount() {
-        let d = document.getElementsByClassName(style.box)
-        for (let i of d) {
-            console.log(i)
-            console.log(i.scrollHeight)
-        }
         this.setState({ like: this.props.like })
     }
+
     componentDidUpdate() {
         let d = document.getElementsByClassName(style.box)
         let hasMore = []
         for (let i of d) {
-
             hasMore.push(i.scrollHeight > 40)
-
-        }
-        console.log(hasMore.length)
-        console.log(this.state.hasMore.length)
-        console.log(hasMore.length >= this.state.hasMore.length)
-        if (hasMore.length != this.state.hasMore.length) {
-            console.log(hasMore.length)
-            console.log(Object.keys(this.state.like).length)
+        }        
+        if (hasMore.length != this.state.hasMore.length) {          
             this.setState({ hasMore: hasMore })
         }
     }
 
     remove = (c, v) => {
-        let d = this.state.like
+        let d = this.props.like
         d[c][v] = false
         this.setState({ like: d, count: this.state.count - 1 })
     }
 
     newOn = (e) => {
         const key = e.target
-        let ccc = this.state.like
+        let ccc = this.props.like
         let count = this.state.count
         let temp = ccc[key.name][key.value]
         ccc[key.name][key.value] = !temp
         console.log(temp)
         if (temp) { count -= 2 }
         this.setState({ like: ccc, count: count + 1 })
+        this.props.getList()
     }
     removeAll = () => {
-        let d = this.state.like
+        let d = this.props.like
         for (const [key, value] of Object.entries(d)) {
             console.log(value)
             for (const [k, v] of Object.entries(value)) {
@@ -76,7 +65,6 @@ export default class Search extends React.Component {
         else {
             a.classList.add(style.box)
         }
-
     }
 
     render() {
@@ -89,9 +77,9 @@ export default class Search extends React.Component {
             {this.state.count > 0 ? <div>
                 <Row className="align-items-center">
                     <Col sm={ 2 }>篩選條件</Col>
-                    { this.state.like && Object.keys(this.state.like).map((placement, index) => {
-                        return (<>{ Object.keys(this.state.like[placement]).map(item => {
-                            if (this.state.like[placement][item]) {
+                    { this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                        return (<>{ Object.keys(this.props.like[placement]).map(item => {
+                            if (this.props.like[placement][item]) {
                                 return (<Col sm={ "auto" }>
                                     <Button variant="outline-primary"
                                         onClick={ () => { this.remove(placement, item) } } className={ style.button }>{ item }
@@ -108,16 +96,16 @@ export default class Search extends React.Component {
 
             <Row >
                 <Col>
-                    { this.state.like && Object.keys(this.state.like).map((placement, index) => {
+                    { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                         return (<><Row className={ style.border }>
                             <Col sm={ "auto" }>{ placement }</Col>
                             <Col><Row className={ style.box } id={ placement }>
 
-                                { Object.keys(this.state.like[placement]).map((item) => {
+                                { Object.keys(this.props.like[placement]).map((item) => {
                                     return (<><Col sm={ "auto" }>
                                         <input type="checkbox" name={ placement } value={ item }
                                             className={ style.checkbox }
-                                            onChange={ this.newOn } checked={ this.state.like[placement][item] }
+                                            onChange={ this.newOn } checked={ this.props.like[placement][item] }
                                             id={ `${placement}-${item}` } />
                                         <label for={ `${placement}-${item}` } className={ style.label }>{ item }</label>
                                     </Col></>)
