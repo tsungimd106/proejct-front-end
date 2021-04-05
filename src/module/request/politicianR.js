@@ -6,7 +6,7 @@ export class PoliticianR {
     }
 
     static getList(data) {
-        return FetchUtil.getAPI("politician/list")
+        return FetchUtil.getAPI("politician/list", data)
     }
 
     static detail(id) {

@@ -14,39 +14,9 @@ class Figure extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sndata: [
-                { category: 'calculate', name: '王婉諭', value: 89519 },
-                { category: 'calculate', name: '賴品妤', value: 49024 },
-                { category: 'lavender', name: '蔡適應', value: 90170 },
-                { category: 'lavender', name: '林昶佐', value: 56963 },
-                { category: 'lavender', name: '莊瑞雄', value: 12343 },
-                { category: 'lavender', name: '傅崐萁', value: 22673 },
-                { category: 'lavender', name: '劉建國', value: 45723 },
-            ],
-            scdata: [
-                { category: 'calculate', name: '財政金融', value: 89519 },
-                { category: 'calculate', name: '教育', value: 49024 },
-                { category: 'lavender', name: '內政', value: 90170 },
-                { category: 'lavender', name: '司法及法制', value: 56963 },
-                { category: 'lavender', name: '科技', value: 12343 },
-                { category: 'lavender', name: '文化', value: 22673 },
-                { category: 'lavender', name: '外交國防', value: 45723 },
-            ],
-            sadata: [
-                { category: 'calculate', name: '台北市', value: 89519 },
-                { category: 'calculate', name: '新北市', value: 49024 },
-                { category: 'lavender', name: '基隆市', value: 90170 },
-                { category: 'lavender', name: '桃園市', value: 56963 },
-                { category: 'lavender', name: '新竹縣', value: 12343 },
-                { category: 'lavender', name: '新竹市', value: 22673 },
-                { category: 'lavender', name: '苗栗縣', value: 45723 },
-            ], like: {
-              
+            like: {
+
             },
-
-
-
-
             listD: []
         }
     }
@@ -61,7 +31,7 @@ class Figure extends React.Component {
         //     headers: myHeaders,
         //     // mode: 'cors',
         // };
-        // fetch("http://localhost:8088/get",
+        // fetch("http://140.131.114.148:8080/politician/",
         //     myInit
         // ).then(function (response) {
         //     return response.json();
@@ -70,42 +40,44 @@ class Figure extends React.Component {
         //         console.log(myJson);
         //     }).catch(function (error) {
         //         console.log('There has been a problem with your fetch operation: ', error.message);
-        //     });;
+        //     });
 
 
         // trackPromise(
-        PoliticianR.list().then(response => {
-            this.setState({ "data": response.data })
+        PoliticianR.getList().then(response => {
+            console.log(response.data)
+            console.log(typeof response.data)
+            console.log(Array.isArray(response.data))
+
+
+            this.setState({ "data": response.data.data, resource: response.data.data })
         })
         PoliticianR.area().then(response => {
             let d = this.state.like
-            let dd={}
+            let dd = {}
             for (let j of response.data.data) {
-                dd[j.other]=false
+                dd[j.other] = false
             }
-            d["地區"] =dd
+            d["地區"] = dd
             this.setState({ area: response.data })
-            console.log(response)
         })
-        PoliticianR.name().then(response=>{
+        PoliticianR.name().then(response => {
             let d = this.state.like
-            let dd={}
+            let dd = {}
             for (let j of response.data.data) {
-                dd[j.name]=false
+                dd[j.name] = false
             }
-            d["姓名"] =dd
+            d["姓名"] = dd
             this.setState({ area: response.data })
-            console.log(response)
         })
-        PoliticianR.term().then(response=>{
+        PoliticianR.term().then(response => {
             let d = this.state.like
-            let dd={}
+            let dd = {}
             for (let j of response.data.data) {
-                dd[j.term]=false
+                dd[j.term] = false
             }
-            d["屆別"] =dd
+            d["屆別"] = dd
             this.setState({ area: response.data })
-            console.log(response)
         })
         // )
 
@@ -119,9 +91,64 @@ class Figure extends React.Component {
         // })
 
     }
-    loading = () => {
 
+    getList = () => {
+        let d = {}
+        let term = []
+        let area = []
+
+        console.log(this.state.like)
+        for (let key in this.state.like) {
+
+            for (let v in this.state.like[key]) {
+                if (this.state.like[key][v]) {
+                    switch (key) {
+                        case "屆別":
+                            term.push(v)
+                            break;
+                        case "地區":
+                            area.push(v)
+                            break;
+                    }
+                }
+
+            }
+
+        }
+        if (term.length > 0) {
+            d["term"] = term
+        }
+        if (area.length > 0) {
+            d["other"] = area
+        }
+        if (Array.isArray(this.state.resource)) {
+            let newd = this.state.resource.filter(i => {
+
+                let res = false
+                let areab = false
+                let termb = false
+
+                if (area.length > 0) { area.forEach(item => { if (i["other"] == item) areab = true; }) }
+                if (term.length > 0) { term.forEach(item => { if (i["term"] == item) termb = true }) }
+                areab = area.length > 0 ? areab : true
+                termb = term.length > 0 ? termb : true
+
+                return areab & termb
+            })
+            console.log(newd)
+
+            this.setState({ "data": newd })
+
+        }
+
+        PoliticianR.getList(d).then(response => {
+            console.log(response.data.data)
+            if (response.data.data) {
+
+            }
+        }).catch(e => { console.log(e) })
     }
+
     toDetail = (toName) => {
         document.location.href = `.#/figure/${toName}`
     }
@@ -130,47 +157,38 @@ class Figure extends React.Component {
         var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
 
         if ("d" in obj) {
-            return (<div>
+            return (<Col>
                 <p>{ obj["name"] }</p>
                 {(!regPos.test(obj["name"]) ? <>
+                    <p>test</p>
                     { obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
-                    }) }
-                </> : <CardGroup>
+                    }) }{
+                        <p>ttt</p>
+                    }
+                </> : <Row>
+                    <div></div>
                     { obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
-                    }) }
-                </CardGroup>) }
+                    }) }</Row>
+                ) }
 
 
-                {/* if {obj["name"] } */ }
-                {/* <Accordion >
-                    <Card>
-                        <Accordion.Toggle as={ Card.Header } eventKey={ obj["name"] }>
-                            { obj["name"] }
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey={ obj["name"] }>
-                            <Card.Body>{ obj["d"].map(placement => {
-                                return this.cut(placement, obj["name"])
-                            }) }</Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
 
-                </Accordion> */}
-            </div>)
+            </Col>)
         } else {
             return (<Col sm={ 3 }>
 
-                <Card border="light" onClick={ () => { this.toDetail(obj["id"]) } } className={style.figureC}>
-                    <Card.Header>{ }</Card.Header>
+                <Card border="light" onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
+                  
                     <Card.Body>
                         <Card.Title></Card.Title>
                         <Row>
                             <Col>
-                                <Card.Text>
-                                    <img src={ obj["photo"] } className={ style.figurePh}></img>
-                                </Card.Text>
-                            </Col>
+                                { <Card.Text>
+                                    <img src={ obj["photo"] } className={ style.figurePh }></img>
+                                </Card.Text>}
+                             </Col>
                             <Col> <p>{ obj["name"] }</p> { obj["area"] }</Col>
                         </Row>
 
@@ -185,61 +203,12 @@ class Figure extends React.Component {
     render() {
         return (<Pages id={ 3 } page={
             (<>
+                <div className={ style.searchBar }>
 
 
-                <div className={style.searchBar}>
-                    <Search like={ this.state.like } />
-                    <hr></hr>
-                    <Row>
-                        <Col className={style.selectTitle}>屆別：
-                            <select className={style.select} name="屆別">
-                                <option value="" selected>當屆</option>
-                                <option value="eco">1</option>
-                                <option value="edu">2</option>
-                                <option value="tec">3</option>
-                                <option value="pol">4</option>
-                                <option value="art">5</option>
-                                <option value="gen">6</option>
-                                <option value="ani">7</option>
-                                <option value="wor">8</option>
-                                <option value="tra">9</option>
-                                <option value="old">10</option>
-                                <option value="ind">11</option>
-                            </select>
-                        </Col>
-                        <Col sm={ 10 } className={style.selectTitle}>提案進度：
-                            <select className={style.select} name="提案進度">
-                                <option value="" selected>1</option>
-                                <option value="eco">2</option>
-                                <option value="tec">3</option>
-                                <option value="pol">4</option>
-                                <option value="art">5</option>
-                                <option value="gen">6</option>
-                                <option value="ani">7</option>
-                                <option value="wor">8</option>
-                                <option value="tra">9</option>
-                                <option value="old">10</option>
-                                <option value="ind">11</option>
-                            </select>
-                        </Col>
-                    </Row>
-                    <Selector
-                        data={ this.state.sndata }
-                        selectedTitle="姓名："
-                        getSelected={ values => alert(JSON.stringify(values)) }
-                    />
-                    <Selector
-                        data={ this.state.scdata }
-                        selectedTitle="分類："
-                        getSelected={ values => alert(JSON.stringify(values)) }
-                    />
-                    <Selector
-                        data={ this.state.sadata }
-                        selectedTitle="地區："
-                        getSelected={ values => alert(JSON.stringify(values)) }
-                    />
-                    <div className={style.selectTitle}>關鍵字搜尋：
-                        <InputGroup className={style.mb-3}>
+
+                    <div className={ style.selectTitle }>關鍵字搜尋：
+                        <InputGroup className={ style.mb - 3 }>
                             <FormControl
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
@@ -248,19 +217,17 @@ class Figure extends React.Component {
                                 <Button variant="outline-secondary">確認</Button>
                             </InputGroup.Append>
                         </InputGroup>
-                        <div className={style.searchBtn}><Button variant="dark">開始搜尋</Button>{ ' ' }</div>
+                        <Search like={ this.state.like } getList={ this.getList } />
+                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */ }
                     </div>
                 </div>
-
-
-                {
-                    this.state.data && this.state.data.map(placement => {
-
-                        return this.cut(placement)
-                    })
-                }
-
-
+                <Row>
+                    {
+                        this.state.data && this.state.data.map(placement => {
+                            return this.cut(placement)
+                        })
+                    }
+                </Row>
             </>)
         } />)
     }
