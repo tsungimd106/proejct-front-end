@@ -10,6 +10,7 @@ import style from "../../css/figure.module.css"
 // import { CAccordion, Test } from "../accordion"
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
+import { AlignToTop } from "akar-icons"
 class Figure extends React.Component {
     constructor(props) {
         super(props)
@@ -152,6 +153,10 @@ class Figure extends React.Component {
     toDetail = (toName) => {
         document.location.href = `.#/figure/${toName}`
     }
+    onScroll = (e) => {
+      let element =e.target
+      console.log(element)
+    }
 
     cut = (obj, n) => {
         var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
@@ -179,16 +184,16 @@ class Figure extends React.Component {
         } else {
             return (<Col sm={ 3 }>
 
-                <Card border="light" onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
-                  
+                <Card  onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
+
                     <Card.Body>
-                        <Card.Title></Card.Title>
-                        <Row>
+                    
+                        <Row noGutters={true} >
                             <Col>
                                 { <Card.Text>
                                     <img src={ obj["photo"] } className={ style.figurePh }></img>
-                                </Card.Text>}
-                             </Col>
+                                </Card.Text> }
+                            </Col>
                             <Col> <p>{ obj["name"] }</p> { obj["area"] }</Col>
                         </Row>
 
@@ -201,35 +206,24 @@ class Figure extends React.Component {
     }
 
     render() {
-        return (<Pages id={ 3 } page={
-            (<>
-                <div className={ style.searchBar }>
-
-
-
-                    <div className={ style.selectTitle }>關鍵字搜尋：
-                        <InputGroup className={ style.mb - 3 }>
-                            <FormControl
-                                aria-label="Recipient's username"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                <Button variant="outline-secondary">確認</Button>
-                            </InputGroup.Append>
-                        </InputGroup>
+        return (<Pages id={ 3 }
+            onScroll={console.log("ii")}
+            page={
+                (<>
+                    <div className={ style.searchBar } >
                         <Search like={ this.state.like } getList={ this.getList } />
                         {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */ }
+
                     </div>
-                </div>
-                <Row>
-                    {
-                        this.state.data && this.state.data.map(placement => {
-                            return this.cut(placement)
-                        })
-                    }
-                </Row>
-            </>)
-        } />)
+                    <Row>
+                        {
+                            this.state.data && this.state.data.map(placement => {
+                                return this.cut(placement)
+                            })
+                        }
+                    </Row>
+                </>)
+            } />)
     }
 }
 
