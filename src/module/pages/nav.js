@@ -1,10 +1,9 @@
 import React from 'react';
 import { Row, Col, Container, Button, Dropdown, } from "react-bootstrap"
-import logo_dark from '../../imgs/LOGO1.jpg'
+import logo_dark from '../../imgs/LOGO1.png'
 import { Search, Person, CircleChevronDown, SignOut, Info, Envelope } from 'akar-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../css/nav.css"
-import style from "../../css/pages.module.css"
+import style from "../../css/nav.module.css"
 
 
 export default class Nav extends React.Component {
@@ -22,11 +21,10 @@ export default class Nav extends React.Component {
     }
     
     render() {
-        return (<Container>
-            <div className="">
-            </div>
-            <Row className="justify-content-center navtop align-items-center">
-                <Col >                 <img className="navPicture" src={ logo_dark }></img>
+        return (<>
+         
+            <Row className={style.navtop+" "+style.i_dont_know_how_to_name_it+" justify-content-center  align-items-center"}>
+                <Col >                 <img className={style.navPicture} src={ logo_dark }></img>
                 </Col>
                 <Col sm={ "auto" } >
                     <a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" }>首頁</a>
@@ -47,35 +45,34 @@ export default class Nav extends React.Component {
                 { (this.state.login || false ? (<>
                     <Col sm={ "auto" }>
                         <Dropdown>
-                            <Dropdown.Toggle id="dropdown-basic">
+                            <Dropdown.Toggle className={style.down_btn}>
                                 <CircleChevronDown />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                            <Dropdown.Item href="#/user">
-                                    <Row className="align-items-center" noGutters={ true }>
-                                        <Col sm={ "auto" }> <Person /></Col>
+                            <Dropdown.Item href="#/user" className={style.dropdown_item}>
+                                    <Row className={" align-items-center justify-content-center"} noGutters={ false }>
+                                        <Col sm={ 2}> <Person /></Col>
 
                                         <Col>個人檔案</Col>
                                     </Row>
                                 </Dropdown.Item>
-                                <Dropdown.Item href="#/action-1">
-                                    <Row className="align-items-center" noGutters={ true }>
-                                        <Col sm={ "auto" }> <Envelope /></Col>
+                                <Dropdown.Item href="#/action-1" className={style.dropdown_item}>
+                                    <Row  className={" align-items-center justify-content-center"} noGutters={ false }>
+                                        <Col sm={ 2}> <Envelope /></Col>
 
                                         <Col>提出問題與反饋</Col>
                                     </Row>
                                 </Dropdown.Item>
-                                <Dropdown.Item href="./#/">
-                                    <Row className="align-items-center" noGutters={ true }>
-                                        <Col sm={ "auto" }> <Info /> </Col>
-
+                                <Dropdown.Item href="./#/" className={style.dropdown_item}>
+                                    <Row  className={" align-items-center justify-content-center"} noGutters={ false }>
+                                        <Col sm={ 2}> <Info /> </Col>
                                         <Col>法規與條款資訊</Col>
                                     </Row>
                                 </Dropdown.Item>
-                                <Dropdown.Item href="./#/">
-                                    <Row className="align-items-center" noGutters={ true }>
-                                        <Col sm={ "auto" }>
+                                <Dropdown.Item href="./#/" className={style.dropdown_item}>
+                                    <Row  className={" align-items-center justify-content-center"} noGutters={ false }>
+                                        <Col sm={ 2 }>
                                             <SignOut onClick={ this.logout } /> </Col>
 
                                         <Col> 登出</Col>
@@ -91,6 +88,6 @@ export default class Nav extends React.Component {
 
 
             </Row>
-        </Container>)
+        </>)
     }
 }

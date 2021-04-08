@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col, Button, InputGroup, FormControl, CardGroup } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Cross } from 'akar-icons';
 
@@ -21,8 +21,8 @@ export default class Search extends React.Component {
         let hasMore = []
         for (let i of d) {
             hasMore.push(i.scrollHeight > 40)
-        }        
-        if (hasMore.length != this.state.hasMore.length) {          
+        }
+        if (hasMore.length != this.state.hasMore.length) {
             this.setState({ hasMore: hasMore })
         }
     }
@@ -66,17 +66,33 @@ export default class Search extends React.Component {
             a.classList.add(style.box)
         }
     }
+   
 
     render() {
-        return (<>
+        return (<div>
+           
 
-            <Row className={ style.border }>
-                <Col sm={ "auto" }>關鍵字搜尋{ this.state.hasMore }</Col>
-                <Col ><input type="text" className={ style.input } /></Col>
-            </Row>
-            {this.state.count > 0 ? <div>
-                <Row className="align-items-center">
-                    <Col sm={ 2 }>篩選條件</Col>
+            <Row className={style.border}>
+                <Col sm={ 12 }>
+                    <Row className="align-items-center">
+                        <Col sm={"auto" }>關鍵字搜尋：</Col>
+                        <Col>
+                            <InputGroup >
+                                <FormControl
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                />
+
+                            </InputGroup>
+
+                        </Col>
+                        <Col sm={ "auto" }>
+                            <Button variant="outline-secondary">確認</Button>
+                        </Col>
+                    </Row>
+                </Col>
+
+                { this.state.count > 0 ? <><Col sm={ 2 }>篩選條件</Col>
                     { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                         return (<>{ Object.keys(this.props.like[placement]).map(item => {
                             if (this.props.like[placement][item]) {
@@ -90,9 +106,9 @@ export default class Search extends React.Component {
 
                         }) }</>)
                     }) }
-                    <Col><Button variant="outline-secondary" onClick={ this.removeAll } className={ style.button }>清除全部</Button></Col>
-                </Row>
-            </div> : <></> }
+                    <Col><Button variant="outline-secondary" onClick={ this.removeAll } className={ style.button }>清除全部</Button></Col></> : <></> }
+            </Row>
+
 
             <Row >
                 <Col>
@@ -110,12 +126,12 @@ export default class Search extends React.Component {
                                         <label for={ `${placement}-${item}` } className={ style.label }>{ item }</label>
                                     </Col></>)
                                 }) }</Row></Col>
-                            <Col sm={ "auto" }>{this.state.hasMore[index]?(<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>):""}</Col>
+                            <Col sm={ "auto" }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Col>
                         </Row></>)
                     }) }
 
                 </Col>
             </Row>
-        </>)
+        </div>)
     }
 }

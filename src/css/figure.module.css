@@ -56,7 +56,7 @@ div.searchBar {
     /* margin: 3% auto; */
     /* height: auto; */
     margin: 0 auto;
-    width: 85%;
+    width: 95vw;
     background-color: #f5f5f5;
     border-color: black;
 }
@@ -82,4 +82,5 @@ div.searchBar {
 
 .figureC {
     cursor: pointer;
+    margin: 10px 0;
 }

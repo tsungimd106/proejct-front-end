@@ -2,15 +2,16 @@
     border-bottom: 1.4px solid #000000;
     /* text-align: center; */
     /*讓圖片致中 */
-    margin: 10px;
+    margin: 10px 0px;
 }
 
 .navPicture {
-    width: 50%;
+    width: 15vw;
     height: auto;
+    padding: 15px 0px;
 }
 
-.justify-content-center {
+.i_dont_know_how_to_name_it {
     color: #000000;
     font-size: 18px;
     font-weight: bolder;
@@ -35,20 +36,22 @@
     outline: none;
 }
 
-
-#dropdown-basic {
+.down_btn {
     background-color: #ffffff;
     color: #000000;
     padding: 0px;
     border: 0px;
-    box-shadow: none;    
+    box-shadow: none;
 }
 
-
-.dropdown-toggle::after {
+.dropdown_toggle::after {
     content: none;
 }
 
-.dropdown-item {
-    padding: .25rem .5rem;
+.dropdown_item {
+    padding: 0.25rem 0.5rem;
+}
+
+a.pageOn {
+    color: #c0c0c0;
 }
