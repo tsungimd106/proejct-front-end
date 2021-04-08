@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
-import logo_dark from '../../imgs/LOGO1.jpg'
+import logo_dark from '../../imgs/LOGO1.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/selectSubject.css"
 

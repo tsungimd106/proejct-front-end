@@ -66,7 +66,6 @@
     font-weight: bold;
 }
 
-
 .line {
     margin: 10px auto;
     border-bottom: 1.5px solid #4F586B;
@@ -87,15 +86,25 @@
 
 .awssld__content>img {
     width: 100%;
-    
     top: auto;
     left: auto;
 }
 
-.awssld__wrapper{
+:global(.awssld__wrapper) {
     height: 300px !important;
 }
 
+:global(.awssld__controls) button {
+    background-color: #ffffff00;
+}
+
+:global(.awssld__controls) button:hover {
+    background-color: #ffffff00;
+}
+
+:global(.awssld__content) img {
+    width: 10vw;
+}
 
 .show_loading {
     display: flex;
@@ -114,26 +123,26 @@
 }
 
 .slider_item {
-    padding:0;
+    padding: 0;
     margin-bottom: 30px;
 }
 
-.title{
+.title {
     width: 85%;
     margin: 5px auto;
     padding-top: 5%;
 }
 
-.width85{
-    width: 85%;
+.width85 {
+    /* width: 85%; */
     margin: 5% auto;
 }
 
-
-.pimg{
+.pimg {
     width: 100%;
-    margin:auto;
+    margin: auto;
 }
-.msg_name{
+
+.msg_name {
     text-align: center;
 }
