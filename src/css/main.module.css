@@ -146,3 +146,12 @@
 .msg_name {
     text-align: center;
 }
+
+.newhot{
+    padding: 0;
+}
+.newhot_title{
+    background-color: #696969;
+    color: #ffffff;
+}
+
