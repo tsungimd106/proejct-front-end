@@ -49,11 +49,6 @@ class Home extends React.Component {
                     { name: '劉建國', title: "太空發展法訂定草案" },
                     { name: '郭家瑜', title: "新住民孩童教育制定草案" },
                 ],
-                new: [
-                    { name: '王婉諭', title: "公民投票法部分條文修正草案" },
-                    { name: '劉建國', title: "太空發展法訂定草案" },
-                    { name: '郭家瑜', title: "新住民孩童教育制定草案" },
-                ]
             }
             ,
             politics:
@@ -63,11 +58,6 @@ class Home extends React.Component {
                     { name: '劉建國', title: "太空發展法訂定草案" },
                     { name: '郭家瑜', title: "新住民孩童教育制定草案" },
                 ],
-                new: [
-                    { name: '王婉諭', title: "公民投票法部分條文修正草案" },
-                    { name: '劉建國', title: "太空發展法訂定草案" },
-                    { name: '郭家瑜', title: "新住民孩童教育制定草案" },
-                ]
             }
             ,
 
@@ -121,7 +111,7 @@ class Home extends React.Component {
                     </Row>
                 </div>
 
-                <div className={ style.title }>政治人物排行榜
+                {/* <div className={style.title}>政治人物排行榜
                     <Row>
                         { this.state.chart || false ? (<>
                             { this.state.chart.map(placement => {
@@ -141,174 +131,117 @@ class Home extends React.Component {
                             }) }
                         </>) : (<></>) }
                     </Row>
-                </div>
-                <Row className={ style.width85 }>
+                </div> */}
+                <Row className={style.width85}>
                     <Col>
                         <Card>
-                            <Card.Body>最新提案：
+                            <Card.Header as="h5" className={style.newhot_title}>最新提案</Card.Header>
+                            <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
-                                    { this.state.proposal || false ? (<>
-                                        { this.state.proposal.new.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
+                                        {this.state.proposal || false ? (<>
+                                            {this.state.proposal.new.map(placement => {
+                                                return (
+                                                    <ListGroup.Item>
+                                                        <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={3}>
+                                                                <Row className="justify-content-center">
+                                                                    <Col sm={7}><img src={person}/></Col>
+                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
+                                                                </Row>
+                                                            </Col>
+                                                            <Col sm={9}>{placement.title}</Col>
+                                                        </Row>
+                                                    </ListGroup.Item>
+                                                )
+                                            })}
+                                        </>) : (<></>)}
+                                    </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col>
-                        <Card >
-                            <Card.Body>最熱門提案：
+                        <Card>
+                            <Card.Header as="h5" className={style.newhot_title}>最熱門提案</Card.Header>
+                            <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
-                                    { this.state.proposal || false ? (<>
-                                        { this.state.proposal.hot.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
+                                        {this.state.proposal || false ? (<>
+                                            {this.state.proposal.hot.map(placement => {
+                                                return (
+                                                    <ListGroup.Item>
+                                                        <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={3}>
+                                                                <Row className="justify-content-center">
+                                                                    <Col sm={7}><img src={person}/></Col>
+                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
+                                                                </Row>
+                                                            </Col>
+                                                            <Col sm={9}>{placement.title}</Col>
+                                                        </Row>
+                                                    </ListGroup.Item>
+                                                )
+                                            })}
+                                        </>) : (<></>)}
+                                    </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
 
 
-                <Row className={ style.width85 }>
-                    <Col>
+                <Row className={style.width85}>
+                <Col>
                         <Card>
-                            <Card.Body>最新留言：
+                            <Card.Header as="h5" className={style.newhot_title}>最熱門留言</Card.Header>
+                            <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
-                                    { this.state.message || false ? (<>
-                                        { this.state.message.new.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
+                                        {this.state.message || false ? (<>
+                                            {this.state.message.hot.map(placement => {
+                                                return (
+                                                    <ListGroup.Item>
+                                                        <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={3}>
+                                                                <Row className="justify-content-center">
+                                                                    <Col sm={7}><img src={person}/></Col>
+                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
+                                                                </Row>
+                                                            </Col>
+                                                            <Col sm={9}>{placement.title}</Col>
+                                                        </Row>
+                                                    </ListGroup.Item>
+                                                )
+                                            })}
+                                        </>) : (<></>)}
+                                    </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col>
-                        <Card >
-                            <Card.Body>最熱門留言：
+                        <Card>
+                            <Card.Header as="h5" className={style.newhot_title}>最熱門政見</Card.Header>
+                            <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
-                                    { this.state.message || false ? (<>
-                                        { this.state.message.hot.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
+                                        {this.state.politics || false ? (<>
+                                            {this.state.politics.hot.map(placement => {
+                                                return (
+                                                    <ListGroup.Item>
+                                                        <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={3}>
+                                                                <Row className="justify-content-center">
+                                                                    <Col sm={7}><img src={person}/></Col>
+                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
+                                                                </Row>
+                                                            </Col>
+                                                            <Col sm={9}>{placement.title}</Col>
+                                                        </Row>
+                                                    </ListGroup.Item>
+                                                )
+                                            })}
+                                        </>) : (<></>)}
+                                    </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-
-                <Row className={ style.width85 }>
-                    <Col>
-                        <Card>
-                            <Card.Body>最新政見：
-                                <ListGroup variant="flush">
-                                    { this.state.politics || false ? (<>
-                                        { this.state.politics.new.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card >
-                            <Card.Body>最熱門政見：
-                                <ListGroup variant="flush">
-                                    { this.state.politics || false ? (<>
-                                        { this.state.politics.hot.map(placement => {
-                                            return (
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={ true }>
-                                                        <Col sm={ 3 }>
-                                                            <Row className="justify-content-center">
-                                                                <Col sm={ 7 }><img src={ person } className="" /></Col>
-                                                                <Col sm={ 12 }><div className={ style.msg_name }>{ placement.name }</div></Col>
-                                                            </Row>
-
-                                                        </Col>
-                                                        <Col sm={ 8 }>{ placement.title }</Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-
-
             </>)
         } />)
     }
