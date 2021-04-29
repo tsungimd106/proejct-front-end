@@ -1,7 +1,9 @@
 import React from 'react';
 import { Pages } from "../pages.js"
+import { ListGroup, Row, Col, Tab } from "react-bootstrap"
+import { Person, Clipboard, Comment} from 'akar-icons';
 import 'react-awesome-slider/dist/styles.css';
-import "../../css/user.css"
+import style from "../../css/user.module.css"
 
 class User extends React.Component {
     constructor(props) {
@@ -23,37 +25,120 @@ class User extends React.Component {
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (
-                        <div className="profile"> 
-                            <img className="pic" src={this.state.imageData} alt=""/>
-                            <div className="data">
-                                <h5 className="topicBold">暱稱</h5>
-                                <div><input type="text" className="textBox"></input></div>   
-                            </div>   
-                            <div className="data">
-                                <h5 className="topicBold">興趣類別</h5>
-                                <div><input type="text" className="textBox"></input></div>
-                            </div>
-                            <div className="data">
-                                <h5 className="topicBold">生日</h5>
-                                <div><input type="text" className="textBox"></input></div>
-                            </div>  
-                            <div className="data">
-                                <h5 className="topicBold">性別</h5>
-                                <div><input type="text" className="textBox"></input></div>
-                            </div>  
-                            <div className="data">
-                                <h5 className="topicBold">地區</h5>
-                                <div><input type="text" className="textBox"></input></div>
-                            </div>     
-                            <div className="data">
-                                <h5 className="topicBold">密碼</h5>
-                                <div><input type="text" className="textBox"></input></div>
-                            </div>                        
-                        </div>)
+
+                            <div >
+                                <Row>
+                                    <Col>
+                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                            <Row>
+                                                <Col sm={2.5}>
+                                                    <ListGroup>
+                                                        <ListGroup.Item eventKey="f">
+                                                            <Row>
+                                                                <Col><Person/>
+                                                                    <Row>
+                                                                        <Col>我的個人檔案</Col>
+                                                                    </Row>
+                                                                </Col>
+                                                            </Row>                                                            
+                                                        </ListGroup.Item>
+                                                        <ListGroup.Item eventKey="s">
+                                                            <Row>
+                                                                <Col><Clipboard/>
+                                                                    <Row>
+                                                                        <Col>我的收藏</Col>
+                                                                    </Row>
+                                                                </Col>
+                                                            </Row>
+                                                        </ListGroup.Item>
+                                                        <ListGroup.Item eventKey="t">                                                            
+                                                            <Row>
+                                                                <Col><Comment/>
+                                                                    <Row>
+                                                                        <Col>我的留言&投票紀錄</Col>
+                                                                    </Row>
+                                                                </Col>
+                                                            </Row>
+                                                        </ListGroup.Item>
+                                                    </ListGroup>
+                                                </Col>
+                                                <Col sm={8}>
+                                                    <Tab.Content>
+                                                        <Tab.Pane eventKey="f">
+                                                            <MyProfile d={this.state.imageData}/>
+                                                        </Tab.Pane>
+                                                        <Tab.Pane eventKey="s">
+                                                            <MySave />
+                                                        </Tab.Pane>
+                                                        <Tab.Pane eventKey="t">
+                                                            <MyRecord />
+                                                        </Tab.Pane>
+                                                    </Tab.Content>
+                                                </Col>
+                                            </Row>
+                                        </Tab.Container>
+                                    </Col>
+
+                                </Row>
+
+                            </div>)
                     })}
                 </>) : (<></>)}
             </>)
         } />)
+    }
+}
+class MyProfile extends React.Component {
+    render() {
+        return (<>
+        <Row>
+            <Col className={style.profile}>
+                <img className={style.pic} src={this.props.d} alt="" />
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>暱稱</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>興趣類別</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>生日</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>性別</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>地區</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+                <div className={style.data}>
+                    <h5 className={style.topicBold}>密碼</h5>
+                    <div><input type="text" className={style.textBox}></input></div>
+                </div>
+            </Col>
+            </Row>
+        </>);
+    }
+}
+
+class MySave extends React.Component {
+    render() {
+        return (<>
+
+            我的收藏(提案)
+        </>);
+    }
+}
+
+class MyRecord extends React.Component {
+    render() {
+        return (<>
+
+            留言、投票紀錄
+        </>);
     }
 }
 
