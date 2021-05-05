@@ -112,7 +112,7 @@ class Home extends React.Component {
                     </Row>
                 </div>
 
-                {/* <div className={style.title}>政治人物排行榜
+                {/* <div className={ style.title }>政治人物排行榜
                     <Row>
                         { this.state.chart || false ? (<>
                             { this.state.chart.map(placement => {
@@ -133,7 +133,7 @@ class Home extends React.Component {
                         </>) : (<></>) }
                     </Row>
                 </div> */}
-                <Row className={style.width85}>
+                <Row className={ style.width85 }>
                     <Col>
                         <Card>
                             <Card.Header as="h5" className={style.newhot_title}><Book className={style.tab}/>最新提案</Card.Header>
