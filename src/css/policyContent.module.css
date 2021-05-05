@@ -52,7 +52,7 @@ list-group {
 }
 
 .yellow {
-    color: #fff000
+    color: #ffee02fb
 }
 
 .green {
@@ -61,4 +61,6 @@ list-group {
 
 .size {
     width: 10vw;
+    height: 200px;
+    margin: 0 5vw;
 }

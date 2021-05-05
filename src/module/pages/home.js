@@ -7,6 +7,7 @@ import person from "../../imgs/person.png"
 import f from "../../imgs/f.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
+import { Fire,Book } from 'akar-icons';
 import style from "../../css/main.module.css"
 
 
@@ -111,7 +112,7 @@ class Home extends React.Component {
                     </Row>
                 </div>
 
-                {/* <div className={style.title}>政治人物排行榜
+                {/* <div className={ style.title }>政治人物排行榜
                     <Row>
                         { this.state.chart || false ? (<>
                             { this.state.chart.map(placement => {
@@ -132,10 +133,10 @@ class Home extends React.Component {
                         </>) : (<></>) }
                     </Row>
                 </div> */}
-                <Row className={style.width85}>
+                <Row className={ style.width85 }>
                     <Col>
                         <Card>
-                            <Card.Header as="h5" className={style.newhot_title}>最新提案</Card.Header>
+                            <Card.Header as="h5" className={style.newhot_title}><Book className={style.tab}/>最新提案</Card.Header>
                             <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
                                         {this.state.proposal || false ? (<>
@@ -161,7 +162,7 @@ class Home extends React.Component {
                     </Col>
                     <Col>
                         <Card>
-                            <Card.Header as="h5" className={style.newhot_title}>最熱門提案</Card.Header>
+                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門提案</Card.Header>
                             <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
                                         {this.state.proposal || false ? (<>
@@ -191,7 +192,7 @@ class Home extends React.Component {
                 <Row className={style.width85}>
                 <Col>
                         <Card>
-                            <Card.Header as="h5" className={style.newhot_title}>最熱門留言</Card.Header>
+                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門留言</Card.Header>
                             <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
                                         {this.state.message || false ? (<>
@@ -217,7 +218,7 @@ class Home extends React.Component {
                     </Col>
                     <Col>
                         <Card>
-                            <Card.Header as="h5" className={style.newhot_title}>最熱門政見</Card.Header>
+                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門政見</Card.Header>
                             <Card.Body  className={style.newhot}>
                                 <ListGroup variant="flush">
                                         {this.state.politics || false ? (<>

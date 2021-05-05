@@ -29,7 +29,7 @@ class User extends React.Component {
                             <div >
                                 <Row>
                                     <Col>
-                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="f">
                                             <Row>
                                                 <Col sm={2.5}>
                                                     <ListGroup>

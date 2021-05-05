@@ -52,7 +52,7 @@ export class TaskModal extends React.Component {
                             <center className="modalLabel">{ this.props.message }</center>
                             <Row>
                                 { this.props.tag.map(placement => {
-                                    return (<Col sm={"auto"}>
+                                    return (<Col sm={ "auto" }>
                                         #{placement }
                                     </Col>)
 
@@ -72,3 +72,40 @@ export class TaskModal extends React.Component {
         </>)
     }
 }
+
+export class ReportModal extends React.Component {
+    render() {
+        return (<>
+            <ModalBase
+                show={ this.props.show } message="檢舉"
+                ok={ this.props.ok }
+                close={ this.props.close }
+                content={ (<>
+                
+                    {this.props.rule && this.props.rule.map((item, index) => {
+                        return (<div><input type="checkbox" name="report" id="" value={item.id}/>{ item.context }</div>)
+                    }) }
+                    <p>備註</p>
+                    <input type="text" />
+                </>) } />
+        </>)
+    }
+}
+
+
+export class ProposalEditModal extends React.Component {
+    render() {
+        return (<>
+            <ModalBase
+                show={ this.props.show } message="提案編輯"
+                ok={ this.props.ok }
+                close={ this.props.close }
+                content={ (<>
+                
+                   
+                   各種輸入框
+                </>) } />
+        </>)
+    }
+}
+
