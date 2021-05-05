@@ -1,23 +1,31 @@
 import React from 'react';
-import { Row, Col, Carousel, InputGroup, Form, textarea, Button, ListGroup } from "react-bootstrap"
-import Selector from '../mutiSelect/mutiSelect';
+import { Row, Col, Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
 import Chart from 'react-apexcharts'
+import style from "../../css/policyContent.module.css"
 import "../../css/policyContent.css"
-import agree from "../../imgs/agree.png"
-import neutral from "../../imgs/neutral.png"
-import oppose from "../../imgs/oppose.png"
+
 import person from "../../imgs/person.png"
-import { Width } from 'akar-icons';
+import { Width, FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
+import { ProposalR } from "../request/proposalR"
+import { ModalBase, ReportModal } from "../modal"
+
 class PolicyContent extends React.Component {
+
+
     data = [
 
     ]
     constructor(props) {
         super(props)
+
         this.state = {
+            "login": !!localStorage.getItem("login"),
+            userName: localStorage.getItem("login"),
+            reportModal: false,
             kpi: {
                 series: [10, 50, 40],
                 options: {
@@ -59,7 +67,7 @@ class PolicyContent extends React.Component {
             message: [
                 {
                     m: { name: "1", content: "這真的很讚ㄟ" },
-                    d: [{ name: "1.1", content: "希望不會大排長榮" },{ name: "1.2", content: "希望不會大排長榮" }]
+                    d: [{ name: "1.1", content: "希望不會大排長榮" }, { name: "1.2", content: "希望不會大排長榮" }]
                 },
             ],
             imageData: [
@@ -70,110 +78,162 @@ class PolicyContent extends React.Component {
 
             ],
             vote: { title: "我是標題", content: "我是內文", tag: ["金融", "國防"], vote: [43, 53, 4] },
+            voteValue: [null],
+            proposalId: props.match.params.id,
+            noteModal: false
 
         }
     }
+    componentDidMount() {
+        this.getMsg()
+    }
+    showNoteModal = (m) => {
+
+        this.setState({ noteModal: !this.state.noteModal, noteModalC: m })
+    }
+    closeNoteModal = () => {
+        this.setState({ noteModal: false })
+
+    }
+    vote = () => {
+
+        ProposalR.vote({ user_id: this.state.userName, sp_id: this.state.voteValue, proposal_id: this.state.proposalId }).then(response => {
+            console.log(response)
+            if (response.data.success) {
+                this.showNoteModal("投票成功")
+            }
+        })
+
+    }
+    voteChange = (val) => this.setState({ voteValue: val });
+
+    getMsg = () => {
+        ProposalR.msgList(this.state.proposalId).then(response => {
+            console.log(response.data)
+            this.setState({ msgL: response.data.data })
+        })
+    }
+
+    msg = () => {
+        let msg = document.getElementById("msg")
+
+        console.log(msg.value)
+        ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposalId, parent_id: 0 }).then(response => {
+            if (response.data.success) {
+                msg.value = ""
+                this.getMsg()
+                this.showNoteModal("留言成功")
+
+            }
+        })
+    }
+    showReport = () => {
+        let rule = {}
+        if (!this.state.ReportModal) {
+            ProposalR.rule().then(response => {
+                rule = response.data.data
+                console.log(rule)
+                this.setState({
+                    reportModal: !this.state.reportModal,
+                    rule: rule
+                })
+                
+            })
+        }
+       
+    }
+    report = () => { }
+
 
     render() {
+
         return (<Pages id={ 2 } page={
             (<>{ }
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className="topic justify-content-center">
-                            <h2 className="topicBold">{placement.title}</h2>
+                            <h2 className="topicBold">{ placement.title }</h2>
                             <p >
                                 <Row>
-                                    <Col sm={"auto"} className="lable" >{placement.date}</Col>
-                                    {placement.tag.map(item => (<Col sm={"auto"} className="lable">#{item}</Col>))}
-                                    <Col sm={12}>
-                                        <div className="content">{placement.content}</div>
+                                    <Col sm={ "auto" } className="lable" >{ placement.date }</Col>
+                                    { placement.tag.map(item => (<Col sm={ "auto" } className="lable">#{item }</Col>)) }
+                                    <Col sm={ 12 }> <Row>
+                                        <Col sm={ "auto" }>提案人</Col>
+                                        <Col sm={ "auto" }>王婉諭</Col>
+                                    </Row></Col>
+                                    <Col sm={ 12 }>
+                                        <div className="content">{ placement.content }</div>
                                     </Col>
-                                    <Col sm={12}>
+                                    { this.state.login && (<Col sm={ 12 }>
                                         <div className="lable">
                                             您的看法：<div>(請點選投票)</div>
                                         </div>
-                                        <Row>
-                                            <Col sm={4}><img src={agree} alt="" /></Col>
-                                            <Col sm={4}><img src={neutral} alt="" /></Col>
-                                            <Col sm={4}><img src={oppose} alt="" /></Col>
+                                        <Row className="justify-content-center">
+                                            <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
+                                                onChange={ this.voteChange }>
+                                                <ToggleButton variant="light" value={ 0 }> <FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
+                                                <ToggleButton variant="light" value={ 1 }><FaceNeutral className={ style.yellow + " " + style.size } /></ToggleButton>
+                                                <ToggleButton variant="light" value={ 2 }><FaceSad className={ style.red + " " + style.size } /> </ToggleButton>
+
+
+                                            </ToggleButtonGroup>
+                                            <Col sm={ "auto" }><Button variant="outline-dark" onClick={ this.vote }>確定</Button></Col>
                                         </Row>
+
+                                    </Col>) }
+                                    <Col sm={ 3 }><div className="lable">RUN民看法：</div></Col>
+                                    <Col sm={ 12 }></Col> <Col sm={ 3 }></Col>
+                                    <Col sm={ 6 }>
+                                        <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
                                     </Col>
-                                    <Col sm={3}><div className="lable">RUN民看法：</div></Col>
-                                    <Col sm={12}></Col> <Col sm={3}></Col>
-                                    <Col sm={6}>
-                                        <Chart options={this.state.kpi.options} series={this.state.kpi.series} type="donut" />
-                                    </Col>
-                                    <Col sm={12}>
+                                    <Col sm={ 12 }>
                                         <div className="mes">
                                             <div className="mesTitle">RUN民討論專區</div>
                                             <ListGroup variant="flush">
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={true}>
-                                                        <Col sm={"auto"}><img src={person} className="pimg" /></Col>
-                                                        <Col>   
-                                                            <Row className="align-items-center">
-                                                                <Col  sm={"auto"}><span className="mesTitle">曹阿砲</span></Col>
-                                                                <Col  sm={"auto"}> <span className="lable">2021/3/24 12:35</span></Col>
-                                                                <Col><a href="" className="mesrp">檢舉</a></Col>
-                                                            </Row>
-                                                            <Row>
-                                                                <Col>希望不會大排長榮</Col>
-                                                            </Row>
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={"auto"}><img src={person} className="pimg" /></Col>
-                                                            <Col>   
+
+                                                { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                                    return (<ListGroup.Item>
+                                                        <Row className="align-items-center" noGutters={ true }>
+                                                            <Col sm={ "auto" }><img src={ person } className="pimg" /></Col>
+                                                            <Col>
                                                                 <Row className="align-items-center">
-                                                                    <Col  sm={"auto"}><span className="mesTitle">羅阿翔</span></Col>
-                                                                    <Col  sm={"auto"}> <span className="lable">2021/3/20 12:22</span></Col>
-                                                                    <Col><a href="" className="mesrp">檢舉</a></Col>
+                                                                    <Col sm={ "auto" }><span className="mesTitle">{ placement.user_id }</span></Col>
+                                                                    <Col sm={ "auto" }> <span className="lable">{ placement.time }</span></Col>
+                                                                    <Col>
+                                                                        <button onClick={ this.showReport }>檢舉</button>
+                                                                    </Col>
+                                                                    <Col sm={ 12 }>{ placement.content }</Col>
                                                                 </Row>
-                                                                <Row>
-                                                                    <Col>這真的很讚ㄟ!</Col>
-                                                                </Row>
+
                                                             </Col>
                                                         </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={"auto"}><img src={person} className="pimg" /></Col>
-                                                            <Col>   
-                                                                <Row className="align-items-center">
-                                                                    <Col  sm={"auto"}><span className="mesTitle">黃阿淇</span></Col>
-                                                                    <Col  sm={"auto"}> <span className="lable">2021/3/20 12:22</span></Col>
-                                                                    <Col><a href="" className="mesrp">檢舉</a></Col>
-                                                                </Row>
-                                                                <Row>
-                                                                    <Col>一路順風</Col>
-                                                                </Row>
-                                                            </Col>
-                                                        </Row>
-                                                </ListGroup.Item>
-                                                
+                                                    </ListGroup.Item>)
+                                                })) : <></> }
                                             </ListGroup>
-                                            <Form>
+                                            <hr />
+
+                                            { this.state.login && (<Form>
                                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                                     <Form.Label>我的留言：</Form.Label>
                                                     <InputGroup >
-                                                        <Form.Control as="textarea" rows={2} />
+                                                        <Form.Control as="textarea" rows={ 2 } id="msg" />
                                                         <InputGroup.Append>
-                                                            <Button variant="outline-secondary">送出</Button>
+                                                            <Button variant="outline-secondary" onClick={ this.msg }>送出</Button>
                                                         </InputGroup.Append>
                                                     </InputGroup>
-                                                    
+
                                                 </Form.Group>
-                                            </Form>
+                                            </Form>) }
                                         </div>
                                     </Col>
                                 </Row>
                             </p>
 
                         </div>)
-                    })}
-                </>) : (<></>)}
+                    }) }
+                </>) : (<></>) }
+                <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } />
+                <ReportModal show={ this.state.reportModal } ok={ this.report } close={ this.showReport } rule={this.state.rule}/>
             </>)
         } />)
     }
@@ -185,7 +245,7 @@ class PolicyContent extends React.Component {
 
 export default PolicyContent = {
     routeProps: {
-        path: "/PolicyContent",
+        path: "/PolicyContent/:id",
         component: PolicyContent
     },
     name: "提案內容"

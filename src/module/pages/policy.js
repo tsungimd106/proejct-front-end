@@ -5,27 +5,36 @@ import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import 'react-awesome-slider/dist/styles.css';
-import "../../css/policy.css"
+import style from "../../css/policy.module.css"
+import { ProposalR } from "../request/proposalR"
 
 
 class Policy extends React.Component {
-    
+
     data = [
 
     ]
+
+
     constructor(props) {
         super(props)
+        ProposalR.list().then(response => {
+            console.log(response)
+            this.setState({ Sdata: response.data.data })
+
+        })
+
         this.state = {
             kpi: {
-                series: [10, 50 ,40],
+                series: [10, 50, 40],
                 options: {
-                    colors: ['#95c95d', '#e3e53a','#e52125'],                
+                    colors: ['#95c95d', '#e3e53a', '#e52125'],
                     labels: ["同意", "中立", "反對"],
 
                 },
             },
             data: [
-                
+
                 {
                     title: "公民投票法部分條文修正草案", content: "兒童及少年扶養津貼條例草案總說明\
                 一、依行政院經濟建設委員會所作人口推計的中推計，2018 年新生兒的出生數預估會減少至 17.5\
@@ -82,14 +91,26 @@ class Policy extends React.Component {
 
         }
     }
-    toContent = () => {
-        document.location.href = `.#/policyContent/`
+    toContent = (id) => {
+        document.location.href = `.#/policyContent/${id}`
+    }
+    componentDidMount() {
+        this.setState({ condData: [{ n: "進度", d: ["完全落實", "部分落實", "進行中"] }] })
+    }
+    test = () => {
+        fetch("http://localhost:5000/politician/list?name='abc','name'&name=[ab,dd]", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+            },
+            
+        }).then(res => res.json()).then(r => { console.log(r) })
     }
 
-    
 
     render() {
-        return (<Pages id={2} page={
+        return (<Pages id={ 2 } page={
             (<>
                 {/* <div className="selectLeft">
                     <select className="select" name="議題">
@@ -158,7 +179,7 @@ class Policy extends React.Component {
                                 <option value="ind">1</option>
                             </select>
                         </Col>
-                        <Col sm={10} className="selectTitle">提案進度：
+                        <Col sm={ 10 } className="selectTitle">提案進度：
                             <select className="select" name="提案進度">
                                 <option value="" selected>不限</option>
                                 <option value="eco">退回程序</option>
@@ -171,39 +192,61 @@ class Policy extends React.Component {
                         </Col>
                     </Row>
                     <Selector
-                        data={this.state.sndata}
+                        data={ this.state.sndata }
                         selectedTitle="姓名："
-                        getSelected={values => alert(JSON.stringify(values))}
+                        getSelected={ values => alert(JSON.stringify(values)) }
                     />
                     <Selector
-                        data={this.state.scdata}
+                        data={ this.state.scdata }
                         selectedTitle="分類："
-                        getSelected={values => alert(JSON.stringify(values))}
+                        getSelected={ values => alert(JSON.stringify(values)) }
                     />
 
                 </div>
+                <button onClick={ this.test }>clic me</button>
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
-                        return (<div className="topicBox justify-content-center" onClick={() => { this.toContent(placement.id) }}>
+                        return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>
                             <Row>
                                 <Col>
-                                    <h3 className="topicBoxBold ">{placement.title}</h3>
-                                    <p className="topicBoxBold ">
+                                    <h3 className={ style.topicBoxBold }>{ placement.title }</h3>
+                                    <p className={ style.topicBoxBold }>
                                         <Row>
-                                            <Col sm={"auto"}>{placement.date}</Col>
-                                            {placement.tag.map(item => (<Col sm={"auto"}>#{item}</Col>))}
+                                            <Col sm={ "auto" }>{ placement.date }</Col>
+                                            { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) }
                                         </Row>
                                     </p>
-                                    <p className="ellipsis">{placement.content}</p>
+                                    <p className={ style.ellipsis }>{ placement.content }</p>
                                 </Col>
-                                <Col sm={4} >
+                                <Col sm={ 4 } >
                                     <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
                                 </Col>
                             </Row>
 
                         </div>)
-                    })}
-                </>) : (<></>)}
+                    }) }
+                </>) : (<></>) }
+                <hr />
+                {this.state.Sdata && this.state.Sdata.map((placement, index) => {
+                    return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>
+                        <Row>
+                            <Col>
+                                <h3 className={ style.topicBoxBold }>{ placement.title }</h3>
+                                <p className={ style.topicBoxBold }>
+                                    {/* <Row>
+                                        <Col sm={ "auto" }>{ placement.date }</Col>
+                                        { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) }
+                                    </Row> */}
+                                </p>
+                                {/* <p className="ellipsis">{ placement.content }</p> */ }
+                            </Col>
+                            {/* <Col sm={ 4 } >
+                                <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
+                            </Col> */}
+                        </Row>
+
+                    </div>)
+                }) }
             </>)
         } />)
     }

@@ -90,6 +90,10 @@
     left: auto;
 }
 
+:global(.awssld__content) img {
+    width: 10vw;
+}
+
 :global(.awssld__wrapper) {
     height: 300px !important;
 }
@@ -102,9 +106,10 @@
     background-color: #ffffff00;
 }
 
-:global(.awssld__content) img {
+
+/* :global(.awssld__content) img {
     width: 10vw;
-}
+} */
 
 .show_loading {
     display: flex;
@@ -125,6 +130,10 @@
 .slider_item {
     padding: 0;
     margin-bottom: 30px;
+}
+
+.slider_item:first-child img {
+    width: auto;
 }
 
 .title {

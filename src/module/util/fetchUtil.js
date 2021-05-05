@@ -14,6 +14,7 @@ export class FetchUtil {
             url += `?${this.objectToRequestParams(data)}`;
             console.log(url)
         }
+        // console.log(requestOptions)
         return await fetch(`${BASE_URL}${url}`, requestOptions)
             .then(this.responseToJSON)
             .then(this.handleResponse);

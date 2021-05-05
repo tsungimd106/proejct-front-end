@@ -32,13 +32,13 @@ class FigureDetail extends React.Component {
                     options: {
                         // colors: ['#E4E7f0', '#955242'],
                         colors: ['#955242'],
-                        labels: ["50"],
+                        labels: ["50分"],
                         legend: {
                             show: false,
                         }, plotOptions: {
                             radialBar: {
-                                dataLabels: {                                    
-                                    name:{                                        
+                                dataLabels: {
+                                    name: {
                                         fontSize: '20px',
                                         color: "#fff",
                                     },
@@ -53,13 +53,13 @@ class FigureDetail extends React.Component {
                     series: [88],
                     options: {
                         colors: ['#955242'],
-                        labels: ["88"],
+                        labels: ["88%"],
                         legend: {
                             show: false,
                         }, plotOptions: {
                             radialBar: {
-                                dataLabels: {                                    
-                                    name:{                                        
+                                dataLabels: {
+                                    name: {
                                         fontSize: '20px',
                                         color: "#fff",
                                     },
@@ -73,12 +73,20 @@ class FigureDetail extends React.Component {
                 persoal: {
                     option: {
                         xaxis: {
-                            categories: ["step 1", "step 2", "step 3", "step 4", "step 5", "step 6", "step 7"]
+                            categories: ["step 1", "step 2", "step 3", "step 4", "step 5", "step 6", "step 7"],
+                            labels: {
+                                style: {
+                                    colors: ["#fff", "#fff", "#fff", "#fff", "#fff", "#fff", "#fff", "#fff",]
+                                }
+                            }
                         },
+                        yaxis: { labels: { style: { colors: ["#fff"] } } },
                         fill: {
                             colors: ['#f8f9EE',],
                             opacity: 1.0,
-                        },
+                        }, chart: {
+                            toolbar: { show: false }
+                        }
 
                     },
                     series: [
@@ -92,148 +100,151 @@ class FigureDetail extends React.Component {
                 }
 
             },
+            go: [{
+                name: "走勢圖",
+                data: [99, 98]
+            }],
+            goO: {
+
+                chart: {
+
+                    toolbar: {
+                        show: false,
+                    }
+                },
+                colors: ['#77B6EA'],
+                dataLabels: {
+                    enabled: true,
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                title: {
+                    text: '走勢圖',
+                    align: 'left',
+                    style: {
+                        color: "#fff"
+                    }
+                },
+
+                xaxis: {
+                    categories: ['9', '10'],
+                    title: {
+                        text: '',
+                        style: {
+                            color: "#fff"
+                        }
+                    },
+                    labels: { style: { colors: ["#fff", "#fff"] } }
+                }, yaxis: { labels: { style: { colors: ["#fff"] } } },
+
+
+
+            },
+
 
         }
     }
     componentDidMount() {
         this.figureID = this.props.match.params.id
-        trackPromise(
-            PoliticianR.detail(this.figureID).then(res => {
-                console.log(res)
-                this.setState({ "resData": res.data.data[0] })
-                console.log(res.data.data[0])
-                let cond = [{
-                    no:
-                        "a_n", name: "地區"
-                }, { no: "address", name: "地址" }, { no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
-                let selfD = []
-                cond.map(placement => {
-                    if (placement["no"] in res.data.data[0]) {
-                        selfD.push({ "title": res.data.data[0][placement.no] })
-                    }
+        // trackPromise(
+        PoliticianR.detail(this.figureID).then(res => {
+            console.log(res)
+            this.setState({ "resData": res.data.data[0] })
+            console.log(res.data.data[0])
+            let cond = [{
+                no: "a_n", name: "地區"
+            }, { no: "name", name: "姓名" }, { no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+            let selfD = []
+            cond.map(placement => {
+                if (placement["no"] in res.data.data[0]) {
+                    selfD.push({ "title": res.data.data[0][placement.no].replace(/;/g, "<br />")
                 })
-                this.setState({ selfD: selfD })
+        }
             })
-        )
+            this.setState({ selfD: selfD })
+        })
+        // )
 
     }
 
-    render() {
-        return (<Pages id={ 3 } page={
-            (<>
-                <div className={style.people}>
-                    {
-                        <Row className="justify-content-center ">
-                            <div>
-                                <Row className={style.dashboard}>
-                                    <Col sm={3} className={style.dashboardcard}>
-                                        
-                                        <img src={ this.state.resData?.photo } className={style.figurePh}></img>
-                                        { this.state.selfD && this.state.selfD.map(placement => {
-                                        return (<>
-                                            <div className={style.white}>{ placement.title }</div>
-                                        </>)
-                                    }) }
-                                    </Col>
-                                    <Col sm={6}>
-                                        <Row className={style.dashboardcard}>
-                                            <Col className={style.white}>政見分數
-                                            <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
+render() {
+    return (<Pages id={ 3 } page={
+        (<>
+            <div className={ style.people }>
+                {
+                    <Row className="justify-content-center ">
+                        <div>
+                            <Row className={ style.dashboard }>
+                                <Col sm={ 3 } className={ style.dashboardcard }>
+                                    <Row>
+                                        <Col>
+                                            <img src={ this.state.resData?.photo } className={ style.figurePh }></img>
+                                        </Col>
+                                        <Col>
 
-                                            </Col>
-                                            <Col className={style.white}>走勢圖</Col>
-                                        </Row>
-                                        <Row className={style.dashboardcard}>
-                                        <Col className={style.white}>出席率
-                                        <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" /></Col>
-                                            <Col className={style.white}> 走勢圖</Col>
-                                        </Row>
-                                        <Row className={style.dashboardcard}>
-                                            <Col  className={style.white}>
-                                            提案圖
-                                            <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
-                                            </Col>
-                                           
-                                        </Row>
-                                    </Col>
-                                    <Col sm={3} className={style.dashboardcard}>
-                                        <span className={style.white}>政見</span>
-                                    { this.state.data.todo.map((placement, index) => {
-                                return (<>
-                                    <div><CardDeck><Card>
-                                        <Card.Header>#{ placement.tag }</Card.Header>
-                                        <Card.Body>
-                                            <Card.Text>{ placement.t }</Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer>Read more</Card.Footer>
-                                    </Card></CardDeck>
-                                        <hr /></div>
-                                </>)
-                            }) }
-                                    </Col>
-                                </Row>
-                            </div>
+                                        </Col>
+                                    </Row>
 
-                            <Col sm={ 4 } className={style.name}>
-                                <Row className=" align-items-center">
-                                    <Col ><img src={ this.state.resData?.photo ?? "" }></img></Col>
-                                    <Col>{ this.state.resData?.name ?? "" }</Col>
-
-                                </Row>
-                            </Col>
-                            <Col sm={ 6 } className={style.self}>
-
-                                <Row dashboardcard>
                                     { this.state.selfD && this.state.selfD.map(placement => {
                                         return (<>
-                                            <p>{ placement.title }</p>
+                                            <div className={ style.white }>{ placement.title }</div>
                                         </>)
                                     }) }
-                                </Row>
-                            </Col>
-                            <Col sm={ 10 } className=""><p>經歷</p>
-                                { this.state.resData?.experience }
-                            </Col>
-                            <Col sm={ 5 }>
-                                <Row>
-                                    <Col sm={ 6 } ><p>政見績效評分</p>
-                                        <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
+                                </Col>
+                                <Col sm={ 6 }>
+                                    <Row className={ style.dashboardcard }>
+                                        {/* <Col className={ style.white }>政見分數
+                                            <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
 
-                                    </Col>
-                                    <Col sm={ 6 } ><p>出席率</p>
-                                        <Chart options={ this.state.data.kpi.options } series={ this.state.data.attendanceRate.series } type="donut" />
+                                            </Col> */}
+                                        <Col className={ style.white }>
+                                            <Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 350 } />
+                                        </Col>
+                                    </Row>
+                                    <Row className={ style.dashboardcard }>
+                                        {/* <Col className={ style.white }>出席率
+                                                <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" />
+                                            </Col> */}
+                                        <Col className={ style.white }>
+                                            <Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 350 } />
+                                        </Col>
+                                    </Row>
+                                    <Row className={ style.dashboardcard }>
+                                        <Col className={ style.white }>
+                                            提案圖
+                                            <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
+                                        </Col>
 
-                                    </Col>
-                                    <Col  >提案
-                        <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
-                                    </Col>
-                                </Row>
-                            </Col>
-
-                            <Col sm={ 5 }>
-                                政見
-                                { this.state.data.todo.map((placement, index) => {
-                                return (<>
-                                    <div><CardDeck><Card>
-                                        <Card.Header>#{ placement.tag }</Card.Header>
-                                        <Card.Body>
-                                            <Card.Text>{ placement.t }</Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer>Read more</Card.Footer>
-                                    </Card></CardDeck>
-                                        <hr /></div>
-                                </>)
-                            }) }
-
-                            </Col>
+                                    </Row>
+                                </Col>
+                                <Col sm={ 3 } className={ style.dashboardcard }>
+                                    <span className={ style.white }>政見</span>
+                                    { this.state.data.todo.map((placement, index) => {
+                                        return (<>
+                                            <div><CardDeck><Card>
+                                                <Card.Header>#{ placement.tag }</Card.Header>
+                                                <Card.Body>
+                                                    <Card.Text>{ placement.t }</Card.Text>
+                                                </Card.Body>
+                                                <Card.Footer>Read more</Card.Footer>
+                                            </Card></CardDeck>
+                                                <hr /></div>
+                                        </>)
+                                    }) }
+                                </Col>
+                            </Row>
+                        </div>
 
 
 
-                        </Row>
-                    }</div>
-            </>)
-        } />)
-    }
+
+
+                    </Row>
+                }</div>
+        </>)
+    } />)
+}
 }
 
 

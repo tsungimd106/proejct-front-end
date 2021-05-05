@@ -22,74 +22,26 @@ class Figure extends React.Component {
         }
     }
     componentDidMount() {
-        // var myHeaders = new Headers({
-        //     "Content-Type": "text/plain",
-        //     "Access-Control-Allow-Origin": '*'
-        // });
-
-        // var myInit = {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        //     // mode: 'cors',
-        // };
-        // fetch("http://140.131.114.148:8080/politician/",
-        //     myInit
-        // ).then(function (response) {
-        //     return response.json();
-        // })
-        //     .then(function (myJson) {
-        //         console.log(myJson);
-        //     }).catch(function (error) {
-        //         console.log('There has been a problem with your fetch operation: ', error.message);
-        //     });
-
 
         // trackPromise(
         PoliticianR.getList().then(response => {
-            console.log(response.data)
-            console.log(typeof response.data)
-            console.log(Array.isArray(response.data))
-
 
             this.setState({ "data": response.data.data, resource: response.data.data })
         })
-        PoliticianR.area().then(response => {
-            let d = this.state.like
-            let dd = {}
-            for (let j of response.data.data) {
-                dd[j.other] = false
+        PoliticianR.cond().then(response => {           
+            let test = {}
+            for (let i of response.data.data) {
+                let inside = {}
+                for (let j of i.data) {
+                    inside[j.name] = false                    
+                }
+                test[i.name]=inside
+                
             }
-            d["地區"] = dd
-            this.setState({ area: response.data })
+            this.setState({"like":test})
         })
-        PoliticianR.name().then(response => {
-            let d = this.state.like
-            let dd = {}
-            for (let j of response.data.data) {
-                dd[j.name] = false
-            }
-            d["姓名"] = dd
-            this.setState({ area: response.data })
-        })
-        PoliticianR.term().then(response => {
-            let d = this.state.like
-            let dd = {}
-            for (let j of response.data.data) {
-                dd[j.term] = false
-            }
-            d["屆別"] = dd
-            this.setState({ area: response.data })
-        })
-        // )
-
-
-
-
-        // PoliticianR.getList().then(response => {
-        //     this.setState({ "listD": response.data.data })
-        //     console.log(response.data.data)
-        //     // console.log(response)
-        // })
+        
+       
 
     }
 
@@ -97,10 +49,10 @@ class Figure extends React.Component {
         let d = {}
         let term = []
         let area = []
+        let name = []
 
         console.log(this.state.like)
         for (let key in this.state.like) {
-
             for (let v in this.state.like[key]) {
                 if (this.state.like[key][v]) {
                     switch (key) {
@@ -110,6 +62,8 @@ class Figure extends React.Component {
                         case "地區":
                             area.push(v)
                             break;
+                        case "姓名":
+                            name.push(v)
                     }
                 }
 
@@ -128,13 +82,20 @@ class Figure extends React.Component {
                 let res = false
                 let areab = false
                 let termb = false
+                let nameb = false
 
-                if (area.length > 0) { area.forEach(item => { if (i["other"] == item) areab = true; }) }
-                if (term.length > 0) { term.forEach(item => { if (i["term"] == item) termb = true }) }
+                if (area.length > 0) { area.forEach(item => { if (i["a_n"] == item) { areab = true; return; } }) }
+                if (term.length > 0) {
+                    term.forEach(item => { if (i["term"] == item) { termb = true; return; } })
+                }
+                if (name.length > 0) {
+                    name.forEach(item => { if (i["name"] == item) { nameb = true; return; } })
+                }
                 areab = area.length > 0 ? areab : true
                 termb = term.length > 0 ? termb : true
+                nameb = name.length > 0 ? nameb : true
 
-                return areab & termb
+                return areab & termb & nameb
             })
             console.log(newd)
 
@@ -142,20 +103,15 @@ class Figure extends React.Component {
 
         }
 
-        PoliticianR.getList(d).then(response => {
-            console.log(response.data.data)
-            if (response.data.data) {
 
-            }
-        }).catch(e => { console.log(e) })
     }
 
     toDetail = (toName) => {
         document.location.href = `.#/figure/${toName}`
     }
     onScroll = (e) => {
-      let element =e.target
-      console.log(element)
+        let element = e.target
+        console.log(element)
     }
 
     cut = (obj, n) => {
@@ -184,17 +140,17 @@ class Figure extends React.Component {
         } else {
             return (<Col sm={ 3 }>
 
-                <Card  onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
+                <Card onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
 
                     <Card.Body>
-                    
-                        <Row noGutters={true} >
+
+                        <Row noGutters={ true } >
                             <Col>
                                 { <Card.Text>
                                     <img src={ obj["photo"] } className={ style.figurePh }></img>
                                 </Card.Text> }
                             </Col>
-                            <Col> <p>{ obj["name"] }</p> { obj["area"] }</Col>
+                            <Col> <p>{ obj["name"] }</p> { obj["a_n"] }</Col>
                         </Row>
 
                     </Card.Body>
@@ -207,7 +163,7 @@ class Figure extends React.Component {
 
     render() {
         return (<Pages id={ 3 }
-            onScroll={console.log("ii")}
+            onScroll={ console.log("ii") }
             page={
                 (<>
                     <div className={ style.searchBar } >
