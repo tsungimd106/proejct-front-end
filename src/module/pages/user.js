@@ -33,7 +33,7 @@ class User extends React.Component {
                                             <Row>
                                                 <Col sm={2.5}>
                                                     <ListGroup>
-                                                        <ListGroup.Item eventKey="f">
+                                                        <ListGroup.Item eventKey="f" className={ style.select }>
                                                             <Row>
                                                                 <Col><Person/>
                                                                     <Row>
@@ -42,7 +42,7 @@ class User extends React.Component {
                                                                 </Col>
                                                             </Row>                                                            
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="s">
+                                                        <ListGroup.Item eventKey="s" className={ style.select }>
                                                             <Row>
                                                                 <Col><Clipboard/>
                                                                     <Row>
@@ -51,7 +51,7 @@ class User extends React.Component {
                                                                 </Col>
                                                             </Row>
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="t">                                                            
+                                                        <ListGroup.Item eventKey="t" className={ style.select }>                                                            
                                                             <Row>
                                                                 <Col><Comment/>
                                                                     <Row>

@@ -12,8 +12,8 @@ export class ModalBase extends React.Component {
                 <Modal.Body className="show-grid body">
                     <Row className="justify-content-end">
                         <Col className="modalClose">
-                            <div className="close" aria-label="Close" onClick={ this.props.close }><span
-                                aria-hidden="true">&times;</span></div>
+                            <Button variant="light" className="close" aria-label="Close" onClick={ this.props.close }><span
+                                aria-hidden="true">&times;</span></Button>
                         </Col>
                     </Row>
                     <Row>
@@ -85,7 +85,7 @@ export class ReportModal extends React.Component {
                     {this.props.rule && this.props.rule.map((item, index) => {
                         return (<div><input type="checkbox" name="report" id="" value={item.id}/>{ item.context }</div>)
                     }) }
-                    <p>備註</p>
+                    <p>備註：</p>
                     <input type="text" />
                 </>) } />
         </>)
