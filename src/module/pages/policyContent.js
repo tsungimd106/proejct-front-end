@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 
+
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
@@ -12,6 +13,40 @@ import person from "../../imgs/person.png"
 import { Width, FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
 import { ModalBase, ReportModal } from "../modal"
+
+import react, { useState } from 'react'
+import { Document, Page  } from  'react-pdf'
+import { pdfjs } from 'react-pdf'
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+
+
+
+function PdfComponent() {
+	const [totalPage, setTotalPage] = useState(1)
+	
+	function onDocumentLoadSuccess({numPages}) {
+	    setTotalPage(numPages)
+	}
+	
+	return <>
+		<Document
+          file={'0506.pdf'}  //檔案路徑
+          onLoadSuccess={onDocumentLoadSuccess} //成功載入文件後呼叫
+          renderMode="canvas"   //定義文件呈現的形式 
+      >
+      	
+          {
+              new Array(totalPage).fill('').map((item, index) => {
+                  return <Page key={index} pageNumber={index + 1} />
+              })
+          }
+          {/* /**
+          * 顯示指定pdf檔案
+          * <Page width={300} pageNumber={1} />
+          */ }
+      </Document>
+	</>
+}
 
 class PolicyContent extends React.Component {
 
@@ -162,7 +197,8 @@ class PolicyContent extends React.Component {
                                         <Col sm={ "auto" }>王婉諭</Col>
                                     </Row></Col>
                                     <Col sm={ 12 }>
-                                        <div className="content">{ placement.content }</div>
+                                        {/* <div className="content">{ placement.content }</div> */}
+                                        <div><PdfComponent /></div>                                        
                                     </Col>
                                     { this.state.login && (<Col sm={ 12 }>
                                         <div className="lable">
