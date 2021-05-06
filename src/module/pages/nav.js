@@ -4,7 +4,6 @@ import logo_dark from '../../imgs/LOGO1.png'
 import { Search, Person, CircleChevronDown, SignOut, Info, Envelope, Star } from 'akar-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from "../../css/nav.module.css"
-import manage from "../../imgs/manage.png"
 
 
 export default class Nav extends React.Component {

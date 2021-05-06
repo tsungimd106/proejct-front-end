@@ -59,8 +59,17 @@ list-group {
     color: #99ff4d
 }
 
+.voteSent{
+    margin-top:8%;
+}
+
 .size {
     width: 10vw;
     height: 200px;
     margin: 0 5vw;
+}
+
+.btn_report{
+    padding: 0.5%;
+    border:none;
 }

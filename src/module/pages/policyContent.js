@@ -6,7 +6,7 @@ import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
-import "../../css/policyContent.css"
+import "../../css/policyContent.module.css"
 
 import person from "../../imgs/person.png"
 import { Width, FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
@@ -171,13 +171,13 @@ class PolicyContent extends React.Component {
                                         <Row className="justify-content-center">
                                             <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
                                                 onChange={ this.voteChange }>
-                                                <ToggleButton variant="light" value={ 0 }> <FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
+                                                <ToggleButton variant="light" value={ 0 }><FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
                                                 <ToggleButton variant="light" value={ 1 }><FaceNeutral className={ style.yellow + " " + style.size } /></ToggleButton>
                                                 <ToggleButton variant="light" value={ 2 }><FaceSad className={ style.red + " " + style.size } /> </ToggleButton>
 
 
                                             </ToggleButtonGroup>
-                                            <Col sm={ "auto" }><Button variant="outline-dark" onClick={ this.vote }>確定</Button></Col>
+                                            <Col sm={ "auto" } className={style.voteSent}><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Col>
                                         </Row>
 
                                     </Col>) }
@@ -200,7 +200,7 @@ class PolicyContent extends React.Component {
                                                                     <Col sm={ "auto" }><span className="mesTitle">{ placement.user_id }</span></Col>
                                                                     <Col sm={ "auto" }> <span className="lable">{ placement.time }</span></Col>
                                                                     <Col>
-                                                                        <button onClick={ this.showReport }>檢舉</button>
+                                                                        <Button className={style.btn_report} variant="outline-secondary" onClick={ this.showReport }>檢舉</Button>
                                                                     </Col>
                                                                     <Col sm={ 12 }>{ placement.content }</Col>
                                                                 </Row>
