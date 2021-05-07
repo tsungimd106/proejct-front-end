@@ -70,10 +70,10 @@ class FigureDetail extends React.Component {
                 persoal: {
                     option: {
                         xaxis: {
-                            categories: ["政策破局", "未有動作", "開始動作", "卡住", "進行中", "部分落實", "完全落實"],
+                            categories: ["退回程序", "審查完畢", "交付審查", "排入院會", "三讀", "逕付二讀"],
                             labels: {
                                 style: {
-                                    colors: ["#fff", "#fff", "#fff", "#fff", "#fff", "#fff", "#fff", "#fff",]
+                                    colors: ["#fff", "#fff", "#fff", "#fff", "#fff", "#fff", ]
                                 }
                             }
                         },
@@ -88,7 +88,7 @@ class FigureDetail extends React.Component {
                     },
                     series: [
                         {
-                            data: [20, 45, 64, 26, 27, 85, 24]
+                            data: [20, 45, 64, 26, 27, 85,]
                         }
                     ],
                     legend: {

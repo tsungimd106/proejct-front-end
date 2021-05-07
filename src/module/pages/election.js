@@ -7,6 +7,8 @@ import 'react-awesome-slider/dist/styles.css';
 // import "../../css/main.css"
 import style from "../../css/election.module.css"
 
+
+
 class Election extends React.Component {
     constructor(props) {
         super(props)
@@ -25,16 +27,18 @@ class Election extends React.Component {
 
         }
     }
-    
+
 
     render() {
         return (<Pages id={1} page={
             (<>
+
+               
                 <div className={style.white}>
-                    <div><h1>查詢投票地點</h1></div> 
+                    <div><h1>查詢投票地點</h1></div>
                     <div><h1>投票要點</h1></div>
                     <div><h1>QA大集合</h1></div>
-                    <div><h1>選舉大記事</h1></div> 
+                    <div><h1>選舉大記事</h1></div>
                 </div>
 
             </>)

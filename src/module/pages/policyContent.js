@@ -14,41 +14,15 @@ import { Width, FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
 import { ModalBase, ReportModal } from "../modal"
 
-import react, { useState } from 'react'
-import { Document, Page  } from  'react-pdf'
-import { pdfjs } from 'react-pdf'
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 
 
-function PdfComponent() {
-	const [totalPage, setTotalPage] = useState(1)
-	
-	function onDocumentLoadSuccess({numPages}) {
-	    setTotalPage(numPages)
-	}
-	
-	return <>
-		<Document
-          file={'0506.pdf'}  //檔案路徑
-          onLoadSuccess={onDocumentLoadSuccess} //成功載入文件後呼叫
-          renderMode="canvas"   //定義文件呈現的形式 
-      >
-      	
-          {
-              new Array(totalPage).fill('').map((item, index) => {
-                  return <Page key={index} pageNumber={index + 1} />
-              })
-          }
-          {
-          <Page width={"100%"} pageNumber={1} />
-          /* /**
-          * 顯示指定pdf檔案
-           <Page width={300} pageNumber={1} />
-          */ }
-      </Document>
-	</>
-}
+import { Worker, Viewer } from '@react-pdf-viewer/core';
+
+import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
+
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 
 class PolicyContent extends React.Component {
 
@@ -123,7 +97,7 @@ class PolicyContent extends React.Component {
     }
     componentDidMount() {
         this.getMsg()
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
     }
     showNoteModal = (m) => {
 
@@ -175,104 +149,127 @@ class PolicyContent extends React.Component {
                     reportModal: !this.state.reportModal,
                     rule: rule
                 })
-                
+
             })
         }
-       
+
     }
     report = () => { }
 
 
     render() {
+        // const pageNavigationPluginInstance = pageNavigationPlugin();
+        // const { 
+        //     CurrentPageInput,
+        //     GoToFirstPageButton, GoToLastPageButton,
+        //     GoToNextPageButton, GoToPreviousPage
+        // } = pageNavigationPluginInstance;
+        
 
-        return (<Pages id={ 2 } page={
+        return (<Pages id={2} page={
             (<>{ }
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className="topic justify-content-center">
-                            <h2 className="topicBold">{ placement.title }</h2>
+                            <h2 className="topicBold">{placement.title}</h2>
                             <p >
                                 <Row >
-                                    <Col sm={ "auto" } className="lable" >{ placement.date }</Col>
-                                    { placement.tag.map(item => (<Col sm={ "auto" } className="lable">#{item }</Col>)) }
-                                    <Col sm={ 12 }> <Row>
-                                        <Col sm={ "auto" }>提案人</Col>
-                                        <Col sm={ "auto" }>王婉諭</Col>
+                                    <Col sm={"auto"} className="lable" >{placement.date}</Col>
+                                    {placement.tag.map(item => (<Col sm={"auto"} className="lable">#{item}</Col>))}
+                                    <Col sm={12}> <Row>
+                                        <Col sm={"auto"}>提案人</Col>
+                                        <Col sm={"auto"}><a href="./#/figure/401">王婉諭</a></Col>
                                     </Row></Col>
-                                    <Col sm={ 12 } >
-                                        {/* <div className="content">{ placement.content }</div> */}
-                                        <div ><PdfComponent /></div>                                        
+                                    <Col sm={12} >
+                                        <div>
+                                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+
+
+                                            </Worker>
+                                            <div
+                                                style={{
+                                                    border: '1px solid rgba(0, 0, 0, 0.3)',
+                                                    height: '750px',
+                                                }}
+                                            >
+                                                <Viewer fileUrl="0506.pdf"
+                                                //   plugins={[
+                                                //     pageNavigationPluginInstance,
+                                                // ]}
+                                                />
+                                            </div>
+                                        </div>
                                     </Col>
-                                    { this.state.login && (<Col sm={ 12 }>
+                                    {this.state.login && (<Col sm={12}>
                                         <div className="lable">
                                             您的看法：<div>(請點選投票)</div>
                                         </div>
                                         <Row className="justify-content-center">
-                                            <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
-                                                onChange={ this.voteChange }>
-                                                <ToggleButton variant="light" value={ 0 }><FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
-                                                <ToggleButton variant="light" value={ 1 }><FaceNeutral className={ style.yellow + " " + style.size } /></ToggleButton>
-                                                <ToggleButton variant="light" value={ 2 }><FaceSad className={ style.red + " " + style.size } /> </ToggleButton>
+                                            <ToggleButtonGroup type="radio" name="options" id="vote" value={this.state.voteValue}
+                                                onChange={this.voteChange}>
+                                                <ToggleButton variant="light" value={0}><FaceHappy className={style.green + " " + style.size} /></ToggleButton>
+                                                <ToggleButton variant="light" value={1}><FaceNeutral className={style.yellow + " " + style.size} /></ToggleButton>
+                                                <ToggleButton variant="light" value={2}><FaceSad className={style.red + " " + style.size} /> </ToggleButton>
 
 
                                             </ToggleButtonGroup>
-                                            <Col sm={ "auto" } className={style.voteSent}><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Col>
+                                            <Col sm={"auto"} className={style.voteSent}><Button variant="outline-dark" onClick={this.vote}>確定投票</Button></Col>
                                         </Row>
 
-                                    </Col>) }
-                                    <Col sm={ 3 }><div className="lable">RUN民看法：</div></Col>
-                                    <Col sm={ 12 }></Col> <Col sm={ 3 }></Col>
-                                    <Col sm={ 6 }>
-                                        <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
+                                    </Col>)}
+                                    <Col sm={3}><div className="lable">RUN民看法：</div></Col>
+                                    <Col sm={12}></Col> <Col sm={3}></Col>
+                                    <Col sm={6}>
+                                        <Chart options={this.state.kpi.options} series={this.state.kpi.series} type="donut" />
                                     </Col>
-                                    <Col sm={ 12 }>
+                                    <Col sm={12}>
                                         <div className="mes">
                                             <div className="mesTitle">RUN民討論專區</div>
                                             <ListGroup variant="flush">
 
-                                                { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                                {this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
                                                     return (<ListGroup.Item>
-                                                        <Row className="align-items-center" noGutters={ true }>
-                                                            <Col sm={ "auto" }><img src={ person } className="pimg" /></Col>
+                                                        <Row className="align-items-center" noGutters={true}>
+                                                            <Col sm={"auto"}><img src={person} className="pimg" /></Col>
                                                             <Col>
                                                                 <Row className="align-items-center">
-                                                                    <Col sm={ "auto" }><span className="mesTitle">{ placement.user_id }</span></Col>
-                                                                    <Col sm={ "auto" }> <span className="lable">{ placement.time }</span></Col>
+                                                                    <Col sm={"auto"}><span className="mesTitle">{placement.user_id}</span></Col>
+                                                                    <Col sm={"auto"}> <span className="lable">{placement.time}</span></Col>
                                                                     <Col>
-                                                                        <Button className={style.btn_report} variant="outline-secondary" onClick={ this.showReport }>檢舉</Button>
+                                                                        <Button className={style.btn_report} variant="outline-secondary" onClick={this.showReport}>檢舉</Button>
                                                                     </Col>
-                                                                    <Col sm={ 12 }>{ placement.content }</Col>
+                                                                    <Col sm={12}>{placement.content}</Col>
                                                                 </Row>
 
                                                             </Col>
                                                         </Row>
                                                     </ListGroup.Item>)
-                                                })) : <></> }
+                                                })) : <></>}
                                             </ListGroup>
                                             <hr />
 
-                                            { this.state.login && (<Form>
+                                            {this.state.login && (<Form>
                                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                                     <Form.Label>我的留言：</Form.Label>
                                                     <InputGroup >
-                                                        <Form.Control as="textarea" rows={ 2 } id="msg" />
+                                                        <Form.Control as="textarea" rows={2} id="msg" />
                                                         <InputGroup.Append>
-                                                            <Button variant="outline-secondary" onClick={ this.msg }>送出</Button>
+                                                            <Button variant="outline-secondary" onClick={this.msg}>送出</Button>
                                                         </InputGroup.Append>
                                                     </InputGroup>
 
                                                 </Form.Group>
-                                            </Form>) }
+                                            </Form>)}
                                         </div>
                                     </Col>
                                 </Row>
                             </p>
 
                         </div>)
-                    }) }
-                </>) : (<></>) }
-                <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } />
-                <ReportModal show={ this.state.reportModal } ok={ this.report } close={ this.showReport } rule={this.state.rule}/>
+                    })}
+                </>) : (<></>)}
+                <ModalBase show={this.state.noteModal} ok={this.closeNoteModal} close={this.closeNoteModal} content={this.state.noteModalC} />
+                <ReportModal show={this.state.reportModal} ok={this.report} close={this.showReport} rule={this.state.rule} />
             </>)
         } />)
     }
