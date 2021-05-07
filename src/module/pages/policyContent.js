@@ -40,9 +40,11 @@ function PdfComponent() {
                   return <Page key={index} pageNumber={index + 1} />
               })
           }
-          {/* /**
+          {
+          <Page width={"100%"} pageNumber={1} />
+          /* /**
           * 顯示指定pdf檔案
-          * <Page width={300} pageNumber={1} />
+           <Page width={300} pageNumber={1} />
           */ }
       </Document>
 	</>
@@ -121,6 +123,7 @@ class PolicyContent extends React.Component {
     }
     componentDidMount() {
         this.getMsg()
+        window.scrollTo(0,0)
     }
     showNoteModal = (m) => {
 
@@ -189,16 +192,16 @@ class PolicyContent extends React.Component {
                         return (<div className="topic justify-content-center">
                             <h2 className="topicBold">{ placement.title }</h2>
                             <p >
-                                <Row>
+                                <Row >
                                     <Col sm={ "auto" } className="lable" >{ placement.date }</Col>
                                     { placement.tag.map(item => (<Col sm={ "auto" } className="lable">#{item }</Col>)) }
                                     <Col sm={ 12 }> <Row>
                                         <Col sm={ "auto" }>提案人</Col>
                                         <Col sm={ "auto" }>王婉諭</Col>
                                     </Row></Col>
-                                    <Col sm={ 12 }>
+                                    <Col sm={ 12 } >
                                         {/* <div className="content">{ placement.content }</div> */}
-                                        <div><PdfComponent /></div>                                        
+                                        <div ><PdfComponent /></div>                                        
                                     </Col>
                                     { this.state.login && (<Col sm={ 12 }>
                                         <div className="lable">

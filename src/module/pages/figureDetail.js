@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, CardDeck, Card } from "react-bootstrap"
+import { Row, Col, CardDeck, Card, DropdownButton, Dropdown } from "react-bootstrap"
 import { Pages } from "../pages.js"
 
 import Chart from 'react-apexcharts'
@@ -132,7 +132,7 @@ class FigureDetail extends React.Component {
                     curve: 'smooth'
                 },
                 title: {
-                    text: '走勢圖',
+                    text: '出席率走勢圖',
                     align: 'left',
 
                 },
@@ -172,13 +172,18 @@ class FigureDetail extends React.Component {
                 name: res.data.data[0].name,
                 area: res.data.data[0].e_n,
                 policy: res.data.data[0].experience.split("\n"),
-                areaReamrk:res.data.data[0].remark.replace("null","")
+                areaReamrk: res.data.data[0].remark.replace("null", "")
             })
 
         })
         // )
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
+        this.changeTerm("當屆")
 
+    }
+
+    changeTerm = (s) => {
+        this.setState({ term: s })
     }
 
     render() {
@@ -186,97 +191,110 @@ class FigureDetail extends React.Component {
             (<>
                 <div className={style.people}>
                     {
-                    
-                         
-                                <Row className={style.dashboard}>
-                                    <Col sm={3} className={style.dashboardcard + " " + style.white}>
-                                        <Row className="align-items-center">
-                                            <Col>
-                                                <img src={this.state.resData?.photo} className={style.figurePh}></img>
-                                            </Col>
-                                            <Col>
-                                                <p>{this.state.selfD && this.state.name}</p>
-                                                <p>{this.state.selfD && this.state.area}</p>
-                                                <p>{this.state.selfD&&this.state.areaReamrk}</p>
-                                            </Col>
-                                        </Row>
 
 
-                                        {this.state.selfD && this.state.selfD.map(placement => {
-                                            return (<>
-                                                <Row>
-                                                    <Col sm="auto">{placement.name}</Col>
-                                                    <Col id={placement.no}></Col>
-                                                </Row>
-                                                {/* <div className={style.white}>{placement.title}</div> */}
-                                            </>)
-                                        })}
-                                        <Row><Col sm={"auto"}>經歷</Col>
-                                        <Col>
-                                            {this.state.policy && this.state.policy.map((item, index) => {
-                                                return (<>
-
-                                                    <Card style={{color:"#000",margin:"15px 0"}}>
-                                                        
-                                                        <Card.Body>
-                                                            <Card.Text >{item}</Card.Text>
-                                                        </Card.Body>
-                                                      
-                                                    </Card>
-                                                    {/* <div>{item}</div> */}
-                                                </>)
-                                            })}</Col>
-                                        </Row>
+                        <Row className={style.dashboard}>
+                            <Col sm={3} className={style.dashboardcard + " " + style.white}>
+                                <Row className="align-items-center">
+                                    <Col>
+                                        <img src={this.state.resData?.photo} className={style.figurePh}></img>
                                     </Col>
-                                    <Col sm={6}>
-                                        <Row className={style.dashboardcard}>
-                                            {/* <Col className={ style.white }>政見分數
+                                    <Col>
+                                        <div>
+
+                                            <DropdownButton id="dropdown-basic-button" title={this.state.term && this.state.term}
+                                            variant="outline-light"
+                                            >
+
+                                                <Dropdown.Item onClick={() => { this.changeTerm("當屆") }}>當屆</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => { this.changeTerm("歷屆") }}>歷屆</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => { this.changeTerm("9") }}>9</Dropdown.Item>
+
+                                            </DropdownButton>
+                                        </div>
+                                        <p >{this.state.selfD && this.state.name}</p>
+                                        
+                                        <p >{this.state.selfD && this.state.area}</p>
+                                        <p>{this.state.selfD && this.state.areaReamrk}</p>
+                                    </Col>
+                                </Row>
+
+
+                                {this.state.selfD && this.state.selfD.map(placement => {
+                                    return (<>
+                                        <Row>
+                                            <Col sm="auto" >{placement.name}</Col>
+                                            <Col id={placement.no} className={style.line}></Col>
+                                        </Row>
+                                        {/* <div className={style.white}>{placement.title}</div> */}
+                                    </>)
+                                })}
+                                <Row><Col sm={"auto"}>經歷</Col>
+                                    <Col>
+                                        {this.state.policy && this.state.policy.map((item, index) => {
+                                            return (<>
+
+                                                <Card style={{ color: "#000", margin: "15px 0" }}>
+
+                                                    <Card.Body>
+                                                        <Card.Text >{item}</Card.Text>
+                                                    </Card.Body>
+
+                                                </Card>
+                                                {/* <div>{item}</div> */}
+                                            </>)
+                                        })}</Col>
+                                </Row>
+                            </Col>
+                            <Col sm={6}>
+                                <Row className={style.dashboardcard}>
+                                    {/* <Col className={ style.white }>政見分數
                                             <Chart options={ this.state.data.kpi.options } series={ this.state.data.kpi.series } type="radialBar" />
 
                                             </Col> */}
-                                            <Col className={style.white}>
-                                                <Chart options={this.state.scoreD} series={this.state.score} type="line" height={350} />
-                                            </Col>
-                                        </Row>
-                                        <Row className={style.dashboardcard}>
-                                            {/* <Col className={ style.white }>出席率
-                                                <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" />
-                                            </Col> */}
-                                            <Col className={style.white}>
-                                                <Chart options={this.state.goO} series={this.state.go} type="line" height={350} />
-                                            </Col>
-                                        </Row>
-                                        <Row className={style.dashboardcard}>
-                                            <Col className={style.white}>
-                                                提案數量統計
-                                            <Chart options={this.state.data.persoal.option} series={this.state.data.persoal.series} type="bar" />
-                                            </Col>
-
-                                        </Row>
-                                    </Col>
-                                    <Col sm={3} className={style.dashboardcard}>
-                                        <span className={style.white}>政見</span>
-                                        {this.state.data.todo.map((placement, index) => {
-                                            return (<>
-                                                <div><CardDeck><Card>
-                                                    <Card.Header>#{placement.tag}</Card.Header>
-                                                    <Card.Body>
-                                                        <Card.Text>{placement.t}</Card.Text>
-                                                    </Card.Body>
-                                                    <Card.Footer>Read more</Card.Footer>
-                                                </Card></CardDeck>
-                                                    <hr /></div>
-                                            </>)
-                                        })}
+                                    <Col className={style.white}>
+                                        <Chart options={this.state.scoreD} series={this.state.score} type="area" height={350} />
                                     </Col>
                                 </Row>
-                         
+                                <Row className={style.dashboardcard}>
+                                    {/* <Col className={ style.white }>出席率
+                                                <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" />
+                                            </Col> */}
+                                    <Col className={style.white}>
+                                        <Chart options={this.state.goO} series={this.state.go} type="line" height={350} />
+                                    </Col>
+                                </Row>
+                                <Row className={style.dashboardcard}>
+                                    <Col className={style.white}>
+                                        提案數量統計
+                                            <Chart options={this.state.data.persoal.option} series={this.state.data.persoal.series} type="bar" />
+                                    </Col>
+
+                                </Row>
+                            </Col>
+                            <Col sm={3} className={style.dashboardcard}>
+                                <span className={style.white}>政見</span>
+                                {this.state.data.todo.map((placement, index) => {
+                                    return (<>
+                                        <div><CardDeck><Card>
+                                            <Card.Header>#{placement.tag}</Card.Header>
+                                            <Card.Body>
+                                                <Card.Text>{placement.t}</Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer>Read more</Card.Footer>
+                                        </Card></CardDeck>
+                                            <hr /></div>
+                                    </>)
+                                })}
+                            </Col>
+                        </Row>
 
 
 
 
 
-                        
+
+
                     }</div>
             </>)
         } />)

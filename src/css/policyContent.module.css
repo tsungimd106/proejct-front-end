@@ -73,3 +73,7 @@ list-group {
     padding: 0.5%;
     border:none;
 }
+
+:global(.react-pdf__Page__canvas){
+    margin: 0 auto;
+}
