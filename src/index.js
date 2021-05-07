@@ -11,36 +11,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component {
 	render() {
 		return (
-			<div className="App" enabled={true}>
-				<Container fluid="true">					
-					<Row className="justify-content-center" noGutters="true">
-						<Col >
-						
-							<div >
-								{ main.map((router, index) => (<>
-									<Route exact key={ index } { ...router.routeProps } /></>
-								)) }
-							</div>
-						</Col>
-					</Row>
-				</Container>
+			<div >
+				{ main.map((router, index) => (<>
+					<Route exact key={index} {...router.routeProps} /></>
+				))}
 			</div>
 		);
 	}
 }
 
 const LoadingIndicator = props => {
-    const { promiseInProgress } = usePromiseTracker();
-    return (
-        promiseInProgress &&
-        <div className="show_loading">
-            <Loader type="ThreeDots" color="#000" height="100" width="100" />
-        </div >
-    );
+	const { promiseInProgress } = usePromiseTracker();
+	return (
+		promiseInProgress &&
+		<div className="show_loading">
+			<Loader type="ThreeDots" color="#000" height="100" width="100" />
+		</div >
+	);
 }
 
 ReactDOM.render(
-	<HashRouter >	
+	<HashRouter >
 		<App />
 		<LoadingIndicator />
 	</HashRouter>,

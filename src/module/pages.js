@@ -10,16 +10,11 @@ export class Pages extends React.Component {
     }
     render() {
         return (<>
-            <div className={style.pagesC}>
-                <Row>
-                    <Col>
-                        <Nav id={this.props.id}>
-                        </Nav>
-                    </Col>
-                </Row>
-                <Row><Col>
-                    { this.props.page || (<></>) }
-                </Col></Row>
+            <div className={style.pagesC +" "}>
+                <div> <Nav id={this.props.id}>
+                        </Nav></div>
+                <div></div>
+                { this.props.page || (<></>) }
             </div>
             <div className={style.footer}>tsungimd106@gmail.com</div>
         </>)

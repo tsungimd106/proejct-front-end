@@ -171,11 +171,13 @@ class FigureDetail extends React.Component {
             this.setState({
                 name: res.data.data[0].name,
                 area: res.data.data[0].e_n,
-                policy: res.data.data[0].experience.split("\n")
+                policy: res.data.data[0].experience.split("\n"),
+                areaReamrk:res.data.data[0].remark.replace("null","")
             })
 
         })
         // )
+        window.scrollTo(0,0)
 
     }
 
@@ -184,8 +186,8 @@ class FigureDetail extends React.Component {
             (<>
                 <div className={style.people}>
                     {
-                        <Row className="justify-content-center ">
-                            <div>
+                    
+                         
                                 <Row className={style.dashboard}>
                                     <Col sm={3} className={style.dashboardcard + " " + style.white}>
                                         <Row className="align-items-center">
@@ -195,6 +197,7 @@ class FigureDetail extends React.Component {
                                             <Col>
                                                 <p>{this.state.selfD && this.state.name}</p>
                                                 <p>{this.state.selfD && this.state.area}</p>
+                                                <p>{this.state.selfD&&this.state.areaReamrk}</p>
                                             </Col>
                                         </Row>
 
@@ -267,13 +270,13 @@ class FigureDetail extends React.Component {
                                         })}
                                     </Col>
                                 </Row>
-                            </div>
+                         
 
 
 
 
 
-                        </Row>
+                        
                     }</div>
             </>)
         } />)
