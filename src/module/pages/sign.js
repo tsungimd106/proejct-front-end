@@ -69,7 +69,7 @@ class Sign extends React.Component {
                 <option value="year">新北市</option>
                 <option value="year">桃園市</option>
             </select></p>
-            <p><Button id="continue" className={ style.continue } onClick={ this.send } >繼續</Button></p>
+            <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
             <p><Button variant="success" >以LINE帳號註冊</Button></p>
             <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
             <ModalBase
@@ -111,7 +111,7 @@ class Login extends React.Component {
                 <Col xs={ 12 }><input type="text" placeholder="&nbsp;帳號" id="account" /></Col>
                 <Col xs={ 12 }><input type="password" placeholder="&nbsp;密碼" id="password" /></Col>
                 {/* <Col xs={ 12 }>忘記密碼</Col> */}
-                <Col xs={ 12 }><Button id="continue" className={ style.continue } onClick={ this.send }>繼續</Button></Col>
+                <Col xs={ 12 }><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send }>繼續</Button></Col>
                 <Col xs={ 12 }><Button variant="success" >以LINE帳號登入</Button></Col>
                 {/* <Col xs={12}>忘記密碼</Col> */ }
                 <Col>            <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>

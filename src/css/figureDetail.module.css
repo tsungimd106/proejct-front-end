@@ -1,7 +1,7 @@
-.people {
+/* .people {
     width: 80%;
     margin: 0 auto;
-}
+} */
 
 .people>.row>div {
     background: #4f4f4f;
@@ -28,7 +28,8 @@
 }
 
 .dashboard {
-    width: 100vw;
+    width: 100%;
+    /* width: calc(100vw - 30px); */
     background: #4f4f4f;
 }
 
@@ -44,5 +45,6 @@
 }
 
 img.figurePh {
-    width: 50%;
+    /* width: 50%; */
+    padding: 15%;
 }
