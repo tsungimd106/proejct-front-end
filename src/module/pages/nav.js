@@ -47,7 +47,7 @@ export default class Nav extends React.Component {
                 { (this.state.login || false ? (<>
                     <Col sm={ "auto" }>
                         <Dropdown variant="secondary">
-                            <Dropdown.Toggle className={ style.down_btn }>
+                            <Dropdown.Toggle className={ style.down_btn } variant="secondary">
                                 <CircleChevronDown />
                             </Dropdown.Toggle>
 

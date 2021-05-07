@@ -203,7 +203,7 @@ class Policy extends React.Component {
                     />
 
                 </div>
-                <button onClick={ this.test }>clic me</button>
+                {/* <button onClick={ this.test }>click me</button> */}
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>

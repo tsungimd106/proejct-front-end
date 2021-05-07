@@ -28,8 +28,7 @@
 }
 
 .dashboard {
-    width: 100%;
-    /* width: calc(100vw - 30px); */
+  margin: 0 auto;
     background: #4f4f4f;
 }
 
@@ -47,4 +46,8 @@
 img.figurePh {
     /* width: 50%; */
     padding: 15%;
+}
+.line{
+    border-bottom: white 1px solid;
+    padding: 5px 0;
 }
