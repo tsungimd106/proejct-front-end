@@ -17,87 +17,37 @@ class FigureDetail extends React.Component {
         this.state = {
             options: {},
             data: {
-
                 session: 10,
-
                 todo: [{ tag: "環境", t: "因應全球氣候變遷，大幅提高原住民地區禁伐補償及造林補助，推動原住民土地受限補償，保障原住民生存權。" },
                 { tag: "教育", t: "要求教育部應制訂尊重原住民為台灣歷史主人的教綱與課程，創立原住民大學、廣設原住民族教育資源中心。" },
                 { tag: "環境發展", t: "推動商圈補助計劃。針對舊產業部落加以輔導。讓歷史產業部落可以脫胎換骨。國發會地方創生計劃納入六都傳統社區。" }],
-                kpi: {
-                    series: [50],
 
-                    options: {
-                        // colors: ['#E4E7f0', '#955242'],
-                        colors: ['#955242'],
-                        labels: ["50分"],
-                        legend: {
-                            show: false,
-                        }, plotOptions: {
-                            radialBar: {
-                                dataLabels: {
-                                    name: {
-                                        fontSize: '20px',
-                                        color: "#fff",
-                                    },
-                                    value: { show: false }
-                                }
-                            }
-
-                        }
-                    },
-                },
-                attendanceRate: {
-                    series: [88],
-                    options: {
-                        colors: ['#955242'],
-                        labels: ["88%"],
-                        legend: {
-                            show: false,
-                        }, plotOptions: {
-                            radialBar: {
-                                dataLabels: {
-                                    name: {
-                                        fontSize: '20px',
-                                        color: "#fff",
-                                    },
-                                    value: { show: false }
-                                }
-                            }
-
-                        }
-                    },
-                },
                 persoal: {
-                    option: {
+                    option: {chart: {
+                            toolbar: { show: false }, foreColor: "#fff"
+                        },
+                       
+
                         xaxis: {
                             categories: ["退回程序", "審查完畢", "交付審查", "排入院會", "三讀", "逕付二讀"],
-                            labels: {
-                                style: {
-                                    colors: ["#fff", "#fff", "#fff", "#fff", "#fff", "#fff", ]
-                                }
-                            }
+
                         },
-                        yaxis: { labels: { style: { colors: ["#fff"] } } },
                         fill: {
                             colors: ['#f8f9EE',],
                             opacity: 1.0,
-                        }, chart: {
-                            toolbar: { show: false }
-                        }
+                        },  colors: ['#77B6EA', "#123123"]
 
                     },
-                    series: [
-                        {
-                            data: [20, 45, 64, 26, 27, 85,]
-                        }
+                    series: [{ data: [20, 45, 64, 26, 27, 85,] }, { data: [44, 5, 6, 6, 27, 8,] }
                     ],
+
                     legend: {
                         show: false,
                     }
                 }
 
             },
-            go: [{ name: "該政治人物", data: [99, 98] }],
+            go: [{ name: "該政治人物", data: [99, 98] }, { name: "立委總平均", data: [88, 85] }],
             score: [{ name: "該政治人物", data: [85, 90] }, { name: "立委總平均", data: [77, 85] }],
             scoreD: {
                 chart: { toolbar: { show: false, }, foreColor: "#fff" },
@@ -124,7 +74,7 @@ class FigureDetail extends React.Component {
             },
             goO: {
                 chart: { toolbar: { show: false, }, foreColor: "#fff" },
-                colors: ['#77B6EA'],
+                colors: ['#77B6EA', "#123123"],
                 dataLabels: {
                     enabled: true,
                 },
@@ -154,25 +104,26 @@ class FigureDetail extends React.Component {
         // trackPromise(
         PoliticianR.detail(this.figureID).then(res => {
             console.log(res)
-            this.setState({ "resData": res.data.data[0] })
+            this.setState({ "resData": res.data.data[0].data[0] })
             console.log(res.data.data[0])
             let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
             let selfD = []
             cond.map(placement => {
-                if (placement["no"] in res.data.data[0]) {
+                if (placement["no"] in res.data.data[0].data[0]) {
                     selfD.push({
-                        "content": res.data.data[0][placement.no].replace(/;/g, "<br />"),
+                        "content": res.data.data[0].data[0][placement.no].replace(/;/g, " <br />"),
                         "title": placement.name
                     })
-                    document.getElementById(placement.no).innerHTML = res.data.data[0][placement.no].replace(/;/g, "<br />")
+                    document.getElementById(placement.no).innerHTML = res.data.data[0].data[0][placement.no]
+                        .replace(/;/g, " $%^& <br />").split("$%^&").reverse().join("").replace(/,/g, " <br />")
                 }
             })
 
             this.setState({
-                name: res.data.data[0].name,
-                area: res.data.data[0].e_n,
-                policy: res.data.data[0].experience.split("\n"),
-                areaReamrk: res.data.data[0].remark.replace("null", "")
+                name: res.data.data[0].data[0].name,
+                area: res.data.data[0].data[0].e_n,
+                policy: res.data.data[0].data[0].experience.split("\n"),
+                areaReamrk: res.data.data[0].data[0].remark.replace("null", "")
             })
 
         })
@@ -203,7 +154,7 @@ class FigureDetail extends React.Component {
                                         <div>
 
                                             <DropdownButton id="dropdown-basic-button" title={this.state.term && this.state.term}
-                                            variant="outline-light"
+                                                variant="outline-light"
                                             >
 
                                                 <Dropdown.Item onClick={() => { this.changeTerm("當屆") }}>當屆</Dropdown.Item>
@@ -213,7 +164,7 @@ class FigureDetail extends React.Component {
                                             </DropdownButton>
                                         </div>
                                         <p >{this.state.selfD && this.state.name}</p>
-                                        
+
                                         <p >{this.state.selfD && this.state.area}</p>
                                         <p>{this.state.selfD && this.state.areaReamrk}</p>
                                     </Col>
@@ -261,7 +212,7 @@ class FigureDetail extends React.Component {
                                                 <Chart options={ this.state.data.attendanceRate.options } series={ this.state.data.attendanceRate.series } type="radialBar" />
                                             </Col> */}
                                     <Col className={style.white}>
-                                        <Chart options={this.state.goO} series={this.state.go} type="line" height={350} />
+                                        <Chart options={this.state.goO} series={this.state.go} type="area" height={350} />
                                     </Col>
                                 </Row>
                                 <Row className={style.dashboardcard}>
