@@ -10,7 +10,16 @@ export default class Proposal extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            showEdit:false
+            showEdit:false,
+            cond:[
+                {"key":"id",name:"編號"},
+                {key:"term",name:"屆別"},
+                {key:"session_Period",name:"會期"},
+                {key:"session_Time",name:"會次"},
+                {key:"title",name:"標題"},
+                {key:"status_id",name:"狀態"},
+                {key:"pdfUrl",name:"附件"},
+                ]
         }
     }
     componentDidMount() {
@@ -21,10 +30,11 @@ export default class Proposal extends React.Component {
     edit=()=>{
         //跟後端接
     }
-    showEdit=()=>{
+    showEdit=(i)=>{
         if(!this.state.show){
-            //撈資料
+            this.setState({detail:i})
         }
+        console.log(this.state.data[i])
         this.setState({showEdit:!this.state.showEdit})
     }
 
@@ -37,14 +47,43 @@ export default class Proposal extends React.Component {
                         提案管理
                         
                 </div>{this.state.data&& this.state.data.map((item,index)=>{
-                    return (<><p onClick={this.showEdit} className={style.topicBox}> {item.id}</p></>)
+                    return (<>
+                    <Row onClick={()=>{this.showEdit(index)}} className={style.topicBox}> 
+                        <Col>{item.id}</Col>
+                        <Col>{item.title}</Col>
+                        <Col>{item.status}</Col>
+                    </Row>
+                  
+                    
+                    </>)
                 })}
 
                 </Col>
             </Row>
             <ProposalEditModal show={this.state.showEdit}
             ok={this.edit}
-            close={this.showEdit}/>
+            close={()=>{this.showEdit(0)}}
+            content={
+              (<>
+              {
+                    this.state.detail!=undefined?this.state.cond.map(item=>{
+                       
+                        return(<>
+                        <Row className="justify-content-center align-items-center">
+                            <Col sm={3}>
+                            {item.name}
+                            </Col>
+                            <Col>
+                           <textarea type="text" value= {this.state.data[this.state.detail][item.key]} style={{width:"100%"}}/>
+                            </Col>
+                        </Row>
+                      
+                        
+                        </>)}):<></>
+              }</>)
+                
+            }
+            />
         </>);
     }
 }

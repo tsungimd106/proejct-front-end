@@ -28,7 +28,7 @@
 }
 
 .dashboard {
-  margin: 0 auto;
+    margin: 0 auto;
     background: #4f4f4f;
 }
 
@@ -47,7 +47,16 @@ img.figurePh {
     /* width: 50%; */
     padding: 15%;
 }
-.line{
-    border-bottom: white 1px solid;
+
+.line {
+    border-bottom: white 2.5px solid;
     padding: 5px 0;
+}
+
+:global( .apexcharts-tooltip) {
+    color: #000;
+}
+
+div.space {
+    margin: 10px 0;
 }

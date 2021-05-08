@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from "react-bootstrap"
-import { TestRequest } from "../request/member.js"
+import { MemberR } from "../request/memberR.js"
 import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
@@ -95,7 +95,7 @@ class Login extends React.Component {
         var account = document.getElementById("account").value
         var password = document.getElementById("password").value
 
-        TestRequest.login({ "account": account, "password": password }).then(response => {
+        MemberR.login({ "account": account, "password": password }).then(response => {
             console.log(response.data.data.data)
             localStorage.setItem("login", account)
             localStorage.setItem("isManage",response.data.data.data[0].identity==2)
