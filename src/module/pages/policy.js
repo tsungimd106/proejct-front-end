@@ -7,7 +7,7 @@ import Chart from 'react-apexcharts'
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
-
+import Search from "../bar/search"
 
 class Policy extends React.Component {
 
@@ -18,11 +18,7 @@ class Policy extends React.Component {
 
     constructor(props) {
         super(props)
-        ProposalR.list().then(response => {
-            console.log(response)
-            this.setState({ Sdata: response.data.data })
 
-        })
 
         this.state = {
             kpi: {
@@ -43,31 +39,91 @@ class Policy extends React.Component {
 
             ],
 
-            sndata: [
-                { category: 'calculate', name: '王婉諭', value: 89519 },
-                { category: 'calculate', name: '賴品妤', value: 49024 },
-                { category: 'lavender', name: '蔡適應', value: 90170 },
-                { category: 'lavender', name: '林昶佐', value: 56963 },
-                { category: 'lavender', name: '莊瑞雄', value: 12343 },
-                { category: 'lavender', name: '傅崐萁', value: 22673 },
-                { category: 'lavender', name: '劉建國', value: 45723 },
-            ],
-            scdata: [
-                { category: 'calculate', name: '財政金融', value: 89519 },
-                { category: 'calculate', name: '教育', value: 49024 },
-                { category: 'lavender', name: '內政', value: 90170 },
-                { category: 'lavender', name: '司法及法制', value: 56963 },
-                { category: 'lavender', name: '科技', value: 12343 },
-                { category: 'lavender', name: '文化', value: 22673 },
-                { category: 'lavender', name: '外交國防', value: 45723 },
-            ]
+          
 
         }
     }
     toContent = (id) => {
         document.location.href = `.#/policyContent/${id}`
     }
+
+    getList = () => {
+        let d = {}
+        let term = []
+
+        let status = []
+
+        console.log(this.state.like)
+        for (let key in this.state.like) {
+            for (let v in this.state.like[key]) {
+                if (this.state.like[key][v]) {
+                    switch (key) {
+                        case "屆別":
+                            term.push(v)
+                            break;
+                        case "狀態":
+                            status.push(v)
+                    }
+                }
+
+            }
+
+        }
+        if (term.length > 0) {
+            d["term"] = term
+        }
+        if (status.length > 0) {
+            d["status"] = status
+        }
+        if (Array.isArray(this.state.resource)) {
+            let newd = this.state.resource.filter(i => {
+
+                let res = false
+
+                let termb = false
+                let statusb = false
+
+                if (term.length > 0) {
+                    term.forEach(item => { if (i["term"] == item) { termb = true; return; } })
+                }
+                if (status.length > 0) {
+                    status.forEach(item => { if (i["status"] == item) { statusb = true; return; } })
+                }
+
+                termb = term.length > 0 ? termb : true
+                statusb = status.length > 0 ? statusb : true
+
+                return  termb & statusb
+            })
+            console.log(newd)
+
+            this.setState({ "Sdata": newd })
+
+        }
+    }
     componentDidMount() {
+
+        ProposalR.list().then(response => {
+            console.log(response)
+            this.setState({ "Sdata": response.data.data, resource: response.data.data })
+        })
+        ProposalR.cond().then(response => {
+            let test = {}
+            for (let i of response.data.data) {
+                let inside = {}
+                for (let j of i.data) {
+                    inside[j.name] = false
+                }
+                test[i.name] = inside
+
+            }
+            console.log(test)
+            this.setState({ "like": test })
+        })
+
+
+
+
         this.setState({ condData: [{ n: "進度", d: ["完全落實", "部分落實", "進行中"] }] })
     }
     test = () => {
@@ -86,101 +142,36 @@ class Policy extends React.Component {
         return (<Pages id={ 2 } page={
             (<>
 
-                <div className="searchBar">
-                    <div className="selectTitle">
-                        <InputGroup className="mb-3">
-                            <Col md="auto" className="search" >關鍵字搜尋：</Col>
-                            <FormControl
-                                aria-label="Recipient's username"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                <Button variant="outline-secondary">搜尋</Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                    </div>
-                    <Row>
-                        <Col className="selectTitle">屆別：
-                            <select className="select" name="屆別">
-                                <option value="" selected>當屆</option>
-                                <option value="eco">11</option>
-                                <option value="edu">10</option>
-                                <option value="tec">9</option>
-                                <option value="pol">8</option>
-                                <option value="art">7</option>
-                                <option value="gen">6</option>
-                                <option value="ani">5</option>
-                                <option value="wor">4</option>
-                                <option value="tra">3</option>
-                                <option value="old">2</option>
-                                <option value="ind">1</option>
-                            </select>
-                        </Col>
-                        <Col sm={ 10 } className="selectTitle">提案進度：
-                            <select className="select" name="提案進度">
-                                <option value="" selected>不限</option>
-                                <option value="eco">退回程序</option>
-                                <option value="eco">審查完畢</option>
-                                <option value="tec">交付審查</option>
-                                <option value="pol">排入院會</option>
-                                <option value="art">三讀</option>
-                                <option value="gen">逕付二讀</option>
-                            </select>
-                        </Col>
-                    </Row>
-                    <Selector
-                        data={ this.state.sndata }
-                        selectedTitle="姓名："
-                        getSelected={ values => alert(JSON.stringify(values)) }
-                    />
-                    <Selector
-                        data={ this.state.scdata }
-                        selectedTitle="分類："
-                        getSelected={ values => alert(JSON.stringify(values)) }
-                    />
-
+                <div>
+                    <Search like={ this.state.like } getList={ this.getList } />
                 </div>
-                {/* <button onClick={ this.test }>click me</button> */ }
-                {this.state.data || false ? (<>
-                    {this.state.data.map(placement => {
-                        return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>
-                            <Row>
-                                <Col>
-                                    <h3 className={ style.topicBoxBold }>{ placement.title }</h3>
-                                    <p className={ style.topicBoxBold }>
-                                        <Row>
-                                            <Col sm={ "auto" }>{ placement.date }</Col>
-                                            { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) }
-                                            <Col>排入院會</Col>
-                                        </Row>
-                                    </p>
-                                </Col>
-                                <Col sm={ 4 } >
-                                    <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
-                                </Col>
-                            </Row>
 
-                        </div>)
-                    }) }
-                </>) : (<></>) }
-                <hr />
+              
+                {/* <button onClick={ this.test }>click me</button> */ }
+                
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
                     return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>
-                        <Row className={ style.topicBoxBold}>
+                        <Row className={ style.topicBoxBold }>
                             <Col >
-                                <p className={ style.ellipsis }>{ placement.title }</p>
+                                <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                 <p >
-                                    {/* <Row>
+                                    <Row>
                                         <Col sm={ "auto" }>{ placement.date }</Col>
-                                        { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) }
-                                    </Row> */}
+                                        <Col sm={ "auto" }>#{"金融" }</Col>
+                                        <Col sm={"auto"}>2021/3/5</Col>
+                                        <Col sm={"auto"}>王婉諭</Col>
+                                        <Col sm={ "auto" }>{ placement.status }</Col>
+
+                                        {/* { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) } */}
+                                    </Row>
                                 </p>
-                                {/* <p className="ellipsis">{ placement.content }</p> */ }
+                                <p className="ellipsis">{ placement.content }</p> 
                             </Col>
-                            {/* <Col sm={ 4 } >
-                                <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
-                            </Col> */}
-                            <Col>{placement.status}</Col>
+                            <Col sm={ 4 } >
+                                <Chart options={ this.state.kpi.options } 
+                                series={ this.state.kpi.series } type="donut" 
+                                height="30"/>
+                            </Col>
                         </Row>
 
                     </div>)

@@ -23,4 +23,12 @@ export  class ProposalR {
     static rule() {
         return FetchUtil.getAPI(`${this.root}/rule`)
     }
+
+    static report(){
+        return FetchUtil.postAPI(`${this.root}/report`)
+    }
+
+    static cond(){
+        return FetchUtil.getAPI(`${this.root}/cond`)
+    }
 }

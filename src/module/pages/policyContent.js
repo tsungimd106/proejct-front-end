@@ -101,7 +101,7 @@ class PolicyContent extends React.Component {
             }
         })
     }
-    showReport = () => {
+    showReport = (msgid) => {
         let rule = {}
         if (!this.state.ReportModal) {
             ProposalR.rule().then(response => {
@@ -109,7 +109,8 @@ class PolicyContent extends React.Component {
                 console.log(rule)
                 this.setState({
                     reportModal: !this.state.reportModal,
-                    rule: rule
+                    rule: rule,
+                    msgid:msgid
                 })
 
             })
@@ -190,7 +191,7 @@ class PolicyContent extends React.Component {
                                                                     <Col sm={ "auto" }><span className="mesTitle">{ placement.user_id }</span></Col>
                                                                     <Col sm={ "auto" }> <span className="lable">{ placement.time }</span></Col>
                                                                     <Col>
-                                                                        <Button className={ style.btn_report } variant="outline-secondary" onClick={ this.showReport }>檢舉</Button>
+                                                                        <Button className={ style.btn_report } variant="outline-secondary" onClick={ ()=>{this.showReport(placement.id)} }>檢舉</Button>
                                                                     </Col>
                                                                     <Col sm={ 12 }>{ placement.content }</Col>
                                                                 </Row>

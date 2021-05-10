@@ -48,3 +48,12 @@
 .box_see {
     height: auto;
 }
+
+div.searchBar {
+    /* margin: 3% auto; */
+    /* height: auto; */
+    margin: 0 auto;
+    width: 95vw;
+    background-color: #f5f5f5;
+    border-color: black;
+}
