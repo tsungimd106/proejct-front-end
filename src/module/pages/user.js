@@ -6,6 +6,7 @@ import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
 import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
+import { trackPromise } from 'react-promise-tracker';
 
 class User extends React.Component {
     constructor(props) {
@@ -35,9 +36,9 @@ class User extends React.Component {
                                     <Col>
                                         <Tab.Container id="list-group-tabs-example" defaultActiveKey="f">
                                             <Row>
-                                                <Col sm={ 2.5 }>
+                                                <Col sm={2.5}>
                                                     <ListGroup>
-                                                        <ListGroup.Item eventKey="f" className={ style.select }>
+                                                        <ListGroup.Item eventKey="f" className={style.select}>
                                                             <Row>
                                                                 <Col><Person />
                                                                     <Row>
@@ -46,7 +47,7 @@ class User extends React.Component {
                                                                 </Col>
                                                             </Row>
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="s" className={ style.select }>
+                                                        <ListGroup.Item eventKey="s" className={style.select}>
                                                             <Row>
                                                                 <Col><Clipboard />
                                                                     <Row>
@@ -55,7 +56,7 @@ class User extends React.Component {
                                                                 </Col>
                                                             </Row>
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="t" className={ style.select }>
+                                                        <ListGroup.Item eventKey="t" className={style.select}>
                                                             <Row>
                                                                 <Col><Comment />
                                                                     <Row>
@@ -66,16 +67,16 @@ class User extends React.Component {
                                                         </ListGroup.Item>
                                                     </ListGroup>
                                                 </Col>
-                                                <Col sm={ 8 }>
+                                                <Col sm={8}>
                                                     <Tab.Content>
                                                         <Tab.Pane eventKey="f">
-                                                            <MyProfile d={ this.state.imageData } />
+                                                            <MyProfile d={this.state.imageData} />
                                                         </Tab.Pane>
                                                         <Tab.Pane eventKey="s">
-                                                            <MySave login={ this.state.userName } />
+                                                            <MySave login={this.state.userName} />
                                                         </Tab.Pane>
                                                         <Tab.Pane eventKey="t">
-                                                            <MyRecord userName={ this.state.userName } />
+                                                            <MyRecord userName={this.state.userName} />
                                                         </Tab.Pane>
                                                     </Tab.Content>
                                                 </Col>
@@ -86,8 +87,8 @@ class User extends React.Component {
                                 </Row>
 
                             </div>)
-                    }) }
-                </>) : (<></>) }
+                    })}
+                </>) : (<></>)}
             </>)
         } />)
     }
@@ -96,31 +97,31 @@ class MyProfile extends React.Component {
     render() {
         return (<>
             <Row>
-                <Col className={ style.profile }>
-                    <img className={ style.pic } src={ this.props.d } alt="" />
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>暱稱</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                <Col className={style.profile}>
+                    <img className={style.pic} src={this.props.d} alt="" />
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>暱稱</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>興趣類別</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>興趣類別</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>生日</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>生日</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>性別</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>性別</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>地區</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>地區</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>密碼</h5>
-                        <div><input type="text" className={ style.textBox }></input></div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>密碼</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
                     </div>
                 </Col>
             </Row>
@@ -134,10 +135,13 @@ class MySave extends React.Component {
         this.state = {}
     }
     componentDidMount() {
-        ProposalR.save({ user_id: this.props.login }).then(response => {
-            console.log(response.data)
-            this.setState({ data: response.data.data })
-        })
+        trackPromise(
+            ProposalR.save({ user_id: this.props.login }).then(response => {
+                console.log(response.data)
+                this.setState({ data: response.data.data })
+            })
+        )
+
     }
     changePage = (url) => {
         const path = `${window.location.href.split("/user")[0]}/${url}`
@@ -150,7 +154,7 @@ class MySave extends React.Component {
                 this.state.data !== undefined ? this.state.data.map((item, index) => {
                     console.log(item)
                     return (<>
-                        <div onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>{ item.title }</div>
+                        <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.title}</div>
                     </>)
                 }) : <></>
             }
@@ -169,10 +173,13 @@ class MyRecord extends React.Component {
         this.state = {}
     }
     componentDidMount() {
-        MemberR.msg(this.props.userName).then(response => {
-            console.log(response.data)
-            this.setState({msg:response.data.data})
-        })
+        trackPromise(
+            MemberR.msg(this.props.userName).then(response => {
+                console.log(response.data)
+                this.setState({ msg: response.data.data })
+            })
+        )
+
     }
     changePage = (url) => {
         const path = `${window.location.href.split("/user")[0]}/${url}`
@@ -181,16 +188,16 @@ class MyRecord extends React.Component {
     render() {
         return (<>
 
-            <Tabs defaultActiveKey="home" transition={ false } id="noanim-tab-example">
+            <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
                 <Tab eventKey="home" title="投票">
                     1
                 </Tab>
                 <Tab eventKey="profile" title="留言">
-                    { this.state.msg != undefined ? this.state.msg.map((item, index) => {
+                    {this.state.msg != undefined ? this.state.msg.map((item, index) => {
                         return (<>
-                        <div onClick={()=>{this.changePage(`PolicyContent/${item.proposal_id}`)}}>{item.content}</div>
+                            <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.content}</div>
                         </>)
-                    }) : <></> }
+                    }) : <></>}
                 </Tab>
 
             </Tabs>

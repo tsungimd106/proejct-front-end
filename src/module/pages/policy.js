@@ -8,6 +8,8 @@ import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
+import { trackPromise } from 'react-promise-tracker';
+
 
 class Policy extends React.Component {
 
@@ -18,7 +20,15 @@ class Policy extends React.Component {
 
     constructor(props) {
         super(props)
+     
+        trackPromise(
+                ProposalR.list().then(response => {
+            console.log(response)
+            this.setState({ Sdata: response.data.data })
 
+        })
+        )
+    
 
         this.state = {
             kpi: {
@@ -170,7 +180,7 @@ class Policy extends React.Component {
                             <Col sm={ 4 } >
                                 <Chart options={ this.state.kpi.options } 
                                 series={ this.state.kpi.series } type="donut" 
-                                height="30"/>
+                                height="125px"/>
                             </Col>
                         </Row>
 

@@ -120,7 +120,8 @@ class FigureDetail extends React.Component {
     }
     componentDidMount() {
         this.figureID = this.props.match.params.id
-        // trackPromise(
+        trackPromise(
+        
         PoliticianR.detail(this.figureID).then(res => {
             console.log(res)
             this.setState({ "resData": res.data.data[0].data[0] })
@@ -146,7 +147,7 @@ class FigureDetail extends React.Component {
             })
 
         })
-        // )
+        )
         window.scrollTo(0, 0)
         this.changeTerm("當屆")
 

@@ -8,6 +8,7 @@ import 'react-awesome-slider/dist/styles.css';
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
 import "../../css/policyContent.module.css"
+import { trackPromise } from 'react-promise-tracker';
 
 import person from "../../imgs/person.png"
 import { Width, FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
@@ -73,20 +74,27 @@ class PolicyContent extends React.Component {
 
     }
     vote = () => {
-        ProposalR.vote({ user_id: this.state.userName, sp_id: this.state.voteValue, proposal_id: this.state.proposalId }).then(response => {
+        trackPromise(
+            ProposalR.vote({ user_id: this.state.userName, sp_id: this.state.voteValue, proposal_id: this.state.proposalId }).then(response => {
             console.log(response)
             if (response.data.success) {
                 this.showNoteModal("投票成功")
             }
         })
+        )
+        
     }
     voteChange = (val) => this.setState({ voteValue: val });
 
     getMsg = () => {
-        ProposalR.msgList(this.state.proposalId).then(response => {
+        trackPromise(
+             ProposalR.msgList(this.state.proposalId).then(response => {
             console.log(response.data)
             this.setState({ msgL: response.data.data })
         })
+        )
+
+       
     }
 
     msg = () => {
@@ -126,11 +134,11 @@ class PolicyContent extends React.Component {
                 {this.state.data || false ? (<>
                     {this.state.data.map(placement => {
                         return (<div className="topic justify-content-center">
-                            <h2 className="topicBold">{ placement.title }</h2>
+                            <h2 className={style.topicBold}>{ placement.title }</h2>
                             <p >
                                 <Row >
-                                    <Col sm={ "auto" } className="lable" >{ placement.date }</Col>
-                                    { placement.tag.map(item => (<Col sm={ "auto" } className="lable">#{item }</Col>)) }
+                                    <Col sm={ "auto" } className={style.lable} >{ placement.date }</Col>
+                                    { placement.tag.map(item => (<Col sm={ "auto" } className={style.lable}>#{item }</Col>)) }
                                     <Col sm={ 12 }> <Row>
                                         <Col sm={ "auto" }>提案人</Col>
                                         <Col sm={ "auto" }><a href="./#/figure/401">王婉諭</a></Col>
@@ -156,7 +164,7 @@ class PolicyContent extends React.Component {
                                         </div>
                                     </Col> */}
                                     { this.state.login && (<Col sm={ 12 }>
-                                        <div className="lable">
+                                        <div className={style.lable}>
                                             您的看法：<div>(請點選投票)</div>
                                         </div>
                                         <Row className="justify-content-center">
@@ -172,14 +180,14 @@ class PolicyContent extends React.Component {
                                         </Row>
 
                                     </Col>) }
-                                    <Col sm={ 3 }><div className="lable">RUN民看法：</div></Col>
+                                    <Col sm={ 3 }><div className={style.lable}>RUN民看法：</div></Col>
                                     <Col sm={ 12 }></Col> <Col sm={ 3 }></Col>
                                     <Col sm={ 6 }>
                                         <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
                                     </Col>
                                     <Col sm={ 12 }>
-                                        <div className="mes">
-                                            <div className="mesTitle">RUN民討論專區</div>
+                                        <div className={style.mes}>
+                                            <div className={style.mesTitle}>RUN民討論專區</div>
                                             <ListGroup variant="flush">
 
                                                 { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
@@ -188,8 +196,8 @@ class PolicyContent extends React.Component {
                                                             <Col sm={ "auto" }><img src={ person } className="pimg" /></Col>
                                                             <Col>
                                                                 <Row className="align-items-center">
-                                                                    <Col sm={ "auto" }><span className="mesTitle">{ placement.user_id }</span></Col>
-                                                                    <Col sm={ "auto" }> <span className="lable">{ placement.time }</span></Col>
+                                                                    <Col sm={ "auto" }><span className={style.mesTitle}>{ placement.user_id }</span></Col>
+                                                                    <Col sm={ "auto" }> <span className={style.lable}>{ placement.time }</span></Col>
                                                                     <Col>
                                                                         <Button className={ style.btn_report } variant="outline-secondary" onClick={ ()=>{this.showReport(placement.id)} }>檢舉</Button>
                                                                     </Col>
