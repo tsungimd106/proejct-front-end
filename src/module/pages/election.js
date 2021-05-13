@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Carousel } from "react-bootstrap"
+import { Navbar, Nav, Row, Col, Jumbotron, Button } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import AwesomeSlider from 'react-awesome-slider';
 import MultiColorProgressBar from "../bar/mutiProcessBar"
@@ -33,13 +33,85 @@ class Election extends React.Component {
         return (<Pages id={1} page={
             (<>
 
-               
-                <div className={style.white}>
-                    <div><h1>查詢投票地點</h1></div>
-                    <div><h1>投票要點</h1></div>
-                    <div><h1>QA大集合</h1></div>
-                    <div><h1>選舉大記事</h1></div>
-                </div>
+                <Navbar bg="light" variant="light">
+                    <Nav className={style.nav}>
+                        <a href="#vote-point"><Nav.Link disabled>投票要點</Nav.Link></a>
+                        <a href="#qa"><Nav.Link disabled>QA大集合</Nav.Link></a>
+                        <a href="#vote-place"><Nav.Link disabled>查詢投票地點</Nav.Link></a>
+                        <a href="#history"><Nav.Link disabled>選舉大記事</Nav.Link></a>
+                    </Nav>
+                </Navbar>
+
+                <Row className={style.Row}>
+                    <Col sm={3}><img ></img></Col>
+                    <Col>
+                        <Jumbotron>
+                            <h1>選舉公告</h1>
+                            <p>
+                                這裡是和選舉相關資訊的公告區
+                            </p>
+                            <p>
+                                <Button variant="primary">看更多</Button>
+                            </p>
+                        </Jumbotron>
+                    </Col>
+                </Row>
+
+                <Row className={style.Row}>
+                    <Col><Button variant="secondary" size="lg" disabled>投票要點</Button></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Jumbotron>
+                                <h1>投票要點</h1>
+                                <p>
+                                    這裡是和投票要點,包含投票流程,投票必備品,相關影片和指南手冊
+                                </p>
+                            </Jumbotron>
+                    </Col>
+                </Row>
+
+                <Row className={style.Row}>
+                    <Col><Button variant="secondary" size="lg" disabled>QA大集合</Button></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Jumbotron>
+                                <h1>QA大集合</h1>
+                                <p>
+                                    這裡是QA大集合,常見問題都在這~
+                                </p>
+                            </Jumbotron>
+                    </Col>
+                </Row>
+
+                <Row className={style.Row}>
+                    <Col><Button variant="secondary" size="lg" disabled>查詢投票地點</Button></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Jumbotron>
+                                <h1>查詢投票地點</h1>
+                                <p>
+                                    在這裡查詢自己的投票地點~
+                                </p>
+                            </Jumbotron>
+                    </Col>
+                </Row>
+
+                <Row className={style.Row}>
+                    <Col><Button variant="secondary" size="lg" disabled>選舉大記事</Button></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Jumbotron>
+                                <h1>選舉大記事</h1>
+                                <p>
+                                    這裡是選舉大記事,記錄著台灣選舉開始以來發生的大事件。
+                                </p>
+                            </Jumbotron>
+                    </Col>
+                </Row>
 
             </>)
         } />)
