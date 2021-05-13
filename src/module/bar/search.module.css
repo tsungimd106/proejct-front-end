@@ -48,3 +48,9 @@
 .box_see {
     height: auto;
 }
+
+.searchBar {
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    border-color: black;
+}

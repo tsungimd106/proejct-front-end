@@ -69,7 +69,7 @@ export default class Search extends React.Component {
    
 
     render() {
-        return (<div>
+        return (<div className={style.searchBar}>
            
 
             <Row className={style.border}>

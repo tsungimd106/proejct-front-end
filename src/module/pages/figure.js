@@ -23,25 +23,27 @@ class Figure extends React.Component {
     }
     componentDidMount() {
 
-        // trackPromise(
-        PoliticianR.getList().then(response => {
+        trackPromise(
+            PoliticianR.getList().then(response => {
 
-            this.setState({ "data": response.data.data, resource: response.data.data })
-        })
-        PoliticianR.cond().then(response => {           
-            let test = {}
-            for (let i of response.data.data) {
-                let inside = {}
-                for (let j of i.data) {
-                    inside[j.name] = false                    
+                this.setState({ "data": response.data.data, resource: response.data.data })
+            }))
+        trackPromise(
+            PoliticianR.cond().then(response => {
+                let test = {}
+                for (let i of response.data.data) {
+                    let inside = {}
+                    for (let j of i.data) {
+                        inside[j.name] = false
+                    }
+                    test[i.name] = inside
+
                 }
-                test[i.name]=inside
-                
-            }
-            this.setState({"like":test})
-        })
-        
-       
+                this.setState({ "like": test })
+            })
+        )
+
+
 
     }
 
@@ -119,38 +121,38 @@ class Figure extends React.Component {
 
         if ("d" in obj) {
             return (<Col>
-                <p>{ obj["name"] }</p>
+                <p>{obj["name"]}</p>
                 {(!regPos.test(obj["name"]) ? <>
                     <p>test</p>
                     { obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
-                    }) }{
+                    })}{
                         <p>ttt</p>
                     }
                 </> : <Row>
                     <div></div>
-                    { obj["d"].map(placement => {
+                    {obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
-                    }) }</Row>
-                ) }
+                    })}</Row>
+                )}
 
 
 
             </Col>)
         } else {
-            return (<Col sm={ 3 }>
+            return (<Col sm={3}>
 
-                <Card onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
+                <Card onClick={() => { this.toDetail(obj["id"]) }} className={style.figureC}>
 
                     <Card.Body>
 
-                        <Row noGutters={ true } >
+                        <Row noGutters={true} >
                             <Col>
-                                { <Card.Text>
-                                    <img src={ obj["photo"] } className={ style.figurePh }></img>
-                                </Card.Text> }
+                                {<Card.Text>
+                                    <img src={obj["photo"]} className={style.figurePh}></img>
+                                </Card.Text>}
                             </Col>
-                            <Col> <p>{ obj["name"] }</p> { obj["a_n"] }</Col>
+                            <Col> <p>{obj["name"]}</p> {obj["a_n"]}</Col>
                         </Row>
 
                     </Card.Body>
@@ -162,13 +164,13 @@ class Figure extends React.Component {
     }
 
     render() {
-        return (<Pages id={ 3 }
-            onScroll={ console.log("ii") }
+        return (<Pages id={3}
+            onScroll={console.log("ii")}
             page={
                 (<>
-                    <div className={ style.searchBar } >
-                        <Search like={ this.state.like } getList={ this.getList } />
-                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */ }
+                    <div  >
+                        <Search like={this.state.like} getList={this.getList} />
+                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */}
 
                     </div>
                     <Row>

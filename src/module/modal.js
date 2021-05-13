@@ -81,9 +81,9 @@ export class ReportModal extends React.Component {
                 ok={ this.props.ok }
                 close={ this.props.close }
                 content={ (<>
-                
+
                     {this.props.rule && this.props.rule.map((item, index) => {
-                        return (<div><input type="checkbox" name="report" id="" value={item.id}/>{ item.context }</div>)
+                        return (<div><input type="checkbox" name="report" id="" value={ item.id } />{ item.context }</div>)
                     }) }
                     <p>備註：</p>
                     <input type="text" />
@@ -95,17 +95,30 @@ export class ReportModal extends React.Component {
 
 export class ProposalEditModal extends React.Component {
     render() {
+        console.log("see me ")
         return (<>
             <ModalBase
                 show={ this.props.show } message="提案編輯"
                 ok={ this.props.ok }
                 close={ this.props.close }
-                content={ (<>
-                
-                   
-                   各種輸入框
-                </>) } />
+                content={this.props.content } />
         </>)
     }
 }
 
+export class ScoreModal extends React.Component {
+    render() {
+        return (<>
+            <ModalBase
+            message={this.props.policy}
+                show={ this.props.show }
+                ok={ this.props.ok }
+                close={ this.props.close }
+                content={ <>
+                    {this.props.content }
+
+                </> }
+            />
+        </>)
+    }
+}

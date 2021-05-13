@@ -30,26 +30,20 @@ class Manage extends React.Component {
             (<>
                 <Tab.Container id="list-group-tabs-example" defaultActiveKey="check">
                     <Row>
-                        <Col sm={ 2.5 }>
+                        <Col sm={ 2 }>
                             <ListGroup>
                                 { this.state.items.map((item, index) => {
                                     return (<>
 
                                         <ListGroup.Item eventKey={ item.key }>
-                                            <Row>
-                                                <Col>
-                                                    <Row>
-                                                        <Col>{ item.name }</Col>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
+                                        { item.name }
                                         </ListGroup.Item>
                                     </>)
                                 }) }
 
                             </ListGroup>
                         </Col>
-                        <Col sm={ 8 }>
+                        <Col >
 
                             <Tab.Content>
 

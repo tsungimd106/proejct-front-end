@@ -1,14 +1,19 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { ListGroup, Row, Col, Tab } from "react-bootstrap"
-import { Person, Clipboard, Comment} from 'akar-icons';
+import { ListGroup, Row, Col, Tab, Tabs } from "react-bootstrap"
+import { Person, Clipboard, Comment } from 'akar-icons';
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
+import { ProposalR } from '../request/proposalR.js';
+import { MemberR } from '../request/memberR';
+import { trackPromise } from 'react-promise-tracker';
 
 class User extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            "login": !!localStorage.getItem("login"),
+            userName: localStorage.getItem("login"),
             data: [
                 { title: "提案標題", content: "我是內文", tag: ["金融", "國防"], date: "2020/11/22" }
             ],
@@ -33,27 +38,27 @@ class User extends React.Component {
                                             <Row>
                                                 <Col sm={2.5}>
                                                     <ListGroup>
-                                                        <ListGroup.Item eventKey="f" className={ style.select }>
+                                                        <ListGroup.Item eventKey="f" className={style.select}>
                                                             <Row>
-                                                                <Col><Person/>
+                                                                <Col><Person />
                                                                     <Row>
                                                                         <Col>我的個人檔案</Col>
                                                                     </Row>
                                                                 </Col>
-                                                            </Row>                                                            
+                                                            </Row>
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="s" className={ style.select }>
+                                                        <ListGroup.Item eventKey="s" className={style.select}>
                                                             <Row>
-                                                                <Col><Clipboard/>
+                                                                <Col><Clipboard />
                                                                     <Row>
                                                                         <Col>我的收藏</Col>
                                                                     </Row>
                                                                 </Col>
                                                             </Row>
                                                         </ListGroup.Item>
-                                                        <ListGroup.Item eventKey="t" className={ style.select }>                                                            
+                                                        <ListGroup.Item eventKey="t" className={style.select}>
                                                             <Row>
-                                                                <Col><Comment/>
+                                                                <Col><Comment />
                                                                     <Row>
                                                                         <Col>我的留言&投票紀錄</Col>
                                                                     </Row>
@@ -65,13 +70,13 @@ class User extends React.Component {
                                                 <Col sm={8}>
                                                     <Tab.Content>
                                                         <Tab.Pane eventKey="f">
-                                                            <MyProfile d={this.state.imageData}/>
+                                                            <MyProfile d={this.state.imageData} />
                                                         </Tab.Pane>
                                                         <Tab.Pane eventKey="s">
-                                                            <MySave />
+                                                            <MySave login={this.state.userName} />
                                                         </Tab.Pane>
                                                         <Tab.Pane eventKey="t">
-                                                            <MyRecord />
+                                                            <MyRecord userName={this.state.userName} />
                                                         </Tab.Pane>
                                                     </Tab.Content>
                                                 </Col>
@@ -91,53 +96,111 @@ class User extends React.Component {
 class MyProfile extends React.Component {
     render() {
         return (<>
-        <Row>
-            <Col className={style.profile}>
-                <img className={style.pic} src={this.props.d} alt="" />
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>暱稱</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>興趣類別</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>生日</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>性別</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>地區</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-                <div className={style.data}>
-                    <h5 className={style.topicBold}>密碼</h5>
-                    <div><input type="text" className={style.textBox}></input></div>
-                </div>
-            </Col>
+            <Row>
+                <Col className={style.profile}>
+                    <img className={style.pic} src={this.props.d} alt="" />
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>暱稱</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>興趣類別</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>生日</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>性別</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>地區</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                    <div className={style.data}>
+                        <h5 className={style.topicBold}>密碼</h5>
+                        <div><input type="text" className={style.textBox}></input></div>
+                    </div>
+                </Col>
             </Row>
         </>);
     }
 }
 
 class MySave extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+    componentDidMount() {
+        trackPromise(
+            ProposalR.save({ user_id: this.props.login }).then(response => {
+                console.log(response.data)
+                this.setState({ data: response.data.data })
+            })
+        )
+
+    }
+    changePage = (url) => {
+        const path = `${window.location.href.split("/user")[0]}/${url}`
+        window.location.href = path
+    }
     render() {
         return (<>
 
-            我的收藏(提案)
+            {
+                this.state.data !== undefined ? this.state.data.map((item, index) => {
+                    console.log(item)
+                    return (<>
+                        <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.title}</div>
+                    </>)
+                }) : <></>
+            }
+
+
         </>);
     }
+
+
+
 }
 
 class MyRecord extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+    componentDidMount() {
+        trackPromise(
+            MemberR.msg(this.props.userName).then(response => {
+                console.log(response.data)
+                this.setState({ msg: response.data.data })
+            })
+        )
+
+    }
+    changePage = (url) => {
+        const path = `${window.location.href.split("/user")[0]}/${url}`
+        window.location.href = path
+    }
     render() {
         return (<>
 
-            留言、投票紀錄
+            <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
+                <Tab eventKey="home" title="投票">
+                    1
+                </Tab>
+                <Tab eventKey="profile" title="留言">
+                    {this.state.msg != undefined ? this.state.msg.map((item, index) => {
+                        return (<>
+                            <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.content}</div>
+                        </>)
+                    }) : <></>}
+                </Tab>
+
+            </Tabs>
         </>);
     }
 }

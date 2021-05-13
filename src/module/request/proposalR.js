@@ -14,9 +14,21 @@ export  class ProposalR {
     static vote(data) {
         return FetchUtil.postAPI(`${this.root}/vote`, data)
     }
+
+    static save(data) {
+        return FetchUtil.getAPI(`${this.root}/save`, data)
+    }
     
     
     static rule() {
         return FetchUtil.getAPI(`${this.root}/rule`)
+    }
+
+    static report(){
+        return FetchUtil.postAPI(`${this.root}/report`)
+    }
+
+    static cond(){
+        return FetchUtil.getAPI(`${this.root}/cond`)
     }
 }

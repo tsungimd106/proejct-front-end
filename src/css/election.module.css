@@ -56,7 +56,7 @@
 }
 
 .topicBox {
-    width: 85%;
+    width: 95vw;
     margin: 5px auto;
     padding: 10px 20px;
     border: 1px solid #000;
@@ -147,11 +147,11 @@
     text-align: center;
 }
 
-.newhot{
+.newhot {
     padding: 0;
 }
-.newhot_title{
+
+.newhot_title {
     background-color: #696969;
     color: #ffffff;
 }
-
