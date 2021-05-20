@@ -8,15 +8,15 @@ export  class ProposalR {
     static msg(data) {
         return FetchUtil.postAPI(`${this.root}/msg`, data)
     }
-    static msgList(id) {
-        return FetchUtil.getAPI(`${this.root}/msg/${id}`)
+    static msgList(id,user_id) {
+        return FetchUtil.getAPI(`${this.root}/${id}`,user_id)
     }
     static vote(data) {
         return FetchUtil.postAPI(`${this.root}/vote`, data)
     }
 
     static save(data) {
-        return FetchUtil.getAPI(`${this.root}/save`, data)
+        return FetchUtil.postAPI(`${this.root}/save`, data)
     }
     
     
@@ -24,8 +24,8 @@ export  class ProposalR {
         return FetchUtil.getAPI(`${this.root}/rule`)
     }
 
-    static report(){
-        return FetchUtil.postAPI(`${this.root}/report`)
+    static report(data){
+        return FetchUtil.postAPI(`${this.root}/report`,data)
     }
 
     static cond(){

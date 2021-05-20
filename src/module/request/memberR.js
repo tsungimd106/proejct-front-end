@@ -18,4 +18,13 @@ export class MemberR {
         return FetchUtil.getAPI(`${this.root}/vote/${u_id}`)
     }
 
+    static user(u_id){
+        return FetchUtil.getAPI(`${this.root}/${u_id}`)
+    }
+
+    // static getUser(u_id){
+    //     return FetchUtil.getAPI(`${this.root}/`,u_id)
+    // }
+    
+
 }
