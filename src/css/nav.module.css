@@ -55,3 +55,11 @@
 a.pageOn {
     color: #c0c0c0;
 }
+
+.down :global(.dropdown-menu.show) {
+    width: 150px;
+}
+
+.navtop :global(.dropleft .dropdown-toggle::before) {
+    display: none;
+}

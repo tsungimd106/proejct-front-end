@@ -59,8 +59,8 @@ list-group {
     color: #99ff4d
 }
 
-.voteSent{
-    margin-top:8%;
+.voteSent {
+    margin-top: 8%;
 }
 
 .size {
@@ -69,11 +69,20 @@ list-group {
     margin: 0 5vw;
 }
 
-.btn_report{
+.btn_report {
     padding: 0.5%;
-    border:none;
+    border: none;
 }
 
-:global(.react-pdf__Page__canvas){
+.redHeart {
+    color: red;
+    cursor: pointer;
+}
+
+.heart {
+    cursor: pointer;
+}
+
+:global(.react-pdf__Page__canvas) {
     margin: 0 auto;
 }

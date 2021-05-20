@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, InputGroup, FormControl, CardGroup } from "react-bootstrap"
+import { Row, Col, Button, InputGroup, FormControl } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Cross } from 'akar-icons';
 
@@ -73,7 +73,7 @@ export default class Search extends React.Component {
            
 
             <Row className={style.border}>
-                <Col sm={ 12 }>
+                <Col sm={ 11 }>
                     <Row className="align-items-center">
                         <Col sm={"auto" }>關鍵字搜尋：</Col>
                         <Col>
