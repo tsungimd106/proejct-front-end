@@ -116,3 +116,12 @@
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 10000000;
 }
+
+@font-face {
+    font-family: abc;
+    src: url("abc.ttf");
+}
+
+* {
+    font-family: abc;
+}
