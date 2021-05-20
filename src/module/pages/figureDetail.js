@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, CardDeck, Card, DropdownButton, Dropdown, ToggleButtonGroup, ToggleButton } from "react-bootstrap"
 import { Pages } from "../pages.js"
-
+import { Card as CardUI, Button as BtnUI } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
@@ -55,8 +55,8 @@ class FigureDetail extends React.Component {
                 }
 
             },
-            go: [{ name: "該政治人物", data: [99, 98] }, { name: "立委總平均", data: [88, 85] }],
-            score: [{ name: "該政治人物", data: [85, 90] }, { name: "立委總平均", data: [77, 85] }, { name: "該政治人總平均", data: [80, 80] }],
+            go: [{ name: "該政治人物", data: [99, 98] }, { name: "立委總平均", data: [88, 85] }, { name: "該政治人總平均", data: [98.5, 98.5] }],
+            score: [{ name: "該政治人物", data: [85, 90] }, { name: "立委總平均", data: [77, 85] }, { name: "該政治人總平均", data: [87.5, 87.5] }],
             scoreD: {
                 chart: { toolbar: { show: false, }, foreColor: "#fff" },
                 colors: ['#08B2E3', "#EE6352", "#EFE9F4"],
@@ -82,7 +82,7 @@ class FigureDetail extends React.Component {
             },
             goO: {
                 chart: { toolbar: { show: false, }, foreColor: "#fff" },
-                colors: ['#586F7C', "#c6d8d3"],
+                colors: ['#08B2E3', "#EE6352", "#EFE9F4"],
                 dataLabels: {
                     enabled: true,
                 },
@@ -90,7 +90,7 @@ class FigureDetail extends React.Component {
                     curve: 'smooth'
                 },
                 title: {
-                    text: '出席率走勢圖',
+                    text: '出席率走勢圖:總平均:98.5',
                     align: 'left',
 
                 },
@@ -121,32 +121,32 @@ class FigureDetail extends React.Component {
     componentDidMount() {
         this.figureID = this.props.match.params.id
         trackPromise(
-        
-        PoliticianR.detail(this.figureID).then(res => {
-            console.log(res)
-            this.setState({ "resData": res.data.data[0].data[0] })
-            console.log(res.data.data[0])
-            let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
-            let selfD = []
-            cond.map(placement => {
-                if (placement["no"] in res.data.data[0].data[0]) {
-                    selfD.push({
-                        "content": res.data.data[0].data[0][placement.no].replace(/;/g, " <br />"),
-                        "title": placement.name
-                    })
-                    document.getElementById(placement.no).innerHTML = res.data.data[0].data[0][placement.no]
-                        .replace(/;/g, " $%^& <br />").split("$%^&").reverse().join("").replace(/,/g, " <br />")
-                }
-            })
 
-            this.setState({
-                name: res.data.data[0].data[0].name,
-                area: res.data.data[0].data[0].e_n,
-                policy: res.data.data[0].data[0].experience.split("\n"),
-                areaReamrk: res.data.data[0].data[0].remark.replace("null", "")
-            })
+            PoliticianR.detail(this.figureID).then(res => {
+                console.log(res)
+                this.setState({ "resData": res.data.data[0].data[0], "policy": res.data.data[1].data })
+                console.log(res.data.data[1])
+                let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+                let selfD = []
+                cond.map(placement => {
+                    if (placement["no"] in res.data.data[0].data[0]) {
+                        selfD.push({
+                            "content": res.data.data[0].data[0][placement.no].replace(/;/g, " <br />"),
+                            "title": placement.name
+                        })
+                        document.getElementById(placement.no).innerHTML = res.data.data[0].data[0][placement.no]
+                            .replace(/;/g, " $%^& <br />").split("$%^&").reverse().join("").replace(/,/g, " <br />")
+                    }
+                })
 
-        })
+                this.setState({
+                    name: res.data.data[0].data[0].name,
+                    area: res.data.data[0].data[0].e_n,
+                    experience: res.data.data[0].data[0].experience.split("\n"),
+                    areaReamrk: res.data.data[0].data[0].remark.replace("null", "")
+                })
+
+            })
         )
         window.scrollTo(0, 0)
         this.changeTerm("當屆")
@@ -209,7 +209,7 @@ class FigureDetail extends React.Component {
                                 }) }
                                 <Row><Col sm={ "auto" }>經歷</Col>
                                     <Col>
-                                        { this.state.policy && this.state.policy.map((item, index) => {
+                                        { this.state.experience && this.state.experience.map((item, index) => {
                                             return (<>
 
                                                 <Card style={ { color: "#000", margin: "15px 0" } }>
@@ -247,18 +247,39 @@ class FigureDetail extends React.Component {
                             </Col>
                             <Col sm={ 3 } className={ style.dashboardcard }>
                                 <span className={ style.white }>政見</span>
-                                { this.state.data.todo.map((placement, index) => {
-                                    return (<>
-                                        <div><CardDeck><Card>
-                                            <Card.Header>#{ placement.tag }</Card.Header>
-                                            <Card.Body onClick={ () => { this.scoreShow(placement.t) } }>
-                                                <Card.Text>{ placement.t }</Card.Text>
-                                            </Card.Body>
-                                            <Card.Footer>Read more</Card.Footer>
-                                        </Card></CardDeck>
-                                            <hr /></div>
-                                    </>)
-                                }) }
+                                <CardUI.Group>
+
+
+
+                                    { this.state.policy && this.state.policy.map((placement, index) => {
+                                        if (index == 0) return (<></>)
+                                        else {
+                                            return (<>
+                                                <CardUI>
+                                                    <CardUI.Content>
+                                                        <CardUI.Header>{ placement.cateogry.map((item, index) => {
+                                                            return (<>#{ item }</>)
+                                                        }) }</CardUI.Header>
+
+                                                        <CardUI.Description>
+                                                            { placement.content }
+                                                        </CardUI.Description>
+                                                    </CardUI.Content>
+                                                </CardUI>
+                                                <div><CardDeck><Card>
+                                                    <Card.Header>{ placement.cateogry.map((item, index) => {
+                                                        return (<>#{ item }</>)
+                                                    }) }</Card.Header>
+                                                    <Card.Body onClick={ () => { this.scoreShow(placement.content) } }>
+                                                        <Card.Text>{ placement.content }</Card.Text>
+                                                    </Card.Body>
+                                                    <Card.Footer>Read more</Card.Footer>
+                                                </Card></CardDeck>
+                                                    <hr /></div>
+                                            </>)
+                                        }
+                                    }) } </CardUI.Group>
+
                             </Col>
                         </Row>
 
@@ -273,21 +294,37 @@ class FigureDetail extends React.Component {
                     policy={ this.state.scoreTitle }
                     content={ (<>
                         <Row>
+                            <Col sm={ 12 }>
+                                您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。
+                            </Col>
+                            <Col sm={ 2 }>
+                                <ToggleButtonGroup vertical type="radio" name="options" >
+                                    { this.state.scoreRule.map((item, index) => {
+                                        return (<>
+                                            <ToggleButton value={ index + 1 } variant={ item.class } style={ { width: "100px" } }>{ item.name }</ToggleButton>
+
+                                        </>)
+                                    }) }
+
+                                </ToggleButtonGroup>
+                            </Col>
+                            <Col sm={ 10 }>
+                                { this.state.scoreRule.map((item, index) => {
+                                    return (<>
+
+                                        <div>{ item.remark }</div>
+
+
+                                    </>)
+                                }) }
+                            </Col>
                             { this.state.scoreRule.map((item, index) => {
                                 return (<>
-                                    <Col sm={ 2}>
-                                        <ToggleButtonGroup vertical type="radio" name="options" >
-                                            <ToggleButton value={ index+1 } variant={item.class} style={{width:"100px"}}>{item.name}</ToggleButton>
-                                        </ToggleButtonGroup>
-
-                                    </Col>
-                                    <Col sm={10}>{item.remark}</Col>
-                                    <Col sm={12} className={style.space}></Col>
-
+                                    <div className={ style.space }></div>
                                 </>)
                             }) }
-                           
-                           
+
+
                         </Row>
 
 
