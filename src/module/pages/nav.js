@@ -24,9 +24,8 @@ export default class Nav extends React.Component {
 
     render() {
         return (<>
-
-            <Row className={ style.navtop + " " + style.i_dont_know_how_to_name_it + " justify-content-center  align-items-center" }>
-                <Col >            <a href="./#/"><img className={ style.navPicture } src={ logo_dark } /></a>
+            <Row className={ style.navtop + " " + style.i_dont_know_how_to_name_it + " justify-content-right  align-items-center" }>
+                <Col ><a href="./#/"><img className={ style.navPicture } src={ logo_dark } /></a>
                 </Col>
                 <Col sm={ "auto" } >
                     <a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" }>首頁</a>
@@ -40,22 +39,22 @@ export default class Nav extends React.Component {
                 <Col sm={ "auto" }>
                     <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a>
                 </Col>
-                <Col sm={ "auto" }>
+                {/* <Col sm={ "auto" }> */}
                     {/* <input className="searchbar" type="text" name="搜尋"></input> */ }
-                    <Search /></Col>
+                    {/* <Search /></Col> */}
 
                 { (this.state.login || false ? (<>
-                    <Col sm={ "auto" }>
-                        <Dropdown variant="secondary">
+                    <Col sm={"auto"}>
+                        <Dropdown variant="secondary" className={style.down}  
+                          drop={"left"}
+                            size="lg">
                             <Dropdown.Toggle className={ style.down_btn } variant="secondary">
                                 <CircleChevronDown />
                             </Dropdown.Toggle>
-
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/user" className={ style.dropdown_item }>
                                     <Row className={ " align-items-center justify-content-center" } noGutters={ false }>
                                         <Col sm={ 2 }> <Person /></Col>
-
                                         <Col>個人檔案</Col>
                                     </Row>
                                 </Dropdown.Item>

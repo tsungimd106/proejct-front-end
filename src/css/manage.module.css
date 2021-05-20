@@ -1,0 +1,49 @@
+.textBox {
+    position: absolute;
+    text-align: left;
+    padding-left: 5px;
+    width: 25vw;
+    height: 28px;
+    border: 1px solid #000;
+    font-weight: 400;
+    font-size: medium;
+    border-radius: 0;
+}
+
+.topicBold {
+    font-weight: bold;
+}
+
+.data {
+    margin-bottom: 40px;
+    width: auto;
+}
+
+.profile {
+    margin: 10px 30% 40px 30%;
+    padding: 10px 20px;
+    font-weight: 400;
+}
+
+.pic {
+    margin: 10% 30%;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: none;
+}
+
+:global(.list-group-item.active) {
+    color: #000000;
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+}
+
+.select {
+    cursor: pointer;
+}
+
+.reportBox>div {
+    margin: 10px 0;
+    border-bottom: 1px #000;
+}

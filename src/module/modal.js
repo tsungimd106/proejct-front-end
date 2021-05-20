@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap"
+import { Modal as ModalUI, Button as BtnUI } from 'semantic-ui-react'
 
 
 
@@ -33,6 +34,89 @@ export class ModalBase extends React.Component {
         </>)
     }
 }
+function ModalBaseUI() {
+    const [open, setOpen] = React.useState(false)
+
+    return (
+        <ModalUI
+           
+            onClose={ () => setOpen(false) }
+            onOpen={ () => setOpen(true) }
+            open={ open }
+            size='small'
+            trigger={ <BtnUI>Basic Modal</BtnUI> }
+        >
+
+
+            <ModalUI.Header>Select a Photo</ModalUI.Header>
+            <ModalUI.Content image>
+                {/* <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' wrapped /> */}
+                <ModalUI.Description>
+                    {/* <Header>Default Profile Image</Header> */ }
+                    <p>
+                        We've found the following gravatar image associated with your e-mail
+                        address.
+          </p>
+                    <p>Is it okay to use this photo?</p>
+                </ModalUI.Description>
+            </ModalUI.Content>
+            <ModalUI.Actions>
+                <BtnUI color='black' onClick={ () => setOpen(false) }>
+                    Nope
+        </BtnUI>
+                <BtnUI
+                    content="Yep, that's me"
+                    labelPosition='right'
+                    icon='checkmark'
+                    onClick={ () => setOpen(false) }
+                    positive
+                />
+            </ModalUI.Actions>
+        </ModalUI>
+    )
+}
+export { ModalBaseUI }
+
+
+// export class ModalBaseUI extends React.Component {
+
+//     render() {
+//         const [open,setOpen]=React.useState(false)
+//         return (<>
+//             <ModalUI
+//                 onClose={ this.props.close }
+//                 onOpen={ this.props.close }
+//                 open={ this.props.open }
+//                 trigger={ <BtnUI>Show Modal</BtnUI> }
+//             >
+//                 <ModalUI.Header>Select a Photo</ModalUI.Header>
+//                 <ModalUI.Content image>
+
+//                     <ModalUI.Description>
+//                         {/* <Header>Default Profile Image</Header> */}
+//                         <p>
+//                             We've found the following gravatar image associated with your e-mail
+//                             address.
+//                          </p>
+//                         <p>Is it okay to use this photo?</p>
+//                     </ModalUI.Description>
+//                 </ModalUI.Content>
+//                 <ModalUI.Actions>
+//                     <BtnUI content={ "取消" } color='black' onClick={ this.props.close } />
+
+//                     <BtnUI
+//                         content="Yep, that's me"
+//                         labelPosition='right'
+//                         icon='checkmark'
+//                         onClick={ this.props.ok }
+//                         positive
+//                     />
+//                 </ModalUI.Actions>
+//             </ModalUI>
+//   )
+//         </>)
+//     }
+// }
 
 export class TaskModal extends React.Component {
     render() {
@@ -83,10 +167,11 @@ export class ReportModal extends React.Component {
                 content={ (<>
 
                     {this.props.rule && this.props.rule.map((item, index) => {
-                        return (<div><input type="checkbox" name="report" id="" value={ item.id } />{ item.context }</div>)
+                        return (<div><input type="checkbox" name="report" id={ `reportInput-${item.id}` } />
+                            <label for={ `reportInput-${item.id}` }>{ item.context }</label></div>)
                     }) }
                     <p>備註：</p>
-                    <input type="text" />
+                    <input type="text" id={ "reportInputRemark" } />
                 </>) } />
         </>)
     }
@@ -101,7 +186,7 @@ export class ProposalEditModal extends React.Component {
                 show={ this.props.show } message="提案編輯"
                 ok={ this.props.ok }
                 close={ this.props.close }
-                content={this.props.content } />
+                content={ this.props.content } />
         </>)
     }
 }
@@ -110,7 +195,7 @@ export class ScoreModal extends React.Component {
     render() {
         return (<>
             <ModalBase
-            message={this.props.policy}
+                message={ this.props.policy }
                 show={ this.props.show }
                 ok={ this.props.ok }
                 close={ this.props.close }

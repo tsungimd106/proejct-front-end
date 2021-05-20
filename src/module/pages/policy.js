@@ -54,7 +54,8 @@ class Policy extends React.Component {
         }
     }
     toContent = (id) => {
-        document.location.href = `.#/policyContent/${id}`
+        localStorage.setItem("proposal",id)
+        document.location.href = `.#/policyContent/${id.id}`
     }
 
     getList = () => {
@@ -160,22 +161,22 @@ class Policy extends React.Component {
                 {/* <button onClick={ this.test }>click me</button> */ }
                 
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
-                    return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement.id) } }>
+                    return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement) } }>
                         <Row className={ style.topicBoxBold }>
                             <Col >
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>
-                                <p >
+                            
                                     <Row>
                                         <Col sm={ "auto" }>{ placement.date }</Col>
                                         <Col sm={ "auto" }>#{"金融" }</Col>
-                                        <Col sm={"auto"}>2021/3/5</Col>
+                                        {/* <Col sm={"auto"}>2021/3/5</Col> */}
                                         <Col sm={"auto"}>王婉諭</Col>
                                         <Col sm={ "auto" }>{ placement.status }</Col>
 
                                         {/* { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) } */}
                                     </Row>
-                                </p>
-                                <p className="ellipsis">{ placement.content }</p> 
+                              
+                             
                             </Col>
                             <Col sm={ 4 } >
                                 <Chart options={ this.state.kpi.options } 

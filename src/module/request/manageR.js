@@ -16,4 +16,8 @@ export class ManageR {
         return FetchUtil.postAPI(`${this.root}/report`, data)
     }
 
+    static user(){
+        return FetchUtil.getAPI(`${this.root}/user`)
+    }
+
 }
