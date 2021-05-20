@@ -19,7 +19,7 @@ class Manage extends React.Component {
                 { key: "article", name: "廣告及公告管理", in: <Article /> },
                 { key: "proposal", name: "提案管理", in: <Proposal /> },
                 { key: "politician", name: "政治人物管理", in: <Politician /> },
-                { key: "welcome", name: "新增管理者", in: <User /> }
+                { key: "welcome", name: "使用者管理", in: <User /> }
             ]
 
         }
@@ -34,20 +34,15 @@ class Manage extends React.Component {
                             <ListGroup>
                                 { this.state.items.map((item, index) => {
                                     return (<>
-
                                         <ListGroup.Item eventKey={ item.key }>
                                         { item.name }
                                         </ListGroup.Item>
                                     </>)
                                 }) }
-
                             </ListGroup>
                         </Col>
                         <Col >
-
                             <Tab.Content>
-
-
                                 { this.state.items.map((item, index) => {
                                     return (<>
                                         <Tab.Pane eventKey={ item.key }>
