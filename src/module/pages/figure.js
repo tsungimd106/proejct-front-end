@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    Row, Col, CardColumns, Card, InputGroup, FormControl, Button, CardGroup
+   CardColumns, Card, InputGroup, FormControl, Button, CardGroup
 } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import style from "../../css/figure.module.css"
-// import { CAccordion, Test } from "../accordion"
+import { Grid } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
 import { AlignToTop } from "akar-icons"
@@ -120,7 +120,9 @@ class Figure extends React.Component {
         var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
 
         if ("d" in obj) {
-            return (<Col>
+            return (
+            
+            <Grid.Column>
                 <p>{obj["name"]}</p>
                 {(!regPos.test(obj["name"]) ? <>
                     <p>test</p>
@@ -129,37 +131,37 @@ class Figure extends React.Component {
                     })}{
                         <p>ttt</p>
                     }
-                </> : <Row>
+                </> : <Grid><Grid.Row>
                     <div></div>
                     {obj["d"].map(placement => {
                         return this.cut(placement, obj["name"])
-                    })}</Row>
+                    })}</Grid.Row></Grid>
                 )}
 
 
 
-            </Col>)
+            </Grid.Column>)
         } else {
-            return (<Col sm={3}>
+            return (<Grid.Column width={3}>
 
                 <Card onClick={() => { this.toDetail(obj["id"]) }} className={style.figureC}>
 
                     <Card.Body>
 
-                        <Row noGutters={true} >
-                            <Col>
+                       <Grid> <Grid.Row noGutters={true} >
+                            <Grid.Column>
                                 {<Card.Text>
                                     <img src={obj["photo"]} className={style.figurePh}></img>
                                 </Card.Text>}
-                            </Col>
-                            <Col> <p>{obj["name"]}</p> {obj["a_n"]}</Col>
-                        </Row>
+                            </Grid.Column>
+                            <Grid.Column> <p>{obj["name"]}</p> {obj["a_n"]}</Grid.Column>
+                       </Grid.Row></Grid>  
 
                     </Card.Body>
 
                 </Card>
 
-            </Col>)
+            </Grid.Column>)
         }
     }
 
@@ -173,13 +175,14 @@ class Figure extends React.Component {
                         {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */}
 
                     </div>
-                    <Row>
+                    <Grid>
+                   <Grid> <Grid.Row>
                         {
                             this.state.data && this.state.data.map(placement => {
                                 return this.cut(placement)
                             })
                         }
-                    </Row>
+                   </Grid.Row></Grid>  </Grid>
                 </>)
             } />)
     }

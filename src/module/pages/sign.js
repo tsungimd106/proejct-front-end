@@ -1,32 +1,32 @@
 import React from 'react';
-import { Row, Col, Button } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import { MemberR } from "../request/memberR.js"
 import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
 import logo_dark from '../../imgs/LOGO1.png'
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
-
+import { Grid } from 'semantic-ui-react'
 class Base extends React.Component {
 
     render() {
         let enough_height = window.innerHeight >= 576
 
         return (<>
-            <Row className={style.sign + " justify-content-center"} noGutters="true">
-                <Col sm={6} xs={12} className={style.left}>
+           <Grid> <Grid.Row className={style.sign + " justify-content-center"} noGutters="true">
+                <Grid.Column width={6} xs={12} className={style.left}>
                     <h4>Welcome</h4>
                     <h6>__</h6>
                     {enough_height && <img src={logo_light} alt="" />}
-                </Col>
-                <Col sm={6} xs={10} className={style.right} >
+                </Grid.Column>
+                <Grid.Column width={6} xs={10} className={style.right} >
                     <a href="./#/"><img src={home_icon} className={style.homeKey} alt="" /></a>
                     <img src={logo_dark} alt="" />
                     {this.props.content}
-                </Col>
-            </Row>
+                </Grid.Column>
+           </Grid.Row></Grid>  
 
         </>)
     }
@@ -110,16 +110,16 @@ class Login extends React.Component {
     }
     render() {
         return (<Base content={<div className={style.need_to_center}>
-            <Row>
-                <Col xs={12}><input type="text" placeholder="&nbsp;帳號" id="account" /></Col>
-                <Col xs={12}><input type="password" placeholder="&nbsp;密碼" id="password" /></Col>
-                {/* <Col xs={ 12 }>忘記密碼</Col> */}
-                <Col xs={12}><Button id="continue" variant="secondary" className={style.continue} onClick={this.send}>繼續</Button></Col>
-                <Col xs={12}><Button variant="success" >以LINE帳號登入</Button></Col>
-                {/* <Col xs={12}>忘記密碼</Col> */}
-                <Col>            <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
-                </Col>
-            </Row>
+           <Grid> <Grid.Row>
+                <Grid.Column xs={12}><input type="text" placeholder="&nbsp;帳號" id="account" /></Grid.Column>
+                <Grid.Column xs={12}><input type="password" placeholder="&nbsp;密碼" id="password" /></Grid.Column>
+                {/* <Grid.Column xs={ 12 }>忘記密碼</Grid.Column> */}
+                <Grid.Column xs={12}><Button id="continue" variant="secondary" className={style.continue} onClick={this.send}>繼續</Button></Grid.Column>
+                <Grid.Column xs={12}><Button variant="success" >以LINE帳號登入</Button></Grid.Column>
+                {/* <Grid.Column xs={12}>忘記密碼</Grid.Column> */}
+                <Grid.Column>            <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
+                </Grid.Column>
+           </Grid.Row></Grid>  
             {/* <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
             <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
             <p><i>忘記密碼</i></p> */}

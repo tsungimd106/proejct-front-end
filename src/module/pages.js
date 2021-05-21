@@ -1,8 +1,8 @@
 import React from 'react';
-import { Row, Col } from "react-bootstrap"
+import { Grid } from 'semantic-ui-react'
 import Nav from "./pages/nav"
-import 'bootstrap/dist/css/bootstrap.min.css';
 import style from "../css/pages.module.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Pages extends React.Component {
     constructor(props) {

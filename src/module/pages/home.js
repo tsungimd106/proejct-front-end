@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Carousel, Card, Button, ListGroup, } from "react-bootstrap"
+import {  Card, Button, ListGroup, } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
@@ -7,6 +7,7 @@ import person from "../../imgs/person.png"
 import f from "../../imgs/f.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
+import { Grid } from 'semantic-ui-react'
 import { Fire,Book } from 'akar-icons';
 import style from "../../css/main.module.css"
 
@@ -70,8 +71,8 @@ class Home extends React.Component {
         return (<Pages id={ 0 } page={
             (<>
                 <div className={ style.width85 }>
-                    <Row>
-                        <Col sm={ "8" } className={ style.slider_item }>
+                   <Grid> <Grid.Row>
+                        <Grid.Column width={ "8" } className={ style.slider_item }>
                             { this.state.imageData || false ? (<>
                                 <AwesomeSlider animation="foldOutAnimation">
                                     { this.state.imageData.map(item => {
@@ -79,9 +80,9 @@ class Home extends React.Component {
                                     }) }
                                 </AwesomeSlider>
                             </>) : (<></>) }
-                        </Col>
+                        </Grid.Column>
 
-                        <Col className={ style.slider_item }>
+                        <Grid.Column className={ style.slider_item }>
                             { this.state.imageData || false ? (<>
                                 <AwesomeSlider animation="foldOutAnimation">
                                     { this.state.chart || false ? (
@@ -107,17 +108,17 @@ class Home extends React.Component {
                                     ) : (<></>) }
                                 </AwesomeSlider>
                             </>) : (<></>) }
-                        </Col>
+                        </Grid.Column>
 
-                    </Row>
+                   </Grid.Row></Grid>  
                 </div>
 
                 {/* <div className={ style.title }>政治人物排行榜
-                    <Row>
+                   <Grid> <Grid.Row>
                         { this.state.chart || false ? (<>
                             { this.state.chart.map(placement => {
                                 return (
-                                    <Col sm={ "3" }>
+                                    <Grid.Column width={ "3" }>
                                         <Card className={ style.pimg } >
                                             <Card.Img variant="top" src={ placement.img } className={ style.pimg } />
                                             <Card.Body>
@@ -128,13 +129,13 @@ class Home extends React.Component {
                                                 <Button variant="primary">我的數據儀表板</Button>
                                             </Card.Body>
                                         </Card>
-                                    </Col>)
+                                    </Grid.Column>)
                             }) }
                         </>) : (<></>) }
-                    </Row>
+                   </Grid.Row></Grid>  
                 </div> */}
-                <Row className={ style.width85 }>
-                    <Col>
+               <Grid> <Grid.Row className={ style.width85 }>
+                    <Grid.Column>
                         <Card>
                             <Card.Header as="h5" className={style.newhot_title}><Book className={style.tab}/>最新提案</Card.Header>
                             <Card.Body  className={style.newhot}>
@@ -143,15 +144,15 @@ class Home extends React.Component {
                                             {this.state.proposal.new.map(placement => {
                                                 return (
                                                     <ListGroup.Item>
-                                                        <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={3}>
-                                                                <Row className="justify-content-center">
-                                                                    <Col sm={7}><img src={person}/></Col>
-                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
-                                                                </Row>
-                                                            </Col>
-                                                            <Col sm={9}>{placement.title}</Col>
-                                                        </Row>
+                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
+                                                            <Grid.Column width={3}>
+                                                               <Grid> <Grid.Row className="justify-content-center">
+                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
+                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
+                                                               </Grid.Row></Grid>  
+                                                            </Grid.Column>
+                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
+                                                       </Grid.Row></Grid>  
                                                     </ListGroup.Item>
                                                 )
                                             })}
@@ -159,8 +160,8 @@ class Home extends React.Component {
                                     </ListGroup>
                             </Card.Body>
                         </Card>
-                    </Col>
-                    <Col>
+                    </Grid.Column>
+                    <Grid.Column>
                         <Card>
                             <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門提案</Card.Header>
                             <Card.Body  className={style.newhot}>
@@ -169,15 +170,15 @@ class Home extends React.Component {
                                             {this.state.proposal.hot.map(placement => {
                                                 return (
                                                     <ListGroup.Item>
-                                                        <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={3}>
-                                                                <Row className="justify-content-center">
-                                                                    <Col sm={7}><img src={person}/></Col>
-                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
-                                                                </Row>
-                                                            </Col>
-                                                            <Col sm={9}>{placement.title}</Col>
-                                                        </Row>
+                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
+                                                            <Grid.Column width={3}>
+                                                               <Grid> <Grid.Row className="justify-content-center">
+                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
+                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
+                                                               </Grid.Row></Grid>  
+                                                            </Grid.Column>
+                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
+                                                       </Grid.Row></Grid>  
                                                     </ListGroup.Item>
                                                 )
                                             })}
@@ -185,12 +186,12 @@ class Home extends React.Component {
                                     </ListGroup>
                             </Card.Body>
                         </Card>
-                    </Col>
-                </Row>
+                    </Grid.Column>
+               </Grid.Row></Grid>  
 
 
-                <Row className={style.width85}>
-                <Col>
+               <Grid> <Grid.Row className={style.width85}>
+                <Grid.Column>
                         <Card>
                             <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門留言</Card.Header>
                             <Card.Body  className={style.newhot}>
@@ -199,15 +200,15 @@ class Home extends React.Component {
                                             {this.state.message.hot.map(placement => {
                                                 return (
                                                     <ListGroup.Item>
-                                                        <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={3}>
-                                                                <Row className="justify-content-center">
-                                                                    <Col sm={7}><img src={person}/></Col>
-                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
-                                                                </Row>
-                                                            </Col>
-                                                            <Col sm={9}>{placement.title}</Col>
-                                                        </Row>
+                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
+                                                            <Grid.Column width={3}>
+                                                               <Grid> <Grid.Row className="justify-content-center">
+                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
+                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
+                                                               </Grid.Row></Grid>  
+                                                            </Grid.Column>
+                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
+                                                       </Grid.Row></Grid>  
                                                     </ListGroup.Item>
                                                 )
                                             })}
@@ -215,8 +216,8 @@ class Home extends React.Component {
                                     </ListGroup>
                             </Card.Body>
                         </Card>
-                    </Col>
-                    <Col>
+                    </Grid.Column>
+                    <Grid.Column>
                         <Card>
                             <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門政見</Card.Header>
                             <Card.Body  className={style.newhot}>
@@ -225,15 +226,15 @@ class Home extends React.Component {
                                             {this.state.politics.hot.map(placement => {
                                                 return (
                                                     <ListGroup.Item>
-                                                        <Row className="align-items-center" noGutters={true}>
-                                                            <Col sm={3}>
-                                                                <Row className="justify-content-center">
-                                                                    <Col sm={7}><img src={person}/></Col>
-                                                                    <Col sm={12}><div className={style.msg_name}>{placement.name}</div></Col>
-                                                                </Row>
-                                                            </Col>
-                                                            <Col sm={9}>{placement.title}</Col>
-                                                        </Row>
+                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
+                                                            <Grid.Column width={3}>
+                                                               <Grid> <Grid.Row className="justify-content-center">
+                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
+                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
+                                                               </Grid.Row></Grid>  
+                                                            </Grid.Column>
+                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
+                                                       </Grid.Row></Grid>  
                                                     </ListGroup.Item>
                                                 )
                                             })}
@@ -241,8 +242,8 @@ class Home extends React.Component {
                                     </ListGroup>
                             </Card.Body>
                         </Card>
-                    </Col>
-                </Row>
+                    </Grid.Column>
+               </Grid.Row></Grid>  
             </>)
         } />)
     }

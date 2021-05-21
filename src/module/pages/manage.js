@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { ListGroup, Row, Col, Tab } from "react-bootstrap"
+import { ListGroup,Tab } from "react-bootstrap"
 import { Person, Clipboard, Comment } from 'akar-icons';
 import Politician from "./manage/politician"
 import Check from "./manage/check"
@@ -9,6 +9,7 @@ import Proposal from "./manage/proposal"
 import User from "./manage/user"
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
+import { Grid } from 'semantic-ui-react'
 
 class Manage extends React.Component {
     constructor(props) {
@@ -29,8 +30,8 @@ class Manage extends React.Component {
         return (<Pages page={
             (<>
                 <Tab.Container id="list-group-tabs-example" defaultActiveKey="check">
-                    <Row>
-                        <Col sm={ 2 }>
+                   <Grid> <Grid.Row>
+                        <Grid.Column width={ 2 }>
                             <ListGroup>
                                 { this.state.items.map((item, index) => {
                                     return (<>
@@ -40,8 +41,8 @@ class Manage extends React.Component {
                                     </>)
                                 }) }
                             </ListGroup>
-                        </Col>
-                        <Col >
+                        </Grid.Column>
+                        <Grid.Column >
                             <Tab.Content>
                                 { this.state.items.map((item, index) => {
                                     return (<>
@@ -52,8 +53,8 @@ class Manage extends React.Component {
                                     </>)
                                 }) }
                             </Tab.Content>
-                        </Col>
-                    </Row>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
                 </Tab.Container>
             </>)
         } />)
