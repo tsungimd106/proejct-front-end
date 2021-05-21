@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { ListGroup, Row, Col, Tab } from "react-bootstrap"
-import { Tab as TabUI, Button as BtnUI, Divider as DividerUI, Transition as TransitionUI, Select as SelectUI } from 'semantic-ui-react'
+import { ListGroup, Tab } from "react-bootstrap"
+import { Tab as TabUI, Button as BtnUI, Divider as DividerUI, Transition as TransitionUI, Select as SelectUI,Grid } from 'semantic-ui-react'
 import { Person, Clipboard, Comment } from 'akar-icons';
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
@@ -37,8 +37,8 @@ class User extends React.Component {
         return (<Pages page={
             (<>
                 <Tab.Container id="list-group-tabs-example" defaultActiveKey="f">
-                    <Row>
-                        <Col sm={ 2 }>
+                   <Grid> <Grid.Row>
+                        <Grid.Column width={ 2 }>
                             <ListGroup>
                                 <ListGroup.Item eventKey="f" className={ style.select }>
                                     <div><Person /></div>
@@ -53,8 +53,8 @@ class User extends React.Component {
                                     <div>我的留言&投票紀錄</div>
                                 </ListGroup.Item>
                             </ListGroup>
-                        </Col>
-                        <Col sm={ 10 }>
+                        </Grid.Column>
+                        <Grid.Column width={ 14 }>
                             <Tab.Content>
                                 <Tab.Pane eventKey="f">
                                     <MyProfile data={ this.state.user } area={ this.state.area } />
@@ -66,8 +66,8 @@ class User extends React.Component {
                                     <MyRecord userName={ this.state.userName } msg={ this.state.msg } />
                                 </Tab.Pane>
                             </Tab.Content>
-                        </Col>
-                    </Row>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
                 </Tab.Container>
             </>)
         } />)
@@ -97,8 +97,8 @@ class MyProfile extends React.Component {
 
     render() {
         return (<>
-            <Row>
-                <Col >
+           <Grid> <Grid.Row columns={"equal"}>
+                <Grid.Column >
                     <div><h5>大頭貼照</h5></div>
                     <img className={ style.pic } src={ pic } alt="" />
                     <div className={ style.data }>
@@ -113,8 +113,8 @@ class MyProfile extends React.Component {
                         <h5 className={ style.topicBold }>性別</h5>
                         <div>{ this.state.user && this.state.user.gender }</div>
                     </div>
-                </Col>
-                <Col>
+                </Grid.Column>
+                <Grid.Column>
 
                     <BtnUI content={ "修改地區" } onClick={ this.areaShow } />
                     <DividerUI hidden />
@@ -129,8 +129,8 @@ class MyProfile extends React.Component {
 
                     <p><BtnUI>修改興趣</BtnUI></p>
                     <p><BtnUI>修改密碼</BtnUI></p>
-                </Col>
-            </Row>
+                </Grid.Column>
+           </Grid.Row></Grid>  
             <ModalBaseUI  />
         </>);
     }
@@ -189,10 +189,11 @@ class MyRecord extends React.Component {
 
                     { this.state.msg != undefined ? this.state.msg.map((item, index) => {
                         return (<>
-                            <Row onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
-                                <Col>{ item.title } </Col>
-                                <Col>{ item.content }</Col>
-                            </Row>
+                           <Grid> <Grid.Row columns={"equal"}
+                           onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
+                                <Grid.Column>{ item.title } </Grid.Column>
+                                <Grid.Column>{ item.content }</Grid.Column>
+                           </Grid.Row></Grid>  
 
                         </>)
                     }) : <></> }

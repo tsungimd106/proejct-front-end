@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Row, Col} from "react-bootstrap"
+import { Grid } from 'semantic-ui-react'
 import { ManageR } from "../../request/manageR"
 import { Tab as TabUI, Button as BtnUI } from 'semantic-ui-react'
 import 'react-awesome-slider/dist/styles.css';
@@ -23,40 +23,42 @@ export default class Check extends React.Component {
         const panes = [
             {
                 menuItem: '未審核', render: () => <TabUI.Pane>
-                    <Row className={ style.reportBox + " justify-content-center align-items-center" }>
-                        <Col sm={ 7 }><h3>檢舉留言</h3></Col>
-                        <Col sm={ 3 }><h3>備註</h3></Col>
-                        <Col sm={ 2 }><h3>操作</h3></Col>
+                    <Grid>
+                    <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
+                        <Grid.Column width={ 7 }><h3>檢舉留言</h3></Grid.Column>
+                        <Grid.Column width={ 3 }><h3>備註</h3></Grid.Column>
+                        <Grid.Column width={ 2 }><h3>操作</h3></Grid.Column>
                         { this.state.notYet && this.state.notYet.map((item, index) => {
                             return (<>
-                                <Col sm={ 7 } >{ item.content }</Col>
-                                <Col sm={ 3 }>{ item.remark }</Col>
-                                <Col sm={ 2 }>
+                                <Grid.Column width={ 7 } >{ item.content }</Grid.Column>
+                                <Grid.Column width={ 3 }>{ item.remark }</Grid.Column>
+                                <Grid.Column width={ 2 }>
                                     <BtnUI>停權</BtnUI>
                                     <BtnUI>不停權</BtnUI>
-                                </Col>
+                                </Grid.Column>
                             </>)
                         }) }
-                    </Row>
+                   </Grid.Row></Grid> 
                 </TabUI.Pane>
             },
             {
                 menuItem: '已審核', render: () => <TabUI.Pane>
-                    <Row >
-                        <Col sm={ 7 }><h3>檢舉留言</h3></Col>
-                        <Col sm={ 3 }><h3>操作</h3></Col>
-                        <Col sm={2}><h3>審核者</h3></Col>
+                   
+                   <Grid> <Grid.Row >
+                        <Grid.Column width={ 7 }><h3>檢舉留言</h3></Grid.Column>
+                        <Grid.Column width={ 3 }><h3>操作</h3></Grid.Column>
+                        <Grid.Column width={2}><h3>審核者</h3></Grid.Column>
                         {
                             this.state.already && this.state.already.map((item, index) => {
                                 return (<>
-                                    <Col sm={ 8 } className="">{ item.content }</Col>
-                                    <Col sm={ 4 }>
+                                    <Grid.Column width={ 8 } className="">{ item.content }</Grid.Column>
+                                    <Grid.Column width={ 4 }>
 
-                                    </Col>
+                                    </Grid.Column>
                                 </>)
                             })
                         }
-                    </Row >
+                    </Grid.Row ></Grid>
                 </TabUI.Pane >
             },
 

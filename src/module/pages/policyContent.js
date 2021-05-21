@@ -1,7 +1,7 @@
 import React from 'react';
-import { Row, Col, Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+import {  Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 
-
+import { Grid } from 'semantic-ui-react'
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
@@ -189,16 +189,16 @@ class PolicyContent extends React.Component {
                                 <h2 className={ style.topicBold }>{ placement.title }</h2>
                                 <div>{ this.state.login && <Heart className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } /> }</div>
                                 <p >
-                                    <Row >
-                                        <Col sm={ "auto" } className={ style.lable } >{ placement.date }</Col>
-                                        {/* { placement.tag.map(item => (<Col sm={ "auto" } className={ style.lable }>#{item }</Col>)) } */ }
-                                        <Col sm={ 12 }>
-                                            <Row>
-                                                <Col sm={ "auto" }>提案人</Col>
-                                                <Col sm={ "auto" }><a href="./#/figure/401">王婉諭</a></Col>
-                                            </Row>
-                                        </Col>
-                                        <Col sm={ 12 } >
+                                   <Grid> <Grid.Row >
+                                        <Grid.Column width={ "auto" } className={ style.lable } >{ placement.date }</Grid.Column>
+                                        {/* { placement.tag.map(item => (<Grid.Column width={ "auto" } className={ style.lable }>#{item }</Grid.Column>)) } */ }
+                                        <Grid.Column width={ 12 }>
+                                           <Grid> <Grid.Row>
+                                                <Grid.Column width={ "auto" }>提案人</Grid.Column>
+                                                <Grid.Column width={ "auto" }><a href="./#/figure/401">王婉諭</a></Grid.Column>
+                                           </Grid.Row></Grid>  
+                                        </Grid.Column>
+                                        <Grid.Column width={ 12 } >
                                             <div>
                                                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
@@ -219,12 +219,12 @@ class PolicyContent extends React.Component {
                                             </div>
 
                                             {/* <PdfComponent uu={placement.pdfUrl}/> */ }
-                                        </Col>
-                                        { this.state.login && (<Col sm={ 12 }>
+                                        </Grid.Column>
+                                        { this.state.login && (<Grid.Column width={ 12 }>
                                             <div className={ style.lable }>
                                                 您的看法：<div>(請點選投票)</div>
                                             </div>
-                                            <Row className="justify-content-center">
+                                           <Grid> <Grid.Row className="justify-content-center">
                                                 <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
                                                     onChange={ this.voteChange }>
                                                     <ToggleButton variant="light" value={ 0 }><FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
@@ -233,36 +233,36 @@ class PolicyContent extends React.Component {
 
 
                                                 </ToggleButtonGroup>
-                                                <Col sm={ "auto" } className={ style.voteSent }><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Col>
-                                            </Row>
+                                                <Grid.Column width={ "auto" } className={ style.voteSent }><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Grid.Column>
+                                           </Grid.Row></Grid>  
 
-                                        </Col>) }
-                                        <Col sm={ 3 }><div className={ style.lable }>RUN民看法：</div></Col>
-                                        <Col sm={ 12 }></Col> <Col sm={ 3 }></Col>
-                                        <Col sm={ 6 }>
+                                        </Grid.Column>) }
+                                        <Grid.Column width={ 3 }><div className={ style.lable }>RUN民看法：</div></Grid.Column>
+                                        <Grid.Column width={ 12 }></Grid.Column> <Grid.Column width={ 3 }></Grid.Column>
+                                        <Grid.Column width={ 6 }>
                                             <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
-                                        </Col>
-                                        <Col sm={ 12 }>
+                                        </Grid.Column>
+                                        <Grid.Column width={ 12 }>
                                             <div className={ style.mes }>
                                                 <div className={ style.mesTitle }>RUN民討論專區</div>
                                                 <ListGroup variant="flush">
 
                                                     { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
                                                         return (<ListGroup.Item>
-                                                            <Row className="align-items-center" noGutters={ true }>
-                                                                <Col sm={ "auto" }><img src={ person } className="pimg" /></Col>
-                                                                <Col>
-                                                                    <Row className="align-items-center">
-                                                                        <Col sm={ "auto" }><span className={ style.mesTitle }>{ placement.user_id }</span></Col>
-                                                                        <Col sm={ "auto" }> <span className={ style.lable }>{ placement.time }</span></Col>
-                                                                        <Col>
+                                                           <Grid> <Grid.Row className="align-items-center" noGutters={ true }>
+                                                                <Grid.Column width={ "auto" }><img src={ person } className="pimg" /></Grid.Column>
+                                                                <Grid.Column>
+                                                                   <Grid> <Grid.Row className="align-items-center">
+                                                                        <Grid.Column width={ "auto" }><span className={ style.mesTitle }>{ placement.user_id }</span></Grid.Column>
+                                                                        <Grid.Column width={ "auto" }> <span className={ style.lable }>{ placement.time }</span></Grid.Column>
+                                                                        <Grid.Column>
                                                                             <Button className={ style.btn_report } variant="outline-secondary" onClick={ () => { this.showReport(placement.id) } }>檢舉</Button>
-                                                                        </Col>
-                                                                        <Col sm={ 12 }>{ placement.content }</Col>
-                                                                    </Row>
+                                                                        </Grid.Column>
+                                                                        <Grid.Column width={ 12 }>{ placement.content }</Grid.Column>
+                                                                   </Grid.Row></Grid>  
 
-                                                                </Col>
-                                                            </Row>
+                                                                </Grid.Column>
+                                                           </Grid.Row></Grid>  
                                                         </ListGroup.Item>)
                                                     })) : <></> }
                                                 </ListGroup>
@@ -281,8 +281,8 @@ class PolicyContent extends React.Component {
                                                     </Form.Group>
                                                 </Form>) }
                                             </div>
-                                        </Col>
-                                    </Row>
+                                        </Grid.Column>
+                                   </Grid.Row></Grid>  
                                 </p>
 
                             </div>)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, } from "react-bootstrap"
+import { Grid } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import Item from './Item.jsx'
 import { DataContext } from './DataContext.jsx'
@@ -9,14 +9,14 @@ const SelectedList = (props) => {
   const { title } = props
 
   return (
-    <Row className="react-awesome-selector-selected-list">
+   <Grid> <Grid.Row className="react-awesome-selector-selected-list">
       {title && (
-        <Col md="auto" className="react-awesome-selector-selected-list-title">
+        <Grid.Column md="auto" className="react-awesome-selector-selected-list-title">
           {title}
 
-        </Col>
+        </Grid.Column>
       )}
-      <Col className="react-awesome-selector-selected-list-items">
+      <Grid.Column className="react-awesome-selector-selected-list-items">
         {context.selectedList.map((item) => {
           const handleIconClick = () => context.removeSelected(item)
           return (
@@ -25,8 +25,8 @@ const SelectedList = (props) => {
             </Item>
           )
         })}
-      </Col>
-    </Row>
+      </Grid.Column>
+   </Grid.Row></Grid>  
   )
 }
 

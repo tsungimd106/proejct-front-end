@@ -1,11 +1,11 @@
 import React from 'react';
-import { ListGroup, Row, Col, Tab } from "react-bootstrap"
-import { Person, Clipboard, Comment } from 'akar-icons';
+
 import { ManageR } from "../../request/manageR"
 import { ProposalR } from "../../request/proposalR"
 import 'react-awesome-slider/dist/styles.css';
 import { ProposalEditModal } from "../../modal"
 import style from "../../../css/policy.module.css"
+import { Grid } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker';
 
 export default class Proposal extends React.Component {
@@ -45,25 +45,26 @@ export default class Proposal extends React.Component {
 
     render() {
         return (<>
-            {/* <Row>
-                <Col className={ style.profile }> */}
+            {/* <Grid.Row>
+                <Grid.Column className={ style.profile }> */}
 
             <div className={style.data}>   </div>
             {this.state.data && this.state.data.map((item, index) => {
                 return (<>
-                    <Row onClick={() => { this.showEdit(index) }} className={style.topicBox}>
-                        <Col sm={"auto"}>{item.id}</Col>
-                        <Col sm={"auto"}>{item.status}</Col>
-                        <Col >{item.title}</Col>
+                <Grid>
+                    <Grid.Row onClick={() => { this.showEdit(index) }} className={style.topicBox}>
+                        <Grid.Column width={"auto"}>{item.id}</Grid.Column>
+                        <Grid.Column width={"auto"}>{item.status}</Grid.Column>
+                        <Grid.Column >{item.title}</Grid.Column>
                         
-                    </Row>
+                   </Grid.Row></Grid> 
 
 
                 </>)
             })}
 
-            {/* </Col>
-            </Row> */}
+            {/* </Grid.Column>
+           </Grid.Row></Grid>   */}
             <ProposalEditModal show={this.state.showEdit}
                 ok={this.edit}
                 close={() => { this.showEdit(0) }}
@@ -73,14 +74,15 @@ export default class Proposal extends React.Component {
                             this.state.detail != undefined ? this.state.cond.map(item => {
 
                                 return (<>
-                                    <Row className="justify-content-center align-items-center">
-                                        <Col sm={3}>
+                                <Grid>
+                                    <Grid.Row className="justify-content-center align-items-center">
+                                        <Grid.Column width={3}>
                                             {item.name}
-                                        </Col>
-                                        <Col>
+                                        </Grid.Column>
+                                        <Grid.Column>
                                             <textarea type="text" value={this.state.data[this.state.detail][item.key]} style={{ width: "100%" }} />
-                                        </Col>
-                                    </Row>
+                                        </Grid.Column>
+                                   </Grid.Row></Grid>
 
 
                                 </>)

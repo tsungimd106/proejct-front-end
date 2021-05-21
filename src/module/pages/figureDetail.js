@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, CardDeck, Card, DropdownButton, Dropdown, ToggleButtonGroup, ToggleButton } from "react-bootstrap"
+import { CardDeck, Card, DropdownButton, Dropdown, ToggleButtonGroup, ToggleButton } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { Card as CardUI, Button as BtnUI } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
@@ -7,6 +7,7 @@ import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
 import { ScoreModal } from "../modal"
+import { Grid } from 'semantic-ui-react'
 
 // import PacmanLoader from "react-spinners/ClipLoader";
 
@@ -172,13 +173,13 @@ class FigureDetail extends React.Component {
                     {
 
 
-                        <Row className={ style.dashboard }>
-                            <Col sm={ 3 } className={ style.dashboardcard + " " + style.white }>
-                                <Row className={ style.line + " align-items-center" }>
-                                    <Col>
+                       <Grid> <Grid.Row className={ style.dashboard }>
+                            <Grid.Column width={ 3 } className={ style.dashboardcard + " " + style.white }>
+                               <Grid> <Grid.Row className={ style.line + " align-items-center" }>
+                                    <Grid.Column>
                                         <img src={ this.state.resData?.photo } className={ style.figurePh }></img>
-                                    </Col>
-                                    <Col>
+                                    </Grid.Column>
+                                    <Grid.Column>
                                         <p>
 
                                             <DropdownButton id="dropdown-basic-button" title={ this.state.term && this.state.term }
@@ -194,21 +195,21 @@ class FigureDetail extends React.Component {
 
                                         <p >{ this.state.selfD && this.state.area }</p>
                                         <p>{ this.state.selfD && this.state.areaReamrk }</p>
-                                    </Col>
-                                </Row>
+                                    </Grid.Column>
+                               </Grid.Row></Grid>  
 
 
                                 { this.state.selfD && this.state.selfD.map(placement => {
                                     return (<>
-                                        <Row>
-                                            <Col sm="auto" >{ placement.name }</Col>
-                                            <Col id={ placement.no } className={ style.line }></Col>
-                                        </Row>
+                                       <Grid> <Grid.Row>
+                                            <Grid.Column width="auto" >{ placement.name }</Grid.Column>
+                                            <Grid.Column id={ placement.no } className={ style.line }></Grid.Column>
+                                       </Grid.Row></Grid>  
                                         {/* <div className={style.white}>{placement.title}</div> */ }
                                     </>)
                                 }) }
-                                <Row><Col sm={ "auto" }>經歷</Col>
-                                    <Col>
+                               <Grid> <Grid.Row><Grid.Column width={ "auto" }>經歷</Grid.Column>
+                                    <Grid.Column>
                                         { this.state.experience && this.state.experience.map((item, index) => {
                                             return (<>
 
@@ -221,31 +222,31 @@ class FigureDetail extends React.Component {
                                                 </Card>
                                                 {/* <div>{item}</div> */ }
                                             </>)
-                                        }) }</Col>
-                                </Row>
-                            </Col>
-                            <Col sm={ 6 }>
-                                <Row className={ style.dashboardcard }>
+                                        }) }</Grid.Column>
+                               </Grid.Row></Grid>  
+                            </Grid.Column>
+                            <Grid.Column width={ 6 }>
+                               <Grid> <Grid.Row className={ style.dashboardcard }>
 
-                                    <Col className={ style.white }>
+                                    <Grid.Column className={ style.white }>
                                         <Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 350 } />
-                                    </Col>
-                                </Row>
-                                <Row className={ style.dashboardcard }>
+                                    </Grid.Column>
+                               </Grid.Row></Grid>  
+                               <Grid> <Grid.Row className={ style.dashboardcard }>
 
-                                    <Col className={ style.white }>
+                                    <Grid.Column className={ style.white }>
                                         <Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 350 } />
-                                    </Col>
-                                </Row>
-                                <Row className={ style.dashboardcard }>
-                                    <Col className={ style.white }>
+                                    </Grid.Column>
+                               </Grid.Row></Grid>  
+                               <Grid> <Grid.Row className={ style.dashboardcard }>
+                                    <Grid.Column className={ style.white }>
                                         提案數量統計
                                             <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
-                                    </Col>
+                                    </Grid.Column>
 
-                                </Row>
-                            </Col>
-                            <Col sm={ 3 } className={ style.dashboardcard }>
+                               </Grid.Row></Grid>  
+                            </Grid.Column>
+                            <Grid.Column width={ 3 } className={ style.dashboardcard }>
                                 <span className={ style.white }>政見</span>
                                 <CardUI.Group>
 
@@ -280,8 +281,8 @@ class FigureDetail extends React.Component {
                                         }
                                     }) } </CardUI.Group>
 
-                            </Col>
-                        </Row>
+                            </Grid.Column>
+                       </Grid.Row></Grid>  
 
 
 
@@ -293,11 +294,11 @@ class FigureDetail extends React.Component {
                 <ScoreModal show={ this.state.scoreShow } ok={ this.score } close={ () => { this.scoreShow("") } }
                     policy={ this.state.scoreTitle }
                     content={ (<>
-                        <Row>
-                            <Col sm={ 12 }>
+                       <Grid> <Grid.Row>
+                            <Grid.Column width={ 12 }>
                                 您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。
-                            </Col>
-                            <Col sm={ 2 }>
+                            </Grid.Column>
+                            <Grid.Column width={ 2 }>
                                 <ToggleButtonGroup vertical type="radio" name="options" >
                                     { this.state.scoreRule.map((item, index) => {
                                         return (<>
@@ -307,8 +308,8 @@ class FigureDetail extends React.Component {
                                     }) }
 
                                 </ToggleButtonGroup>
-                            </Col>
-                            <Col sm={ 10 }>
+                            </Grid.Column>
+                            <Grid.Column width={ 10 }>
                                 { this.state.scoreRule.map((item, index) => {
                                     return (<>
 
@@ -317,7 +318,7 @@ class FigureDetail extends React.Component {
 
                                     </>)
                                 }) }
-                            </Col>
+                            </Grid.Column>
                             { this.state.scoreRule.map((item, index) => {
                                 return (<>
                                     <div className={ style.space }></div>
@@ -325,7 +326,7 @@ class FigureDetail extends React.Component {
                             }) }
 
 
-                        </Row>
+                       </Grid.Row></Grid>  
 
 
                         { this.state.status && this.state.status.map((item, index) => {

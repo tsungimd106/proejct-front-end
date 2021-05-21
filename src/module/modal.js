@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap"
-import { Modal as ModalUI, Button as BtnUI } from 'semantic-ui-react'
+import { Button,  Modal } from "react-bootstrap"
+import { Modal as ModalUI, Button as BtnUI,Grid } from 'semantic-ui-react'
 
 
 
@@ -11,24 +11,24 @@ export class ModalBase extends React.Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered backdrop="static" className="smallModal">
                 <Modal.Body className="show-grid body">
-                    <Row className="justify-content-end">
-                        <Col className="modalClose">
+                   <Grid> <Grid.Row className="justify-content-end">
+                        <Grid.Column className="modalClose">
                             <Button variant="light" className="close" aria-label="Close" onClick={ this.props.close }><span
                                 aria-hidden="true">&times;</span></Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
+                   <Grid> <Grid.Row>
+                        <Grid.Column>
                             <center className="modalLabel">{ this.props.message }</center>
                             <div className="modalContainer">{ this.props.content }</div>
                             <p id={ `${this.props.error}ErrorInfo` } className="errorInfo" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
+                   <Grid> <Grid.Row>
+                        <Grid.Column>
                             <center><p><Button variant="success" onClick={ this.props.ok }>確認</Button></p></center>
-                        </Col>
-                    </Row>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
                 </Modal.Body>
             </Modal>
         </>)
@@ -125,32 +125,32 @@ export class TaskModal extends React.Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered backdrop="static" className="smallModal">
                 <Modal.Body className="show-grid body">
-                    <Row className="justify-content-end">
-                        <Col className="modalClose">
+                   <Grid> <Grid.Row className="justify-content-end">
+                        <Grid.Column className="modalClose">
                             <div className="close" aria-label="Close" onClick={ this.props.close }><span
                                 aria-hidden="true">&times;</span></div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
+                   <Grid> <Grid.Row>
+                        <Grid.Column>
                             <center className="modalLabel">{ this.props.message }</center>
-                            <Row>
+                           <Grid> <Grid.Row>
                                 { this.props.tag.map(placement => {
-                                    return (<Col sm={ "auto" }>
+                                    return (<Grid.Column width={ "auto" }>
                                         #{placement }
-                                    </Col>)
+                                    </Grid.Column>)
 
                                 }) }
-                            </Row>
+                           </Grid.Row></Grid>  
                             <div className="modalContainer">{ this.props.content }</div>
                             <p id={ `${this.props.error}ErrorInfo` } className="errorInfo" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
+                   <Grid> <Grid.Row>
+                        <Grid.Column>
                             <center><p><Button variant="secondary" onClick={ this.props.ok }>關閉視窗</Button></p></center>
-                        </Col>
-                    </Row>
+                        </Grid.Column>
+                   </Grid.Row></Grid>  
                 </Modal.Body>
             </Modal>
         </>)

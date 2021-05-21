@@ -1,5 +1,5 @@
 .footer {
-    height: 50px;
+    height: 100px;
     width: auto;
     background: #000;
     text-align: center;
@@ -11,7 +11,7 @@
 }
 
 .pagesC {
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 100px);
     width: calc(100vw - 30px);
     margin: 0 auto
 }

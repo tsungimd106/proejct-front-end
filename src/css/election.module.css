@@ -156,11 +156,11 @@
     color: #ffffff;
 }
 
-.nav{
-    padding:0 30%;
+.nav {
+    padding: 0 30%;
     font-weight: 600;
 }
 
-.Row{
+.Grid.Row {
     margin: 5px 0;
 }

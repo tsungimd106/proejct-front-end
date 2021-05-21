@@ -1,10 +1,8 @@
 import React from 'react';
-import { Navbar, Nav, Row, Col, Jumbotron, Button } from "react-bootstrap"
+import { Navbar, Nav, Jumbotron, } from "react-bootstrap"
 import { Pages } from "../pages.js"
-import AwesomeSlider from 'react-awesome-slider';
-import MultiColorProgressBar from "../bar/mutiProcessBar"
+import { Grid, Button, Ref } from 'semantic-ui-react'
 import 'react-awesome-slider/dist/styles.css';
-// import "../../css/main.css"
 import style from "../../css/election.module.css"
 
 
@@ -28,102 +26,97 @@ class Election extends React.Component {
 
         }
     }
-    toVote = (event) => {
+    toVote = () => {
 
         this.voteRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-    toQa = (event) => { 
+    toQa = () => {
         this.QARef.current.scrollIntoView({ behavior: 'smooth' })
-     }
-    toSearch = (event) => { 
+    }
+    toSearch = () => {
         this.searchRef.current.scrollIntoView({ behavior: 'smooth' })
-     }
-    toThing = (event) => {
+    }
+    toThing = () => {
         this.thingRef.current.scrollIntoView({ behavior: 'smooth' })
-     }
+    }
 
 
     render() {
+        const rate = 3
         return (<Pages id={ 1 } page={
             (<>
 
                 <Navbar bg="light" variant="light">
                     <Nav className={ style.nav }>
-                        <Nav.Link onClick={ this.toVote }>投票要點</Nav.Link>
+                        <Nav.Link onClick={ this.toVote } >投票要點</Nav.Link>
                         <Nav.Link onClick={ this.toQa }>QA大集合</Nav.Link>
                         <Nav.Link onClick={ this.toSearch }>查詢投票地點</Nav.Link>
                         <Nav.Link onClick={ this.toThing }>選舉大記事</Nav.Link>
                     </Nav>
                 </Navbar>
-
-                <Row className={ style.Row }>
-                    <Col sm={ 3 }><img /></Col>
-                    <Col>
-                        <Jumbotron>
-                            <h1>選舉公告</h1>
-                            <p>
-                                這裡是和選舉相關資訊的公告區
-                            </p>
-                            <p>
-                                <Button variant="primary">看更多</Button>
-                            </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
-
-                <Row className={ style.Row }>
-                    <Col><Button variant="secondary" size="lg" disabled ref={ this.voteRef }>投票要點</Button></Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Jumbotron>
-                            <h1 >投票要點</h1>
-                            <p>
-                                這裡是和投票要點,包含投票流程,投票必備品,相關影片和指南手冊
+                <Grid>
+                    <Grid.Row columns={ 2 }>
+                        <Grid.Column width={ 4 }><img /></Grid.Column>
+                        <Grid.Column width={ 12 }>
+                            <Jumbotron>
+                                <h1>選舉公告</h1>
+                                <p>這裡是和選舉相關資訊的公告區</p>
+                                <p>
+                                    <Button color={ "teal" } variant="primary">看更多</Button>
                                 </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
-
-                <Row className={ style.Row }>
-                    <Col><Button variant="secondary" size="lg" disabled ref={ this.QARef }>QA大集合</Button></Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Jumbotron>
-                            <h1 >QA大集合</h1>
-                            <p>
-                                這裡是QA大集合,常見問題都在這~
+                            </Jumbotron>
+                        </Grid.Column>
+                        <Grid.Column width={ rate }>
+                            <Ref innerRef={ this.voteRef }>
+                                <Button color={ "teal" } variant="secondary" size="lg" disabled >投票要點</Button>
+                            </Ref>
+                        </Grid.Column>
+                        <Grid.Column width={16-rate}>
+                            <Jumbotron>
+                                <h1 >投票要點</h1>
+                                <p>
+                                    這裡是和投票要點,包含投票流程,投票必備品,相關影片和指南手冊
                                 </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
+                            </Jumbotron>
+                        </Grid.Column>
+                        <Grid.Column width={ rate }>
+                            <Ref innerRef={ this.QARef }>
+                                <Button color={ "teal" } variant="secondary" size="lg" disabled >QA大集合</Button>
+                            </Ref>
+                        </Grid.Column>
 
-                <Row className={ style.Row }>
-                    <Col><Button variant="secondary" size="lg" disabled ref={ this.searchRef }>查詢投票地點</Button></Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Jumbotron>
-                            <h1 >查詢投票地點</h1>
-                            <p>
-                                在這裡查詢自己的投票地點~
+                        <Grid.Column width={16-rate}>
+                            <Jumbotron>
+                                <h1 >QA大集合</h1>
+                                <p>
+                                    這裡是QA大集合,常見問題都在這~
                                 </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
+                            </Jumbotron>
+                        </Grid.Column>
+                        <Grid.Column width={rate}>
+                            <Ref innerRef={ this.searchRef }>
+                                <Button color={ "teal" } variant="secondary" size="lg" disabled >查詢投票地點</Button></Ref>
+                        </Grid.Column>
+                        <Grid.Column width={16-rate}>
+                            <Jumbotron>
+                                <h1 >查詢投票地點</h1>
+                                <p>
+                                    在這裡查詢自己的投票地點~
+                                </p>
+                            </Jumbotron>
+                        </Grid.Column>
+                        <Grid.Column width={rate}>
+                            <Ref innerRef={ this.thingRef }><Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大記事</Button></Ref>
+                        </Grid.Column>
+                        <Grid.Column width={16-rate}>
+                            <Jumbotron>
+                                <h1 >選舉大記事</h1>
+                                <p>這裡是選舉大記事,記錄著台灣選舉開始以來發生的大事件。 </p>
+                            </Jumbotron>
+                        </Grid.Column>
+                    </Grid.Row>
 
-                <Row className={ style.Row }>
-                    <Col><Button variant="secondary" size="lg" disabled ref={ this.thingRef }>選舉大記事</Button></Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Jumbotron>
-                            <h1 >選舉大記事</h1>
-                            <p>這裡是選舉大記事,記錄著台灣選舉開始以來發生的大事件。 </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
+                </Grid>
 
             </>)
         } />)

@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import { Route, HashRouter } from "react-router-dom";
-import { Row, Col, Container } from "react-bootstrap"
-import Nav from "./module/pages/nav"
 import { main } from "./module/router.js";
 import { usePromiseTracker } from "react-promise-tracker";
 import Loader from "react-loader-spinner"
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import "./css/main.css"
 
 class App extends React.Component {
 	render() {

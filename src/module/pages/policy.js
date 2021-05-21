@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
+import { InputGroup, FormControl, Button } from "react-bootstrap"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
@@ -9,7 +9,7 @@ import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-
+import { Grid } from 'semantic-ui-react'
 
 class Policy extends React.Component {
 
@@ -20,15 +20,15 @@ class Policy extends React.Component {
 
     constructor(props) {
         super(props)
-     
-        trackPromise(
-                ProposalR.list().then(response => {
-            console.log(response)
-            this.setState({ Sdata: response.data.data })
 
-        })
+        trackPromise(
+            ProposalR.list().then(response => {
+                console.log(response)
+                this.setState({ Sdata: response.data.data })
+
+            })
         )
-    
+
 
         this.state = {
             kpi: {
@@ -48,13 +48,14 @@ class Policy extends React.Component {
                 { title: "公民投票法部分條文修正草案", tag: ["國民", "立法"], date: "2020/11/22" },
 
             ],
+            like: { "abc":["a", "b"] }
 
-          
+
 
         }
     }
     toContent = (id) => {
-        localStorage.setItem("proposal",id)
+        localStorage.setItem("proposal", id)
         document.location.href = `.#/policyContent/${id.id}`
     }
 
@@ -104,7 +105,7 @@ class Policy extends React.Component {
                 termb = term.length > 0 ? termb : true
                 statusb = status.length > 0 ? statusb : true
 
-                return  termb & statusb
+                return termb & statusb
             })
             console.log(newd)
 
@@ -157,33 +158,33 @@ class Policy extends React.Component {
                     <Search like={ this.state.like } getList={ this.getList } />
                 </div>
 
-              
+
                 {/* <button onClick={ this.test }>click me</button> */ }
-                
+
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
                     return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement) } }>
-                        <Row className={ style.topicBoxBold }>
-                            <Col >
+                        <Grid> <Grid.Row className={ style.topicBoxBold }>
+                            <Grid.Column >
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>
-                            
-                                    <Row>
-                                        <Col sm={ "auto" }>{ placement.date }</Col>
-                                        <Col sm={ "auto" }>#{"金融" }</Col>
-                                        {/* <Col sm={"auto"}>2021/3/5</Col> */}
-                                        <Col sm={"auto"}>王婉諭</Col>
-                                        <Col sm={ "auto" }>{ placement.status }</Col>
 
-                                        {/* { placement.tag.map(item => (<Col sm={ "auto" }>#{item }</Col>)) } */}
-                                    </Row>
-                              
-                             
-                            </Col>
-                            <Col sm={ 4 } >
-                                <Chart options={ this.state.kpi.options } 
-                                series={ this.state.kpi.series } type="donut" 
-                                height="125px"/>
-                            </Col>
-                        </Row>
+                                <Grid> <Grid.Row>
+                                    <Grid.Column width={ "auto" }>{ placement.date }</Grid.Column>
+                                    <Grid.Column width={ "auto" }>#{ "金融" }</Grid.Column>
+                                    {/* <Grid.Column width={"auto"}>2021/3/5</Grid.Column> */ }
+                                    <Grid.Column width={ "auto" }>王婉諭</Grid.Column>
+                                    <Grid.Column width={ "auto" }>{ placement.status }</Grid.Column>
+
+                                    {/* { placement.tag.map(item => (<Grid.Column width={ "auto" }>#{item }</Grid.Column>)) } */ }
+                                </Grid.Row></Grid>
+
+
+                            </Grid.Column>
+                            <Grid.Column width={ 4 } >
+                                <Chart options={ this.state.kpi.options }
+                                    series={ this.state.kpi.series } type="donut"
+                                    height="125px" />
+                            </Grid.Column>
+                        </Grid.Row></Grid>
 
                     </div>)
                 }) }

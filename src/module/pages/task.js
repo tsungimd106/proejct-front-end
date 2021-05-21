@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from "react-bootstrap"
+import { Grid } from 'semantic-ui-react'
 import { TaskModal } from "../modal"
 import { Pages } from "../pages.js"
 
@@ -38,7 +38,7 @@ class Task extends React.Component {
             <>
                 {this.state.data.map(placement => {
                     return (<>
-                        <Row onClick={ () => { this.clickMe(placement.title, placement.content,placement.tag) } }>
+                       <Grid> <Grid.Row onClick={ () => { this.clickMe(placement.title, placement.content,placement.tag) } }>
 
                             <div className="col-5 grid-margin stretch-card">
                                 <div className="card">
@@ -47,7 +47,7 @@ class Task extends React.Component {
                                         <div className="d-flex">
 
                                             <div className="d-flex align-items-center text-muted font-weight-light">
-                                                <i className="mdi mdi-clock icon-sm mr-2"></i>
+                                                <i className="mdi mdi-clock icon-width mr-2"></i>
                                                 <span>{ placement.date }</span>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@ class Task extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </Row>
+                       </Grid.Row></Grid>  
 
                     </>)
                 }) }
