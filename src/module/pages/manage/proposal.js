@@ -52,9 +52,9 @@ export default class Proposal extends React.Component {
             {this.state.data && this.state.data.map((item, index) => {
                 return (<>
                 <Grid>
-                    <Grid.Row onClick={() => { this.showEdit(index) }} className={style.topicBox}>
-                        <Grid.Column width={"auto"}>{item.id}</Grid.Column>
-                        <Grid.Column width={"auto"}>{item.status}</Grid.Column>
+                    <Grid.Row onClick={() => { this.showEdit(index) }} className={style.topicBox} columns={"equal"}>
+                        <Grid.Column width={3}>{item.id}</Grid.Column>
+                        <Grid.Column width={3}>{item.status}</Grid.Column>
                         <Grid.Column >{item.title}</Grid.Column>
                         
                    </Grid.Row></Grid> 

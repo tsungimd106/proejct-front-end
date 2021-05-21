@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+import { Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 
 import { Grid } from 'semantic-ui-react'
 import 'react-awesome-selector/dist/style.css';
@@ -189,16 +189,16 @@ class PolicyContent extends React.Component {
                                 <h2 className={ style.topicBold }>{ placement.title }</h2>
                                 <div>{ this.state.login && <Heart className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } /> }</div>
                                 <p >
-                                   <Grid> <Grid.Row >
-                                        <Grid.Column width={ "auto" } className={ style.lable } >{ placement.date }</Grid.Column>
-                                        {/* { placement.tag.map(item => (<Grid.Column width={ "auto" } className={ style.lable }>#{item }</Grid.Column>)) } */ }
-                                        <Grid.Column width={ 12 }>
-                                           <Grid> <Grid.Row>
-                                                <Grid.Column width={ "auto" }>提案人</Grid.Column>
-                                                <Grid.Column width={ "auto" }><a href="./#/figure/401">王婉諭</a></Grid.Column>
-                                           </Grid.Row></Grid>  
+                                    <Grid> <Grid.Row >
+                                        <Grid.Column className={ style.lable } >33{ placement.date }</Grid.Column>
+                                        {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
+                                        <Grid.Column width={ 16 }>
+                                            <Grid> <Grid.Row >
+                                                <Grid.Column >提案人</Grid.Column>
+                                                <Grid.Column ><a href="./#/figure/401">王婉諭</a></Grid.Column>
+                                            </Grid.Row></Grid>
                                         </Grid.Column>
-                                        <Grid.Column width={ 12 } >
+                                        <Grid.Column width={ 16 } >
                                             <div>
                                                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
@@ -220,11 +220,11 @@ class PolicyContent extends React.Component {
 
                                             {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                         </Grid.Column>
-                                        { this.state.login && (<Grid.Column width={ 12 }>
+                                        { this.state.login && (<Grid.Column width={ 16 }>
                                             <div className={ style.lable }>
                                                 您的看法：<div>(請點選投票)</div>
                                             </div>
-                                           <Grid> <Grid.Row className="justify-content-center">
+                                            <Grid className="justify-content-center"> <Grid.Row columns={ "equal" }>
                                                 <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
                                                     onChange={ this.voteChange }>
                                                     <ToggleButton variant="light" value={ 0 }><FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
@@ -233,36 +233,43 @@ class PolicyContent extends React.Component {
 
 
                                                 </ToggleButtonGroup>
-                                                <Grid.Column width={ "auto" } className={ style.voteSent }><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Grid.Column>
-                                           </Grid.Row></Grid>  
+                                                <Grid.Column className={ style.voteSent }><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Grid.Column>
+                                            </Grid.Row></Grid>
 
                                         </Grid.Column>) }
-                                        <Grid.Column width={ 3 }><div className={ style.lable }>RUN民看法：</div></Grid.Column>
-                                        <Grid.Column width={ 12 }></Grid.Column> <Grid.Column width={ 3 }></Grid.Column>
-                                        <Grid.Column width={ 6 }>
+                                        <Grid.Column width={ 16 }><div className={ style.lable }>RUN民看法：</div></Grid.Column>
+
+                                        <Grid.Column width={ 8 }>
                                             <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
                                         </Grid.Column>
-                                        <Grid.Column width={ 12 }>
+                                        <Grid.Column width={ 16 }>
                                             <div className={ style.mes }>
                                                 <div className={ style.mesTitle }>RUN民討論專區</div>
                                                 <ListGroup variant="flush">
 
                                                     { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
                                                         return (<ListGroup.Item>
-                                                           <Grid> <Grid.Row className="align-items-center" noGutters={ true }>
-                                                                <Grid.Column width={ "auto" }><img src={ person } className="pimg" /></Grid.Column>
+                                                            <Grid> <Grid.Row className="align-items-center" className="justify-content-center" columns={"equal"}>
+                                                                <Grid.Column width={1}>
+                                                                    <img src={ person } className="pimg" />
+                                                                </Grid.Column>
                                                                 <Grid.Column>
-                                                                   <Grid> <Grid.Row className="align-items-center">
-                                                                        <Grid.Column width={ "auto" }><span className={ style.mesTitle }>{ placement.user_id }</span></Grid.Column>
-                                                                        <Grid.Column width={ "auto" }> <span className={ style.lable }>{ placement.time }</span></Grid.Column>
+                                                                    <Grid> <Grid.Row className="align-items-center" className="justify-content-center" columns={"equal"}>
+                                                                        <Grid.Column width={2}>
+                                                                            <span className={ style.mesTitle }>{ placement.user_id }</span>
+                                                                        </Grid.Column>
+                                                                        <Grid.Column >
+                                                                            <span className={ style.lable }>{ placement.time }</span>
+                                                                        </Grid.Column>
                                                                         <Grid.Column>
                                                                             <Button className={ style.btn_report } variant="outline-secondary" onClick={ () => { this.showReport(placement.id) } }>檢舉</Button>
                                                                         </Grid.Column>
-                                                                        <Grid.Column width={ 12 }>{ placement.content }</Grid.Column>
-                                                                   </Grid.Row></Grid>  
+                                                                        <Grid.Column width={ 16 }>{ placement.content }</Grid.Column>
+                                                                    </Grid.Row>
+                                                                    </Grid>
 
                                                                 </Grid.Column>
-                                                           </Grid.Row></Grid>  
+                                                            </Grid.Row></Grid>
                                                         </ListGroup.Item>)
                                                     })) : <></> }
                                                 </ListGroup>
@@ -282,7 +289,7 @@ class PolicyContent extends React.Component {
                                                 </Form>) }
                                             </div>
                                         </Grid.Column>
-                                   </Grid.Row></Grid>  
+                                    </Grid.Row></Grid>
                                 </p>
 
                             </div>)

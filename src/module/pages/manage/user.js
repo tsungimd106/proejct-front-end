@@ -28,16 +28,16 @@ export default class Check extends React.Component {
                 menuItem: '一般使用者', render: () => <TabUI.Pane>
                    <Grid>
                     <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
-                        <Grid.Column width={ 3 }><h3>帳號</h3></Grid.Column>
-                        <Grid.Column width={ 3 }><h3>姓名</h3></Grid.Column>
-                        <Grid.Column width={ 6 }><h3>操作</h3></Grid.Column>
+                        <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
+                        <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
+                        <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>
                         
 
                         { this.state.user && this.state.user.map((item, index) => {
                             return (<>
-                                <Grid.Column width={ 3 } >{ item.id }</Grid.Column>
-                                <Grid.Column width={ 3 }>{ item.name }</Grid.Column>
-                                <Grid.Column width={ 6 }>
+                                <Grid.Column width={ 4 } >{ item.id }</Grid.Column>
+                                <Grid.Column width={ 4 }>{ item.name }</Grid.Column>
+                                <Grid.Column width={ 8 }>
                                     <BtnUI>轉管理者</BtnUI>
                                     <BtnUI>轉政治人物</BtnUI>
                                 </Grid.Column>
@@ -51,15 +51,15 @@ export default class Check extends React.Component {
                 menuItem: '政治人物使用者', render: () => <TabUI.Pane>
                     <Grid>
                     <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
-                    <Grid.Column width={ 3 }><h3>帳號</h3></Grid.Column>
-                        <Grid.Column width={ 3 }><h3>姓名</h3></Grid.Column>
-                        <Grid.Column width={ 6 }><h3>操作</h3></Grid.Column>
+                    <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
+                        <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
+                        <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>
 
                         { this.state.politician && this.state.politician.map((item, index) => {
                             return (<>
-                                <Grid.Column width={ 3 } >{ item.id }</Grid.Column>
-                                <Grid.Column width={ 3 }>{ item.name }</Grid.Column>
-                                <Grid.Column width={ 6 }>
+                                <Grid.Column width={ 4 } >{ item.id }</Grid.Column>
+                                <Grid.Column width={ 4 }>{ item.name }</Grid.Column>
+                                <Grid.Column width={ 8 }>
                                    
                                     <BtnUI>轉一般使用者</BtnUI>
                                 </Grid.Column>
@@ -72,15 +72,15 @@ export default class Check extends React.Component {
                 menuItem: '管理者', render: () => <TabUI.Pane>
                     <Grid>
                      <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
-                    <Grid.Column width={ 3 }><h3>帳號</h3></Grid.Column>
-                        <Grid.Column width={ 3 }><h3>姓名</h3></Grid.Column>
-                        <Grid.Column width={ 6 }><h3>操作</h3></Grid.Column>
+                    <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
+                        <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
+                        <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>
 
                         { this.state.manager && this.state.manager.map((item, index) => {
                             return (<>
-                                <Grid.Column width={ 3 } >{ item.id }</Grid.Column>
-                                <Grid.Column width={ 3 }>{ item.name }</Grid.Column>
-                                <Grid.Column width={ 6 }>
+                                <Grid.Column width={ 4 } >{ item.id }</Grid.Column>
+                                <Grid.Column width={ 4 }>{ item.name }</Grid.Column>
+                                <Grid.Column width={ 8 }>
                                    
                                     <BtnUI>轉一般使用者</BtnUI>
                                 </Grid.Column>

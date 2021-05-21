@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-   CardColumns, Card, InputGroup, FormControl, Button, CardGroup
+    CardColumns, Card, InputGroup, FormControl, Button, CardGroup
 } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
@@ -121,41 +121,41 @@ class Figure extends React.Component {
 
         if ("d" in obj) {
             return (
-            
-            <Grid.Column>
-                <p>{obj["name"]}</p>
-                {(!regPos.test(obj["name"]) ? <>
-                    <p>test</p>
-                    { obj["d"].map(placement => {
-                        return this.cut(placement, obj["name"])
-                    })}{
-                        <p>ttt</p>
-                    }
-                </> : <Grid><Grid.Row>
-                    <div></div>
-                    {obj["d"].map(placement => {
-                        return this.cut(placement, obj["name"])
-                    })}</Grid.Row></Grid>
-                )}
+
+                <Grid.Column>
+                    <p>{ obj["name"] }</p>
+                    {(!regPos.test(obj["name"]) ? <>
+                        <p>test</p>
+                        { obj["d"].map(placement => {
+                            return this.cut(placement, obj["name"])
+                        }) }{
+                            <p>ttt</p>
+                        }
+                    </> : <Grid><Grid.Row columns={ "equal" }>
+                        { obj["d"].map(placement => {
+                            return this.cut(placement, obj["name"])
+                        }) }</Grid.Row></Grid>
+                    ) }
 
 
 
-            </Grid.Column>)
+                </Grid.Column>)
         } else {
-            return (<Grid.Column width={3}>
+            return (<Grid.Column width={ 4 }>
 
-                <Card onClick={() => { this.toDetail(obj["id"]) }} className={style.figureC}>
+                <Card onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
 
                     <Card.Body>
 
-                       <Grid> <Grid.Row noGutters={true} >
+                        <Grid> <Grid.Row noGutters={ true } columns={ "equal" }>
                             <Grid.Column>
-                                {<Card.Text>
-                                    <img src={obj["photo"]} className={style.figurePh}></img>
-                                </Card.Text>}
+                                { <Card.Text>
+                                    <img src={ obj["photo"] } className={ style.figurePh }></img>
+                                </Card.Text> }
                             </Grid.Column>
-                            <Grid.Column> <p>{obj["name"]}</p> {obj["a_n"]}</Grid.Column>
-                       </Grid.Row></Grid>  
+                            <Grid.Column> <p>{ obj["name"] }</p> { obj["a_n"] }</Grid.Column>
+                        </Grid.Row>
+                        </Grid>
 
                     </Card.Body>
 
@@ -166,23 +166,23 @@ class Figure extends React.Component {
     }
 
     render() {
-        return (<Pages id={3}
-            onScroll={console.log("ii")}
+        return (<Pages id={ 3 }
+            onScroll={ console.log("ii") }
             page={
                 (<>
                     <div  >
-                        <Search like={this.state.like} getList={this.getList} />
-                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */}
+                        <Search like={ this.state.like } getList={ this.getList } />
+                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */ }
 
                     </div>
                     <Grid>
-                   <Grid> <Grid.Row>
-                        {
-                            this.state.data && this.state.data.map(placement => {
-                                return this.cut(placement)
-                            })
-                        }
-                   </Grid.Row></Grid>  </Grid>
+                        <Grid> <Grid.Row columns={"equal"}>
+                            {
+                                this.state.data && this.state.data.map(placement => {
+                                    return this.cut(placement)
+                                })
+                            }
+                        </Grid.Row></Grid>  </Grid>
                 </>)
             } />)
     }

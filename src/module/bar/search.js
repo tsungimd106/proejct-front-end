@@ -93,7 +93,7 @@ export default class Search extends React.Component {
                         { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                             return (<>{ Object.keys(this.props.like[placement]).map(item => {
                                 if (this.props.like[placement][item]) {
-                                    return (<Grid.Column width={ "auto" }>
+                                    return (<Grid.Column >
                                         <Button variant="outline-primary"
                                             onClick={ () => { this.remove(placement, item) } } className={ style.button }>{ item }
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" id="Cross"><path d="M20 20L4 4m16 0L4 20" /></svg>
@@ -113,24 +113,25 @@ export default class Search extends React.Component {
                 <Grid.Column>
                     { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                         return (<><Grid>
-                            <Grid.Row className={ style.border }>
-                                <Grid.Column width={ "auto" }>{ placement }</Grid.Column>
-                                <Grid.Column>
+                            <Grid.Row className={ style.border } columns={ "equal" }>
+                                <Grid.Column width={ 3 }>{ placement }</Grid.Column>
+                                <Grid.Column width={ 10 }>
                                     <Grid>
-                                        <Grid.Row className={ style.box } id={ placement }>
+                                        <Grid.Row className={ style.box } id={ placement } columns={ "equal" }>
 
                                             { Object.keys(this.props.like[placement]).map((item) => {
-                                                return (<><Grid.Column width={ "auto" }>
+                                                return (<><Grid.Column width={2}>
                                                     <input type="checkbox" name={ placement } value={ item }
                                                         className={ style.checkbox }
                                                         onChange={ this.newOn } checked={ this.props.like[placement][item] }
                                                         id={ `${placement}-${item}` } />
                                                     <label for={ `${placement}-${item}` } className={ style.label }>{ item }</label>
-                                                </Grid.Column></>)
+                                                </Grid.Column>
+                                                </>)
                                             }) }</Grid.Row>
                                     </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={ "auto" }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>
+                                <Grid.Column width={2}>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>
                             </Grid.Row></Grid>  </>)
                     }) }
 
