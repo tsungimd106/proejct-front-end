@@ -30,7 +30,7 @@ class Manage extends React.Component {
         return (<Pages page={
             (<>
                 <Tab.Container id="list-group-tabs-example" defaultActiveKey="check">
-                   <Grid> <Grid.Row>
+                   <Grid> <Grid.Row columns={"equal"}>
                         <Grid.Column width={ 2 }>
                             <ListGroup>
                                 { this.state.items.map((item, index) => {

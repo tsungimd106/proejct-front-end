@@ -163,18 +163,18 @@ class Policy extends React.Component {
 
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
                     return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement) } }>
-                        <Grid> <Grid.Row className={ style.topicBoxBold }>
+                        <Grid> <Grid.Row className={ style.topicBoxBold } columns={"equal"}>
                             <Grid.Column >
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>
 
-                                <Grid> <Grid.Row>
-                                    <Grid.Column width={ "auto" }>{ placement.date }</Grid.Column>
-                                    <Grid.Column width={ "auto" }>#{ "金融" }</Grid.Column>
+                                <Grid> <Grid.Row >
+                                    <Grid.Column width={1}>{ placement.date }</Grid.Column>
+                                    <Grid.Column width={1}>#{ "金融" }</Grid.Column>
                                     {/* <Grid.Column width={"auto"}>2021/3/5</Grid.Column> */ }
-                                    <Grid.Column width={ "auto" }>王婉諭</Grid.Column>
-                                    <Grid.Column width={ "auto" }>{ placement.status }</Grid.Column>
+                                    <Grid.Column width={2}>王婉諭</Grid.Column>
+                                    <Grid.Column width={2}>{ placement.status }</Grid.Column>
 
-                                    {/* { placement.tag.map(item => (<Grid.Column width={ "auto" }>#{item }</Grid.Column>)) } */ }
+                                    {/* { placement.tag.map(item => (<Grid.Column >#{item }</Grid.Column>)) } */ }
                                 </Grid.Row></Grid>
 
 

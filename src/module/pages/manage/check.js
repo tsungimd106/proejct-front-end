@@ -25,14 +25,14 @@ export default class Check extends React.Component {
                 menuItem: '未審核', render: () => <TabUI.Pane>
                     <Grid>
                     <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
-                        <Grid.Column width={ 7 }><h3>檢舉留言</h3></Grid.Column>
+                        <Grid.Column width={ 10 }><h3>檢舉留言</h3></Grid.Column>
                         <Grid.Column width={ 3 }><h3>備註</h3></Grid.Column>
-                        <Grid.Column width={ 2 }><h3>操作</h3></Grid.Column>
+                        <Grid.Column width={ 3 }><h3>操作</h3></Grid.Column>
                         { this.state.notYet && this.state.notYet.map((item, index) => {
                             return (<>
-                                <Grid.Column width={ 7 } >{ item.content }</Grid.Column>
+                                <Grid.Column width={ 10 } >{ item.content }</Grid.Column>
                                 <Grid.Column width={ 3 }>{ item.remark }</Grid.Column>
-                                <Grid.Column width={ 2 }>
+                                <Grid.Column width={ 3 }>
                                     <BtnUI>停權</BtnUI>
                                     <BtnUI>不停權</BtnUI>
                                 </Grid.Column>
@@ -45,14 +45,14 @@ export default class Check extends React.Component {
                 menuItem: '已審核', render: () => <TabUI.Pane>
                    
                    <Grid> <Grid.Row >
-                        <Grid.Column width={ 7 }><h3>檢舉留言</h3></Grid.Column>
+                        <Grid.Column width={ 10 }><h3>檢舉留言</h3></Grid.Column>
                         <Grid.Column width={ 3 }><h3>操作</h3></Grid.Column>
-                        <Grid.Column width={2}><h3>審核者</h3></Grid.Column>
+                        <Grid.Column width={3}><h3>審核者</h3></Grid.Column>
                         {
                             this.state.already && this.state.already.map((item, index) => {
                                 return (<>
-                                    <Grid.Column width={ 8 } className="">{ item.content }</Grid.Column>
-                                    <Grid.Column width={ 4 }>
+                                    <Grid.Column width={ 10 } className="">{ item.content }</Grid.Column>
+                                    <Grid.Column width={ 6}>
 
                                     </Grid.Column>
                                 </>)
