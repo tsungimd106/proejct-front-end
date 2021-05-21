@@ -10,14 +10,18 @@ export class Pages extends React.Component {
     }
     render() {
         return (<>
-            <div className={style.pagesC +" "}>
-                <div> <Nav id={this.props.id}>
-                        </Nav></div>
+            <div className={ style.pagesC + " " }>
+                <div> <Nav id={ this.props.id }>
+                </Nav></div>
                 <div></div>
                 { this.props.page || (<></>) }
             </div>
-            <div className={style.footer}>Copyright© 2020-2021 政要RUN 版權所有</div>
-            <div className={style.footer}>若有商業合作需求，歡迎聯絡我們：tsungimd106@gmail.com</div>
+            <div className={ style.footer }>
+
+                <div>Copyright© 2020-2021 政要RUN 版權所有</div>
+                <div>若有商業合作需求，歡迎聯絡我們：tsungimd106@gmail.com</div>
+            </div>
+
         </>)
     }
 }
