@@ -1,5 +1,4 @@
 import React from 'react';
-import { InputGroup, FormControl, Button } from "react-bootstrap"
 import Selector from '../mutiSelect/mutiSelect';
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
@@ -9,7 +8,7 @@ import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid } from 'semantic-ui-react'
+import { Grid ,Button} from 'semantic-ui-react'
 
 class Policy extends React.Component {
 
@@ -162,7 +161,7 @@ class Policy extends React.Component {
                 {/* <button onClick={ this.test }>click me</button> */ }
 
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
-                    return (<div className={ style.topicBox + " justify-content-center" } onClick={ () => { this.toContent(placement) } }>
+                    return (<div className={ style.topicBox + " " } onClick={ () => { this.toContent(placement) } }>
                         <Grid> <Grid.Row className={ style.topicBoxBold } columns={"equal"}>
                             <Grid.Column >
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>

@@ -1,9 +1,8 @@
 import React from 'react';
-import {  Button } from "react-bootstrap"
 import logo_dark from '../../imgs/LOGO1.png'
 
 import "../../css/selectSubject.css"
-import { Grid } from 'semantic-ui-react'
+import { Grid,Button } from 'semantic-ui-react'
 class SelectSubject extends React.Component {
     constructor(props) {
         super(props)

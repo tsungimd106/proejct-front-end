@@ -13,19 +13,7 @@
 }
 
 .button {
-    height: 75%;
-    padding: 1px;
-    text-align: center;
-}
-
-.button svg {
-    /* vertical-align: text-top;
-    width: 15 !important;
-    height: 15 !important; */
-}
-
-.checkbox {
-    margin: 3px;
+    margin: 5px 5px 0 5px !important
 }
 
 .label {
@@ -45,13 +33,13 @@
     overflow: hidden;
 }
 
-.box_see {
-    height: auto;
-}
-
 .searchBar {
     margin: 15px auto;
     background-color: #f5f5f5;
     border-color: black;
     padding: 15px;
+}
+
+:grobal(.ui.horizontal.list:not(.celled)>.item).listItem {
+    margin-left: 1rem !important;
 }

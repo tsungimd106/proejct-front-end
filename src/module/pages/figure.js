@@ -1,13 +1,11 @@
 import React from 'react';
-import {
-    CardColumns, Card, InputGroup, FormControl, Button, CardGroup
-} from "react-bootstrap"
+
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
-import Selector from '../mutiSelect/mutiSelect';
+
 import 'react-awesome-selector/dist/style.css';
 import style from "../../css/figure.module.css"
-import { Grid } from 'semantic-ui-react'
+import { Grid, Button, Card, Image } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
 import { AlignToTop } from "akar-icons"
@@ -122,46 +120,41 @@ class Figure extends React.Component {
         if ("d" in obj) {
             return (
 
-                <Grid.Column>
+                < >
                     <p>{ obj["name"] }</p>
                     {(!regPos.test(obj["name"]) ? <>
-                        <p>test</p>
+
                         { obj["d"].map(placement => {
                             return this.cut(placement, obj["name"])
-                        }) }{
-                            <p>ttt</p>
-                        }
-                    </> : <Grid><Grid.Row columns={ "equal" }>
+                        }) }
+                    </> : < >
                         { obj["d"].map(placement => {
                             return this.cut(placement, obj["name"])
-                        }) }</Grid.Row></Grid>
+                        }) }</ >
                     ) }
 
 
 
-                </Grid.Column>)
+                </ >)
         } else {
-            return (<Grid.Column width={ 4 }>
+            return (< >
+                <Card onClick={ () => { this.toDetail(obj["id"]) } }>
 
-                <Card onClick={ () => { this.toDetail(obj["id"]) } } className={ style.figureC }>
-
-                    <Card.Body>
-
-                        <Grid> <Grid.Row noGutters={ true } columns={ "equal" }>
-                            <Grid.Column>
-                                { <Card.Text>
-                                    <img src={ obj["photo"] } className={ style.figurePh }></img>
-                                </Card.Text> }
-                            </Grid.Column>
-                            <Grid.Column> <p>{ obj["name"] }</p> { obj["a_n"] }</Grid.Column>
-                        </Grid.Row>
-                        </Grid>
-
-                    </Card.Body>
+                    <Card.Content>
+                        <Card.Header>{ obj["name"] }</Card.Header>
+                        <Card.Meta>
+                            <span >{ obj["a_n"] }</span>
+                        </Card.Meta>
+                        <Card.Description>
+                            <Image src={ obj["photo"] } wrapped />
+                        </Card.Description>
+                    </Card.Content>
 
                 </Card>
 
-            </Grid.Column>)
+
+
+            </ >)
         }
     }
 
@@ -172,17 +165,13 @@ class Figure extends React.Component {
                 (<>
                     <div  >
                         <Search like={ this.state.like } getList={ this.getList } />
-                        {/* <div className={ style.searchBtn }><Button variant="dark">開始搜尋</Button>{ ' ' }</div> */ }
-
                     </div>
-                    <Grid>
-                        <Grid> <Grid.Row columns={"equal"}>
-                            {
-                                this.state.data && this.state.data.map(placement => {
-                                    return this.cut(placement)
-                                })
-                            }
-                        </Grid.Row></Grid>  </Grid>
+                    <Card.Group itemsPerRow={ 4 }>{
+                        this.state.data && this.state.data.map(placement => {
+                            return this.cut(placement)
+                        })
+                    }
+                    </Card.Group>
                 </>)
             } />)
     }

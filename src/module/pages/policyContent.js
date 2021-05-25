@@ -1,7 +1,6 @@
 import React from 'react';
-import { Carousel, InputGroup, Form, textarea, Button, ListGroup, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 
-import { Grid } from 'semantic-ui-react'
+import { Grid, Button, Comment, Header,Form } from 'semantic-ui-react'
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
@@ -32,32 +31,32 @@ import { Document, Page } from 'react-pdf'
 import { pdfjs } from 'react-pdf'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
-function PdfComponent(uu) {
-    const [totalPage, setTotalPage] = useState(1)
-    console.log(uu)
+// function PdfComponent(uu) {
+//     const [totalPage, setTotalPage] = useState(1)
+//     console.log(uu)
 
-    function onDocumentLoadSuccess({ numPages }) {
-        setTotalPage(numPages)
-    }
+//     function onDocumentLoadSuccess({ numPages }) {
+//         setTotalPage(numPages)
+//     }
 
-    return <>
+//     return <>
 
-        <Document
-            file={ `https://cors-anywhere.herokuapp.com/${uu.uu}` }  //檔案路徑
-            onLoadSuccess={ onDocumentLoadSuccess } //成功載入文件後呼叫
-            renderMode="canvas"
-            onLoadError={ (e) => { console.log(e) } }
-        >
+//         <Document
+//             file={ `https://cors-anywhere.herokuapp.com/${uu.uu}` }  //檔案路徑
+//             onLoadSuccess={ onDocumentLoadSuccess } //成功載入文件後呼叫
+//             renderMode="canvas"
+//             onLoadError={ (e) => { console.log(e) } }
+//         >
 
-            {
-                new Array(totalPage).fill('').map((item, index) => {
-                    return <Page key={ index } pageNumber={ index + 1 } />
-                })
-            }
+//             {
+//                 new Array(totalPage).fill('').map((item, index) => {
+//                     return <Page key={ index } pageNumber={ index + 1 } />
+//                 })
+//             }
 
-        </Document>
-    </>
-}
+//         </Document>
+//     </>
+// }
 
 
 class PolicyContent extends React.Component {
@@ -73,6 +72,7 @@ class PolicyContent extends React.Component {
                 options: {
                     colors: ['#95c95d', '#e3e53a', '#e52125'],
                     labels: ["同意", "中立", "反對"],
+                    chart: { width: 50 }
                 },
             },
             data: [
@@ -185,12 +185,12 @@ class PolicyContent extends React.Component {
                 {this.state.detail || false ? (<>
                     {this.state.detail.map(placement => {
                         return (
-                            <div className="topic justify-content-center">
+                            <div className="topic ">
                                 <h2 className={ style.topicBold }>{ placement.title }</h2>
                                 <div>{ this.state.login && <Heart className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } /> }</div>
                                 <p >
                                     <Grid> <Grid.Row >
-                                        <Grid.Column className={ style.lable } >33{ placement.date }</Grid.Column>
+                                        <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column>
                                         {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
                                         <Grid.Column width={ 16 }>
                                             <Grid> <Grid.Row >
@@ -221,72 +221,64 @@ class PolicyContent extends React.Component {
                                             {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                         </Grid.Column>
                                         { this.state.login && (<Grid.Column width={ 16 }>
-                                            <div className={ style.lable }>
-                                                您的看法：<div>(請點選投票)</div>
-                                            </div>
-                                            <Grid className="justify-content-center"> <Grid.Row columns={ "equal" }>
-                                                <ToggleButtonGroup type="radio" name="options" id="vote" value={ this.state.voteValue }
-                                                    onChange={ this.voteChange }>
-                                                    <ToggleButton variant="light" value={ 0 }><FaceHappy className={ style.green + " " + style.size } /></ToggleButton>
-                                                    <ToggleButton variant="light" value={ 1 }><FaceNeutral className={ style.yellow + " " + style.size } /></ToggleButton>
-                                                    <ToggleButton variant="light" value={ 2 }><FaceSad className={ style.red + " " + style.size } /> </ToggleButton>
+                                           
+                                            <Grid >
+                                               
+                                                <Grid.Row columns={ "equal" }>
+                                                    <Grid.Column>
+                                                        <div className={ style.lable }>
+                                                            <p>您的看法：</p><p>(請點選投票)</p>
+                                                        </div>
+                                                        <Button.Group >
+                                                            <Button toggle basic inverted color='green' content={ <FaceHappy className={ style.green + " " + style.size } /> } />
 
+                                                            <Button.Or />
+                                                            <Button toggle basic inverted color='yellow' content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } />
+                                                            <Button.Or />
+                                                            <Button toggle basic inverted color='red'><FaceSad className={ style.red + " " + style.size } /></Button>
 
-                                                </ToggleButtonGroup>
-                                                <Grid.Column className={ style.voteSent }><Button variant="outline-dark" onClick={ this.vote }>確定投票</Button></Grid.Column>
-                                            </Grid.Row></Grid>
+                                                        </Button.Group>
+                                                        <Button> 確定投票</Button>
+                                                    </Grid.Column>
+                                                    <Grid.Column floated={ "right" }>
+                                                        <div className={ style.lable }>RUN民看法：</div>
+                                                        <div style={ { width: "300px", hgieht: "300px" } }><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
+                                                    </Grid.Column>
+
+                                                </Grid.Row>
+                                            </Grid>
 
                                         </Grid.Column>) }
-                                        <Grid.Column width={ 16 }><div className={ style.lable }>RUN民看法：</div></Grid.Column>
 
-                                        <Grid.Column width={ 8 }>
-                                            <Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" />
-                                        </Grid.Column>
+
                                         <Grid.Column width={ 16 }>
+                                            <Comment.Group>
+                                                <Header as='h3' dividing>RUN民討論專區</Header>
+                                                { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                                    return (<>
+                                                        <Comment>
+                                                            <Comment.Avatar src={ person } />
+                                                            <Comment.Content>
+                                                                <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
+                                                                <Comment.Metadata>{ placement.time }</Comment.Metadata>
+                                                                <Comment.Text>{ placement.content }</Comment.Text>
+                                                                <Comment.Actions>
+                                                                    <Comment.Action>回覆</Comment.Action>
+                                                                    <Comment.Action onClick={ () => { this.showReport(placement.id) } }>檢舉</Comment.Action>
+                                                                </Comment.Actions>
+                                                            </Comment.Content>
+                                                        </Comment>
+                                                    </>)
+                                                })) : <></> }
+                                                <Form reply>
+                                                    <Form.TextArea />
+                                                    <Button content='Add Reply' labelPosition='left' icon='edit' primary />
+                                                </Form>
+                                            </Comment.Group>
                                             <div className={ style.mes }>
-                                                <div className={ style.mesTitle }>RUN民討論專區</div>
-                                                <ListGroup variant="flush">
 
-                                                    { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
-                                                        return (<ListGroup.Item>
-                                                            <Grid> <Grid.Row className="align-items-center" className="justify-content-center" columns={"equal"}>
-                                                                <Grid.Column width={1}>
-                                                                    <img src={ person } className="pimg" />
-                                                                </Grid.Column>
-                                                                <Grid.Column>
-                                                                    <Grid> <Grid.Row className="align-items-center" className="justify-content-center" columns={"equal"}>
-                                                                        <Grid.Column width={2}>
-                                                                            <span className={ style.mesTitle }>{ placement.user_id }</span>
-                                                                        </Grid.Column>
-                                                                        <Grid.Column >
-                                                                            <span className={ style.lable }>{ placement.time }</span>
-                                                                        </Grid.Column>
-                                                                        <Grid.Column>
-                                                                            <Button className={ style.btn_report } variant="outline-secondary" onClick={ () => { this.showReport(placement.id) } }>檢舉</Button>
-                                                                        </Grid.Column>
-                                                                        <Grid.Column width={ 16 }>{ placement.content }</Grid.Column>
-                                                                    </Grid.Row>
-                                                                    </Grid>
 
-                                                                </Grid.Column>
-                                                            </Grid.Row></Grid>
-                                                        </ListGroup.Item>)
-                                                    })) : <></> }
-                                                </ListGroup>
-                                                <hr />
-
-                                                { this.state.login && (<Form>
-                                                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                                                        <Form.Label>我的留言：</Form.Label>
-                                                        <InputGroup >
-                                                            <Form.Control as="textarea" rows={ 2 } id="msg" />
-                                                            <InputGroup.Append>
-                                                                <Button variant="outline-secondary" onClick={ this.msg }>送出</Button>
-                                                            </InputGroup.Append>
-                                                        </InputGroup>
-
-                                                    </Form.Group>
-                                                </Form>) }
+                                              
                                             </div>
                                         </Grid.Column>
                                     </Grid.Row></Grid>

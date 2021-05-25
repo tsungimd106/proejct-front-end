@@ -1,8 +1,3 @@
-/* .people {
-    width: 80%;
-    margin: 0 auto;
-} */
-
 .people>.row>div {
     background: #4f4f4f;
     color: white;
@@ -11,20 +6,8 @@
     padding: 15px;
 }
 
-.name>div {
-    padding: 20px 0px;
-}
-
 .people img {
     width: 100%;
-}
-
-.card {
-    color: black;
-}
-
-#SvgjsPath1025 {
-    background-color: #c5b7a1;
 }
 
 .dashboard {
@@ -33,11 +16,9 @@
 }
 
 .dashboardcard {
-    border: 5px solid #fff;
+    /* border: 5px solid #fff; */
     padding: 10px;
 }
-
-.dashboard .row {}
 
 .white {
     color: #fff
