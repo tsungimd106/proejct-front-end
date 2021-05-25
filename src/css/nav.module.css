@@ -1,14 +1,24 @@
-.navtop {
-    border-bottom: 1.4px solid #000000;
+#navtop,
+div.navtop {
+    /* border-bottom: 1.4px solid #000000; */
     /* text-align: center; */
     /*讓圖片致中 */
-    margin: 10px 15px;
+    /* margin: 10px 15px; */
+    position: fixed !important;
+    z-index: 999;
+    background: white;
+    width: 100vw !important;
+    height: 80px;
+    box-shadow: 0px 0px 5px 0px #cccccc;
+    /* padding: 0 15px; */
+    margin: 0;
 }
 
 .navPicture {
-    width: 15vw;
-    height: auto;
-    padding: 15px 0px;
+    /* width: 15vw; */
+    height: 70px;
+    width: auto;
+    padding: 10px
 }
 
 .i_dont_know_how_to_name_it {
@@ -26,40 +36,24 @@
     color: #c0c0c0
 }
 
-.searchbar {
-    background-color: #dcdff0;
-    border: 0;
-    height: 22px;
-    width: 180px;
-    padding: 3px;
-    margin: 0;
-    outline: none;
-}
-
-.down_btn {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 0px;
-    border: 0px;
-    box-shadow: none;
-}
-
-.dropdown_toggle::after {
-    content: none;
-}
-
-.dropdown_item {
-    padding: 0.25rem 0.5rem;
-}
-
 a.pageOn {
     color: #c0c0c0;
 }
 
-.down :global(.dropdown-menu.show) {
-    width: 150px;
-}
-
 .navtop :global(.dropleft .dropdown-toggle::before) {
     display: none;
+}
+
+.open {
+    display: block;
+    width: 110vw !important;
+    height: 100vh;
+    margin-top: 80px;
+    position: fixed !important;
+    z-index: 998;
+    background: white;
+}
+
+.close {
+    display: none !important
 }

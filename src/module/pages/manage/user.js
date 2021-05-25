@@ -27,7 +27,7 @@ export default class Check extends React.Component {
             {
                 menuItem: '一般使用者', render: () => <TabUI.Pane>
                    <Grid>
-                    <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
+                    <Grid.Row className={ style.reportBox + "  " }>
                         <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
                         <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
                         <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>
@@ -50,7 +50,7 @@ export default class Check extends React.Component {
             {
                 menuItem: '政治人物使用者', render: () => <TabUI.Pane>
                     <Grid>
-                    <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
+                    <Grid.Row className={ style.reportBox + "  " }>
                     <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
                         <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
                         <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>
@@ -71,7 +71,7 @@ export default class Check extends React.Component {
             {
                 menuItem: '管理者', render: () => <TabUI.Pane>
                     <Grid>
-                     <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
+                     <Grid.Row className={ style.reportBox + "  " }>
                     <Grid.Column width={ 4 }><h3>帳號</h3></Grid.Column>
                         <Grid.Column width={ 4 }><h3>姓名</h3></Grid.Column>
                         <Grid.Column width={ 8 }><h3>操作</h3></Grid.Column>

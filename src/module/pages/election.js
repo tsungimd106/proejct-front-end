@@ -1,7 +1,6 @@
 import React from 'react';
-import { Navbar, Nav, Jumbotron, } from "react-bootstrap"
 import { Pages } from "../pages.js"
-import { Grid, Button, Ref } from 'semantic-ui-react'
+import { Grid, Button, Ref, Segment, Menu } from 'semantic-ui-react'
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/election.module.css"
 
@@ -45,78 +44,115 @@ class Election extends React.Component {
         const rate = 3
         return (<Pages id={ 1 } page={
             (<>
+                <Menu secondary>
+                    <Menu.Item
+                        name='投票要點'
 
-                <Navbar bg="light" variant="light">
-                    <Nav className={ style.nav }>
-                        <Nav.Link onClick={ this.toVote } >投票要點</Nav.Link>
-                        <Nav.Link onClick={ this.toQa }>QA大集合</Nav.Link>
-                        <Nav.Link onClick={ this.toSearch }>查詢投票地點</Nav.Link>
-                        <Nav.Link onClick={ this.toThing }>選舉大記事</Nav.Link>
-                    </Nav>
-                </Navbar>
-                <Grid>
-                    <Grid.Row columns={ 2 }>
+                        onClick={ this.toVote }
+                    />
+                    <Menu.Item
+                        name='QA大集合'
+
+                        onClick={ this.toQa }
+                    />
+                    <Menu.Item
+                        name='查詢投票地點'
+
+                        onClick={ this.toSearch }
+                    />
+                    <Menu.Item
+                        name='選舉大記事'
+
+                        onClick={ this.toThing }
+                    />
+
+                </Menu>
+                <Segment basic>
+                    <Grid><Grid.Row columns={ 2 }>
                         <Grid.Column width={ 4 }><img /></Grid.Column>
                         <Grid.Column width={ 12 }>
-                            <Jumbotron>
+                            <Segment inverted tertiary>
                                 <h1>選舉公告</h1>
                                 <p>這裡是和選舉相關資訊的公告區</p>
                                 <p>
                                     <Button color={ "teal" } variant="primary">看更多</Button>
                                 </p>
-                            </Jumbotron>
+                            </Segment>
                         </Grid.Column>
+                    </Grid.Row></Grid>
+                </Segment>
+
+                <Segment basic>
+                    <Grid><Grid.Row columns={ 2 }>
                         <Grid.Column width={ rate }>
                             <Ref innerRef={ this.voteRef }>
                                 <Button color={ "teal" } variant="secondary" size="lg" disabled >投票要點</Button>
                             </Ref>
                         </Grid.Column>
-                        <Grid.Column width={16-rate}>
-                            <Jumbotron>
+                        <Grid.Column width={ 16 - rate }>
+                            <Segment inverted tertiary>
                                 <h1 >投票要點</h1>
                                 <p>
                                     這裡是和投票要點,包含投票流程,投票必備品,相關影片和指南手冊
                                 </p>
-                            </Jumbotron>
+
+                            </Segment>
                         </Grid.Column>
+                    </Grid.Row></Grid>
+                </Segment>
+
+                <Segment basic>
+                    <Grid><Grid.Row columns={ 2 }>
                         <Grid.Column width={ rate }>
                             <Ref innerRef={ this.QARef }>
                                 <Button color={ "teal" } variant="secondary" size="lg" disabled >QA大集合</Button>
                             </Ref>
                         </Grid.Column>
 
-                        <Grid.Column width={16-rate}>
-                            <Jumbotron>
+                        <Grid.Column width={ 16 - rate }>
+                            <Segment inverted tertiary>
                                 <h1 >QA大集合</h1>
                                 <p>
                                     這裡是QA大集合,常見問題都在這~
                                 </p>
-                            </Jumbotron>
+                            </Segment>
                         </Grid.Column>
-                        <Grid.Column width={rate}>
+                    </Grid.Row></Grid>
+                </Segment>
+
+                <Segment basic>
+                    <Grid><Grid.Row columns={ 2 }>
+                        <Grid.Column width={ rate }>
                             <Ref innerRef={ this.searchRef }>
                                 <Button color={ "teal" } variant="secondary" size="lg" disabled >查詢投票地點</Button></Ref>
                         </Grid.Column>
-                        <Grid.Column width={16-rate}>
-                            <Jumbotron>
+                        <Grid.Column width={ 16 - rate }>
+                            <Segment inverted tertiary>
                                 <h1 >查詢投票地點</h1>
                                 <p>
                                     在這裡查詢自己的投票地點~
                                 </p>
-                            </Jumbotron>
+                            </Segment>
                         </Grid.Column>
-                        <Grid.Column width={rate}>
+                    </Grid.Row></Grid>
+                </Segment>
+
+                <Segment basic>
+                    <Grid><Grid.Row columns={ 2 }>
+                        <Grid.Column width={ rate }>
                             <Ref innerRef={ this.thingRef }><Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大記事</Button></Ref>
                         </Grid.Column>
-                        <Grid.Column width={16-rate}>
-                            <Jumbotron>
+                        <Grid.Column width={ 16 - rate }>
+                            <Segment inverted tertiary>
                                 <h1 >選舉大記事</h1>
                                 <p>這裡是選舉大記事,記錄著台灣選舉開始以來發生的大事件。 </p>
-                            </Jumbotron>
+                            </Segment>
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row></Grid>
+                </Segment>
 
-                </Grid>
+
+
 
             </>)
         } />)

@@ -46,7 +46,7 @@ class Task extends React.Component {
                                         <div className="card-title">{ placement.title }</div>
                                         <div className="d-flex">
 
-                                            <div className="d-flex align-items-center text-muted font-weight-light">
+                                            <div className="d-flex  text-muted font-weight-light">
                                                 <i className="mdi mdi-clock icon-width mr-2"></i>
                                                 <span>{ placement.date }</span>
                                             </div>

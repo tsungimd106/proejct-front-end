@@ -1,21 +1,3 @@
-.select {
-    border: 0;
-    width: auto;
-    font-weight: 500;
-    color: #000000;
-    margin: 0 1% 0 0.5%;
-}
-
-.selectLeft {
-    width: 80vw;
-    margin: 0 0 48px 200px;
-}
-
-.mb-3,
-.my-3 {
-    margin-bottom: 0!important;
-}
-
 .topicBox {
     /* width: 95vw; */
     margin: 5px auto;
@@ -27,39 +9,6 @@
 
 .topicBoxBold {
     font-weight: bold;
-}
-
-.line {
-    margin: 10px auto;
-    border-bottom: 1.5px solid #4F586B;
-    width: 85%;
-}
-
-.awssld {
-    --slider-height-percentage: 30%;
-}
-
-.awssld__bullets button {
-    margin: 5px 5px 20px;
-}
-
-.awssld__content {
-    --content-background-color: #fff
-}
-
-.awssld__content>img {
-    width: auto;
-    top: auto;
-    left: auto;
-}
-
-.selectTitle {
-    font-size: 1rem;
-    padding: 1rem;
-}
-
-.search {
-    padding-top: 5px;
 }
 
 .ellipsis {

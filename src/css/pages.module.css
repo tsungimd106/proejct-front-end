@@ -11,8 +11,9 @@
 }
 
 .pagesC {
-    min-height: calc(100vh - 100px);
-    width: calc(100vw - 30px);
-    margin: 0 auto;
-    padding: 0 30px
+    min-height: calc(100vh - 80px);
+}
+
+.content {
+    margin-top: 100px;
 }

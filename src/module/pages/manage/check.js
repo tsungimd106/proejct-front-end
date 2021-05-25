@@ -24,7 +24,7 @@ export default class Check extends React.Component {
             {
                 menuItem: '未審核', render: () => <TabUI.Pane>
                     <Grid>
-                    <Grid.Row className={ style.reportBox + " justify-content-center align-items-center" }>
+                    <Grid.Row className={ style.reportBox + "  " }>
                         <Grid.Column width={ 10 }><h3>檢舉留言</h3></Grid.Column>
                         <Grid.Column width={ 3 }><h3>備註</h3></Grid.Column>
                         <Grid.Column width={ 3 }><h3>操作</h3></Grid.Column>
@@ -51,7 +51,7 @@ export default class Check extends React.Component {
                         {
                             this.state.already && this.state.already.map((item, index) => {
                                 return (<>
-                                    <Grid.Column width={ 10 } className="">{ item.content }</Grid.Column>
+                                    <Grid.Column width={ 10 } >{ item.content }</Grid.Column>
                                     <Grid.Column width={ 6}>
 
                                     </Grid.Column>

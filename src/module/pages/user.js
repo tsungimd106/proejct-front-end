@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { ListGroup, Tab } from "react-bootstrap"
-import { Tab as TabUI, Button as BtnUI, Divider as DividerUI, Transition as TransitionUI, Select as SelectUI,Grid } from 'semantic-ui-react'
-import { Person, Clipboard, Comment } from 'akar-icons';
+
+import { Tab, Button, Divider, Transition, Grid, Select } from 'semantic-ui-react'
+
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
 import { ProposalR } from '../request/proposalR.js';
@@ -20,6 +20,7 @@ class User extends React.Component {
             userName: localStorage.getItem("login"),
         }
     }
+
     componentDidMount() {
         MemberR.user(this.state.userName).then(res => {
             let d = {}
@@ -32,43 +33,20 @@ class User extends React.Component {
     }
 
     render() {
-
+        let items = [
+            { name: "我的個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
+            { name: "我的收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
+            { name: "我的留言&投票紀錄", in: <MyRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" }
+        ]
 
         return (<Pages page={
             (<>
-                <Tab.Container id="list-group-tabs-example" defaultActiveKey="f">
-                   <Grid> <Grid.Row>
-                        <Grid.Column width={ 2 }>
-                            <ListGroup>
-                                <ListGroup.Item eventKey="f" className={ style.select }>
-                                    <div><Person /></div>
-                                    <div>我的個人檔案</div>
-                                </ListGroup.Item>
-                                <ListGroup.Item eventKey="s" className={ style.select }>
-                                    <div><Clipboard /></div>
-                                    <div>我的收藏</div>
-                                </ListGroup.Item>
-                                <ListGroup.Item eventKey="t" className={ style.select }>
-                                    <div><Comment /></div>
-                                    <div>我的留言&投票紀錄</div>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Grid.Column>
-                        <Grid.Column width={ 14 }>
-                            <Tab.Content>
-                                <Tab.Pane eventKey="f">
-                                    <MyProfile data={ this.state.user } area={ this.state.area } />
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="s">
-                                    <MySave login={ this.state.userName } data={ this.state.save } />
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="t">
-                                    <MyRecord userName={ this.state.userName } msg={ this.state.msg } />
-                                </Tab.Pane>
-                            </Tab.Content>
-                        </Grid.Column>
-                   </Grid.Row></Grid>  
-                </Tab.Container>
+                <Tab menu={ { secondary: true, pointing: true, vertical: true, } } panes={ items.map(item => {
+                    return ({
+                        menuItem: { icon: item.icon, content: item.name },
+                        render: () => <Tab.Pane attached={ false }>   { item.in }</Tab.Pane>,
+                    })
+                }) } />
             </>)
         } />)
     }
@@ -97,7 +75,7 @@ class MyProfile extends React.Component {
 
     render() {
         return (<>
-           <Grid> <Grid.Row columns={"equal"}>
+            <Grid> <Grid.Row columns={ "equal" }>
                 <Grid.Column >
                     <div><h5>大頭貼照</h5></div>
                     <img className={ style.pic } src={ pic } alt="" />
@@ -116,22 +94,22 @@ class MyProfile extends React.Component {
                 </Grid.Column>
                 <Grid.Column>
 
-                    <BtnUI content={ "修改地區" } onClick={ this.areaShow } />
-                    <DividerUI hidden />
-                    <TransitionUI visible={ this.state.areaShow } animation='scale' duration={ 500 }>
+                    <Button content={ "修改地區" } onClick={ this.areaShow } />
+                    <Divider hidden />
+                    <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                         <div>
-                            <SelectUI options={ this.state.area } placeholder={ "請選擇你的地區" } />
-                            <BtnUI content={ "確定" } color='green' />
+                            <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
+                            <Button content={ "確定" } color='green' />
 
                         </div>
 
-                    </TransitionUI>
+                    </Transition>
 
-                    <p><BtnUI>修改興趣</BtnUI></p>
-                    <p><BtnUI>修改密碼</BtnUI></p>
+                    <p><Button>修改興趣</Button></p>
+                    <p><Button>修改密碼</Button></p>
                 </Grid.Column>
-           </Grid.Row></Grid>  
-            <ModalBaseUI  />
+            </Grid.Row></Grid>
+            <ModalBaseUI />
         </>);
     }
 }
@@ -183,26 +161,26 @@ class MyRecord extends React.Component {
     }
     render() {
         const panes = [
-            { menuItem: '投票', render: () => <TabUI.Pane></TabUI.Pane> },
+            { menuItem: '投票', render: () => <Tab.Pane></Tab.Pane> },
             {
-                menuItem: '留言', render: () => <TabUI.Pane>
+                menuItem: '留言', render: () => <Tab.Pane>
 
                     { this.state.msg != undefined ? this.state.msg.map((item, index) => {
                         return (<>
-                           <Grid> <Grid.Row columns={"equal"}
-                           onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
+                            <Grid> <Grid.Row columns={ "equal" }
+                                onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
                                 <Grid.Column>{ item.title } </Grid.Column>
                                 <Grid.Column>{ item.content }</Grid.Column>
-                           </Grid.Row></Grid>  
+                            </Grid.Row></Grid>
 
                         </>)
                     }) : <></> }
-                </TabUI.Pane>
+                </Tab.Pane>
             },
 
         ]
         return (<>
-            <TabUI menu={ { secondary: true } } panes={ panes } />
+            <Tab menu={ { secondary: true } } panes={ panes } />
 
 
         </>);

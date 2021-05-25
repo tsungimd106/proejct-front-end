@@ -1,6 +1,6 @@
 import React from "react";
-import { Button,  Modal } from "react-bootstrap"
-import { Modal as ModalUI, Button as BtnUI,Grid } from 'semantic-ui-react'
+import { Modal } from "react-bootstrap"
+import { Modal as ModalUI, Button, Grid } from 'semantic-ui-react'
 
 
 
@@ -11,24 +11,24 @@ export class ModalBase extends React.Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered backdrop="static" className="smallModal">
                 <Modal.Body className="show-grid body">
-                   <Grid> <Grid.Row className="justify-content-end">
+                    <Grid> <Grid.Row >
                         <Grid.Column className="modalClose">
                             <Button variant="light" className="close" aria-label="Close" onClick={ this.props.close }><span
                                 aria-hidden="true">&times;</span></Button>
                         </Grid.Column>
-                   </Grid.Row></Grid>  
-                   <Grid> <Grid.Row>
+                    </Grid.Row></Grid>
+                    <Grid> <Grid.Row>
                         <Grid.Column>
                             <center className="modalLabel">{ this.props.message }</center>
                             <div className="modalContainer">{ this.props.content }</div>
                             <p id={ `${this.props.error}ErrorInfo` } className="errorInfo" />
                         </Grid.Column>
-                   </Grid.Row></Grid>  
-                   <Grid> <Grid.Row>
+                    </Grid.Row></Grid>
+                    <Grid> <Grid.Row>
                         <Grid.Column>
                             <center><p><Button variant="success" onClick={ this.props.ok }>確認</Button></p></center>
                         </Grid.Column>
-                   </Grid.Row></Grid>  
+                    </Grid.Row></Grid>
                 </Modal.Body>
             </Modal>
         </>)
@@ -39,18 +39,18 @@ function ModalBaseUI() {
 
     return (
         <ModalUI
-           
+
             onClose={ () => setOpen(false) }
             onOpen={ () => setOpen(true) }
             open={ open }
             size='small'
-            trigger={ <BtnUI>Basic Modal</BtnUI> }
+            trigger={ <Button>Basic Modal</Button> }
         >
 
 
             <ModalUI.Header>Select a Photo</ModalUI.Header>
             <ModalUI.Content image>
-                {/* <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' wrapped /> */}
+                {/* <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' wrapped /> */ }
                 <ModalUI.Description>
                     {/* <Header>Default Profile Image</Header> */ }
                     <p>
@@ -61,10 +61,10 @@ function ModalBaseUI() {
                 </ModalUI.Description>
             </ModalUI.Content>
             <ModalUI.Actions>
-                <BtnUI color='black' onClick={ () => setOpen(false) }>
+                <Button color='black' onClick={ () => setOpen(false) }>
                     Nope
-        </BtnUI>
-                <BtnUI
+        </Button>
+                <Button
                     content="Yep, that's me"
                     labelPosition='right'
                     icon='checkmark'
@@ -87,7 +87,7 @@ export { ModalBaseUI }
 //                 onClose={ this.props.close }
 //                 onOpen={ this.props.close }
 //                 open={ this.props.open }
-//                 trigger={ <BtnUI>Show Modal</BtnUI> }
+//                 trigger={ <Button>Show Modal</Button> }
 //             >
 //                 <ModalUI.Header>Select a Photo</ModalUI.Header>
 //                 <ModalUI.Content image>
@@ -102,9 +102,9 @@ export { ModalBaseUI }
 //                     </ModalUI.Description>
 //                 </ModalUI.Content>
 //                 <ModalUI.Actions>
-//                     <BtnUI content={ "取消" } color='black' onClick={ this.props.close } />
+//                     <Button content={ "取消" } color='black' onClick={ this.props.close } />
 
-//                     <BtnUI
+//                     <Button
 //                         content="Yep, that's me"
 //                         labelPosition='right'
 //                         icon='checkmark'
@@ -125,32 +125,32 @@ export class TaskModal extends React.Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered backdrop="static" className="smallModal">
                 <Modal.Body className="show-grid body">
-                   <Grid> <Grid.Row className="justify-content-end">
+                    <Grid> <Grid.Row >
                         <Grid.Column className="modalClose">
                             <div className="close" aria-label="Close" onClick={ this.props.close }><span
                                 aria-hidden="true">&times;</span></div>
                         </Grid.Column>
-                   </Grid.Row></Grid>  
-                   <Grid> <Grid.Row>
+                    </Grid.Row></Grid>
+                    <Grid> <Grid.Row>
                         <Grid.Column>
                             <center className="modalLabel">{ this.props.message }</center>
-                           <Grid> <Grid.Row>
+                            <Grid> <Grid.Row>
                                 { this.props.tag.map(placement => {
                                     return (<Grid.Column width={ "auto" }>
                                         #{placement }
                                     </Grid.Column>)
 
                                 }) }
-                           </Grid.Row></Grid>  
+                            </Grid.Row></Grid>
                             <div className="modalContainer">{ this.props.content }</div>
                             <p id={ `${this.props.error}ErrorInfo` } className="errorInfo" />
                         </Grid.Column>
-                   </Grid.Row></Grid>  
-                   <Grid> <Grid.Row>
+                    </Grid.Row></Grid>
+                    <Grid> <Grid.Row>
                         <Grid.Column>
                             <center><p><Button variant="secondary" onClick={ this.props.ok }>關閉視窗</Button></p></center>
                         </Grid.Column>
-                   </Grid.Row></Grid>  
+                    </Grid.Row></Grid>
                 </Modal.Body>
             </Modal>
         </>)

@@ -1,5 +1,4 @@
 import React from 'react';
-import {  Card, Button, ListGroup, } from "react-bootstrap"
 import { Pages } from "../pages.js"
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
@@ -7,11 +6,20 @@ import person from "../../imgs/person.png"
 import f from "../../imgs/f.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
-import { Grid } from 'semantic-ui-react'
-import { Fire,Book } from 'akar-icons';
+import { Card, Button, Grid, List, Image } from 'semantic-ui-react'
+import { Fire, Book } from 'akar-icons';
 import style from "../../css/main.module.css"
 
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
 class Home extends React.Component {
     constructor(props) {
         super(props)
@@ -19,10 +27,7 @@ class Home extends React.Component {
 
             imageData: [
                 f,
-                "https://onepage.nownews.com/sites/default/files/styles/crop_thematic_pc_banner_img/public/2020-06/FotoJet%20%2878%29.jpg?h=66dd2fea&itok=dJ1r-peX",
-                "https://i2.kknews.cc/SIG=fduuh/31pq00046psp1o455n95.jpg",
-                "https://i1.kknews.cc/SIG=rf6m48/31p9000467p4po554154.jpg"
-
+                f, f
             ],
             chart: [
                 { name: '政要RUN', score: 100, img: person },
@@ -70,47 +75,47 @@ class Home extends React.Component {
     render() {
         return (<Pages id={ 0 } page={
             (<>
-                <div className={ style.width85 }>
-                   <Grid> <Grid.Row>
-                        <Grid.Column width={ "8" } className={ style.slider_item }>
-                            { this.state.imageData || false ? (<>
-                                <AwesomeSlider animation="foldOutAnimation">
-                                    { this.state.imageData.map(item => {
-                                        return (<div data-src={ item } />)
-                                    }) }
-                                </AwesomeSlider>
-                            </>) : (<></>) }
-                        </Grid.Column>
+                <div >
+                    <div className={ style.slider_item }>
+                        <Swiper
+                            spaceBetween={ 50 }
+                            slidesPerView={ 1 }
+                            navigation
+                            pagination={ { clickable: true } }
+                        >
+                            { this.state.imageData.map(item => {
+                                return (<SwiperSlide  ><center><img src={ item } alt="" /></center></SwiperSlide>)
+                            }) }
+                        </Swiper>
+                    </div>
+                    {/* <div className={ style.slider_rank }>
+                        <Swiper
+                            spaceBetween={ 50 }
+                            slidesPerView={ 3 }
+                            navigation
+                            pagination
+                        >
+                            { this.state.chart || false ? (
+                                this.state.chart.map(placement => {
+                                    return (
+                                        <SwiperSlide>
+                                           
+                                            <Card className={ style.pimg } >
+                                                <Card.Header>政治人物排行榜</Card.Header>
+                                                <Card.Img variant="top" src={ placement.img } className={ style.pimg } />
+                                                <Card.Body>
+                                                    <Card.Title>{ placement.name }{ " " }{ placement.score }分</Card.Title>
 
-                        <Grid.Column className={ style.slider_item }>
-                            { this.state.imageData || false ? (<>
-                                <AwesomeSlider animation="foldOutAnimation">
-                                    { this.state.chart || false ? (
-                                         this.state.chart.map(placement => {
-                                            return (
-                                                <span>
-                                                     {/* <img variant="top" src={ placement.img } className={ style.pimg } /> */}
-                                                     {/* <Card.Title>{ placement.name }</Card.Title>
-                                                            <Card.Text>
-                                                                我的分數：{ placement.score }
-                                                            </Card.Text> */}
-                                                    <Card className={ style.pimg } >
-                                                        <Card.Header>政治人物排行榜</Card.Header>
-                                                        <Card.Img variant="top" src={ placement.img } className={ style.pimg } />
-                                                        <Card.Body>
-                                                            <Card.Title>{ placement.name }{" "}{ placement.score }分</Card.Title>
-                                                            
-                                                            {/* {/* <Button variant="primary">我的數據儀表板</Button>  */}
-                                                        </Card.Body>
-                                                    </Card>
-                                                </span>)
-                                        }) 
-                                    ) : (<></>) }
-                                </AwesomeSlider>
-                            </>) : (<></>) }
-                        </Grid.Column>
+                                               
+                                                </Card.Body>
+                                            </Card>
+                                        </SwiperSlide>)
+                                })
+                            ) : (<></>) }
 
-                   </Grid.Row></Grid>  
+                        </Swiper>
+                    </div> */}
+
                 </div>
 
                 {/* <div className={ style.title }>政治人物排行榜
@@ -134,116 +139,101 @@ class Home extends React.Component {
                         </>) : (<></>) }
                    </Grid.Row></Grid>  
                 </div> */}
-               <Grid> <Grid.Row className={ style.width85 }>
+                <Grid > <Grid.Row columns={ 2 }>
                     <Grid.Column>
-                        <Card>
-                            <Card.Header as="h5" className={style.newhot_title}><Book className={style.tab}/>最新提案</Card.Header>
-                            <Card.Body  className={style.newhot}>
-                                <ListGroup variant="flush">
-                                        {this.state.proposal || false ? (<>
-                                            {this.state.proposal.new.map(placement => {
-                                                return (
-                                                    <ListGroup.Item>
-                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
-                                                            <Grid.Column width={3}>
-                                                               <Grid> <Grid.Row className="justify-content-center">
-                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
-                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
-                                                               </Grid.Row></Grid>  
-                                                            </Grid.Column>
-                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
-                                                       </Grid.Row></Grid>  
-                                                    </ListGroup.Item>
-                                                )
-                                            })}
-                                        </>) : (<></>)}
-                                    </ListGroup>
-                            </Card.Body>
+                        <Card className={ style.table }>
+                            <Card.Header as="h5" className={ style.newhot_title }><Book className={ style.tab } />最新提案</Card.Header>
+                            <Card.Content className={ style.newhot }>
+                                <List variant="flush">
+                                    { this.state.proposal || false ? (<>
+                                        { this.state.proposal.new.map(placement => {
+                                            return (
+                                                <List.Item>
+                                                <Image avatar src={ person } />
+                                                <List.Content  >
+                                                    <List.Header>{ placement.name }</List.Header>
+                                                    <List.Description>{ placement.title }</List.Description>
+                                                </List.Content>
+                                            </List.Item>
+                                            )
+                                        }) }
+                                    </>) : (<></>) }
+                                </List>
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+
+                    <Grid.Column>
+                        <Card className={ style.table }>
+                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門提案</Card.Header>
+                            <Card.Content className={ style.newhot }>
+                                <List variant="flush">
+                                    { this.state.proposal || false ? (<>
+                                        { this.state.proposal.hot.map(placement => {
+                                            return (
+                                                <List.Item>
+                                                    <Image avatar src={ person } />
+                                                    <List.Content  >
+                                                        <List.Header>{ placement.name }</List.Header>
+                                                        <List.Description>{ placement.title }</List.Description>
+                                                    </List.Content>
+                                                </List.Item>
+                                            )
+                                        }) }
+                                    </>) : (<></>) }
+                                </List>
+                            </Card.Content>
                         </Card>
                     </Grid.Column>
                     <Grid.Column>
-                        <Card>
-                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門提案</Card.Header>
-                            <Card.Body  className={style.newhot}>
-                                <ListGroup variant="flush">
-                                        {this.state.proposal || false ? (<>
-                                            {this.state.proposal.hot.map(placement => {
-                                                return (
-                                                    <ListGroup.Item>
-                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
-                                                            <Grid.Column width={3}>
-                                                               <Grid> <Grid.Row className="justify-content-center">
-                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
-                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
-                                                               </Grid.Row></Grid>  
-                                                            </Grid.Column>
-                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
-                                                       </Grid.Row></Grid>  
-                                                    </ListGroup.Item>
-                                                )
-                                            })}
-                                        </>) : (<></>)}
-                                    </ListGroup>
-                            </Card.Body>
+                        <Card className={ style.table }>
+                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門留言</Card.Header>
+                            <Card.Content className={ style.newhot }>
+                                <List variant="flush">
+                                    { this.state.message || false ? (<>
+                                        { this.state.message.hot.map(placement => {
+                                            return (
+                                                
+                                                <List.Item>
+                                                    <Image avatar src={ person } />
+                                                    <List.Content  >
+                                                        <List.Header>{ placement.name }</List.Header>
+                                                        <List.Description>{ placement.title }</List.Description>
+                                                    </List.Content>
+                                                </List.Item>
+                                            )
+                                        }) }
+                                    </>) : (<></>) }
+                                </List>
+                            </Card.Content>
                         </Card>
                     </Grid.Column>
-               </Grid.Row></Grid>  
+                    <Grid.Column>
+                        <Card className={ style.table }>
+                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門政見</Card.Header>
+                            <Card.Content className={ style.newhot }>
+                                <List variant="flush">
+                                    { this.state.politics || false ? (<>
+                                        { this.state.politics.hot.map(placement => {
+                                            return (
+                                                <List.Item>
+                                                    <Image avatar src={ person } />
+                                                    <List.Content  >
+                                                        <List.Header>{ placement.name }</List.Header>
+                                                        <List.Description>{ placement.title }</List.Description>
+                                                    </List.Content>
+                                                </List.Item>
+                                            )
+                                        }) }
+                                    </>) : (<></>) }
+                                </List>
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+                </Grid.Row></Grid>
 
 
-               <Grid> <Grid.Row className={style.width85}>
-                <Grid.Column>
-                        <Card>
-                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門留言</Card.Header>
-                            <Card.Body  className={style.newhot}>
-                                <ListGroup variant="flush">
-                                        {this.state.message || false ? (<>
-                                            {this.state.message.hot.map(placement => {
-                                                return (
-                                                    <ListGroup.Item>
-                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
-                                                            <Grid.Column width={3}>
-                                                               <Grid> <Grid.Row className="justify-content-center">
-                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
-                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
-                                                               </Grid.Row></Grid>  
-                                                            </Grid.Column>
-                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
-                                                       </Grid.Row></Grid>  
-                                                    </ListGroup.Item>
-                                                )
-                                            })}
-                                        </>) : (<></>)}
-                                    </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Card>
-                            <Card.Header as="h5" className={style.newhot_title}><Fire  className={style.fire+" "+style.tab}/>最熱門政見</Card.Header>
-                            <Card.Body  className={style.newhot}>
-                                <ListGroup variant="flush">
-                                        {this.state.politics || false ? (<>
-                                            {this.state.politics.hot.map(placement => {
-                                                return (
-                                                    <ListGroup.Item>
-                                                       <Grid> <Grid.Row className="align-items-center" noGutters={true}>
-                                                            <Grid.Column width={3}>
-                                                               <Grid> <Grid.Row className="justify-content-center">
-                                                                    <Grid.Column width={7}><img src={person}/></Grid.Column>
-                                                                    <Grid.Column width={12}><div className={style.msg_name}>{placement.name}</div></Grid.Column>
-                                                               </Grid.Row></Grid>  
-                                                            </Grid.Column>
-                                                            <Grid.Column width={9}>{placement.title}</Grid.Column>
-                                                       </Grid.Row></Grid>  
-                                                    </ListGroup.Item>
-                                                )
-                                            })}
-                                        </>) : (<></>)}
-                                    </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Grid.Column>
-               </Grid.Row></Grid>  
+
             </>)
         } />)
     }

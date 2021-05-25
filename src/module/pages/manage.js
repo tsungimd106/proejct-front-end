@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { ListGroup,Tab } from "react-bootstrap"
 import { Person, Clipboard, Comment } from 'akar-icons';
 import Politician from "./manage/politician"
 import Check from "./manage/check"
@@ -9,7 +8,7 @@ import Proposal from "./manage/proposal"
 import User from "./manage/user"
 import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
-import { Grid } from 'semantic-ui-react'
+import { Grid, Tab } from 'semantic-ui-react'
 
 class Manage extends React.Component {
     constructor(props) {
@@ -29,33 +28,13 @@ class Manage extends React.Component {
     render() {
         return (<Pages page={
             (<>
-                <Tab.Container id="list-group-tabs-example" defaultActiveKey="check">
-                   <Grid> <Grid.Row columns={"equal"}>
-                        <Grid.Column width={ 2 }>
-                            <ListGroup>
-                                { this.state.items.map((item, index) => {
-                                    return (<>
-                                        <ListGroup.Item eventKey={ item.key }>
-                                        { item.name }
-                                        </ListGroup.Item>
-                                    </>)
-                                }) }
-                            </ListGroup>
-                        </Grid.Column>
-                        <Grid.Column >
-                            <Tab.Content>
-                                { this.state.items.map((item, index) => {
-                                    return (<>
-                                        <Tab.Pane eventKey={ item.key }>
-                                            { (item.in) }
-                                        </Tab.Pane>
+                <Tab menu={ { secondary: true, pointing: true, vertical: true, } } panes={ this.state.items.map((item, index) => {
+                    return ({
+                        menuItem: { content: item.name },
+                        render: () => <Tab.Pane attached={ false }>  { item.in }</Tab.Pane>,
+                    })
+                }) } />
 
-                                    </>)
-                                }) }
-                            </Tab.Content>
-                        </Grid.Column>
-                   </Grid.Row></Grid>  
-                </Tab.Container>
             </>)
         } />)
     }

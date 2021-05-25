@@ -75,7 +75,7 @@ export default class Proposal extends React.Component {
 
                                 return (<>
                                 <Grid>
-                                    <Grid.Row className="justify-content-center align-items-center">
+                                    <Grid.Row className=" ">
                                         <Grid.Column width={3}>
                                             {item.name}
                                         </Grid.Column>

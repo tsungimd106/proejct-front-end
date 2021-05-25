@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from "react-bootstrap"
 import { MemberR } from "../request/memberR.js"
 import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
@@ -8,14 +7,14 @@ import logo_dark from '../../imgs/LOGO1.png'
 
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid } from 'semantic-ui-react'
+import { Grid ,Button} from 'semantic-ui-react'
 class Base extends React.Component {
 
     render() {
         let enough_height = window.innerHeight >= 576
 
         return (<>
-           <Grid> <Grid.Row className={style.sign + " justify-content-center"} noGutters="true">
+           <Grid> <Grid.Row className={style.sign + " "} noGutters="true">
                 <Grid.Column width={6} xs={12} className={style.left}>
                     <h4>Welcome</h4>
                     <h6>__</h6>
