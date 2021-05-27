@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Button, Comment, Header, Form } from 'semantic-ui-react'
+import { Grid, Button, Comment, Header, Form, List } from 'semantic-ui-react'
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
@@ -187,16 +187,15 @@ class PolicyContent extends React.Component {
                         return (
                             <div className="topic ">
                                 <h2 className={ style.topicBold }>{ placement.title }</h2>
-                                <div>{ this.state.login && <Heart className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } /> }</div>
                                 <p >
                                     <Grid> <Grid.Row >
                                         <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column>
                                         {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
                                         <Grid.Column width={ 16 }>
-                                            <Grid> <Grid.Row >
-                                                <Grid.Column >提案人</Grid.Column>
-                                                <Grid.Column ><a href="./#/figure/401">王婉諭</a></Grid.Column>
-                                            </Grid.Row></Grid>
+                                            <List>
+                                                <List.item >提案人</List.item>
+                                                <List.item ><a href="./#/figure/401">王婉諭</a></List.item>
+                                            </List>
                                         </Grid.Column>
                                         <Grid.Column width={ 16 } >
                                             <div>
@@ -220,6 +219,8 @@ class PolicyContent extends React.Component {
 
                                             {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                         </Grid.Column>
+                                        <div>{ this.state.login && <Heart className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } /> }</div>
+
                                         { this.state.login && (<Grid.Column width={ 16 }>
 
                                             <Grid >

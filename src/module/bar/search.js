@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Cross } from 'akar-icons';
-import { Grid, Button, Form, List, Icon ,Checkbox} from 'semantic-ui-react'
+import { Grid, Button, Form, List, Icon, Checkbox } from 'semantic-ui-react'
 import style from "./search.module.css"
 export default class Search extends React.Component {
     constructor(props) {
@@ -32,7 +32,7 @@ export default class Search extends React.Component {
         this.setState({ like: d, count: this.state.count - 1 })
     }
 
-    newOn = (name,item) => {
+    newOn = (name, item) => {
         // const key = e.target
         let ccc = this.props.like
         let count = this.state.count
@@ -68,57 +68,58 @@ export default class Search extends React.Component {
 
 
     render() {
-        return (<div className={ style.searchBar }>
+        return (<div className={style.searchBar}>
 
             <List horizontal>
                 <List.Item> <Form.Input label='關鍵字搜尋：' placeholder="請輸入關鍵字" /></List.Item>
                 <List.Item>  <Form.Button>確認</Form.Button></List.Item>
             </List>
-            <Grid className={ style.border }>
+            <Grid className={style.border}>
                 <Grid.Row >
-                    { this.state.count > 0 ? <><Grid.Column width={ 1 }>篩選條件</Grid.Column> <Grid.Column width={ 12 }>
-                        { this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                    {this.state.count > 0 ? <><Grid.Column width={2}>篩選條件</Grid.Column> <Grid.Column width={12} >
+                        {this.props.like && Object.keys(this.props.like).map((placement, index) => {
                             return (<>
-                               
-                                    { Object.keys(this.props.like[placement]).map(item => {
-                                        if (this.props.like[placement][item]) {
-                                            return (
-                                                <Button
-                                                    icon={ "x" }
-                                                    content={ item }
-                                                    onClick={ () => { this.remove(placement, item) } } className={ style.button } />
 
-                                            )
-                                        }
+                                {Object.keys(this.props.like[placement]).map(item => {
+                                    if (this.props.like[placement][item]) {
+                                        return (
+                                            <Button
+                                                icon={"x"}
+                                                content={item}
+                                                onClick={() => { this.remove(placement, item) }} className={style.button} />
 
-                                    }) } </>)
-                        }) }</Grid.Column>
-                        <Grid.Column width={ 2 }>
-                            <Button onClick={ this.removeAll } className={ style.button } content={ "清除全部" } />
-                        </Grid.Column></> : <></> }
+                                        )
+                                    }
+
+                                })} </>)
+                        })}</Grid.Column>
+                        <Grid.Column width={2}></Grid.Column>
+                        <Grid.Column width={12}>
+                            <Button secondary onClick={this.removeAll} className={style.clearbtn} >清除全部</Button>
+                        </Grid.Column></> : <></>}
                 </Grid.Row>
-               
-
-                    { this.props.like && Object.keys(this.props.like).map((placement, index) => {
-                        return (<> <Grid.Row >
-                            <Grid.Column width={ 1 }>{ placement }</Grid.Column>
-                            <Grid.Column width={ 12 } textAlign={"justified"} verticalAlign={"middle"}>
-                                <List horizontal>
-                                    { Object.keys(this.props.like[placement]).map((item) => {
-                                        return (<><List.Item className={style.listItem}>
-                                            <Checkbox label={item} name={ placement } value={ item }
-                                            onChange={ ()=>{this.newOn(placement,item)}} checked={ this.props.like[placement][item] } />
-                                           
-                                        </List.Item>
-                                        </>)
-                                    }) }  </List>
-                            </Grid.Column>
-                            <Grid.Column width={ 2 }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>  </Grid.Row>
-                        </>)
-                    }) }
 
 
-              </Grid>
+                {this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                    return (<> <Grid.Row >
+                        <Grid.Column width={1}>{placement}</Grid.Column>
+                        <Grid.Column width={12} textAlign={"justified"} verticalAlign={"middle"}>
+                            <List horizontal>
+                                {Object.keys(this.props.like[placement]).map((item) => {
+                                    return (<><List.Item className={style.state_listItem}>
+                                        <Checkbox label={item} name={placement} value={item}
+                                            onChange={() => { this.newOn(placement, item) }} checked={this.props.like[placement][item]} />
+
+                                    </List.Item>
+                                    </>)
+                                })}  </List>
+                        </Grid.Column>
+                        <Grid.Column width={2}>{this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={() => { this.more(placement) }}>更多</Button>) : ""}</Grid.Column>  </Grid.Row>
+                    </>)
+                })}
+
+
+            </Grid>
         </div>)
     }
 }
