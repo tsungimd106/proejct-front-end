@@ -56,3 +56,50 @@
 .tab {
     margin-right: 8px;
 }
+
+.specialU {
+    /* border-bottom: 100px solid red !important;
+    border-left: 100px solid transparent !important;
+    width: 0%;
+    border-radius: 25px 0 0 25px; */
+}
+
+.specialD {
+    /* border-top: 100px solid red !important;
+    border-left: 100px solid transparent !important;
+    width: 0%;
+    height: 0;
+    border-radius: -25% 0 0 -25%;
+    ; */
+}
+
+.specialU {
+    width: 100px;
+    height: 55px;
+    background: red;
+    position: relative;
+}
+
+.specialU:before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 25px solid red;
+}
+
+.specialU:after {
+    content: "";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 25px solid red;
+}

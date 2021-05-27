@@ -303,10 +303,7 @@ class FigureDetail extends React.Component {
                             <Grid.Column width={ 10 }>
                                 { this.state.scoreRule.map((item, index) => {
                                     return (<>
-
                                         <div>{ item.remark }</div>
-
-
                                     </>)
                                 }) }
                             </Grid.Column>
@@ -315,8 +312,6 @@ class FigureDetail extends React.Component {
                                     <div className={ style.space }></div>
                                 </>)
                             }) }
-
-
                         </Grid.Row></Grid>
 
 
