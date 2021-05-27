@@ -106,7 +106,7 @@ class Home extends React.Component {
                                             </Card.Header>
 
 
-                                            <Card.Content>
+                                            <Card.Content textAlign={"center"}>
 
                                                 { item.score }分
                                             </Card.Content>
