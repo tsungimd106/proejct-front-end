@@ -4,9 +4,10 @@ import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import person from "../../imgs/person.png"
 import f from "../../imgs/f.jpg"
+import back from "../../imgs/back.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
-import { Card, Button, Grid, List, Image } from 'semantic-ui-react'
+import { Card, Button, Grid, List, Image, Header, Segment, Table, Label } from 'semantic-ui-react'
 import { Fire, Book } from 'akar-icons';
 import style from "../../css/main.module.css"
 
@@ -50,13 +51,12 @@ class Home extends React.Component {
             }
             ,
             message:
-            {
-                hot: [
+           [
                     { name: '王婉諭', title: "公民投票法部分條文修正草案" },
                     { name: '劉建國', title: "太空發展法訂定草案" },
                     { name: '郭家瑜', title: "新住民孩童教育制定草案" },
-                ],
-            }
+                    { name: '賴品妤', title: 34 },
+           ]
             ,
             politics:
             {
@@ -65,8 +65,14 @@ class Home extends React.Component {
                     { name: '劉建國', title: "太空發展法訂定草案" },
                     { name: '郭家瑜', title: "新住民孩童教育制定草案" },
                 ],
-            }
-            ,
+            },
+            rank: [
+                { name: '政要RUN', score: 100 },
+                { name: '王婉諭', score: 77 },
+                { name: '劉建國', score: 55 },
+                { name: '郭家瑜', score: 44 },
+                { name: '賴品妤', score: 34 },
+            ]
 
         }
     }
@@ -88,149 +94,80 @@ class Home extends React.Component {
                             }) }
                         </Swiper>
                     </div>
-                    {/* <div className={ style.slider_rank }>
-                        <Swiper
-                            spaceBetween={ 50 }
-                            slidesPerView={ 3 }
-                            navigation
-                            pagination
-                        >
-                            { this.state.chart || false ? (
-                                this.state.chart.map(placement => {
-                                    return (
-                                        <SwiperSlide>
-                                           
-                                            <Card className={ style.pimg } >
-                                                <Card.Header>政治人物排行榜</Card.Header>
-                                                <Card.Img variant="top" src={ placement.img } className={ style.pimg } />
-                                                <Card.Body>
-                                                    <Card.Title>{ placement.name }{ " " }{ placement.score }分</Card.Title>
+                    <div>
+                        <Card.Group itemsPerRow={ 3 }>
+                            { this.state.rank.map((item, index) => {
+                                if (index < 3) {
+                                    return (<>
+                                        <Card  >
+                                            <Card.Header textAlign={ "center" }>
+                                                <Image src={ person } circular centered size={ "small" } />
+                                                <Header>{ item.name }</Header>
+                                            </Card.Header>
 
-                                               
-                                                </Card.Body>
-                                            </Card>
-                                        </SwiperSlide>)
-                                })
-                            ) : (<></>) }
 
-                        </Swiper>
-                    </div> */}
+                                            <Card.Content>
+
+                                                { item.score }分
+                                            </Card.Content>
+                                        </Card>
+                                    </>)
+                                }
+                            }) }
+
+
+                        </Card.Group>
+                        <Card.Group itemsPerRow={ 1 }>
+                            { this.state.rank.map((item, index) => {
+                                if (index >= 3) {
+                                    return (<>
+                                        <Card centered >
+                                            <List horizontal relaxed verticalAlign={ "middle" } >
+                                                <List.Item>
+
+                                                </List.Item>
+                                                <List.Item>
+                                                    { item.name }
+                                                </List.Item>
+                                                <List.Item>
+                                                    <Image src={ person } size={ "mini" } circular />
+                                                </List.Item>
+                                                <List.Item>  { item.score }分</List.Item>
+                                            </List>
+
+                                        </Card></>)
+                                }
+                            }) }
+                        </Card.Group>
+                    </div>
+
 
                 </div>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={ 6 }><Segment>
+                            <Image size={ "large" } src={back}/>
+                        </Segment></Grid.Column>
+                        <Grid.Column width={ 10 }>
+                            <Header>最熱門留言</Header>
+                            <Table padded >
+                                <Table.Body>
+                                    { this.state.message.map(item => {
+                                        return (<>
+                                            <Table.Row >
+                                                <Table.Cell><Image src={ person } size={ "mini" } />
+                                                </Table.Cell>
+                                                <Table.Cell>{item.name}</Table.Cell>
+                                                <Table.Cell>{item.title}</Table.Cell>
+                                            </Table.Row>
+                                        </>)
+                                    }) }                                 
+                                </Table.Body>
+                            </Table>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
 
-                {/* <div className={ style.title }>政治人物排行榜
-                   <Grid> <Grid.Row>
-                        { this.state.chart || false ? (<>
-                            { this.state.chart.map(placement => {
-                                return (
-                                    <Grid.Column width={ "3" }>
-                                        <Card className={ style.pimg } >
-                                            <Card.Img variant="top" src={ placement.img } className={ style.pimg } />
-                                            <Card.Body>
-                                                <Card.Title>{ placement.name }</Card.Title>
-                                                <Card.Text>
-                                                    我的分數：{ placement.score }
-                                                </Card.Text>
-                                                <Button variant="primary">我的數據儀表板</Button>
-                                            </Card.Body>
-                                        </Card>
-                                    </Grid.Column>)
-                            }) }
-                        </>) : (<></>) }
-                   </Grid.Row></Grid>  
-                </div> */}
-                <Grid > <Grid.Row columns={ 2 }>
-                    <Grid.Column>
-                        <Card className={ style.table }>
-                            <Card.Header as="h5" className={ style.newhot_title }><Book className={ style.tab } />最新提案</Card.Header>
-                            <Card.Content className={ style.newhot }>
-                                <List variant="flush">
-                                    { this.state.proposal || false ? (<>
-                                        { this.state.proposal.new.map(placement => {
-                                            return (
-                                                <List.Item>
-                                                <Image avatar src={ person } />
-                                                <List.Content  >
-                                                    <List.Header>{ placement.name }</List.Header>
-                                                    <List.Description>{ placement.title }</List.Description>
-                                                </List.Content>
-                                            </List.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </List>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-
-                    <Grid.Column>
-                        <Card className={ style.table }>
-                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門提案</Card.Header>
-                            <Card.Content className={ style.newhot }>
-                                <List variant="flush">
-                                    { this.state.proposal || false ? (<>
-                                        { this.state.proposal.hot.map(placement => {
-                                            return (
-                                                <List.Item>
-                                                    <Image avatar src={ person } />
-                                                    <List.Content  >
-                                                        <List.Header>{ placement.name }</List.Header>
-                                                        <List.Description>{ placement.title }</List.Description>
-                                                    </List.Content>
-                                                </List.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </List>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Card className={ style.table }>
-                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門留言</Card.Header>
-                            <Card.Content className={ style.newhot }>
-                                <List variant="flush">
-                                    { this.state.message || false ? (<>
-                                        { this.state.message.hot.map(placement => {
-                                            return (
-                                                
-                                                <List.Item>
-                                                    <Image avatar src={ person } />
-                                                    <List.Content  >
-                                                        <List.Header>{ placement.name }</List.Header>
-                                                        <List.Description>{ placement.title }</List.Description>
-                                                    </List.Content>
-                                                </List.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </List>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Card className={ style.table }>
-                            <Card.Header as="h5" className={ style.newhot_title }><Fire className={ style.fire + " " + style.tab } />最熱門政見</Card.Header>
-                            <Card.Content className={ style.newhot }>
-                                <List variant="flush">
-                                    { this.state.politics || false ? (<>
-                                        { this.state.politics.hot.map(placement => {
-                                            return (
-                                                <List.Item>
-                                                    <Image avatar src={ person } />
-                                                    <List.Content  >
-                                                        <List.Header>{ placement.name }</List.Header>
-                                                        <List.Description>{ placement.title }</List.Description>
-                                                    </List.Content>
-                                                </List.Item>
-                                            )
-                                        }) }
-                                    </>) : (<></>) }
-                                </List>
-                            </Card.Content>
-                        </Card>
-                    </Grid.Column>
-                </Grid.Row></Grid>
 
 
 

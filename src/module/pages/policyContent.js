@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Button, Comment, Header,Form } from 'semantic-ui-react'
+import { Grid, Button, Comment, Header, Form } from 'semantic-ui-react'
 import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import 'react-awesome-slider/dist/styles.css';
@@ -221,9 +221,9 @@ class PolicyContent extends React.Component {
                                             {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                         </Grid.Column>
                                         { this.state.login && (<Grid.Column width={ 16 }>
-                                           
+
                                             <Grid >
-                                               
+
                                                 <Grid.Row columns={ "equal" }>
                                                     <Grid.Column>
                                                         <div className={ style.lable }>
@@ -264,7 +264,11 @@ class PolicyContent extends React.Component {
                                                                 <Comment.Text>{ placement.content }</Comment.Text>
                                                                 <Comment.Actions>
                                                                     <Comment.Action>回覆</Comment.Action>
-                                                                    <Comment.Action onClick={ () => { this.showReport(placement.id) } }>檢舉</Comment.Action>
+
+                                                                    <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
+                                                                        rule={this.state.rule}
+                                                                    />
+
                                                                 </Comment.Actions>
                                                             </Comment.Content>
                                                         </Comment>
@@ -278,7 +282,7 @@ class PolicyContent extends React.Component {
                                             <div className={ style.mes }>
 
 
-                                              
+
                                             </div>
                                         </Grid.Column>
                                     </Grid.Row></Grid>
@@ -287,8 +291,7 @@ class PolicyContent extends React.Component {
                             </div>)
                     }) }
                 </>) : (<></>) }
-                <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } />
-                <ReportModal show={ this.state.reportModal } ok={ this.report } close={ this.showReport } rule={ this.state.rule } />
+                {/* <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } /> */ }
             </>)
         } />)
     }

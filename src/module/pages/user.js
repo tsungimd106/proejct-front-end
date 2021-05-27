@@ -10,7 +10,7 @@ import { MemberR } from '../request/memberR';
 import 'semantic-ui-css/semantic.min.css'
 import { trackPromise } from 'react-promise-tracker';
 import pic from "./pic.png"
-import { ModalBaseUI } from '../modal.js';
+import { ModalBase } from '../modal.js';
 
 class User extends React.Component {
     constructor(props) {
@@ -70,7 +70,11 @@ class MyProfile extends React.Component {
 
     pswShow = (show) => this.setState({ pswShow: show })
     editPsw = () => {
-
+        return true
+    }
+    editClass = () => {
+      
+        return {error:"abc",errorText:"ddd"}
     }
 
     render() {
@@ -104,12 +108,12 @@ class MyProfile extends React.Component {
                         </div>
 
                     </Transition>
+                    <p><ModalBase message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></p>
+                    <p><ModalBase message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } /></p>
 
-                    <p><Button>修改興趣</Button></p>
-                    <p><Button>修改密碼</Button></p>
                 </Grid.Column>
             </Grid.Row></Grid>
-            <ModalBaseUI />
+
         </>);
     }
 }

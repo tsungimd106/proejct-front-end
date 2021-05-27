@@ -74,11 +74,7 @@ class Task extends React.Component {
 
                     </>)
                 }) }
-                <TaskModal show={ this.state.show }
-                    message={ this.state.message || "" }
-                    content={ this.state.content || "" }
-                    tag={ this.state.tag ||[] }
-                    ok={ this.clickMe } close={ this.clickMe } />
+              
             </>
         }>
         </Pages>
