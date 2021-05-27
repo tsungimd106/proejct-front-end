@@ -12,7 +12,7 @@
 
 .pagesC {
     min-height: calc(100vh - 80px);
-    padding: 0 40px;
+    padding: 0 15vw
 }
 
 .content {

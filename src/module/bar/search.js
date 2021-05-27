@@ -97,10 +97,10 @@ export default class Search extends React.Component {
                             <Button onClick={ this.removeAll } className={ style.button } content={ "清除全部" } />
                         </Grid.Column></> : <></> }
                 </Grid.Row>
-                <Grid.Row >
+               
 
                     { this.props.like && Object.keys(this.props.like).map((placement, index) => {
-                        return (<>
+                        return (<> <Grid.Row >
                             <Grid.Column width={ 1 }>{ placement }</Grid.Column>
                             <Grid.Column width={ 12 } textAlign={"justified"} verticalAlign={"middle"}>
                                 <List horizontal>
@@ -113,12 +113,12 @@ export default class Search extends React.Component {
                                         </>)
                                     }) }  </List>
                             </Grid.Column>
-                            <Grid.Column width={ 2 }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>
+                            <Grid.Column width={ 2 }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>  </Grid.Row>
                         </>)
                     }) }
 
 
-                </Grid.Row></Grid>
+              </Grid>
         </div>)
     }
 }

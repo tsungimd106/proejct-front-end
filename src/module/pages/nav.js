@@ -3,7 +3,7 @@ import logo_dark from '../../imgs/LOGO1.png'
 import { Search, Person, CircleChevronDown, SignOut, Info, Envelope, Star, TextAlignJustified } from 'akar-icons';
 
 import style from "../../css/nav.module.css"
-import { Grid, Segment ,Button,} from 'semantic-ui-react'
+import { Grid, Segment, Button, List, } from 'semantic-ui-react'
 
 export default class Nav extends React.Component {
     constructor(props) {
@@ -30,45 +30,53 @@ export default class Nav extends React.Component {
         return (<>
 
             <Grid>
-                <Grid.Row columns={ "equal"  }
-                verticalAlign={"middle"}
-                id={style.navtop}
+                <Grid.Row columns={ "equal" }
+                    verticalAlign={ "middle" }
+                    
+                    id={ style.navtop }
                     className={ style.navtop + " " + style.i_dont_know_how_to_name_it + "   " }>
                     <Grid.Column >
                         <a href="./#/"><img className={ style.navPicture } src={ logo_dark } /></a>
-                    </Grid.Column>
-                   {/* <Grid.Column /> */}
 
-                    <Grid.Column floated={ "right" } textAlign={"right"}><TextAlignJustified onClick={ this.show } /></Grid.Column>
+                    </Grid.Column>
+                    
+                  
+                    <Grid.Column floated={ "right" } textAlign={ "right" } className={style.nav} verticalAlign={"middle"}>
+                        
+                        <a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" } verticalAlign={"middle"}>首頁</a>
+                        <a href="./#/policy/" className={ this.props.id == 2 ? style.pageOn : "" }>提案專區</a>
+                        <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a>
+                        <TextAlignJustified onClick={ this.show } />
+                    </Grid.Column>
 
 
                 </Grid.Row>
-                <Grid.Row className={ this.state.menu ? style.open : style.close } columns={2}>
+                <Grid.Row className={ this.state.menu ? style.open : style.close } columns={ 2 }>
                     <Grid.Column  >
 
                     </Grid.Column>
                     <Grid.Column >
 
-                    { (this.state.login || false ? (<>
-                        <p><a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" }>首頁</a></p>
-                        <p> <a href="./#/election" className={ this.props.id == 1 ? style.pageOn : "" }>選舉報你知</a></p>
+                        { (this.state.login || false ? (<>
+                            <p><a href="./#/" className={ this.props.id == 0 ? style.pageOn : "" }>首頁</a></p>
+                            <p> <a href="./#/election" className={ this.props.id == 1 ? style.pageOn : "" }>選舉報你知</a></p>
 
 
-                        <p><a href="./#/policy/" className={ this.props.id == 2 ? style.pageOn : "" }>提案專區</a></p>
-                        <p>   <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a></p>
-                        <p>  <Person /> <a href="./#/user/" className={ this.props.id == 4 ? style.pageOn : "" }>會員檔案</a></p>
-                        <p>  <Envelope /> <a href="./#//" className={ this.props.id == 5 ? style.pageOn : "" }>提出問題與反饋</a></p>
-                        <p><Info />   <a href="./#//" className={ this.props.id == 6 ? style.pageOn : "" }>法規與條款資訊</a></p>
-                        { this.state.check == "true" ? <p><Star />    <a href="./#/manage/" className={ this.props.id == 6 ? style.pageOn : "" }>管理者</a></p> : <></> }
+                            <p><a href="./#/policy/" className={ this.props.id == 2 ? style.pageOn : "" }>提案專區</a></p>
+                            <p>   <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a></p>
+                            <p>  <Person /> <a href="./#/user/" className={ this.props.id == 4 ? style.pageOn : "" }>會員檔案</a></p>
+                            <p>  <Envelope /> <a href="./#//" className={ this.props.id == 5 ? style.pageOn : "" }>提出問題與反饋</a></p>
+                            <p><Info />   <a href="./#//" className={ this.props.id == 6 ? style.pageOn : "" }>法規與條款資訊</a></p>
+                            { this.state.check == "true" ? <p><Star />    <a href="./#/manage/" className={ this.props.id == 6 ? style.pageOn : "" }>管理者</a></p> : <></> }
 
-                        <p>  <SignOut onClick={ this.logout } />   <a href="./#//" >登出</a></p>
-                       </>) : (<>
-                           <p><a href="./#/login">登入</a></p>
-                           <p ><a href="./#/sign">註冊</a></p>
-                       </>)) }
+                            <p>  <SignOut onClick={ this.logout } />   <a href="./#//" >登出</a></p>
+                        </>) : (<>
+                            <p><a href="./#/login">登入</a></p>
+                            <p ><a href="./#/sign">註冊</a></p>
+                        </>)) }
                     </Grid.Column>
 
-                   
+
                 </Grid.Row>
             </Grid>
 
