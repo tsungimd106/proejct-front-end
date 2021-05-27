@@ -22,7 +22,6 @@ div.navtop {
 }
 
 .i_dont_know_how_to_name_it {
-    color: #000000;
     font-size: 18px;
     font-weight: bolder;
 }
@@ -46,7 +45,7 @@ a.pageOn {
 
 .open {
     display: block;
-    width: 110vw !important;
+    width: 120vw !important;
     height: 100vh;
     margin-top: 80px;
     position: fixed !important;
@@ -56,4 +55,8 @@ a.pageOn {
 
 .close {
     display: none !important
+}
+
+.nav>a {
+    margin-right: 20px;
 }
