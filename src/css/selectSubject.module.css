@@ -2,12 +2,12 @@
     padding: 0;
 }
 
-.ss_lineheight p{
-    line-height: 10px;
-    margin: 10px 0px 30px 0px;
+.ss_lineheight{
+    line-height: 10px !important;
+    place-items: center;
 }
 
-#logo{
+.logo{
     width: 30vw;
     height: auto;
 } 
@@ -61,6 +61,6 @@ button:active {
     background: #555555;
     width: 15vw;
     float: right;
-    margin-top: 5vh;
-    margin-right: 10vw;
+    margin-bottom: 5vh !important;
+    margin-right: 10vw !important;
 }
