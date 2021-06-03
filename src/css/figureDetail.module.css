@@ -1,11 +1,3 @@
-.people>.row>div {
-    background: #4f4f4f;
-    color: white;
-    border: 5px solid white;
-    box-sizing: border-box;
-    padding: 15px;
-}
-
 .people img {
     width: 100%;
 }
@@ -16,17 +8,11 @@
 }
 
 .dashboardcard {
-    /* border: 5px solid #fff; */
     padding: 10px;
 }
 
 .white {
     color: #fff
-}
-
-img.figurePh {
-    /* width: 50%; */
-    padding: 15%;
 }
 
 .line {
@@ -40,4 +26,8 @@ img.figurePh {
 
 div.space {
     margin: 10px 0;
+}
+
+.bigSize {
+    font-size: 25px;
 }

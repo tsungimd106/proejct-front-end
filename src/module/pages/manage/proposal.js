@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ManageR } from "../../request/manageR"
 import { ProposalR } from "../../request/proposalR"
-import 'react-awesome-slider/dist/styles.css';
 import { ProposalEditModal } from "../../modal"
 import style from "../../../css/policy.module.css"
 import { Grid } from 'semantic-ui-react'

@@ -1,7 +1,6 @@
 import React from 'react';
-import {  ToggleButtonGroup, ToggleButton } from "react-bootstrap"
-import { Pages } from "../pages.js"
-import { Card, Image ,Dropdown} from 'semantic-ui-react'
+ import { Pages } from "../pages.js"
+import { Card, Image ,Dropdown, Button,Form} from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
@@ -56,8 +55,8 @@ class FigureDetail extends React.Component {
                 }
 
             },
-            go: [{ name: "該政治人物", data: [99, 98] }, { name: "立委總平均", data: [88, 85] }, { name: "該政治人總平均", data: [98.5, 98.5] }],
-            score: [{ name: "該政治人物", data: [85, 90] }, { name: "立委總平均", data: [77, 85] }, { name: "該政治人總平均", data: [87.5, 87.5] }],
+            go: [{ name: "該政治人物", data: [99, 98] }, { name: "該政治人總平均", data: [98.5, 98.5] }, { name: "立委總平均", data: [88, 85] }],
+            score: [{ name: "該政治人物", data: [85, 90] },  { name: "該政治人總平均", data: [87.5, 87.5] },{ name: "立委總平均", data: [77, 85] }],
             scoreD: {
                 chart: { toolbar: { show: false, }, foreColor: "#fff" },
                 colors: ['#08B2E3', "#EE6352", "#EFE9F4"],
@@ -93,7 +92,7 @@ class FigureDetail extends React.Component {
                 title: {
                     text: '出席率走勢圖:總平均:98.5',
                     align: 'left',
-
+                    style: { fontSize: "25px" }
                 },
                 xaxis: {
                     categories: ['9', '10'],
@@ -203,9 +202,9 @@ class FigureDetail extends React.Component {
 
                                 { this.state.selfD && this.state.selfD.map(placement => {
                                     return (<>
-                                        <Grid> <Grid.Row columns={ "equal" }>
+                                        <Grid> <Grid.Row columns={ "equal" } className={ style.line }>
                                             <Grid.Column width={ 5 }>{ placement.name }</Grid.Column>
-                                            <Grid.Column id={ placement.no } className={ style.line }></Grid.Column>
+                                            <Grid.Column id={ placement.no } ></Grid.Column>
                                         </Grid.Row></Grid>
                                         {/* <div className={style.white}>{placement.title}</div> */ }
                                     </>)
@@ -238,7 +237,7 @@ class FigureDetail extends React.Component {
                                     </Grid.Column>
                                 </Grid.Row></Grid>
                                 <Grid> <Grid.Row className={ style.dashboardcard } columns={ "equal" }>
-                                    <Grid.Column className={ style.white }>
+                                    <Grid.Column className={ style.white+" " +style.bigSize }>
                                         提案數量統計
                                             <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
                                     </Grid.Column>
@@ -246,7 +245,7 @@ class FigureDetail extends React.Component {
                                 </Grid.Row></Grid>
                             </Grid.Column>
                             <Grid.Column width={ 4 } className={ style.dashboardcard }>
-                                <span className={ style.white }>政見</span>
+                                <span className={ style.white+" " +style.bigSize}>政見</span>
                                 <Card.Group>
 
 
@@ -255,7 +254,7 @@ class FigureDetail extends React.Component {
                                         if (index == 0) return (<></>)
                                         else {
                                             return (<>
-                                                <Card>
+                                                <Card onClick={()=>{this.scoreShow(placement.content)}}>
                                                     <Card.Content>
                                                         <Card.Header>{ placement.cateogry.map((item, index) => {
                                                             return (<>#{ item }</>)
@@ -275,37 +274,38 @@ class FigureDetail extends React.Component {
                             </Grid.Column>
                         </Grid.Row></Grid>
 
-
-
-
-
-
-
                     }</div>
-                <ScoreModal show={ this.state.scoreShow } ok={ this.score } close={ () => { this.scoreShow("") } }
-                    policy={ this.state.scoreTitle }
+                <ScoreModal open={ this.state.scoreShow } toDo={ this.score } setOpen={ () => { this.scoreShow("") } }
+                     message={this.state.scoreTitle}
                     content={ (<>
+                    <div>您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。</div>
                         <Grid> <Grid.Row>
-                            <Grid.Column width={ 12 }>
-                                您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。
-                            </Grid.Column>
+                            
                             <Grid.Column width={ 2 }>
-                                <ToggleButtonGroup vertical type="radio" name="options" >
+                                <Button.Group vertical type="radio"  >
                                     { this.state.scoreRule.map((item, index) => {
                                         return (<>
-                                            <ToggleButton value={ index + 1 } variant={ item.class } style={ { width: "100px" } }>{ item.name }</ToggleButton>
+                                           {index!=0?<>  <Button.Or /></>:<></>}
+                                            <Button value={ index + 1 } variant={ item.class } style={ { width: "100px",height:"45px" } }>{ item.name }</ Button>
 
                                         </>)
                                     }) }
 
-                                </ToggleButtonGroup>
+                                </Button.Group>
                             </Grid.Column>
-                            <Grid.Column width={ 10 }>
-                                { this.state.scoreRule.map((item, index) => {
-                                    return (<>
-                                        <div>{ item.remark }</div>
-                                    </>)
-                                }) }
+                            <Grid.Column width={13} floated={"right"}>
+                            <Button.Group vertical  basic fluid>
+                                    { this.state.scoreRule.map((item, index) => {
+                                        return (<>
+                                           {index!=0?<>  <Button.Or text={""}/></>:<></>}
+                                            <Button value={ index + 1 } disabled     style={{height:"45px","margin-left":"5px"}} >{ item.remark }</ Button>
+                                            
+
+                                        </>)
+                                    }) }
+
+                                </Button.Group>
+                                <Form.TextArea rows={ 1 } className={ style.input } placeholder={"備註"}/>
                             </Grid.Column>
                             { this.state.scoreRule.map((item, index) => {
                                 return (<>

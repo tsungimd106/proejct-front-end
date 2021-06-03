@@ -103,3 +103,10 @@
     border-right: 50px solid transparent;
     border-top: 25px solid red;
 }
+
+.sort {
+    background: #BAD7D5;
+    width: 100vw;
+    margin: 30px -15vw;
+    padding: 15vh 15vw;
+}

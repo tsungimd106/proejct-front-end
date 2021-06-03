@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react'
-import 'react-awesome-slider/dist/styles.css';
-import style from "../../../css/manage.module.css"
+ import style from "../../../css/manage.module.css"
 import { ManageR } from "../../request/manageR"
 
 import { Tab as TabUI, Button as BtnUI } from 'semantic-ui-react'

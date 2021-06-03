@@ -104,7 +104,7 @@ export default class Search extends React.Component {
                     return (<> <Grid.Row >
                         <Grid.Column width={1}>{placement}</Grid.Column>
                         <Grid.Column width={12} textAlign={"justified"} verticalAlign={"middle"}>
-                            <List horizontal>
+                            <List horizontal >
                                 {Object.keys(this.props.like[placement]).map((item) => {
                                     return (<><List.Item className={style.state_listItem}>
                                         <Checkbox label={item} name={placement} value={item}

@@ -3,11 +3,9 @@ import { Pages } from "../pages.js"
 
 import { Tab, Button, Divider, Transition, Grid, Select } from 'semantic-ui-react'
 
-import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
 import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
-import 'semantic-ui-css/semantic.min.css'
 import { trackPromise } from 'react-promise-tracker';
 import pic from "./pic.png"
 import { ModalBase } from '../modal.js';

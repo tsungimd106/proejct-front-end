@@ -45,7 +45,7 @@ a.pageOn {
 
 .open {
     display: block;
-    width: 120vw !important;
+    width: 130vw !important;
     height: 100vh;
     margin-top: 80px;
     position: fixed !important;

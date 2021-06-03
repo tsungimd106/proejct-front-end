@@ -1,14 +1,12 @@
 import React from 'react';
 import Selector from '../mutiSelect/mutiSelect';
-import 'react-awesome-selector/dist/style.css';
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
-import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid ,Button,Icon} from 'semantic-ui-react'
+import { Grid, Button, Icon, List } from 'semantic-ui-react'
 
 class Policy extends React.Component {
 
@@ -47,7 +45,7 @@ class Policy extends React.Component {
                 { title: "公民投票法部分條文修正草案", tag: ["國民", "立法"], date: "2020/11/22", proposer: "王婉瑜" },
 
             ],
-            like: { "abc":["a", "b"] }
+            like: { "abc": ["a", "b"] }
 
 
 
@@ -152,35 +150,36 @@ class Policy extends React.Component {
     render() {
         return (<Pages id={ 2 } page={
             (<>
-
                 <div>
                     <Search like={ this.state.like } getList={ this.getList } />
                 </div>
 
-
                 {/* <button onClick={ this.test }>click me</button> */ }
-
+                <List  divided relaxed animated className={style.list}> 
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
-                    return (<div className={ style.topicBox + " " } onClick={ () => { this.toContent(placement) } }>
-                        <Grid> <Grid.Row className={ style.topicBoxBold } columns={"equal"}>
-                            <Grid.Column >
+                    return (<List.Item   onClick={ () => { this.toContent(placement) } }>
+                        <Grid>
+                       <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
+                           <Grid.Column width={1}/>
+                            <Grid.Column width={11}>
                                 <div>提案人：{ placement.proposer }王婉瑜</div>
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>
-
-                                <Grid> <Grid.Row >
-                                    <Grid.Column width={4}>2021/2/1{ placement.date }</Grid.Column>
-                                    <Grid.Column width={4}>#{ "金融" }</Grid.Column>
-                                    {/* <Grid.Column width={"auto"}>2021/3/5</Grid.Column> */ }
-                                    <Grid.Column width={8}>提案進度：{ placement.status }</Grid.Column>                                        
-                                    {/* { placement.tag.map(item => (<Grid.Column >#{item }</Grid.Column>)) } */ }
-                                </Grid.Row></Grid>
-
-                                <Grid> <Grid.Row >
-                                    <Grid.Column width={2}><Icon name='comments' />68</Grid.Column>
-                                    <Grid.Column width={2}><Icon name='heart' />收藏</Grid.Column>
-                                </Grid.Row></Grid>
-
-
+                                <div>
+                                    <List horizontal>
+                                        <List.Item>
+                                        2021/2/1{ placement.date }
+                                        </List.Item>
+                                        <List.Item>提案進度：{ placement.status }</List.Item>
+                                        <List.Item>#{ "金融" }</List.Item>
+                                    </List>
+                                   
+                                </div>                               
+                                <Grid>                                    
+                                    <Grid.Row >
+                                        <Grid.Column width={ 2 }><Icon name='comments' />68</Grid.Column>
+                                        <Grid.Column width={ 2 }><Icon name='heart' />收藏</Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Grid.Column>
                             <Grid.Column width={ 4 } >
                                 <Chart options={ this.state.kpi.options }
@@ -189,8 +188,8 @@ class Policy extends React.Component {
                             </Grid.Column>
                         </Grid.Row></Grid>
 
-                    </div>)
-                }) }
+                    </List.Item>)
+                }) }</List>
             </>)
         } />)
     }
