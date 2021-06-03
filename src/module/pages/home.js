@@ -1,13 +1,11 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/styles.css';
-import person from "../../imgs/person.png"
+  import person from "../../imgs/person.png"
 import f from "../../imgs/f.jpg"
 import back from "../../imgs/back.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
-import { Card, Button, Grid, List, Image, Header, Segment, Table, Label } from 'semantic-ui-react'
+import { Card, Button, Grid, List, Image, Header, Segment, Table, Label, Placeholder } from 'semantic-ui-react'
 import { Fire, Book } from 'akar-icons';
 import style from "../../css/main.module.css"
 
@@ -51,12 +49,12 @@ class Home extends React.Component {
             }
             ,
             message:
-           [
+                [
                     { name: '王婉諭', title: "公民投票法部分條文修正草案" },
                     { name: '劉建國', title: "太空發展法訂定草案" },
                     { name: '郭家瑜', title: "新住民孩童教育制定草案" },
                     { name: '賴品妤', title: 34 },
-           ]
+                ]
             ,
             politics:
             {
@@ -94,7 +92,16 @@ class Home extends React.Component {
                             }) }
                         </Swiper>
                     </div>
-                    <div>
+                    <div className={ style.sort }>
+                        <Header textAlign={ "center" } as={ "h1" }>人物排行榜
+                      
+                        </Header>
+                        <Segment basic textAlign={"center"}>  <div>你知道哪一位政治人物提出政見後，有「說到做到」嗎?</div> 
+                       <div>這裡可以一網打盡!</div>
+                       <div>透過政見執行率的評分找出前五名，讓我們一起來看看吧!</div></Segment>
+                      
+
+
                         <Card.Group itemsPerRow={ 3 }>
                             { this.state.rank.map((item, index) => {
                                 if (index < 3) {
@@ -106,7 +113,7 @@ class Home extends React.Component {
                                             </Card.Header>
 
 
-                                            <Card.Content textAlign={"center"}>
+                                            <Card.Content textAlign={ "center" }>
 
                                                 { item.score }分
                                             </Card.Content>
@@ -145,11 +152,49 @@ class Home extends React.Component {
                 </div>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={ 6 }><Segment>
-                            <Image size={ "large" } src={back}/>
-                        </Segment></Grid.Column>
+                        <Grid.Column width={ 16 }  >
+                            <Header className={ style.hotMsg } as={ "h1" } >最熱門留言</Header>
+                        </Grid.Column>
+                        <Grid.Column width={ 6 }>
+                            <Card>
+                                <Image src={ person } size={ "small" } centered />
+                                <Card.Content>
+                                    { this.state.message[0].name }
+                                </Card.Content>
+                                <Card.Content>
+                                    { this.state.message[0].title }
+                                </Card.Content>
+                            </Card>
+                        </Grid.Column>
                         <Grid.Column width={ 10 }>
-                            <Header>最熱門留言</Header>
+
+                            <Table   >
+                                <Table.Body>
+                                    { this.state.message.map(item => {
+                                        return (<>
+                                            <Table.Row >
+                                                <Table.Cell><Image src={ person } size={ "mini" } />
+                                                </Table.Cell>
+                                                <Table.Cell>{ item.name }</Table.Cell>
+                                                <Table.Cell>{ item.title }</Table.Cell>
+                                            </Table.Row>
+                                        </>)
+                                    }) }
+                                </Table.Body>
+                            </Table>
+
+
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={ 6 }>
+                            {/* <Segment>
+                            
+                            <Image size={ "large" } />
+                        </Segment> */}
+                        </Grid.Column>
+                        <Grid.Column width={ 10 }>
+                            <Header className={ style.hotPolicy } as={ "h1" }>最熱門政見</Header>
                             <Table padded >
                                 <Table.Body>
                                     { this.state.message.map(item => {
@@ -157,11 +202,36 @@ class Home extends React.Component {
                                             <Table.Row >
                                                 <Table.Cell><Image src={ person } size={ "mini" } />
                                                 </Table.Cell>
-                                                <Table.Cell>{item.name}</Table.Cell>
-                                                <Table.Cell>{item.title}</Table.Cell>
+                                                <Table.Cell>{ item.name }</Table.Cell>
+                                                <Table.Cell>{ item.title }</Table.Cell>
                                             </Table.Row>
                                         </>)
-                                    }) }                                 
+                                    }) }
+                                </Table.Body>
+                            </Table>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={ 6 }>
+                            {/* <Segment>
+                            
+                            <Image size={ "large" } />
+                        </Segment> */}
+                        </Grid.Column>
+                        <Grid.Column width={ 10 }>
+                            <Header className={ style.hotProposal } as={ "h1" }>最熱門提案</Header>
+                            <Table padded >
+                                <Table.Body>
+                                    { this.state.message.map(item => {
+                                        return (<>
+                                            <Table.Row >
+                                                <Table.Cell><Image src={ person } size={ "mini" } />
+                                                </Table.Cell>
+                                                <Table.Cell>{ item.name }</Table.Cell>
+                                                <Table.Cell>{ item.title }</Table.Cell>
+                                            </Table.Row>
+                                        </>)
+                                    }) }
                                 </Table.Body>
                             </Table>
                         </Grid.Column>

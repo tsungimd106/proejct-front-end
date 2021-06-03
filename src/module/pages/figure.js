@@ -3,7 +3,6 @@ import React from 'react';
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 
-import 'react-awesome-selector/dist/style.css';
 import style from "../../css/figure.module.css"
 import { Grid, Button, Card, Image } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'

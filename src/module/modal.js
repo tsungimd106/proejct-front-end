@@ -139,13 +139,37 @@ export class ProposalEditModal extends React.Component {
 export class ScoreModal extends React.Component {
     render() {
         return (<>
-            <ModalBase
-                message={ this.props.policy }              
-                toDo={ this.props.ok }            
-                content={ <>
-                    {this.props.content }
-                </> }
-            />
+           <Modal
+                onClose={ () => this.props.setOpen(false) }
+                onOpen={ () => this.props.setOpen(true) }
+                open={ this.props.open }
+                size='small'
+                // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
+            >
+                <Modal.Header>{ this.props.message }</Modal.Header>
+                <Modal.Content >
+                    <Modal.Description>
+                        { this.props.content }
+                    </Modal.Description>
+                </Modal.Content>
+                { this.props.error ? <>
+                    <Modal.Content>
+                        <Modal.Description>
+                            { this.props.errorText }
+                        </Modal.Description>
+                    </Modal.Content>
+                </> : <></> }
+                <Modal.Actions>
+                    <Button color='black' onClick={ () => this.props.setOpen(false) } content={ "取消" } />
+                    <Button
+                        content="確定"
+                        labelPosition='right'
+                        icon='checkmark'
+                        onClick={ this.toDo }
+                        positive
+                    />
+                </Modal.Actions>
+            </Modal>
         </>)
     }
 }

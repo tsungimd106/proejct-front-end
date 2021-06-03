@@ -1,14 +1,8 @@
-.topic {
-    width: 85%;
-    margin: 5px auto;
-    padding: 10px 20px;
-    border: 0;
-    font-weight: 400;
-}
-
 .topicBold {
     text-align: center;
-    margin: 5% 0;
+    font-weight: bold;
+    font-size: x-large;
+    padding: 25px 0;
 }
 
 .lable {
@@ -53,4 +47,14 @@ list-group {
 
 :global(.react-pdf__Page__canvas) {
     margin: 0 auto;
+}
+
+.input {
+    /* margin: 25px 0 !important; */
+    width: 65vw;
+    border-radius: 5%;
+}
+
+.input>textarea {
+    height: 25px;
 }

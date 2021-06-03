@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-awesome-slider/dist/styles.css';
 import style from "../../../css/user.module.css"
 import { Grid } from 'semantic-ui-react'
 export default  class Article extends React.Component {

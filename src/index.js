@@ -4,7 +4,7 @@ import { Route, HashRouter } from "react-router-dom";
 import { main } from "./module/router.js";
 import { usePromiseTracker } from "react-promise-tracker";
 import Loader from "react-loader-spinner"
-
+import 'semantic-ui-css/semantic.min.css'
 import "./css/main.css"
 
 class App extends React.Component {

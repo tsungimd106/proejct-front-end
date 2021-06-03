@@ -78,24 +78,6 @@
     width: 85%;
 }
 
-.awssld {
-    --slider-height-percentage: 30%;
-}
-
-.awssld__bullets button {
-    margin: 5px 5px 20px;
-}
-
-.awssld__content {
-    --content-background-color: #fff
-}
-
-.awssld__content>img {
-    width: auto;
-    top: auto;
-    left: auto;
-}
-
 .GuessYouLike {
     font-weight: bold;
     margin: auto 10%;
@@ -122,6 +104,6 @@
     src: url("abc.ttf");
 }
 
-* {
-    font-family: abc;
+*:not(i.icon) {
+    font-family: abc !important;
 }

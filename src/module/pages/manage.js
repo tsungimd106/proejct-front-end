@@ -6,7 +6,6 @@ import Check from "./manage/check"
 import Article from "./manage/acrticle"
 import Proposal from "./manage/proposal"
 import User from "./manage/user"
-import 'react-awesome-slider/dist/styles.css';
 import style from "../../css/user.module.css"
 import { Grid, Tab } from 'semantic-ui-react'
 
