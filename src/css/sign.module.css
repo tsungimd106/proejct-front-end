@@ -43,8 +43,7 @@ h4 {
 }
 
 .agree {
-    height: 3vh;
-    width: 3vw;
+    margin:5vh 0;
 }
 
 .sign button,
@@ -77,4 +76,12 @@ h5 {
     border: 5px solid #4F586B;
     border-radius: 20px;
     padding: 5px;
+}
+
+.login_5{
+    margin:0 0 5vh 0 !important;
+}
+
+.login_1{
+    margin:0 0 1vh 0 !important;
 }
