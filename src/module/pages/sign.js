@@ -7,7 +7,7 @@ import logo_dark from '../../imgs/LOGO1.png'
 
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid ,Button} from 'semantic-ui-react'
+import { Grid ,Button,Checkbox,Input} from 'semantic-ui-react'
 class Base extends React.Component {
 
     render() {
@@ -110,13 +110,13 @@ class Login extends React.Component {
     render() {
         return (<Base content={<div className={style.need_to_center}>
            <Grid> <Grid.Row>
-                <Grid.Column xs={12}><input type="text" placeholder="&nbsp;帳號" id="account" /></Grid.Column>
-                <Grid.Column xs={12}><input type="password" placeholder="&nbsp;密碼" id="password" /></Grid.Column>
+                <Grid.Column width={16} className={style.login_1}><Input focus placeholder="&nbsp;帳號" /></Grid.Column>
+                <Grid.Column width={16} className={style.login_5}><Input type="password" focus placeholder="&nbsp;密碼" /></Grid.Column>
                 {/* <Grid.Column xs={ 12 }>忘記密碼</Grid.Column> */}
-                <Grid.Column xs={12}><Button id="continue" variant="secondary" className={style.continue} onClick={this.send}>繼續</Button></Grid.Column>
-                <Grid.Column xs={12}><Button variant="success" >以LINE帳號登入</Button></Grid.Column>
+                <Grid.Column width={16}className={style.login_1}><Button id="continue" variant="secondary" className={style.continue} onClick={this.send}>繼續</Button></Grid.Column>
+                <Grid.Column width={16} className={style.login_1}><Button color='green' >以LINE帳號登入</Button></Grid.Column>
                 {/* <Grid.Column xs={12}>忘記密碼</Grid.Column> */}
-                <Grid.Column>            <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
+                <Grid.Column width={16}><a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
                 </Grid.Column>
            </Grid.Row></Grid>  
             {/* <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
@@ -150,7 +150,7 @@ class SignNext extends React.Component {
     render() {
         return (<Base content={<div className={style.need_to_center}>
             <center><p id="rule">我們絕不會將您的個資販售給廣告商，且除非您授予我們特定權限，否則我們也不會與廣告商分享可識別您個人身分的資訊（例如姓名、電子郵件地址或其他聯絡資訊）。 然而廣告商可以告知我們想要顯示廣告的目標受眾類型，我們再針對可能會感興趣的對象顯示他們的廣告。 我們為廣告商提供廣告成效報告，協助他們瞭解用戶與廣告內容的互動情形。 請參考後續第 2 節瞭解詳情。</p></center>
-            <p><input type="checkbox" id="agree" className={style.agree} />我同意以上內容</p>
+            <Checkbox className={style.agree} label='我同意以上內容' />
             <p><Button id="continue" className={style.continue} onClick={this.send}>確認註冊</Button></p>
             <ModalBase
                 show={this.state.showinfo}
