@@ -75,7 +75,7 @@ class Information extends React.Component {
                     <Grid><Grid.Row>
                         <Grid.Column width={ 16 - rate }>
                             <Segment >
-                                <h1 ><Icon name='info circle' size='big' />法規與條款資訊</h1>
+                                <h1 ><Icon name='info circle' />法規與條款資訊</h1>
                                 
                                 <Accordion>
                                     { this.state.qa.map((item, index) => {
