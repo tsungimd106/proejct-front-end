@@ -64,7 +64,7 @@ export default class Nav extends React.Component {
                             <p><a href="./#/policy/" className={ this.props.id == 2 ? style.pageOn : "" }>提案專區</a></p>
                             <p>   <a href="./#/figure/" className={ this.props.id == 3 ? style.pageOn : "" }>政治人物</a></p>
                             <p>  <Envelope /> <a href="./#//" className={ this.props.id == 5 ? style.pageOn : "" }>提出問題與反饋</a></p>
-                            <p><Info />   <a href="./#//" className={ this.props.id == 6 ? style.pageOn : "" }>法規與條款資訊</a></p>
+                            <p><Info />   <a href="./#/information/" className={ this.props.id == 6 ? style.pageOn : "" }>法規與條款資訊</a></p>
                         { (this.state.login || false ? (<>
                            
                             <p>  <Person /> <a href="./#/user/" className={ this.props.id == 4 ? style.pageOn : "" }>會員檔案</a></p>
