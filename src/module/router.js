@@ -9,6 +9,7 @@ import User from "./pages/user.js"
 import Election from "./pages/election"
 import PolicyContent from "./pages/policyContent.js"
 import Manage from "./pages/manage.js"
+import Information from "./pages/information.js"
 
 
 export const main = [
@@ -24,7 +25,8 @@ export const main = [
     Task,
     User,
     Election,
-    Manage
+    Manage,
+    Information
 ]
 
 export const navUrl = {
