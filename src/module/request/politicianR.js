@@ -29,6 +29,10 @@ export  class PoliticianR {
         return FetchUtil.getAPI(`${this.root}/cond`)
     }
 
+    static score(data){
+        return FetchUtil.postAPI(`${this.root}/score`,data)
+    }
+
   
 
 }

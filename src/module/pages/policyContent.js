@@ -150,7 +150,10 @@ class PolicyContent extends React.Component {
         console.log(this.state.msgL)
         console.log(this.state.detail)
         console.log(this.state.heart)
-        return (<Pages id={ 2 } page={
+        return (<Pages id={ 2 } 
+            pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
+            { content: this.state.detail&&this.state.detail[0].title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
+            page={
             (<>{ }
                 {this.state.detail != null ? (<>
                     {this.state.detail.map(placement => {
@@ -160,10 +163,10 @@ class PolicyContent extends React.Component {
                                 <div className={ style.topicBold }>{ placement.title }</div>
                                 <Segment basic>
                                     <List horizontal>
-                                        <List.Item >提案人</List.Item>
-                                        <List.Item ><Label><a href="./#/figure/485">劉世芳</a></Label></List.Item>
-                                        <List.Item ><Label><a href="./#/figure/486">鄭運鵬</a></Label></List.Item>
-                                        <List.Item ><Label><a href="./#/figure/504">鍾佳濱</a></Label></List.Item>
+                                        <List.Item ><Header>提案人</Header></List.Item>
+                                        <List.Item ><Label> 劉世芳 </Label></List.Item>
+                                        <List.Item ><Label> 鄭運鵬 </Label></List.Item>
+                                        <List.Item ><Label> 鍾佳濱 </Label></List.Item>
                                     </List>
 
 
@@ -230,9 +233,12 @@ class PolicyContent extends React.Component {
                     <Grid.Row>
                         { this.state.login && (<Grid.Column width={ 16 }>
                             <Segment>
-                                <List>
-                                    <List.Item>提案進度</List.Item>
-                                    <List.Item></List.Item>
+                                <Header>提案進度</Header>
+                                <List horizontal>
+                                    
+                                    <List.Item>交付審查</List.Item>
+                                    <List.Item icon={"angle right"} />
+                                    <List.Item>退回程序</List.Item>
                                 </List>
                                 <Grid >
                                     <Grid.Row columns={ "equal" }>

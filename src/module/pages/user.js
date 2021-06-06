@@ -77,10 +77,14 @@ class MyProfile extends React.Component {
 
     render() {
         return (<>
-            <Grid> <Grid.Row columns={ "equal" }>
-                <Grid.Column >
-                    <div><h5>大頭貼照</h5></div>
+            <Grid> 
+                <Grid.Row columns={ "equal" }>
+                <Grid.Column width={16} textAlign={"center"}>
+                <div><h5>大頭貼照</h5></div>
                     <img className={ style.pic } src={ pic } alt="" />
+                </Grid.Column>
+                <Grid.Column >
+                  
                     <div className={ style.data }>
                         <h5 className={ style.topicBold }>暱稱</h5>
                         <div>{ this.state.user && this.state.user.name }</div>
