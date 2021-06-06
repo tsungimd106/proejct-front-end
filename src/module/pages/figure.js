@@ -159,6 +159,7 @@ class Figure extends React.Component {
 
     render() {
         return (<Pages id={ 3 }
+            pageInfo={ [{ content: '政治人物', active: true, href: "./#/figure" } ]}
             onScroll={ console.log("ii") }
             page={
                 (<>

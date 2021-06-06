@@ -68,7 +68,7 @@ export class InfoModal extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            open: this.props.open
         }
 
     }
@@ -80,7 +80,7 @@ export class InfoModal extends React.Component {
                 onOpen={ () => this.setOpen(true) }
                 open={ this.state.open }
                 size='small'
-                trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
+                // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
             >
                 <Modal.Header>{ this.props.message }
                    </Modal.Header>
@@ -165,7 +165,7 @@ export class ScoreModal extends React.Component {
                         content="確定"
                         labelPosition='right'
                         icon='checkmark'
-                        onClick={ this.toDo }
+                        onClick={ this.props.toDo }
                         positive
                     />
                 </Modal.Actions>

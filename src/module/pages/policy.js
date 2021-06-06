@@ -148,7 +148,7 @@ class Policy extends React.Component {
 
 
     render() {
-        return (<Pages id={ 2 } page={
+        return (<Pages id={ 2 }   pageInfo={ [{ content: '提案專區', active: true, href: "./#/Policy" } ]} page={
             (<>
                 <div>
                     <Search like={ this.state.like } getList={ this.getList } />
