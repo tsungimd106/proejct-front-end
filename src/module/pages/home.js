@@ -1,7 +1,8 @@
 import React from 'react';
 import { Pages } from "../pages.js"
   import person from "../../imgs/person.png"
-import f from "../../imgs/f.jpg"
+// import f from "../../imgs/f.jpg"
+import r from "../../imgs/r.jpg"
 import back from "../../imgs/back.jpg"
 import logo from "../../imgs/LOGO.jpg"
 // import "../../css/main.css"
@@ -25,8 +26,8 @@ class Home extends React.Component {
         this.state = {
 
             imageData: [
-                f,
-                f, f
+                r,
+                r, r
             ],
             chart: [
                 { name: '政要RUN', score: 100, img: person },
@@ -57,13 +58,12 @@ class Home extends React.Component {
                 ]
             ,
             politics:
-            {
-                hot: [
-                    { name: '王婉諭', title: "公民投票法部分條文修正草案" },
-                    { name: '劉建國', title: "太空發展法訂定草案" },
-                    { name: '郭家瑜', title: "新住民孩童教育制定草案" },
-                ],
-            },
+                [
+                    { name: '高嘉瑜', title: "將持續推動廣設公幼，達到公幼公託免抽籤，以津貼、減稅及推動父母親產後共享育嬰假，實踐「0到6歲國家顧」" },
+                    { name: '陳柏惟', title: "經濟有希望，國防能源產業變MIT，由政府投資帶動技術升級" },
+                    { name: '劉世芳 ', title: "整合左訓中心、世運主埸館、楠梓文中足球場各級學校成為培育體育人才及發展運動產業的國家體育園區" },
+                ]
+            ,
             rank: [
                 { name: '政要RUN', score: 100 },
                 { name: '王婉諭', score: 77 },
@@ -197,12 +197,12 @@ class Home extends React.Component {
                             <Header className={ style.hotPolicy } as={ "h1" }>最熱門政見</Header>
                             <Table padded >
                                 <Table.Body>
-                                    { this.state.message.map(item => {
+                                    { this.state.politics.map(item => {
                                         return (<>
                                             <Table.Row >
                                                 <Table.Cell><Image src={ person } size={ "mini" } />
                                                 </Table.Cell>
-                                                <Table.Cell>{ item.name }</Table.Cell>
+                                                <Table.Cell width="2">{ item.name }</Table.Cell>
                                                 <Table.Cell>{ item.title }</Table.Cell>
                                             </Table.Row>
                                         </>)
