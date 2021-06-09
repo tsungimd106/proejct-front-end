@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Breadcrumb } from 'semantic-ui-react'
+import {  Breadcrumb ,Icon} from 'semantic-ui-react'
 import Nav from "./pages/nav"
 import style from "../css/pages.module.css"
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,25 +11,26 @@ export class Pages extends React.Component {
     }
     componentDidMount() {
         let section = []
-        if (this.props.id != 0) {
-            section = [{ content: '首頁', link: true, href: "./" }]
-            section.join(this.props.pageInfo)
+        if (this.props.id !== 0) {
+            section = [{ content: (<><Icon name={"home"}/>首頁</>), link: true, href: "./" }]
+            this.props.pageInfo.forEach(i=>section.push(i))
         }
         this.setState({ section: section })
-        console.log(section, this.props.pageInfo)
+       
 
     }
     componentDidUpdate = (prevState) => {
 
-        if (this.props != prevState) {
+        if (this.props !== prevState) {
             let section = []
-            if (this.props.id != 0) {
-                section = [{ content: '首頁', link: true, href: "./" }]
-                Array.prototype.push.apply(section, this.props.pageInfo)
+            if (this.props.id !== 0) {
+                section = [{ content: (<><Icon name={"home"}/>首頁</>), link: true, href: "./" }]
+                this.props.pageInfo.forEach(i=>section.push(i))
                 this.setState({ section: section })
+               
             }
 
-            console.log(section, this.props.pageInfo)
+            
         }
 
     }
@@ -44,7 +45,7 @@ export class Pages extends React.Component {
                 </div>
 
                 <div className={ style.pagesC + " " + style.content }>
-                    { this.state.section == undefined ? <></> : <Breadcrumb icon='right angle' sections={ this.state.section } /> }
+                    { this.state.section === undefined ? <></> : <Breadcrumb icon='right angle' sections={ this.state.section } /> }
                     {  this.props.page  || (<></>) }
                 </div>
 

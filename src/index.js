@@ -4,8 +4,16 @@ import { Route, HashRouter } from "react-router-dom";
 import { main } from "./module/router.js";
 import { usePromiseTracker } from "react-promise-tracker";
 import Loader from "react-loader-spinner"
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
+//semantic-ui
 import 'semantic-ui-css/semantic.min.css'
+
 import "./css/main.css"
+
 
 class App extends React.Component {
 	render() {

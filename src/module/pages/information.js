@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Grid, Button, Ref, Segment, Menu, Embed, Accordion ,Icon, GridRow} from 'semantic-ui-react'
-import style from "../../css/election.module.css"
+import { Grid,  Segment,  Accordion ,Icon, GridRow} from 'semantic-ui-react'
 
 
 

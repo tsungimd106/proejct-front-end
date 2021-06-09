@@ -21,7 +21,7 @@
 }
 
 :global( .apexcharts-tooltip) {
-    color: #000;
+    color: #4F4F4F;
 }
 
 div.space {
@@ -30,4 +30,20 @@ div.space {
 
 .bigSize {
     font-size: 25px;
+}
+
+.self>div {
+    border-right: 2.5px white solid;
+}
+
+.grayFont {
+    color: #4F4F4F
+}
+
+.labelContent {
+    padding-top: 5px;
+}
+
+.center {
+    margin: 0 auto;
 }

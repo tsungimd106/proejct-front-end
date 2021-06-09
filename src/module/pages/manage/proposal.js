@@ -70,7 +70,7 @@ export default class Proposal extends React.Component {
                 content={
                     (<>
                         {
-                            this.state.detail != undefined ? this.state.cond.map(item => {
+                            this.state.detail !== undefined ? this.state.cond.map(item => {
 
                                 return (<>
                                 <Grid>

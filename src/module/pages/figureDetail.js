@@ -1,12 +1,13 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Image, Dropdown, Button, Form } from 'semantic-ui-react'
+import { Card,  Dropdown, Button, Form, Label, Segment } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
 import { ScoreModal, InfoModal } from "../modal"
 import { Grid } from 'semantic-ui-react'
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import PacmanLoader from "react-spinners/ClipLoader";
 
@@ -27,6 +28,10 @@ class FigureDetail extends React.Component {
                         tootip: { style: { color: "#000" } },
                         xaxis: { categories: ["退回程序", "審查完畢", "交付審查", "排入院會", "三讀", "逕付二讀"], },
                         fill: { opacity: 1.0, }, colors: ['#586F7C', "#c6d8d3"],
+                        title: {
+                            text: "提案數量統計", align: 'left',
+                            style: { fontSize: "25px" }
+                        }
                     },
                     series: [{ name: "當屆", data: [20, 45, 64, 26, 27, 85,] }, { name: "歷屆平均", data: [44, 5, 6, 6, 27, 8,] }],
                     legend: { show: false, }
@@ -85,7 +90,7 @@ class FigureDetail extends React.Component {
             PoliticianR.detail(this.figureID).then(res => {
                 console.log(res)
                 // this.setState({ "resData": res.data.data[0].data[0], "policy": res.data.data[1].data })
-                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+                let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
                 cond.map(placement => {
                     if (placement["no"] in res.data.data[0].data[0]) {
@@ -94,7 +99,8 @@ class FigureDetail extends React.Component {
                             "title": placement.name
                         })
                         document.getElementById(placement.no).innerHTML = res.data.data[0].data[0][placement.no]
-                            .replace(/;/g, " $%^& <br />").split("$%^&").reverse().join("").replace(/,/g, " <br />")
+                            .replace(/;/g, " <br />").replace(/,/g, " <br />")
+
                     }
                 })
 
@@ -118,12 +124,12 @@ class FigureDetail extends React.Component {
     changeTerm = (s) => {
         this.setState({ term: s })
     }
-    scoreShow = (txt, id) => {
+    scoreShow = (txt, id, tag) => {
         if (this.state.scoreShow) {
 
         }
         console.log(txt)
-        this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id })
+        this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id, tag: tag })
     }
 
     scoreRule = (i) => {
@@ -144,7 +150,7 @@ class FigureDetail extends React.Component {
     }
 
     render() {
-        
+
         return (<Pages id={ 3 }
             pageInfo={ [{ content: '政治人物', link: true, href: "./#/figure" },
             { content: this.state.name, active: true, href: `./#/figure/${this.props.match.params.id}` }] }
@@ -156,10 +162,10 @@ class FigureDetail extends React.Component {
 
 
                             <Grid> <Grid.Row className={ style.dashboard } >
-                                <Grid.Column width={ 4 } className={ style.dashboardcard + " " + style.white }>
+                                <Grid.Column width={ 5 } className={ style.dashboardcard + " " + style.white + " " + style.self }>
                                     <Grid> <Grid.Row className={ style.line + " " } columns={ "equal" }>
                                         <Grid.Column>
-                                            <img src={ this.state.photo } className={ style.figurePh }></img>
+                                            <img src={ this.state.photo } className={ style.figurePh } alt=""/>
                                         </Grid.Column>
                                         <Grid.Column>
                                             <p>
@@ -173,7 +179,7 @@ class FigureDetail extends React.Component {
 
 
                                             </p>
-                                            <p >{ this.state.selfD && this.state.name }</p>
+                                            <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
 
                                             <p >{ this.state.selfD && this.state.area }</p>
                                             <p>{ this.state.selfD && this.state.areaReamrk }</p>
@@ -184,81 +190,71 @@ class FigureDetail extends React.Component {
                                     { this.state.selfD && this.state.selfD.map(placement => {
                                         return (<>
                                             <Grid> <Grid.Row columns={ "equal" } className={ style.line }>
-                                                <Grid.Column width={ 5 }>{ placement.name }</Grid.Column>
-                                                <Grid.Column id={ placement.no } ></Grid.Column>
+                                                <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
+                                                <Grid.Column id={ placement.no } width={ 16 } className={style.labelContent}/>
                                             </Grid.Row></Grid>
                                             {/* <div className={style.white}>{placement.title}</div> */ }
                                         </>)
                                     }) }
-                                    <Grid> <Grid.Row columns={ 2 }>
-                                        <Grid.Column width={ 5 }>經歷</Grid.Column>
-                                        <Grid.Column width={ 11 }>
+                                    <Grid> <Grid.Row columns={ "equal" }>
+                                        <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
+                                        <Grid.Column width={ 16 } className={style.labelContent}>
                                             { this.state.experience && this.state.experience.map((item, index) => {
                                                 return (<>
+                                                    <Card content={ item } centered className={ style.grayFont } />
 
-                                                    <Card style={ { color: "#000", margin: "15px 0" } }>
-                                                        <Card.Description >{ item }</Card.Description>
-                                                    </Card>
-                                                    {/* <div>{item}</div> */ }
                                                 </>)
                                             }) }</Grid.Column>
                                     </Grid.Row></Grid>
                                 </Grid.Column>
-                                <Grid.Column width={ 8 }>
-                                    <Grid> <Grid.Row className={ style.dashboardcard } columns={ "equal" }>
+                                <Grid.Column width={ 11 }>
+                                    <Swiper
+                                        spaceBetween={ 50 }
+                                        slidesPerView={ 1 }
+                                        navigation
+                                        pagination={ { clickable: true } }
+                                    >
+                                        <SwiperSlide  >
+                                            <center><Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 250 }  width={450}/></center>
+                                        </SwiperSlide>
+                                        <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 }  width={450}/></center></SwiperSlide>
+                                        <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar"  width={450} height={250}/></center></SwiperSlide>
+                                    </Swiper>
 
-                                        <Grid.Column className={ style.white }>
-                                            <Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 350 } />
-                                        </Grid.Column>
-                                    </Grid.Row></Grid>
-                                    <Grid> <Grid.Row className={ style.dashboardcard } columns={ "equal" }>
-
-                                        <Grid.Column className={ style.white }>
-                                            <Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 350 } />
-                                        </Grid.Column>
-                                    </Grid.Row></Grid>
-                                    <Grid> <Grid.Row className={ style.dashboardcard } columns={ "equal" }>
-                                        <Grid.Column className={ style.white + " " + style.bigSize }>
-                                            提案數量統計
-                                            <Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" />
-                                        </Grid.Column>
-
-                                    </Grid.Row></Grid>
-                                </Grid.Column>
-                                <Grid.Column width={ 4 } className={ style.dashboardcard }>
-                                    <span className={ style.white + " " + style.bigSize }>政見</span>
-                                    <Card.Group>
-
-
-
+                                    <Segment textAlign={"center"} basic><div className={ style.white + " " + style.bigSize +" "+style.center}>政見</div></Segment>
+                                    <Card.Group  itemsPerRow={2} stackable>
                                         { this.state.policy && this.state.policy.map((placement, index) => {
-                                            if (index == 0) return (<></>)
+                                            if (index === 0) return (<></>)
                                             else {
                                                 return (<>
-                                                    <Card onClick={ () => { this.scoreShow(placement.content, placement.id) } }>
-                                                        <Card.Content>
-                                                            <Card.Header>{ placement.cateogry.map((item, index) => {
-                                                                return (<>#{ item }</>)
-                                                            }) }</Card.Header>
+                                                    <Card onClick={ () => { this.scoreShow(placement.content, placement.id, placement.cateogry) } }>
 
-
-                                                        </Card.Content>
                                                         <Card.Content> <Card.Description>
                                                             { placement.content }
                                                         </Card.Description></Card.Content>
+                                                        <Card.Content extra>
+                                                            < >{ placement.cateogry.map((item, index) => {
+                                                                return (<><Label>{ item }</Label></>)
+                                                            }) }</ >
+                                                        </Card.Content>
                                                     </Card>
 
                                                 </>)
                                             }
                                         }) } </Card.Group>
 
+
+
                                 </Grid.Column>
+
+                                
                             </Grid.Row></Grid>
 
                         }</div>
                     <ScoreModal open={ this.state.scoreShow } toDo={ () => this.score() } setOpen={ () => { this.scoreShow("") } }
                         message={ this.state.scoreTitle }
                         content={ (<>
+                            <div >{ this.state.tag != null ? this.state.tag.map((item, index) => { return (<Label>{ item }</Label>) }) : <></> }</ div>
                             <div>您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。</div>
                             <Grid> <Grid.Row>
 
@@ -266,7 +262,7 @@ class FigureDetail extends React.Component {
                                     <Button.Group vertical type="radio" id={ "ps_id" }>
                                         { this.state.scoreRule.map((item, index) => {
                                             return (<>
-                                                { index != 0 ? <>  <Button.Or text={ "" } /></> : <></> }
+                                                { index !== 0 ? <>  <Button.Or text={ "" } /></> : <></> }
                                                 <Button active={ index === this.state.scoreActitivy }
                                                     onClick={ () => this.scoreRule(index) }
                                                     style={ { width: "100px", height: "45px" } } content={ item.name } />
@@ -280,7 +276,7 @@ class FigureDetail extends React.Component {
                                     <Button.Group vertical basic fluid>
                                         { this.state.scoreRule.map((item, index) => {
                                             return (<>
-                                                { index != 0 ? <>  <Button.Or text={ "" } /></> : <></> }
+                                                { index !== 0 ? <>  <Button.Or text={ "" } /></> : <></> }
                                                 <Button value={ index + 1 } disabled style={ { height: "45px", "margin-left": "5px" } } content={ item.remark } />
 
 

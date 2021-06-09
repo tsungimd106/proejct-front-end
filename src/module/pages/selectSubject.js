@@ -30,7 +30,7 @@ class SelectSubject extends React.Component {
                        <Grid> <Grid.Row className={style.selectbtn} >
                             {
                                 (this.state.data || false ? (<>   {/* 看data在不在，不再會執行39行(傳回空的)。在就會接著執行 */}
-                                    {this.state.data.map(item => {      {/*data跑回圈，裡面的值取變數名稱叫item。map類似foreach*/}
+                                    {this.state.data.map(item => {      /*data跑回圈，裡面的值取變數名稱叫item。map類似foreach*/
                                         return (<>
                                             <Grid.Column width={4} className={style.need_to_center}><button className={style.ss_subjectbtn}>{item}</button> {/*data內的item一個一個跑回圈*/}
                                             </Grid.Column>
