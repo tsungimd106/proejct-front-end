@@ -1,8 +1,7 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Grid, Button, Ref, Segment, Menu, Embed, Accordion, Icon, List, Table, Label } from 'semantic-ui-react'
-import style from "../../css/election.module.css"
-
+import { Grid, Button, Ref, Segment, Menu, Embed, Accordion, Icon, List, Table } from 'semantic-ui-react'
+ 
 
 
 class Election extends React.Component {
@@ -77,7 +76,7 @@ class Election extends React.Component {
                 </Menu>
                 <Segment basic>
                     <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ 4 }><img /></Grid.Column>
+                        <Grid.Column width={ 4 } />
                         <Grid.Column width={ 12 }>
                             <Segment >
                                 <h1>選舉公告</h1>

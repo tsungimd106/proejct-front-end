@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Image, Dropdown, Button, Form, Label, Segment, Header } from 'semantic-ui-react'
+import { Card,  Dropdown, Button, Form, Label, Segment } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
@@ -165,7 +165,7 @@ class FigureDetail extends React.Component {
                                 <Grid.Column width={ 5 } className={ style.dashboardcard + " " + style.white + " " + style.self }>
                                     <Grid> <Grid.Row className={ style.line + " " } columns={ "equal" }>
                                         <Grid.Column>
-                                            <img src={ this.state.photo } className={ style.figurePh }></img>
+                                            <img src={ this.state.photo } className={ style.figurePh } alt=""/>
                                         </Grid.Column>
                                         <Grid.Column>
                                             <p>
@@ -224,7 +224,7 @@ class FigureDetail extends React.Component {
                                     <Segment textAlign={"center"} basic><div className={ style.white + " " + style.bigSize +" "+style.center}>政見</div></Segment>
                                     <Card.Group  itemsPerRow={2} stackable>
                                         { this.state.policy && this.state.policy.map((placement, index) => {
-                                            if (index == 0) return (<></>)
+                                            if (index === 0) return (<></>)
                                             else {
                                                 return (<>
                                                     <Card onClick={ () => { this.scoreShow(placement.content, placement.id, placement.cateogry) } }>
@@ -262,7 +262,7 @@ class FigureDetail extends React.Component {
                                     <Button.Group vertical type="radio" id={ "ps_id" }>
                                         { this.state.scoreRule.map((item, index) => {
                                             return (<>
-                                                { index != 0 ? <>  <Button.Or text={ "" } /></> : <></> }
+                                                { index !== 0 ? <>  <Button.Or text={ "" } /></> : <></> }
                                                 <Button active={ index === this.state.scoreActitivy }
                                                     onClick={ () => this.scoreRule(index) }
                                                     style={ { width: "100px", height: "45px" } } content={ item.name } />
@@ -276,7 +276,7 @@ class FigureDetail extends React.Component {
                                     <Button.Group vertical basic fluid>
                                         { this.state.scoreRule.map((item, index) => {
                                             return (<>
-                                                { index != 0 ? <>  <Button.Or text={ "" } /></> : <></> }
+                                                { index !== 0 ? <>  <Button.Or text={ "" } /></> : <></> }
                                                 <Button value={ index + 1 } disabled style={ { height: "45px", "margin-left": "5px" } } content={ item.remark } />
 
 

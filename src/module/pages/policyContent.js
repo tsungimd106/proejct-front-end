@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Grid, Button, Comment, Header, Form, List, Segment, Icon, Card, Label } from 'semantic-ui-react'
+import { Grid, Button, Comment, Header, Form, List, Segment, Icon,  Label } from 'semantic-ui-react'
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
 import { trackPromise } from 'react-promise-tracker';
 
 import person from "../../imgs/person.png"
-import { Width, FaceHappy, FaceNeutral, FaceSad, Heart } from 'akar-icons';
+import {  FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
 import { ModalBase, ReportModal } from "../modal"
 
@@ -85,7 +85,7 @@ class PolicyContent extends React.Component {
                 console.log(response.data)
                 let msgL = (response.data.data[0].data)
                 let detail = (response.data.data[1].data)
-                let heart = (response.data.data[2].data == [])
+                let heart = (response.data.data[2].data === [])
                 this.setState({ detail: detail, heart: false, msgL: msgL })
             })
         )
@@ -142,7 +142,9 @@ class PolicyContent extends React.Component {
     save = () => {
         if (this.state.heart) { }
         this.setState({ heart: !this.state.heart })
-        ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposalId })
+        ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposalId }).then(res => {
+            console.log(res)
+        })
     }
 
 
@@ -150,165 +152,165 @@ class PolicyContent extends React.Component {
         console.log(this.state.msgL)
         console.log(this.state.detail)
         console.log(this.state.heart)
-        return (<Pages id={ 2 } 
+        return (<Pages id={ 2 }
             pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
-            { content: this.state.detail&&this.state.detail[0].title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
+            { content: this.state.detail && this.state.detail[0].title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
             page={
-            (<>{ }
-                {this.state.detail != null ? (<>
-                    {this.state.detail.map(placement => {
+                (<>{ }
+                    {this.state.detail != null ? (<>
+                        {this.state.detail.map(placement => {
 
-                        return (
-                            <div>
-                                <div className={ style.topicBold }>{ placement.title }</div>
-                                <Segment basic>
-                                    <List horizontal>
-                                        <List.Item ><Header>提案人</Header></List.Item>
-                                        <List.Item ><Label> 劉世芳 </Label></List.Item>
-                                        <List.Item ><Label> 鄭運鵬 </Label></List.Item>
-                                        <List.Item ><Label> 鍾佳濱 </Label></List.Item>
-                                    </List>
-
-
-                                </Segment>
-                                <Label.Group>
-                                    <Label>#鎮市</Label>
-                                    <Label>#選舉</Label>
-                                    <Label>#台灣</Label>
-                                    <Label>#自治</Label>
-                                    <Label>#消鄉</Label>
-
-
-                                </Label.Group>
-
-
+                            return (
                                 <div>
-
-                                </div>
-                                <Grid> <Grid.Row >
-                                    <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column>
-                                    {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
-                                    <Grid.Column width={ 16 }>
-
-                                    </Grid.Column>
-                                    <Grid.Column width={ 16 } >
-                                        <div>
-                                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                                    <div className={ style.topicBold }>{ placement.title }</div>
+                                    <Segment basic>
+                                        <List horizontal>
+                                            <List.Item ><Header>提案人</Header></List.Item>
+                                            <List.Item ><Label> 劉世芳 </Label></List.Item>
+                                            <List.Item ><Label> 鄭運鵬 </Label></List.Item>
+                                            <List.Item ><Label> 鍾佳濱 </Label></List.Item>
+                                        </List>
 
 
-                                            </Worker>
-                                            <div
-                                                style={ {
-                                                    border: '1px solid rgba(0, 0, 0, 0.3)',
-                                                    height: '750px',
-                                                } }
-                                            >
-                                                <Viewer fileUrl={ `https://cors-anywhere.herokuapp.com/${placement.pdfUrl}` }
-                                                //   plugins={[
-                                                //     pageNavigationPluginInstance,
-                                                // ]}
-                                                />
+                                    </Segment>
+                                    <Label.Group>
+                                        <Label>#鎮市</Label>
+                                        <Label>#選舉</Label>
+                                        <Label>#台灣</Label>
+                                        <Label>#自治</Label>
+                                        <Label>#消鄉</Label>
+
+
+                                    </Label.Group>
+
+
+                                    <div>
+
+                                    </div>
+                                    <Grid> <Grid.Row >
+                                        <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column>
+                                        {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
+                                        <Grid.Column width={ 16 }>
+
+                                        </Grid.Column>
+                                        <Grid.Column width={ 16 } >
+                                            <div>
+                                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+
+
+                                                </Worker>
+                                                <div
+                                                    style={ {
+                                                        border: '1px solid rgba(0, 0, 0, 0.3)',
+                                                        height: '750px',
+                                                    } }
+                                                >
+                                                    <Viewer fileUrl={ `https://cors-anywhere.herokuapp.com/${placement.pdfUrl}` }
+                                                    //   plugins={[
+                                                    //     pageNavigationPluginInstance,
+                                                    // ]}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* <PdfComponent uu={placement.pdfUrl}/> */ }
-                                    </Grid.Column>
-                                    <Grid.Column width={ 16 }>
-                                        { this.state.login && <><Icon name={ "heart" } className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
-                                            { this.state.heart ? "已收藏" : "收藏" }
+                                            {/* <PdfComponent uu={placement.pdfUrl}/> */ }
+                                        </Grid.Column>
+                                        <Grid.Column width={ 16 }>
+                                            { this.state.login && <><Icon name={ "heart" } className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
+                                                { this.state.heart ? "已收藏" : "收藏" }
+                                            </> }
+
+
+                                        </Grid.Column>
+
+
+
+                                    </Grid.Row></Grid>
+
+
+                                </div>)
+                        }) }
+                    </>) : (<></>) }
+                    <Grid>
+                        <Grid.Row>
+                            { this.state.login && (<Grid.Column width={ 16 }>
+                                <Segment>
+                                    <Header>提案進度</Header>
+                                    <List horizontal>
+
+                                        <List.Item>交付審查</List.Item>
+                                        <List.Item icon={ "angle right" } />
+                                        <List.Item>退回程序</List.Item>
+                                    </List>
+                                    <Grid >
+                                        <Grid.Row columns={ "equal" }>
+                                            <Grid.Column>
+                                                <div className={ style.lable }>
+                                                    <p>您的看法：</p><p>(請點選投票)</p>
+                                                </div>
+                                                <Button.Group >
+                                                    <Button toggle basic inverted color='green' content={ <FaceHappy className={ style.green + " " + style.size } /> } />
+
+                                                    <Button.Or />
+                                                    <Button toggle basic inverted color='yellow' content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } />
+                                                    <Button.Or />
+                                                    <Button toggle basic inverted color='red'><FaceSad className={ style.red + " " + style.size } /></Button>
+
+                                                </Button.Group>
+
+                                                <Button> 確定投票</Button>
+                                            </Grid.Column>
+                                            <Grid.Column floated={ "right" }>
+                                                <div className={ style.lable }>RUN民看法：</div>
+                                                <div style={ { width: "300px", hgieht: "300px" } }><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
+                                            </Grid.Column>
+
+                                        </Grid.Row>
+                                    </Grid>  </Segment>
+
+                            </Grid.Column>) }
+
+
+                            <Grid.Column width={ 16 }>
+                                <Segment>
+                                    <Comment.Group >
+                                        <Header as='h3' dividing>RUN民討論專區</Header>
+                                        { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                            return (<>
+                                                <Comment>
+                                                    <Comment.Avatar src={ person } />
+                                                    <Comment.Content>
+                                                        <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
+                                                        <Comment.Metadata>{ placement.time }</Comment.Metadata>
+                                                        <Comment.Text>{ placement.content }</Comment.Text>
+                                                        <Comment.Actions>
+                                                            <Comment.Action>回覆</Comment.Action>
+
+                                                            <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
+                                                                rule={ this.state.rule }
+                                                            />
+
+                                                        </Comment.Actions>
+                                                    </Comment.Content>
+                                                </Comment>
+                                            </>)
+                                        })) : <></> }
+                                        { this.state.login && <>
+                                            <Form reply>
+                                                <Form.TextArea rows={ 1 } className={ style.input } />
+                                                <Button content='發佈' labelPosition='left' icon='edit' primary />
+                                            </Form>
                                         </> }
 
-
-                                    </Grid.Column>
-
-
-
-                                </Grid.Row></Grid>
-
-
-                            </div>)
-                    }) }
-                </>) : (<></>) }
-                <Grid>
-                    <Grid.Row>
-                        { this.state.login && (<Grid.Column width={ 16 }>
-                            <Segment>
-                                <Header>提案進度</Header>
-                                <List horizontal>
-                                    
-                                    <List.Item>交付審查</List.Item>
-                                    <List.Item icon={"angle right"} />
-                                    <List.Item>退回程序</List.Item>
-                                </List>
-                                <Grid >
-                                    <Grid.Row columns={ "equal" }>
-                                        <Grid.Column>
-                                            <div className={ style.lable }>
-                                                <p>您的看法：</p><p>(請點選投票)</p>
-                                            </div>
-                                            <Button.Group >
-                                                <Button toggle basic inverted color='green' content={ <FaceHappy className={ style.green + " " + style.size } /> } />
-
-                                                <Button.Or />
-                                                <Button toggle basic inverted color='yellow' content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } />
-                                                <Button.Or />
-                                                <Button toggle basic inverted color='red'><FaceSad className={ style.red + " " + style.size } /></Button>
-
-                                            </Button.Group>
-
-                                            <Button> 確定投票</Button>
-                                        </Grid.Column>
-                                        <Grid.Column floated={ "right" }>
-                                            <div className={ style.lable }>RUN民看法：</div>
-                                            <div style={ { width: "300px", hgieht: "300px" } }><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
-                                        </Grid.Column>
-
-                                    </Grid.Row>
-                                </Grid>  </Segment>
-
-                        </Grid.Column>) }
-
-
-                        <Grid.Column width={ 16 }>
-                            <Segment>
-                                <Comment.Group >
-                                    <Header as='h3' dividing>RUN民討論專區</Header>
-                                    { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
-                                        return (<>
-                                            <Comment>
-                                                <Comment.Avatar src={ person } />
-                                                <Comment.Content>
-                                                    <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
-                                                    <Comment.Metadata>{ placement.time }</Comment.Metadata>
-                                                    <Comment.Text>{ placement.content }</Comment.Text>
-                                                    <Comment.Actions>
-                                                        <Comment.Action>回覆</Comment.Action>
-
-                                                        <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
-                                                            rule={ this.state.rule }
-                                                        />
-
-                                                    </Comment.Actions>
-                                                </Comment.Content>
-                                            </Comment>
-                                        </>)
-                                    })) : <></> }
-                                    { this.state.login && <>
-                                        <Form reply>
-                                            <Form.TextArea rows={ 1 } className={ style.input } />
-                                            <Button content='發佈' labelPosition='left' icon='edit' primary />
-                                        </Form>
-                                    </> }
-
-                                </Comment.Group></Segment>
-                            <div className={ style.mes }>
-                            </div>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-                {/* <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } /> */ }
-            </>)
-        } />)
+                                    </Comment.Group></Segment>
+                                <div className={ style.mes }>
+                                </div>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                    {/* <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } /> */ }
+                </>)
+            } />)
     }
 }
 

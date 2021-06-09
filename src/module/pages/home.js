@@ -1,25 +1,16 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-  import person from "../../imgs/person.png"
-// import f from "../../imgs/f.jpg"
-import r from "../../imgs/r.jpg"
-import back from "../../imgs/back.jpg"
-import logo from "../../imgs/LOGO.jpg"
-// import "../../css/main.css"
-import { Card, Button, Grid, List, Image, Header, Segment, Table, Label, Placeholder } from 'semantic-ui-react'
-import { Fire, Book } from 'akar-icons';
-import style from "../../css/main.module.css"
+  import person from "../../imgs/person.png" 
+import r from "../../imgs/r.jpg" 
+import { Card,  Grid, List, Image, Header, Segment, Table  } from 'semantic-ui-react'
+ import style from "../../css/main.module.css"
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
+
 class Home extends React.Component {
     constructor(props) {
         super(props)
@@ -92,8 +83,8 @@ class Home extends React.Component {
                        <div>透過政見執行率的評分找出前五名，讓我們一起來看看吧!</div></Segment> 
                         <Card.Group itemsPerRow={ 3 }>
                             { this.state.rank.map((item, index) => {
-                                if (index < 3) {
-                                    return (<>
+                            
+                                    return (index < 3?<>
                                         <Card  >
                                             <Card.Header textAlign={ "center" }>
                                                 <Image src={ person } circular centered size={ "small" } />
@@ -107,16 +98,16 @@ class Home extends React.Component {
                                                 { item.score }分
                                             </Card.Content>
                                         </Card>
-                                    </>)
-                                }
+                                    </>:<></>)
+                                
                             }) }
 
 
                         </Card.Group>
                         <Card.Group itemsPerRow={ 1 }>
                             { this.state.rank.map((item, index) => {
-                                if (index >= 3) {
-                                    return (<>
+                              
+                                    return (index >= 3?<>
                                         <Card centered >
                                             <List horizontal relaxed verticalAlign={ "middle" } >
                                                 <List.Item>
@@ -131,8 +122,8 @@ class Home extends React.Component {
                                                 <List.Item>  { item.score }分</List.Item>
                                             </List>
 
-                                        </Card></>)
-                                }
+                                        </Card></>:<></>)
+                                
                             }) }
                         </Card.Group>
                     </div>

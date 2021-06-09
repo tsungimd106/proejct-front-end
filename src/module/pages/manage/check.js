@@ -3,7 +3,6 @@ import { Grid } from 'semantic-ui-react'
 import { ManageR } from "../../request/manageR"
 import { Tab , Button  } from 'semantic-ui-react'
 
-import style from "../../../css/manage.module.css"
 export default class Check extends React.Component {
     constructor(props) {
         super(props)

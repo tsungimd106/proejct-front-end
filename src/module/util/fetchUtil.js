@@ -134,8 +134,8 @@ export class FetchUtil {
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
                 if (Array.isArray(object)) {
-                    let str = ""
-                    object.forEach((item, index) => {
+                    
+                    object.forEach(item => {
                         paramsStringArray.push(encodeURIComponent(key) + "=" + encodeURIComponent(item));
 
                     })

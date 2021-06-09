@@ -54,13 +54,7 @@ class Sign extends React.Component {
             <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
             <p><input type="password" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
             <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
-            <p><select id="year">
-                <option value=" ">出生年</option>
-                <option value="year">1920</option>
-                <option value="year">1921</option>
-                <option value="year">1922</option>
-                <option value="year">1923</option>
-            </select></p>
+            
             <p >出生日期</p><p><input type="date" placeholder="出生日期"></input></p>
             <p><select id="city">
                 <option value=" ">現居地</option>
@@ -93,7 +87,7 @@ class Login extends React.Component {
             MemberR.login({ "account": account, "password": password }).then(response => {
                 console.log(response.data.data.data)
                 localStorage.setItem("login", account)
-                localStorage.setItem("isManage", response.data.data.data[0].identity == 2)
+                localStorage.setItem("isManage", response.data.data.data[0].identity === 2)
                 window.location.href = "./#/"
 
             })

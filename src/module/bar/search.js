@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Cross } from 'akar-icons';
-import { Grid, Button, Form, List, Icon, Checkbox } from 'semantic-ui-react'
+ import { Grid, Button, Form, List,  Checkbox } from 'semantic-ui-react'
 import style from "./search.module.css"
 export default class Search extends React.Component {
     constructor(props) {
@@ -24,7 +23,7 @@ export default class Search extends React.Component {
             console.log(i.scrollHeight)
             hasMore.push(i.scrollHeight > 40)
         }
-        if (hasMore.length != this.state.hasMore.length) {
+        if (hasMore.length !== this.state.hasMore.length) {
             this.setState({ hasMore: hasMore })
         }
     }
@@ -50,7 +49,7 @@ export default class Search extends React.Component {
         let d = this.props.like
         for (const [key, value] of Object.entries(d)) {
             console.log(value)
-            for (const [k, v] of Object.entries(value)) {
+            for (const [k] of Object.entries(value)) {
                 if (d[key][k]) { d[key][k] = false }
             }
         }
@@ -84,15 +83,15 @@ export default class Search extends React.Component {
                             return (<>
 
                                 {Object.keys(this.props.like[placement]).map(item => {
-                                    if (this.props.like[placement][item]) {
-                                        return (
+                                   
+                                        return (this.props.like[placement][item]?
                                             <Button
                                                 icon={"x"}
                                                 content={item}
-                                                onClick={() => { this.remove(placement, item) }} className={style.button} />
+                                                onClick={() => { this.remove(placement, item) }} className={style.button} />:<></>
 
                                         )
-                                    }
+                                    
 
                                 })} </>)
                         })}</Grid.Column>

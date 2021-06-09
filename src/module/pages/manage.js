@@ -1,14 +1,12 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Person, Clipboard, Comment } from 'akar-icons';
-import Politician from "./manage/politician"
+ import Politician from "./manage/politician"
 import Check from "./manage/check"
 import Article from "./manage/acrticle"
 import Proposal from "./manage/proposal"
 import User from "./manage/user"
-import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
-import { Grid, Tab } from 'semantic-ui-react'
+import {  Tab } from 'semantic-ui-react'
 
 class Manage extends React.Component {
     constructor(props) {

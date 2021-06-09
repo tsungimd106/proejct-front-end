@@ -1,12 +1,11 @@
 import React from 'react';
-import Selector from '../mutiSelect/mutiSelect';
-import { Pages } from "../pages.js";
+ import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid, Button, Icon, List } from 'semantic-ui-react'
+import { Grid,  Icon, List } from 'semantic-ui-react'
 
 class Policy extends React.Component {
 
@@ -72,6 +71,8 @@ class Policy extends React.Component {
                             break;
                         case "狀態":
                             status.push(v)
+                            break
+                        default:break
                     }
                 }
 
@@ -87,16 +88,15 @@ class Policy extends React.Component {
         if (Array.isArray(this.state.resource)) {
             let newd = this.state.resource.filter(i => {
 
-                let res = false
-
+ 
                 let termb = false
                 let statusb = false
 
                 if (term.length > 0) {
-                    term.forEach(item => { if (i["term"] == item) { termb = true; return; } })
+                    term.forEach(item => { if (i["term"] === item) { termb = true; return; } })
                 }
                 if (status.length > 0) {
-                    status.forEach(item => { if (i["status"] == item) { statusb = true; return; } })
+                    status.forEach(item => { if (i["status"] === item) { statusb = true; return; } })
                 }
 
                 termb = term.length > 0 ? termb : true

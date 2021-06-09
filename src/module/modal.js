@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Grid } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 
 
 export class ModalBase extends React.Component {
@@ -15,7 +15,7 @@ export class ModalBase extends React.Component {
         console.log("enter modalbase todo")
         let check = this.props.toDo()
         console.log(check)
-        if (check==true) {
+        if (check===true) {
             this.setOpen(false)
         } else {
             this.setState(check)

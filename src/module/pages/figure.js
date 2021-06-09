@@ -3,12 +3,10 @@ import React from 'react';
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 
-import style from "../../css/figure.module.css"
-import { Grid, Button, Card, Image } from 'semantic-ui-react'
+ import {   Card, Image } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
-import { AlignToTop } from "akar-icons"
-class Figure extends React.Component {
+ class Figure extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -63,6 +61,8 @@ class Figure extends React.Component {
                             break;
                         case "姓名":
                             name.push(v)
+                            break
+                        default:break
                     }
                 }
 
@@ -78,17 +78,17 @@ class Figure extends React.Component {
         if (Array.isArray(this.state.resource)) {
             let newd = this.state.resource.filter(i => {
 
-                let res = false
+                
                 let areab = false
                 let termb = false
                 let nameb = false
 
-                if (area.length > 0) { area.forEach(item => { if (i["a_n"] == item) { areab = true; return; } }) }
+                if (area.length > 0) { area.forEach(item => { if (i["a_n"] === item) { areab = true; return; } }) }
                 if (term.length > 0) {
-                    term.forEach(item => { if (i["term"] == item) { termb = true; return; } })
+                    term.forEach(item => { if (i["term"] === item) { termb = true; return; } })
                 }
                 if (name.length > 0) {
-                    name.forEach(item => { if (i["name"] == item) { nameb = true; return; } })
+                    name.forEach(item => { if (i["name"] === item) { nameb = true; return; } })
                 }
                 areab = area.length > 0 ? areab : true
                 termb = term.length > 0 ? termb : true

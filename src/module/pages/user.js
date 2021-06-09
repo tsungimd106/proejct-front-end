@@ -173,7 +173,7 @@ class MyRecord extends React.Component {
             {
                 menuItem: '留言', render: () => <Tab.Pane>
 
-                    { this.state.msg != undefined ? this.state.msg.map((item, index) => {
+                    { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                         return (<>
                             <Grid> <Grid.Row columns={ "equal" }
                                 onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
