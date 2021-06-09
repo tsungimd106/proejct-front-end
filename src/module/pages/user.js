@@ -4,6 +4,7 @@ import { Pages } from "../pages.js"
 import { Tab, Button, Divider, Transition, Grid, Select } from 'semantic-ui-react'
 
 import style from "../../css/user.module.css"
+import utilStyle from "../../css/util.module.css"
 import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
 import { trackPromise } from 'react-promise-tracker';
@@ -37,16 +38,17 @@ class User extends React.Component {
             { name: "我的留言&投票紀錄", in: <MyRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" }
         ]
 
-        return (<Pages page={
-            (<>
-                <Tab menu={ { secondary: true, pointing: true, vertical: true, } } panes={ items.map(item => {
-                    return ({
-                        menuItem: { icon: item.icon, content: item.name },
-                        render: () => <Tab.Pane attached={ false }>   { item.in }</Tab.Pane>,
-                    })
-                }) } />
-            </>)
-        } />)
+        return (<Pages pageInfo={ [{ content: '會員檔案', active: true, href: "./user" }] }
+            page={
+                (<>
+                    <Tab className={utilStyle.tab} menu={ { secondary: true, pointing: true, vertical: true, } } panes={ items.map(item => {
+                        return ({
+                            menuItem: { icon: item.icon, content: item.name },
+                            render: () => <Tab.Pane attached={ false }>   { item.in }</Tab.Pane>,
+                        })
+                    }) } />
+                </>)
+            } />)
     }
 }
 class MyProfile extends React.Component {
@@ -71,50 +73,50 @@ class MyProfile extends React.Component {
         return true
     }
     editClass = () => {
-      
-        return {error:"abc",errorText:"ddd"}
+
+        return { error: "abc", errorText: "ddd" }
     }
 
     render() {
         return (<>
-            <Grid> 
+            <Grid>
                 <Grid.Row columns={ "equal" }>
-                <Grid.Column width={16} textAlign={"center"}>
-                <div><h5>大頭貼照</h5></div>
-                    <img className={ style.pic } src={ pic } alt="" />
-                </Grid.Column>
-                <Grid.Column >
-                  
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>暱稱</h5>
-                        <div>{ this.state.user && this.state.user.name }</div>
-                    </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>生日</h5>
-                        <div>{ this.state.user && this.state.user.birthday }</div>
-                    </div>
-                    <div className={ style.data }>
-                        <h5 className={ style.topicBold }>性別</h5>
-                        <div>{ this.state.user && this.state.user.gender }</div>
-                    </div>
-                </Grid.Column>
-                <Grid.Column>
+                    <Grid.Column width={ 16 } textAlign={ "center" }>
+                        <div><h5>大頭貼照</h5></div>
+                        <img className={ style.pic } src={ pic } alt="" />
+                    </Grid.Column>
+                    <Grid.Column >
 
-                    <Button content={ "修改地區" } onClick={ this.areaShow } />
-                    <Divider hidden />
-                    <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
-                        <div>
-                            <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
-                            <Button content={ "確定" } color='green' />
-
+                        <div className={ style.data }>
+                            <h5 className={ style.topicBold }>暱稱</h5>
+                            <div>{ this.state.user && this.state.user.name }</div>
                         </div>
+                        <div className={ style.data }>
+                            <h5 className={ style.topicBold }>生日</h5>
+                            <div>{ this.state.user && this.state.user.birthday }</div>
+                        </div>
+                        <div className={ style.data }>
+                            <h5 className={ style.topicBold }>性別</h5>
+                            <div>{ this.state.user && this.state.user.gender }</div>
+                        </div>
+                    </Grid.Column>
+                    <Grid.Column>
 
-                    </Transition>
-                    <p><ModalBase message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></p>
-                    <p><ModalBase message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } /></p>
+                        <Button content={ "修改地區" } onClick={ this.areaShow } />
+                        <Divider hidden />
+                        <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
+                            <div>
+                                <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
+                                <Button content={ "確定" } color='green' />
 
-                </Grid.Column>
-            </Grid.Row></Grid>
+                            </div>
+
+                        </Transition>
+                        <p><ModalBase message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></p>
+                        <p><ModalBase message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } /></p>
+
+                    </Grid.Column>
+                </Grid.Row></Grid>
 
         </>);
     }
