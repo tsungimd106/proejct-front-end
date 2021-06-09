@@ -16,9 +16,12 @@ export default class Search extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log("Enter")
         let d = document.getElementsByClassName(style.box)
         let hasMore = []
+        console.log(d)
         for (let i of d) {
+            console.log(i.scrollHeight)
             hasMore.push(i.scrollHeight > 40)
         }
         if (hasMore.length != this.state.hasMore.length) {
@@ -76,7 +79,7 @@ export default class Search extends React.Component {
             </List>
             <Grid className={style.border}>
                 <Grid.Row >
-                    {this.state.count > 0 ? <><Grid.Column width={2}>篩選條件</Grid.Column> <Grid.Column width={12} >
+                    {this.state.count > 0 ? <><Grid.Column width={2}>篩選條件</Grid.Column> <Grid.Column width={13} >
                         {this.props.like && Object.keys(this.props.like).map((placement, index) => {
                             return (<>
 
@@ -94,7 +97,7 @@ export default class Search extends React.Component {
                                 })} </>)
                         })}</Grid.Column>
                         <Grid.Column width={2}></Grid.Column>
-                        <Grid.Column width={12}>
+                        <Grid.Column width={13}>
                             <Button secondary onClick={this.removeAll} className={style.clearbtn} >清除全部</Button>
                         </Grid.Column></> : <></>}
                 </Grid.Row>
@@ -103,8 +106,8 @@ export default class Search extends React.Component {
                 {this.props.like && Object.keys(this.props.like).map((placement, index) => {
                     return (<> <Grid.Row >
                         <Grid.Column width={1}>{placement}</Grid.Column>
-                        <Grid.Column width={12} textAlign={"justified"} verticalAlign={"middle"}>
-                            <List horizontal >
+                        <Grid.Column width={11} textAlign={"justified"} verticalAlign={"middle"}>
+                            <List horizontal className={style.box} id={placement}>
                                 {Object.keys(this.props.like[placement]).map((item) => {
                                     return (<><List.Item className={style.state_listItem}>
                                         <Checkbox label={item} name={placement} value={item}
