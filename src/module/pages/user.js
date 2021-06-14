@@ -69,6 +69,9 @@ class MyProfile extends React.Component {
         this.setState((prevState) => ({ areaShow: !prevState.areaShow }))
 
     pswShow = (show) => this.setState({ pswShow: show })
+    editArea = () => {
+        return true
+    }
     editPsw = () => {
         return true
     }
@@ -102,16 +105,15 @@ class MyProfile extends React.Component {
                     </Grid.Column>
                     <Grid.Column>
 
-                        <Button content={ "修改地區" } onClick={ this.areaShow } />
-                        <Divider hidden />
+                        <p><Button content={ "修改地區" } onClick={ this.areaShow } />
+                        {/* <Divider hidden /> */}
                         <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                             <div>
                                 <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
-                                <Button content={ "確定" } color='green' />
-
+                                {/* <Button content={ "確定" } color='green' /> */}
+                                <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green'/>
                             </div>
-
-                        </Transition>
+                        </Transition></p>
                         <p><ModalBase message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></p>
                         <p><ModalBase message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } /></p>
 

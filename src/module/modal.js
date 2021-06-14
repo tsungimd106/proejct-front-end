@@ -29,7 +29,7 @@ export class ModalBase extends React.Component {
                 onOpen={ () => this.setOpen(true) }
                 open={ this.state.open }
                 size='small'
-                trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
+                trigger={ this.props.btn != null ? this.props.btn : <Button color={this.props.color}>{ this.props.btnText }</Button> }
             >
                 <Modal.Header>{ this.props.message }</Modal.Header>
                 <Modal.Content image>
