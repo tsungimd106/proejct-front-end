@@ -67,7 +67,9 @@ class Information extends React.Component {
     render() {
         const rate = 3
         const { activeIndex } = this.state
-        return (<Pages id={ 1 } page={
+        return (<Pages id={ 1 } 
+            pageInfo={ [{ content: '法規與條款資訊', active: true, href: "./#/information" } ]}
+            page={
             (<>
 
                 <Segment basic>
