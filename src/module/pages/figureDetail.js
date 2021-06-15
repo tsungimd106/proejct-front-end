@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card,  Dropdown, Button, Form, Label, Segment } from 'semantic-ui-react'
+import { Card, Dropdown, Button, Form, Label, Segment, Image } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
@@ -88,8 +88,6 @@ class FigureDetail extends React.Component {
         trackPromise(
 
             PoliticianR.detail(this.figureID).then(res => {
-                console.log(res)
-                // this.setState({ "resData": res.data.data[0].data[0], "policy": res.data.data[1].data })
                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
                 cond.map(placement => {
@@ -125,11 +123,11 @@ class FigureDetail extends React.Component {
         this.setState({ term: s })
     }
     scoreShow = (txt, id, tag) => {
-        if (this.state.scoreShow) {
+        if (this.state.login) {
+            this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id, tag: tag })
+        } else {
 
         }
-        console.log(txt)
-        this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id, tag: tag })
     }
 
     scoreRule = (i) => {
@@ -162,13 +160,15 @@ class FigureDetail extends React.Component {
 
 
                             <Grid> <Grid.Row className={ style.dashboard } >
-                                <Grid.Column width={ 5 } className={ style.dashboardcard + " " + style.white + " " + style.self }>
-                                    <Grid> <Grid.Row className={ style.line + " " } columns={ "equal" }>
-                                        <Grid.Column>
-                                            <img src={ this.state.photo } className={ style.figurePh } alt=""/>
+                                <Grid.Column mobile={ 16 } computer={ 5 } className={ style.dashboardcard + " " + style.white + " " + style.self }>
+                                    <Grid> <Grid.Row className={ style.line + " " } >
+                                        <Grid.Column mobile={ 16 } computer={ 8 } className={ style.box }>
+                                            <Image src={ this.state.photo } className={ style.figurePh } alt="" size={ "small" } centered />
                                         </Grid.Column>
-                                        <Grid.Column>
-                                            <p>
+                                        <Grid.Column mobile={ 16 } computer={ 8 } textAlign={ "center" }>
+
+                                            <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
+                                            <p className={style.in}>
                                                 <Dropdown text={ this.state.term && this.state.term }>
                                                     <Dropdown.Menu>
                                                         <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
@@ -179,11 +179,12 @@ class FigureDetail extends React.Component {
 
 
                                             </p>
-                                            <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
 
-                                            <p >{ this.state.selfD && this.state.area }</p>
-                                            <p>{ this.state.selfD && this.state.areaReamrk }</p>
+
+                                            <p className={style.in}>{ this.state.selfD && this.state.area }</p>
+                                            <p className={style.in}> { this.state.selfD && this.state.areaReamrk }</p>
                                         </Grid.Column>
+
                                     </Grid.Row></Grid>
 
 
@@ -191,14 +192,14 @@ class FigureDetail extends React.Component {
                                         return (<>
                                             <Grid> <Grid.Row columns={ "equal" } className={ style.line }>
                                                 <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
-                                                <Grid.Column id={ placement.no } width={ 16 } className={style.labelContent}/>
+                                                <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } />
                                             </Grid.Row></Grid>
                                             {/* <div className={style.white}>{placement.title}</div> */ }
                                         </>)
                                     }) }
                                     <Grid> <Grid.Row columns={ "equal" }>
                                         <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
-                                        <Grid.Column width={ 16 } className={style.labelContent}>
+                                        <Grid.Column width={ 16 } className={ style.labelContent }>
                                             { this.state.experience && this.state.experience.map((item, index) => {
                                                 return (<>
                                                     <Card content={ item } centered className={ style.grayFont } />
@@ -207,7 +208,7 @@ class FigureDetail extends React.Component {
                                             }) }</Grid.Column>
                                     </Grid.Row></Grid>
                                 </Grid.Column>
-                                <Grid.Column width={ 11 }>
+                                <Grid.Column computer={ 11 } mobile={ 16 }>
                                     <Swiper
                                         spaceBetween={ 50 }
                                         slidesPerView={ 1 }
@@ -215,14 +216,14 @@ class FigureDetail extends React.Component {
                                         pagination={ { clickable: true } }
                                     >
                                         <SwiperSlide  >
-                                            <center><Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 250 }  width={450}/></center>
+                                            <center><Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 250 } width={ 450 } /></center>
                                         </SwiperSlide>
-                                        <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 }  width={450}/></center></SwiperSlide>
-                                        <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar"  width={450} height={250}/></center></SwiperSlide>
+                                        <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 } width={ 450 } /></center></SwiperSlide>
+                                        <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" width={ 450 } height={ 250 } /></center></SwiperSlide>
                                     </Swiper>
 
-                                    <Segment textAlign={"center"} basic><div className={ style.white + " " + style.bigSize +" "+style.center}>政見</div></Segment>
-                                    <Card.Group  itemsPerRow={2} stackable>
+                                    <Segment textAlign={ "center" } basic><div className={ style.white + " " + style.bigSize + " " + style.center }>政見</div></Segment>
+                                    <Card.Group itemsPerRow={ 2 }  >
                                         { this.state.policy && this.state.policy.map((placement, index) => {
                                             if (index === 0) return (<></>)
                                             else {
@@ -247,7 +248,7 @@ class FigureDetail extends React.Component {
 
                                 </Grid.Column>
 
-                                
+
                             </Grid.Row></Grid>
 
                         }</div>
@@ -294,11 +295,7 @@ class FigureDetail extends React.Component {
                             </Grid.Row></Grid>
 
 
-                            { this.state.status && this.state.status.map((item, index) => {
-                                return (<>
-                                    { }
-                                </>)
-                            }) }
+
                         </>) }
 
                     />

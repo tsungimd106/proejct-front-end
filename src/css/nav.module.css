@@ -64,3 +64,10 @@ a.pageOn {
 #open {
     width: 100vw !important;
 }
+
+@media screen and (max-width :768px) {
+    .nav .page,
+    .nav .pageOn {
+        display: none;
+    }
+}

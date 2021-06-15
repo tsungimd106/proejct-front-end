@@ -47,3 +47,17 @@ div.space {
 .center {
     margin: 0 auto;
 }
+
+.figurePh {
+    border-radius: 50%;
+    border: solid #fff 1px;
+}
+
+@media screen and (max-width :768px) {
+    .self>div {
+        border: none;
+    }
+    .in {
+        display: inline;
+    }
+}

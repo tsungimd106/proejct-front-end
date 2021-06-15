@@ -36,27 +36,28 @@ export default class Nav extends React.Component {
 
                     id={ style.navtop }
                     className={ style.navtop + " " + style.i_dont_know_how_to_name_it + "   " }>
-                    <Grid.Column >
+                    <Grid.Column computer={8} mobile={4}>
                         <a href="./#/"><img className={ style.navPicture } src={ logo_dark } alt=""/></a>
 
                     </Grid.Column>
 
 
-                    <Grid.Column floated={ "right" } textAlign={ "right" } className={ style.nav } verticalAlign={ "middle" }>
+                    <Grid.Column floated={ "right" } textAlign={ "right" } className={ style.nav } 
+                    verticalAlign={ "middle" } computer={8} mobile={0}>
 
-                        <a href="./#/" className={ this.props.id === 0 ? style.pageOn : "" }  >首頁</a>
-                        <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : "" }>選舉報你知</a>
-                        <a href="./#/policy/" className={ this.props.id === 2 ? style.pageOn : "" }>提案專區</a>
-                        <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : "" }>政治人物</a>
+                        <a href="./#/" className={ this.props.id === 0 ? style.pageOn : style.page }  >首頁</a>
+                        <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : style.page }>選舉報你知</a>
+                        <a href="./#/policy/" className={ this.props.id === 2 ? style.pageOn : style.page }>提案專區</a>
+                        <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : style.page }>政治人物</a>
                         <TextAlignJustified onClick={ this.show } />
                     </Grid.Column>
 
 
                 </Grid.Row>
                 <Grid.Row className={ this.state.menu ? style.open : style.close } columns={ 2 }id={style.open}>
-                    <Grid.Column  >
+                    <Grid.Column  />
 
-                    </Grid.Column>
+                    
                     <Grid.Column >
                         <p><a href="./#/" className={ this.props.id === 0 ? style.pageOn : "" }>首頁</a></p>
                         <p> <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : "" }>選舉報你知</a></p>
