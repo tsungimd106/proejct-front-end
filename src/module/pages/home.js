@@ -30,11 +30,11 @@ class Home extends React.Component {
            
             message:
                 [
-                    { name: '王婉諭', title: "公民投票法部分條文修正草案",score:88 },
-                    { name: '劉建國', title: "太空發展法訂定草案" ,score:63},
-                    { name: '郭家瑜', title: "新住民孩童教育制定草案" ,score:44},
-                    { name: '賴品妤', title: 34 ,score:33},
-                    { name: '賴品妤', title: "88" ,score:32},
+                    { name: '林奕華', title: "一萬七千多位建教生可能因為沒有實習津貼影響生計！請教育部的紓困方案別忘了照顧建教合作生！",score:88, img: "../../imgs/首頁/林奕華.jpg" },
+                    { name: '林為洲', title: "謝謝警察在這段艱辛的日子，守護人民安全、對抗疫情，您們辛苦了！" ,score:63},
+                    { name: '陳椒華', title: "3+11機組員防疫漏洞  加強版可亡羊補牢？" ,score:44},
+                    { name: '高虹安', title: "各國推進 #疫苗護照，台灣何時跟上世界？" ,score:33},
+                    { name: '林思銘', title: "傳日本將再贈疫苗給台灣，蔡政府應誠實面對疫苗困境，積極爭取協助" ,score:32},
                 ]
             ,
             politics:
@@ -42,8 +42,17 @@ class Home extends React.Component {
                     { name: '高嘉瑜', title: "將持續推動廣設公幼，達到公幼公託免抽籤，以津貼、減稅及推動父母親產後共享育嬰假，實踐「0到6歲國家顧」",score:73 },
                     { name: '陳柏惟', title: "經濟有希望，國防能源產業變MIT，由政府投資帶動技術升級" ,score:53},
                     { name: '劉世芳 ', title: "整合左訓中心、世運主埸館、楠梓文中足球場各級學校成為培育體育人才及發展運動產業的國家體育園區" ,score:32},
-                    {name:"孔文吉",title:"推動原住民族基本權利入法，使原住民享有政治、經濟、教育、文化、狩獵、土地、醫療、傳播及社會福利之完整權益。",score:31},
-                    {name:"高虹安",title:"修改民法，降低成年門檻至18歲，賦予青年更大的政治參與權",score:21}
+                    { name:"孔文吉",title:"推動原住民族基本權利入法，使原住民享有政治、經濟、教育、文化、狩獵、土地、醫療、傳播及社會福利之完整權益。",score:31},
+                    { name:"高虹安",title:"修改民法，降低成年門檻至18歲，賦予青年更大的政治參與權",score:21}
+                ]
+            ,
+            proposal:
+                [
+                    { name: '王婉諭', title: "公民投票法部分條文修正草案",score:85 },
+                    { name: '劉建國', title: "太空發展法訂定草案" ,score:68},
+                    { name: '郭家瑜 ', title: "新住民孩童教育制定草案" ,score:55},
+                    { name:"陳歐珀",title:"動物保護法第二十三條及第二十九條條文修正草案",score:31},
+                    { name:"呂玉玲",title:"教師待遇條例第十七條條文修正草案",score:21}
                 ]
             ,
             rank: [
@@ -138,9 +147,9 @@ class Home extends React.Component {
                                 { this.state.message[0].name }
                                 </Card.Content>
                                 <Card.Content>
-                                { this.state.message[0].title }
+                                    「{ this.state.message[0].title }」
                                 </Card.Content>
-                                <Card.Content><Icon name={"thumbs up"} />{this.state.message[0].score}</Card.Content>
+                                <Card.Content textAlign={"center"}><Icon name={"thumbs up"} />{this.state.message[0].score}</Card.Content>
                             </Card>
                       
                                      
@@ -154,7 +163,7 @@ class Home extends React.Component {
                                                 </Table.Cell>
                                                 
                                                 <Table.Cell width="2" >{ item.name }</Table.Cell>
-                                                <Table.Cell>{ item.title }</Table.Cell>
+                                                <Table.Cell>「{ item.title }」</Table.Cell>
                                                 <Table.Cell width={2}><Icon name={"thumbs up"} />{item.score}
                                                 </Table.Cell></Table.Row>
                                               
@@ -179,7 +188,7 @@ class Home extends React.Component {
                                 <Card.Content>
                                     { this.state.politics[0].title }
                                 </Card.Content>
-                                <Card.Content><Icon name={"star"} />
+                                <Card.Content textAlign={"center"}><Icon name={"star"} />
                                     { this.state.politics[0].score }
                                 </Card.Content>
                             </Card>
@@ -212,15 +221,15 @@ class Home extends React.Component {
                         <Card fluid>
                                 <Image src={ person } size={ "small" } centered />
                                 <Card.Content>
-                                    { this.state.message[0].name }
+                                    { this.state.proposal[0].name }
                                 </Card.Content>
                                 <Card.Content>
-                                    { this.state.message[0].title }
+                                    { this.state.proposal[0].title }
                                 </Card.Content>
                                 <Card.Content textAlign={"center"}>
-                                    <Icon name={"heart"} />{this.state.message[0].score}
-                                    <Icon name={"comment"} />{this.state.message[0].score}
-                                    <Icon name={"star"} />{this.state.message[0].score}
+                                    <Icon name={"heart"} />{this.state.proposal[0].score}
+                                    <Icon name={"comment"} />{this.state.proposal[0].score}
+                                    <Icon name={"star"} />{this.state.proposal[0].score}
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
@@ -229,17 +238,16 @@ class Home extends React.Component {
                           
                             <Table   >
                                 <Table.Body>
-                                    { this.state.message.map((item,index) => {
+                                    { this.state.proposal.map((item,index) => {
                                         return (index>0?<>
                                             <Table.Row >
-                                                <Table.Cell width={1}><Image src={ person } size={ "mini" } />
-                                                </Table.Cell>
+                                                <Table.Cell width={1}><Image src={ person } size={ "mini" } /></Table.Cell>
                                                 <Table.Cell width="2">{ item.name }</Table.Cell>
                                                 <Table.Cell >{ item.title }</Table.Cell>
-                                                <Table.Cell width={"4"}>
-                                                <Icon name={"heart"} />{this.state.message[0].score}
-                                    <Icon name={"comment"} />{this.state.message[0].score}
-                                    <Icon name={"star"} />{this.state.message[0].score}
+                                                <Table.Cell width={4}>
+                                                    <Icon name={"heart"} />{item.score}
+                                                    <Icon name={"comment"} />{item.score}
+                                                    <Icon name={"star"} />{this.state.proposal[0].score}
                                                 </Table.Cell>
                                             </Table.Row>
                                         </>:<></>)
