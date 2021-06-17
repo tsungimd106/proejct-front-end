@@ -1,6 +1,6 @@
 .data {
-    margin-bottom: 40px;
-    width: auto;
+    margin-bottom: 40px !important;
+    width: auto !important;
 }
 
 .pic {
@@ -15,4 +15,12 @@
     color: #000000;
     background-color: #c0c0c0;
     border-color: #c0c0c0;
+}
+
+.label{
+    padding: 0 0 0 1rem !important;
+}
+
+.left{
+    padding-left: 70px ;
 }
