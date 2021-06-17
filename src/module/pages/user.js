@@ -96,21 +96,22 @@ class MyProfile extends React.Component {
                             <h5 className={ style.topicBold }>暱稱</h5>
                             <Grid>
                             <Grid.Row>
-                                <Grid.Column width={2}>{ this.state.user && this.state.user.name } </Grid.Column>
+                                <Grid.Column width={4}>{ this.state.user && this.state.user.name } </Grid.Column>
                                 <Grid.Column width={7}><ModalBase color={"teal"} message={ "修改暱稱" } btnText={ "修改暱稱" } toDo={ this.editName } /></Grid.Column>
                             </Grid.Row></Grid>
                         </Segment>
-                        <Segment className={ style.data }>
+                        <Segment className={ style.fixheight }>
                             <h5 className={ style.topicBold }>生日</h5>
                             <div>{ this.state.user && this.state.user.birthday }</div>
                         </Segment>
-                        <Segment className={ style.data }>
+                        <Segment className={ style.fixheight }>
                             <h5 className={ style.topicBold }>性別</h5>
                             <div>{ this.state.user && this.state.user.gender }</div>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column>
-                        <Segment><Grid><Grid.Row>
+                        <Segment className={ style.data }><Grid><Grid.Row>
+                            <Grid.Column width={16}><h5 className={ style.topicBold }>地區</h5></Grid.Column>
                             <Grid.Column width={4}><span>台北市</span></Grid.Column>
                             <Grid.Column width={7}><Button color={"teal"} content={ "修改地區" } onClick={ this.areaShow } />
                                 {/* <Divider hidden /> */}
@@ -124,18 +125,22 @@ class MyProfile extends React.Component {
                             </Grid.Column>
                         </Grid.Row></Grid></Segment>
                         
-                        <Segment><Grid><Grid.Row>
+                        <Segment className={ style.fixheight }><Grid><Grid.Row>
                             <Grid.Column width={10} className={ style.label }>
                                 <Label.Group>
                                     <Label>#交通</Label>
                                     <Label>#教育</Label>
                                     <Label>#醫療</Label>
+                                    <Label>#勞工</Label>
+                                    <Label>#弱勢</Label>
                                     <Label>...</Label>
                                 </Label.Group>
                             </Grid.Column>
                             <Grid.Column width={6} className={ style.label }><ModalBase color={"teal"} message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></Grid.Column>        
                         </Grid.Row></Grid></Segment>
-                        <Segment><ModalBase color={"teal"} message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } /></Segment>
+                        <Segment className={ style.fixheight }>
+                            <ModalBase btn={<icon name={'edit'}/>} labelPosition={'left'} color={"teal"} message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } />
+                        </Segment>
 
                     </Grid.Column>
                 </Grid.Row></Grid>

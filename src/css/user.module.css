@@ -24,3 +24,7 @@
 .left{
     padding-left: 70px ;
 }
+
+.fixheight{
+    height: 6rem;
+}
