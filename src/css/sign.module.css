@@ -43,7 +43,7 @@ h4 {
 }
 
 .agree {
-    margin:5vh 0;
+    margin: 5vh 0;
 }
 
 .sign button,
@@ -78,10 +78,22 @@ h5 {
     padding: 5px;
 }
 
-.login_5{
-    margin:0 0 5vh 0 !important;
+.login_5 {
+    margin: 0 0 5vh 0 !important;
 }
 
-.login_1{
-    margin:0 0 1vh 0 !important;
+.login_1 {
+    margin: 0 0 1vh 0 !important;
+}
+
+.back {
+    background: url("../imgs/login.png") !important;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover !important;
+    padding-top: 15vh;
+}
+
+.backC {
+    padding-top: 5%;
 }

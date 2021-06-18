@@ -66,21 +66,15 @@ export class ModalBase extends React.Component {
 
 
 export class InfoModal extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            open: this.props.open
-        }
-
-    }
-    setOpen = (val) => this.setState({ open: val })
+   
+    
     render() {
         return (<>
             <Modal
-                onClose={ () => this.setOpen(false) }
-                onOpen={ () => this.setOpen(true) }
-                open={ this.state.open }
-                size='small'
+                onClose={  ()=>this.props.close }
+               
+                open={ this.props.open }
+                size={"mini"}
                 // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
             >
                 <Modal.Header>{ this.props.message }
@@ -93,10 +87,10 @@ export class InfoModal extends React.Component {
                 <Modal.Actions>
                     <Button
                         content="關閉視窗"
-                        labelPosition='right'
-                        color='black'
-                        onClick={ () => this.setOpen(false) }
-                        positive
+                        
+                        color={"black"}
+                        onClick={this.props.close}
+                       
                     />
                 </Modal.Actions></Modal>
 

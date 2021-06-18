@@ -17,14 +17,20 @@
     border-color: #c0c0c0;
 }
 
-.label{
+.label {
     padding: 0 0 0 1rem !important;
 }
 
-.left{
-    padding-left: 70px ;
+.left {
+    padding-left: 70px;
 }
 
-.fixheight{
+.fixheight {
     height: 6rem;
+}
+
+.icon {
+    margin: 0 15px 0 5px !important;
+    /* margin-left: 10px; */
+    cursor: pointer;
 }

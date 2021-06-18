@@ -78,7 +78,7 @@ class FigureDetail extends React.Component {
 
             ],
             scoreActitivy: null,
-            showInfo: false
+            open: false
 
 
         }
@@ -142,11 +142,14 @@ class FigureDetail extends React.Component {
         }).then(res => {
             if (res.data["success"]) {
                 this.scoreShow("")
-                this.setState({ "showInfo": true })
+                this.setState({ "open": true ,noteModalC:"評分成功"})
             }
         })
     }
-
+    closeNoteModal = (m) => {
+        
+        this.setState({ open: false })
+    }
     render() {
 
         return (<Pages id={ 3 }
@@ -299,7 +302,7 @@ class FigureDetail extends React.Component {
                         </>) }
 
                     />
-                    <InfoModal open={ this.state.showInfo }></InfoModal>
+                     <InfoModal open={ this.state.open }  content={ this.state.noteModalC } close={this.closeNoteModal}/> 
                 </>)
 
             } />)

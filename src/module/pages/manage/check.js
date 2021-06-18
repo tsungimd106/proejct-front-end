@@ -46,7 +46,7 @@ export default class Check extends React.Component {
                    
                    <Grid> <Grid.Row >
                         <Grid.Column width={ 8 }><h3>檢舉留言</h3></Grid.Column>
-                        <Grid.Column width={ 3 }><h3>操作</h3></Grid.Column>
+                   
                         <Grid.Column width={5}><h3>審核者</h3></Grid.Column>  </Grid.Row >
                         {
                             this.state.already && this.state.already.map((item, index) => {

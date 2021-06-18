@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pages } from "../pages.js"
 
-import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment } from 'semantic-ui-react'
+import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon } from 'semantic-ui-react'
 
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
@@ -33,20 +33,20 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "我的個人檔案", in: <MyProfile data={this.state.user} area={this.state.area} />, icon: "address card" },
-            { name: "我的收藏", in: <MySave login={this.state.userName} data={this.state.save} />, icon: "heart" },
-            { name: "我的留言&投票紀錄", in: <MyRecord userName={this.state.userName} msg={this.state.msg} />, icon: "comment" }
+            { name: "我的個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
+            { name: "我的收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
+            { name: "我的留言&投票紀錄", in: <MyRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" }
         ]
 
-        return (<Pages pageInfo={[{ content: '會員檔案', active: true, href: "./user" }]}
+        return (<Pages pageInfo={ [{ content: '會員檔案', active: true, href: "./user" }] }
             page={
                 (<>
-                    <Tab className={utilStyle.tab} menu={{ secondary: true, pointing: true, vertical: true, }} panes={items.map(item => {
+                    <Tab className={ utilStyle.tab } menu={ { secondary: true, pointing: true, vertical: true, } } panes={ items.map(item => {
                         return ({
                             menuItem: { icon: item.icon, content: item.name },
-                            render: () => <Tab.Pane attached={false}>   {item.in}</Tab.Pane>,
+                            render: () => <Tab.Pane attached={ false }>   { item.in }</Tab.Pane>,
                         })
-                    })} />
+                    }) } />
                 </>)
             } />)
     }
@@ -70,9 +70,10 @@ class MyProfile extends React.Component {
 
     pswShow = (show) => this.setState({ pswShow: show })
     editName = () => {
-        return true
+        return { error: "abc", errorText: "ddd" }
     }
     editArea = () => {
+        this.areaShow()
         return true
     }
     editPsw = () => {
@@ -85,20 +86,22 @@ class MyProfile extends React.Component {
 
     render() {
         return (<>
-            {/* celled='internally' */}<Grid >
+            {/* celled='internally' */ }<Grid >
                 <Grid.Row columns={ "equal" }>
                     <Grid.Column width={ 16 } textAlign={ "center" }>
                         <div><h5>大頭貼照</h5></div>
                         <img className={ style.pic } src={ pic } alt="" />
                     </Grid.Column>
-                    <Grid.Column className={style.left}>
+                    <Grid.Column className={ style.left }>
                         <Segment className={ style.data }>
-                            <h5 className={ style.topicBold }>暱稱</h5>
+                            <h5 className={ style.topicBold }>暱稱
+                            <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Icon   name={"edit"} color={"teal"} className={style.icon} /> } toDo={ this.editName } />
+                            </h5>
                             <Grid>
-                            <Grid.Row>
-                                <Grid.Column width={4}>{ this.state.user && this.state.user.name } </Grid.Column>
-                                <Grid.Column width={7}><ModalBase color={"teal"} message={ "修改暱稱" } btnText={ "修改暱稱" } toDo={ this.editName } /></Grid.Column>
-                            </Grid.Row></Grid>
+                                <Grid.Row>
+                                    <Grid.Column width={ 4 }>{ this.state.user && this.state.user.name } </Grid.Column>
+                                    {/* <Grid.Column width={ 7 }><ModalBase color={ "teal" } message={ "修改暱稱" } btn={ "修改暱稱" } toDo={ this.editName } /></Grid.Column> */}
+                                </Grid.Row></Grid>
                         </Segment>
                         <Segment className={ style.fixheight }>
                             <h5 className={ style.topicBold }>生日</h5>
@@ -111,22 +114,26 @@ class MyProfile extends React.Component {
                     </Grid.Column>
                     <Grid.Column>
                         <Segment className={ style.data }><Grid><Grid.Row>
-                            <Grid.Column width={16}><h5 className={ style.topicBold }>地區</h5></Grid.Column>
-                            <Grid.Column width={4}><span>台北市</span></Grid.Column>
-                            <Grid.Column width={7}><Button color={"teal"} content={ "修改地區" } onClick={ this.areaShow } />
-                                {/* <Divider hidden /> */}
+                            <Grid.Column width={ 16 }><h5 className={ style.topicBold }>地區  
+                            <Icon   name={"edit"} color={"teal"} className={style.icon} onClick={ this.areaShow } />
+
                                 <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                                     <div>
                                         <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
-                                        {/* <Button content={ "確定" } color='green' /> */}
-                                        <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green'/>
+
+                                        <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green' />
                                     </div>
-                                </Transition>
+                                </Transition></h5></Grid.Column>
+                            <Grid.Column width={ 4 }><span>台北市</span></Grid.Column>
+                            <Grid.Column width={ 7 }>
+
                             </Grid.Column>
                         </Grid.Row></Grid></Segment>
-                        
+
                         <Segment className={ style.fixheight }><Grid><Grid.Row>
-                            <Grid.Column width={10} className={ style.label }>
+                        <Grid.Column width={ 16 }><h5 className={ style.topicBold }>興趣  
+                        <ModalBase color={ "teal" } message={ "修改興趣" } btn={ <Icon   name={"edit"} color={"teal"}  className={style.icon}   /> } toDo={ this.editClass } /></h5></Grid.Column>
+                            <Grid.Column width={ 16 } className={ style.label }>
                                 <Label.Group>
                                     <Label>#交通</Label>
                                     <Label>#教育</Label>
@@ -136,10 +143,10 @@ class MyProfile extends React.Component {
                                     <Label>...</Label>
                                 </Label.Group>
                             </Grid.Column>
-                            <Grid.Column width={6} className={ style.label }><ModalBase color={"teal"} message={ "修改興趣" } btnText={ "修改興趣" } toDo={ this.editClass } /></Grid.Column>        
+                           
                         </Grid.Row></Grid></Segment>
                         <Segment className={ style.fixheight }>
-                            <ModalBase btn={<icon name={'edit'}/>} labelPosition={'left'} color={"teal"} message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } />
+                            <ModalBase btn={ <Button basic icon={"edit"} color={"teal"} size={"mini"} content={"修改密碼"} /> } labelPosition={ 'left' } color={ "teal" } message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } />
                         </Segment>
 
                     </Grid.Column>
@@ -169,7 +176,7 @@ class MySave extends React.Component {
                 this.state.save !== undefined ? this.state.save.map((item, index) => {
                     console.log(item)
                     return (<>
-                        <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.title}</div>
+                        <div onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>{ item.title }</div>
                     </>)
                 }) : <></>
             }
@@ -200,22 +207,22 @@ class MyRecord extends React.Component {
             {
                 menuItem: '留言', render: () => <Tab.Pane>
 
-                    {this.state.msg !== undefined ? this.state.msg.map((item, index) => {
+                    { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                         return (<>
-                            <Grid> <Grid.Row columns={"equal"}
-                                onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
-                                <Grid.Column>{item.title} </Grid.Column>
-                                <Grid.Column>{item.content}</Grid.Column>
+                            <Grid> <Grid.Row columns={ "equal" }
+                                onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
+                                <Grid.Column>{ item.title } </Grid.Column>
+                                <Grid.Column>{ item.content }</Grid.Column>
                             </Grid.Row></Grid>
 
                         </>)
-                    }) : <></>}
+                    }) : <></> }
                 </Tab.Pane>
             },
 
         ]
         return (<>
-            <Tab menu={{ secondary: true }} panes={panes} />
+            <Tab menu={ { secondary: true } } panes={ panes } />
 
 
         </>);
