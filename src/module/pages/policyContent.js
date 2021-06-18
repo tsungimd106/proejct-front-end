@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Grid, Button, Comment, Header, Form, List, Segment, Icon,  Label } from 'semantic-ui-react'
+import { Grid, Button, Comment, Header, Form, List, Segment, Icon, Label } from 'semantic-ui-react'
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
 import { trackPromise } from 'react-promise-tracker';
 
 import person from "../../imgs/person.png"
-import {  FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
+import { FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
-import { ModalBase, ReportModal } from "../modal"
+import { InfoModal, ReportModal } from "../modal"
 
 
 
@@ -51,7 +51,7 @@ class PolicyContent extends React.Component {
             vote: { title: "我是標題", content: "我是內文", tag: ["金融", "國防"], vote: [43, 53, 4] },
             voteValue: [null],
             proposalId: props.match.params.id,
-            noteModal: false,
+            open: false,
             proposal: localStorage.getItem("proposal")
         }
     }
@@ -60,7 +60,8 @@ class PolicyContent extends React.Component {
         window.scrollTo(0, 0)
     }
     showNoteModal = (m) => {
-        this.setState({ noteModal: !this.state.noteModal, noteModalC: m })
+
+        this.setState({ open: !this.state.open, noteModalC: m })
     }
     closeNoteModal = () => {
         this.setState({ noteModal: false })
@@ -86,7 +87,8 @@ class PolicyContent extends React.Component {
                 let msgL = (response.data.data[0].data)
                 let detail = (response.data.data[1].data)
                 let heart = (response.data.data[2].data === [])
-                this.setState({ detail: detail, heart: false, msgL: msgL })
+                let rule = (response.data.data[3].data)
+                this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule })
             })
         )
 
@@ -106,17 +108,12 @@ class PolicyContent extends React.Component {
         })
     }
     showReport = (msgid) => {
-        let rule = {}
+        
         if (!this.state.ReportModal) {
-            ProposalR.rule().then(response => {
-                rule = response.data.data
-                console.log(rule)
-                this.setState({
-                    reportModal: !this.state.reportModal,
-                    rule: rule,
-                    msgid: msgid
-                })
-
+            this.setState({
+                reportModal: !this.state.reportModal,
+              
+                msgid: msgid
             })
         }
         else {
@@ -134,9 +131,9 @@ class PolicyContent extends React.Component {
         }
         let remark = document.getElementById("reportInputRemark").value || " "
         console.log(this.state.msgid)
-        ProposalR.report({ user_id: this.state.userName, message_id: this.state.msgid, remark: remark, rule: ruleInput }).then(response => {
-            console.log(response)
-        })
+        // ProposalR.report({ user_id: this.state.userName, message_id: this.state.msgid, remark: remark, rule: ruleInput }).then(response => {
+        //     console.log(response)
+        // })
     }
 
     save = () => {
@@ -154,82 +151,73 @@ class PolicyContent extends React.Component {
         console.log(this.state.heart)
         return (<Pages id={ 2 }
             pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
-            { content: this.state.detail && this.state.detail[0].title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
+            { content: this.state.detail && this.state.detail.title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
             page={
                 (<>{ }
-                    {this.state.detail != null ? (<>
-                        {this.state.detail.map(placement => {
+                    { this.state.detail != null ? (<>
 
-                            return (
-                                <div>
-                                    <div className={ style.topicBold }>{ placement.title }</div>
-                                    <Segment basic>
-                                        <List horizontal>
-                                            <List.Item ><Header>提案人</Header></List.Item>
-                                            <List.Item ><Label> 劉世芳 </Label></List.Item>
-                                            <List.Item ><Label> 鄭運鵬 </Label></List.Item>
-                                            <List.Item ><Label> 鍾佳濱 </Label></List.Item>
-                                        </List>
+                        <div>
+                            <div className={ style.topicBold }>{ this.state.detail.title }</div>
+                            <Segment basic>
+                                <List horizontal>
+
+                                    <List.Item ><Header>提案人</Header></List.Item>
+                                    { this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) }
+                                </List>
 
 
-                                    </Segment>
-                                    <Label.Group>
-                                        <Label>#鎮市</Label>
-                                        <Label>#選舉</Label>
-                                        <Label>#台灣</Label>
-                                        <Label>#自治</Label>
-                                        <Label>#消鄉</Label>
+                            </Segment>
+                            <Label.Group>
+                                { this.state.detail.category.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }
+                            </Label.Group>
 
 
-                                    </Label.Group>
+                            <div>
 
+                            </div>
+                            <Grid> <Grid.Row >
+                                {/* <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column> */ }
+                                {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
+                                <Grid.Column width={ 16 }>
 
+                                </Grid.Column>
+                                <Grid.Column width={ 16 } >
                                     <div>
+                                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
+
+                                        </Worker>
+                                        <div
+                                            style={ {
+                                                border: '1px solid rgba(0, 0, 0, 0.3)',
+                                                height: '750px',
+                                            } }
+                                        >
+                                            <Viewer fileUrl={ `https://cors-anywhere.herokuapp.com/${this.state.detail.pdfUrl}` }
+                                            //   plugins={[
+                                            //     pageNavigationPluginInstance,
+                                            // ]}
+                                            />
+                                        </div>
                                     </div>
-                                    <Grid> <Grid.Row >
-                                        <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column>
-                                        {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
-                                        <Grid.Column width={ 16 }>
 
-                                        </Grid.Column>
-                                        <Grid.Column width={ 16 } >
-                                            <div>
-                                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                                    {/* <PdfComponent uu={placement.pdfUrl}/> */ }
+                                </Grid.Column>
+                                <Grid.Column width={ 16 }>
+                                    { this.state.login && <><Icon name={ "heart" } className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
+                                        { this.state.heart ? "已收藏" : "收藏" }
+                                    </> }
 
 
-                                                </Worker>
-                                                <div
-                                                    style={ {
-                                                        border: '1px solid rgba(0, 0, 0, 0.3)',
-                                                        height: '750px',
-                                                    } }
-                                                >
-                                                    <Viewer fileUrl={ `https://cors-anywhere.herokuapp.com/${placement.pdfUrl}` }
-                                                    //   plugins={[
-                                                    //     pageNavigationPluginInstance,
-                                                    // ]}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {/* <PdfComponent uu={placement.pdfUrl}/> */ }
-                                        </Grid.Column>
-                                        <Grid.Column width={ 16 }>
-                                            { this.state.login && <><Icon name={ "heart" } className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
-                                                { this.state.heart ? "已收藏" : "收藏" }
-                                            </> }
-
-
-                                        </Grid.Column>
+                                </Grid.Column>
 
 
 
-                                    </Grid.Row></Grid>
+                            </Grid.Row></Grid>
 
 
-                                </div>)
-                        }) }
+                        </div>
+
                     </>) : (<></>) }
                     <Grid>
                         <Grid.Row>
@@ -258,7 +246,7 @@ class PolicyContent extends React.Component {
 
                                                 </Button.Group>
 
-                                                <Button> 確定投票</Button>
+                                                <Button onClick={ this.vote }> 確定投票</Button>
                                             </Grid.Column>
                                             <Grid.Column floated={ "right" }>
                                                 <div className={ style.lable }>RUN民看法：</div>
@@ -287,7 +275,7 @@ class PolicyContent extends React.Component {
                                                             <Comment.Action>回覆</Comment.Action>
 
                                                             <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
-                                                                rule={ this.state.rule }
+                                                                rule={ this.state.rule }toDo={this.report}
                                                             />
 
                                                         </Comment.Actions>
@@ -297,8 +285,8 @@ class PolicyContent extends React.Component {
                                         })) : <></> }
                                         { this.state.login && <>
                                             <Form reply>
-                                                <Form.TextArea rows={ 1 } className={ style.input } />
-                                                <Button content='發佈' labelPosition='left' icon='edit' primary />
+                                                <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
+                                                <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
                                             </Form>
                                         </> }
 
@@ -308,7 +296,7 @@ class PolicyContent extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    {/* <ModalBase show={ this.state.noteModal } ok={ this.closeNoteModal } close={ this.closeNoteModal } content={ this.state.noteModalC } /> */ }
+                    <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)
     }
