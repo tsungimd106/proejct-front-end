@@ -1,14 +1,109 @@
-.sign {
-    background: url("../signBack.jpg") no-repeat;
-    background-size: contain;
+.select {
+    border: 0;
+    width: 60px;
+    color: #4F586B;
+    font-weight: 900;
+    margin: 0 0 0 86%
+}
+
+.multicolor-bar {
+    width: 75%
+}
+
+.multicolor-bar .values .value {
+    float: left;
     text-align: center;
 }
 
-.sign>div {
-    margin: 30px 0;
+.multicolor-bar .scale .graduation {
+    float: left;
+    text-align: center;
 }
 
-.sign button,
-.sign input {
-    width: 25vw;
+.multicolor-bar .bars .bar {
+    float: left;
+    height: 10px;
+}
+
+.multicolor-bar .bars div.bar:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.multicolor-bar .bars div.bar:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.multicolor-bar .legends {
+    text-align: center;
+}
+
+.multicolor-bar .legends .legend {
+    display: inline-block;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.multicolor-bar .legends .legend .dot {
+    font-size: 25px;
+    vertical-align: middle;
+}
+
+.multicolor-bar .legends .legend .label {
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+.topicBox {
+    width: 95vw;
+    margin: 5px auto;
+    padding: 10px 20px;
+    border: 1px solid #000;
+}
+
+.topicBoxBold {
+    font-weight: bold;
+}
+
+.slider {
+    padding: 0;
+    margin-bottom: 30px;
+    height: 100%;
+}
+
+.line {
+    margin: 10px auto;
+    border-bottom: 1.5px solid #4F586B;
+    width: 85%;
+}
+
+.GuessYouLike {
+    font-weight: bold;
+    margin: auto 10%;
+}
+
+.show_loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 10000000;
+}
+
+@font-face {
+    font-family: abc;
+    src: url("abc.ttf");
+}
+
+*:not(i.icon) {
+    font-family: abc !important;
 }

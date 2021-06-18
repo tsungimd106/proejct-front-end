@@ -1,0 +1,65 @@
+.topic {
+    width: 85%;
+    margin: 5px auto;
+    padding: 10px 20px;
+    border: 0;
+    font-weight: 400;
+}
+
+.topicBold {
+    text-align: center;
+    margin: 5% 0;
+}
+
+.lable {
+    margin: 3% 0;
+    font-weight: 600;
+}
+
+.content {
+    padding: 10px 0;
+}
+
+.mesTitle {
+    margin: 3% 0;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+/* img {
+    width: 100%;
+} */
+
+list-group {
+    margin-bottom: 5%;
+}
+
+.pimg {
+    width: 100%;
+}
+
+.mesrp {
+    float: right;
+}
+
+.mesent {
+    position: absolute;
+    left: 50%;
+}
+
+.red {
+    color: #ff0000
+}
+
+.yellow {
+    color: #fff000
+}
+
+.green {
+    color: #99ff4d
+}
+
+.size {
+    width: 10vw;
+}

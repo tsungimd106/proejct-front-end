@@ -1,0 +1,63 @@
+.people img {
+    width: 100%;
+}
+
+.dashboard {
+    margin-top: 20px;
+    background: #4f4f4f;
+}
+
+.dashboardcard {
+    padding: 10px;
+}
+
+.white {
+    color: #fff
+}
+
+.line {
+    border-bottom: white 2.5px solid;
+    padding: 5px 0;
+}
+
+:global( .apexcharts-tooltip) {
+    color: #4F4F4F;
+}
+
+div.space {
+    margin: 10px 0;
+}
+
+.bigSize {
+    font-size: 25px;
+}
+
+.self>div {
+    border-right: 2.5px white solid;
+}
+
+.grayFont {
+    color: #4F4F4F
+}
+
+.labelContent {
+    padding-top: 5px;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.figurePh {
+    border-radius: 50%;
+    border: solid #fff 1px;
+}
+
+@media screen and (max-width :768px) {
+    .self>div {
+        border: none;
+    }
+    .in {
+        display: inline;
+    }
+}

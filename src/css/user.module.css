@@ -1,0 +1,36 @@
+.data {
+    margin-bottom: 40px !important;
+    width: auto !important;
+}
+
+.pic {
+    margin: 10% 30%;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: none;
+}
+
+:global(.list-group-item.active) {
+    color: #000000;
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+}
+
+.label {
+    padding: 0 0 0 1rem !important;
+}
+
+.left {
+    padding-left: 70px;
+}
+
+.fixheight {
+    height: 6rem;
+}
+
+.icon {
+    margin: 0 15px 0 5px !important;
+    /* margin-left: 10px; */
+    cursor: pointer;
+}

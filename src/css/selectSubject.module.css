@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+}
+
+.ss_lineheight{
+    line-height: 10px !important;
+    place-items: center;
+}
+
+.logo{
+    width: 30vw;
+    height: auto;
+} 
+
+p>img{
+    width: 8vw;
+    height: auto;
+}
+
+#selectbtn{
+    background-color:#555555;
+    margin-top: 20px;
+}
+
+button:hover {
+    /* 設定滑鼠移經的連結 */
+    background-color:#000000;
+}
+
+button:active {
+    /* 設定正在點選的連結 */
+    background-color:#000000;
+}
+
+.need_to_center::before {
+    content: '';
+    width: 0;
+    height: 30vh;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+
+.ss_subjectbtn{
+    background: #555555;
+    border-radius: 10px;
+    width: 20vw;
+    height:30vh;
+    margin:5% auto;
+    color:#fff;
+    font-size: 35px;
+    text-align: center;
+}
+
+.ss_lineheight .select{
+    width: 70%;
+}
+
+.ss_checkbtn{
+    background: #555555;
+    width: 15vw;
+    float: right;
+    margin-bottom: 5vh !important;
+    margin-right: 10vw !important;
+}

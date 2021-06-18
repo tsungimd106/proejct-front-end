@@ -1,0 +1,23 @@
+.footer {
+    height: 100px;
+    width: auto;
+    background: #000;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    font-weight: 10;
+    position: relative;
+    bottom: 100%;
+}
+
+.pagesC {
+    min-height: calc(100vh - 80px);
+    padding: 0 12.5vw;
+    background: #F8E1C2;
+}
+
+.content {
+    margin-top: 90px;
+    padding-top: 20px;
+    padding-bottom: 90px;
+}

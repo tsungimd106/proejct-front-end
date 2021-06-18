@@ -11,18 +11,38 @@ const APPLICATION_JSON = "application/json"
 export class FetchUtil {
     static async getPromise(url, requestOptions, data) {
         if (data && typeof data === "object") {
-            url += `?${ this.objectToRequestParams(data) }`;
+            url += `?${this.objectToRequestParams(data)}`;
+            console.log(url)
         }
-        return await fetch(`${ BASE_URL }${ url }`, requestOptions)
+        // console.log(requestOptions)
+        return await fetch(`${BASE_URL}${url}`, requestOptions)
             .then(this.responseToJSON)
             .then(this.handleResponse);
     }
 
     static async getAPI(url, data) {
-        const requestOptions = {
-            method: GET
-        };
-        return await this.getPromise(url, requestOptions, data);
+        if (data) {
+            const requestOptions = {
+                method: GET,
+                headers: {
+                    "Content-Type": APPLICATION_JSON,
+                    'Access-Control-Allow-Origin': '*',
+                },
+
+            }
+            return await this.getPromise(url, requestOptions, data);
+
+        } else {
+            const requestOptions = {
+                method: GET,
+                headers: {
+                    "Content-Type": APPLICATION_JSON,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            };
+            return await this.getPromise(url, requestOptions, data);
+        }
+
     }
 
     static async getHasTokenAPI(url, data) {
@@ -113,7 +133,16 @@ export class FetchUtil {
         var paramsStringArray = [];
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
-                paramsStringArray.push(encodeURIComponent(key) + "=" + encodeURIComponent(object[key]));
+                if (Array.isArray(object)) {
+                    
+                    object.forEach(item => {
+                        paramsStringArray.push(encodeURIComponent(key) + "=" + encodeURIComponent(item));
+
+                    })
+                } else {
+                    paramsStringArray.push(encodeURIComponent(key) + "=" + encodeURIComponent(object[key]));
+                }
+
             }
         }
         return paramsStringArray.join("&");

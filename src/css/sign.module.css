@@ -1,0 +1,99 @@
+.sign {
+    text-align: center;
+    height: 100vh;
+}
+
+.left>img {
+    margin-top: 15px;
+    width: 35vw;
+    height: auto;
+}
+
+.right>img {
+    margin-top: 15px;
+    margin-left: 5vw;
+    width: 30vw;
+    height: auto;
+}
+
+.sign input,
+.sign select {
+    width: 20vw;
+    border-radius: 5px;
+    border: 2px solid #4F586B;
+    height: 3vw;
+}
+
+.continue {
+    background-color: #4F586B;
+}
+
+.left {
+    background-color: #4F586B;
+    color: #FFF;
+    text-align: center;
+}
+
+h4 {
+    margin-top: 15vw;
+}
+
+.right>p {
+    margin-bottom: 10px;
+}
+
+.agree {
+    margin: 5vh 0;
+}
+
+.sign button,
+.sign input {
+    width: 20vw;
+}
+
+.homeKey {
+    width: 5vw;
+    margin: 0px;
+    float: right;
+}
+
+h5 {
+    display: inline;
+}
+
+.need_to_center::before {
+    content: '';
+    width: 0;
+    height: 20vh;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+.rule {
+    width: 30vw;
+    height: auto;
+    border: 5px solid #4F586B;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.login_5 {
+    margin: 0 0 5vh 0 !important;
+}
+
+.login_1 {
+    margin: 0 0 1vh 0 !important;
+}
+
+.back {
+    background: url("../imgs/login.png") !important;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover !important;
+    padding-top: 15vh;
+}
+
+.backC {
+    padding-top: 5%;
+}

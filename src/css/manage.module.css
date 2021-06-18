@@ -1,0 +1,5 @@
+:global(.list-group-item.active) {
+    color: #000000;
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+}
