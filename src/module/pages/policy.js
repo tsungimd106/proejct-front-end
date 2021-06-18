@@ -5,13 +5,10 @@ import style from "../../css/policy.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid,  Icon, List } from 'semantic-ui-react'
+import { Grid,  Icon, List ,Label} from 'semantic-ui-react'
 
 class Policy extends React.Component {
-
-    data = [
-
-    ]
+ 
 
 
     constructor(props) {
@@ -20,7 +17,7 @@ class Policy extends React.Component {
         trackPromise(
             ProposalR.list().then(response => {
                 console.log(response)
-                this.setState({ Sdata: response.data.data })
+                this.setState({ Sdata: response.data })
 
             })
         )
@@ -44,7 +41,7 @@ class Policy extends React.Component {
                 { title: "公民投票法部分條文修正草案", tag: ["國民", "立法"], date: "2020/11/22", proposer: "王婉瑜" },
 
             ],
-            like: { "abc": ["a", "b"] }
+            like: {   }
 
 
 
@@ -114,7 +111,7 @@ class Policy extends React.Component {
 
         ProposalR.list().then(response => {
             console.log(response)
-            this.setState({ "Sdata": response.data.data, resource: response.data.data })
+            this.setState({ "Sdata": response.data, resource: response.data.data })
         })
         ProposalR.cond().then(response => {
             let test = {}
@@ -162,7 +159,7 @@ class Policy extends React.Component {
                        <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
                            <Grid.Column width={1}/>
                             <Grid.Column width={11}>
-                                <div>提案人：{ placement.proposer }王婉瑜</div>
+                                <div>提案人：{ placement.proposer.map(item=>{return(<><Label >{item}</Label></>)}) }</div>
                                 <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                 <div>
                                     <List horizontal>
@@ -170,7 +167,7 @@ class Policy extends React.Component {
                                         2021/2/1{ placement.date }
                                         </List.Item>
                                         <List.Item>提案進度：{ placement.status }</List.Item>
-                                        <List.Item>#{ "金融" }</List.Item>
+                                        {placement.category.map(item=>{return(item!=null?<List.Item><Label>{item}</Label></List.Item>:<></>)})}
                                     </List>
                                    
                                 </div>                               
