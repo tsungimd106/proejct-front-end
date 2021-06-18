@@ -4,28 +4,32 @@ import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
 import logo_dark from '../../imgs/LOGO1.png'
-
+import back from "../../imgs/login.png"
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid, Button, Checkbox, Input } from 'semantic-ui-react'
+import { Grid, Button, Checkbox, Input, Image, Segment } from 'semantic-ui-react'
 class Base extends React.Component {
 
     render() {
         let enough_height = window.innerHeight >= 576
 
         return (<>
-            <Grid> <Grid.Row className={ style.sign + " " } noGutters="true">
-                <Grid.Column width={ 6 } xs={ 12 } className={ style.left }>
+            <div className={ style.back }>
+
+                <Grid textAlign={ "center" } verticalAlign={ "middle" }> <Grid.Row  >
+                    {/* <Grid.Column width={ 6 } xs={ 12 } className={ style.left }>
                     <h4>Welcome</h4>
                     <h6>__</h6>
-                    { enough_height && <img src={ logo_light } alt="" /> }
-                </Grid.Column>
-                <Grid.Column width={ 6 } xs={ 10 } className={ style.right } >
-                    <a href="./#/"><img src={ home_icon } className={ style.homeKey } alt="" /></a>
-                    <img src={ logo_dark } alt="" />
-                    { this.props.content }
-                </Grid.Column>
-            </Grid.Row></Grid>
+                    { enough_height && <img src={  logo_light } alt="" /> }
+                </Grid.Column> */}
+                    <Grid.Column floated={ "right" }> <a href="./#/"><img src={ home_icon } className={ style.homeKey } alt="" /></a></Grid.Column>
+                    <Grid.Column width={ 16 } className={ style.backC }>
+
+                        { this.props.content }
+                    </Grid.Column>
+                </Grid.Row></Grid>
+            </div>
+
 
         </>)
     }
@@ -49,25 +53,36 @@ class Sign extends React.Component {
     }
 
     render() {
-        return (<Base content={ <div>
-            <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
-            <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
-            <p><input type="password" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
-            <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
-            
-            <p >出生日期</p><p><input type="date" placeholder="出生日期"></input></p>
-            <p><select id="city">
-                <option value=" ">現居地</option>
-                <option value="year">基隆市</option>
-                <option value="year">台北市</option>
-                <option value="year">新北市</option>
-                <option value="year">桃園市</option>
-            </select></p>
-            <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
-            <p><Button variant="success" >以LINE帳號註冊</Button></p>
-            <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
+        return (<Base content={ < >
+             
+            <Grid style={{"padding-top":"10%"}}>
+                <Grid.Row columns={ 2 }>
+                    <Grid.Column>
+                        <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
+                        <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
+                        <p><input type="password" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
+                        <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
 
-        </div> }></Base>)
+                        <p >出生日期</p><p><input type="date" placeholder="出生日期"></input></p>
+                        <p><select id="city">
+                            <option value=" ">現居地</option>
+                            <option value="year">基隆市</option>
+                            <option value="year">台北市</option>
+                            <option value="year">新北市</option>
+                            <option value="year">桃園市</option>
+                        </select></p>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
+                        <p><Button variant="success" >以LINE帳號註冊</Button></p>
+                        <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+
+
+
+        </ > }></Base>)
     }
 }
 
@@ -116,6 +131,7 @@ class Login extends React.Component {
                 <Grid.Column width={ 16 }><a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
                 </Grid.Column>
             </Grid.Row></Grid>
+
             {/* <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
             <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
             <p><i>忘記密碼</i></p> */}
