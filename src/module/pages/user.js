@@ -1,7 +1,9 @@
 import React from 'react';
 import { Pages } from "../pages.js"
+import Chart from 'react-apexcharts'
 
-import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table } from 'semantic-ui-react'
+
+import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List } from 'semantic-ui-react'
 
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
@@ -33,9 +35,10 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "我的個人檔案", in: <MyProfile data={this.state.user} area={this.state.area} />, icon: "address card" },
-            { name: "我的收藏", in: <MySave login={this.state.userName} data={this.state.save} />, icon: "heart" },
-            { name: "我的留言紀錄", in: <MyMsgRecord userName={this.state.userName} msg={this.state.msg} />, icon: "comment" }
+            { name: "個人檔案", in: <MyProfile data={this.state.user} area={this.state.area} />, icon: "address card" },
+            { name: "提案收藏", in: <MySave login={this.state.userName} data={this.state.save} />, icon: "heart" },
+            { name: "留言紀錄", in: <MyMsgRecord userName={this.state.userName} msg={this.state.msg} />, icon: "comment" },
+            { name: "政見評分&提案投票紀錄", in: <MyVoteRecord userName={this.state.userName} msg={this.state.msg} />, icon: "tasks" }
         ]
 
         return (<Pages pageInfo={[{ content: '會員檔案', active: true, href: "./user" }]}
@@ -54,7 +57,29 @@ class User extends React.Component {
 class MyProfile extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { areaShow: false, pswShow: false, classShow: false }
+        this.state = { areaShow: false, pswShow: false, classShow: false ,
+            kpi: {
+                series: [10, 50, 40],
+                options: {
+                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    labels: ["同意", "中立", "反對"],
+                    title: {
+                        text: 'Run民立場投票',
+                        align: 'left',
+
+                    },
+
+                },
+            },
+            data: [
+                { title: "公民投票法部分條文修正草案", tag: ["國民", "立法"], date: "2020/11/22", proposer: "王婉瑜" },
+
+            ],
+            like: {   }
+
+
+
+        }
 
     }
     componentWillReceiveProps(newState) {
@@ -82,6 +107,47 @@ class MyProfile extends React.Component {
     editClass = () => {
 
         return { error: "abc", errorText: "ddd" }
+    }
+    
+
+    componentDidMount() {
+
+        ProposalR.list().then(response => {
+            console.log(response)
+            this.setState({ "Sdata": response.data, resource: response.data.data })
+        })
+        ProposalR.cond().then(response => {
+            let test = {}
+            for (let i of response.data.data) {
+                let inside = {}
+                for (let j of i.data) {
+                    inside[j.name] = false
+                }
+                test[i.name] = inside
+
+            }
+            console.log(test)
+            this.setState({ "like": test })
+        })
+
+
+
+
+        this.setState({ condData: [{ n: "進度", d: ["完全落實", "部分落實", "進行中"] }] })
+    }
+    test = () => {
+        fetch("http://localhost:5000/politician/list?name='abc','name'&name=[ab,dd]", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+            },
+
+        }).then(res => res.json()).then(r => { console.log(r) })
+    }
+    toContent = (id) => {
+        localStorage.setItem("proposal", id)
+        document.location.href = `.#/policyContent/${id.id}`
     }
 
     render() {
@@ -182,9 +248,47 @@ class MySave extends React.Component {
                         return (<>
                             <Table.Body>
                                 <Table.Row><Table.Cell>
-                                    <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>{item.title}</div>
+                                    <div onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
+                                        {item.title}
+                                        <List divided relaxed animated className={style.list}>
+                                            {this.state.Sdata && this.state.Sdata.map((placement, index) => {
+                                                return (<List.Item onClick={() => { this.toContent(placement) }}>
+                                                    <Grid>
+                                                        <Grid.Row className={style.topicBoxBold} columns={3}>
+                                                            <Grid.Column width={1} />
+                                                            <Grid.Column width={11}>
+                                                                <div>提案人：{placement.proposer.map(item => { return (<><Label >{item}</Label></>) })}</div>
+                                                                <h3 className={style.ellipsis}>{item.title}</h3>
+                                                                <div>
+                                                                    <List horizontal>
+                                                                        <List.Item>
+                                                                            2021/2/1{placement.date}
+                                                                        </List.Item>
+                                                                        <List.Item>提案進度：{placement.status}</List.Item>
+                                                                        {placement.category.map(item => { return (item != null ? <List.Item><Label>{item}</Label></List.Item> : <></>) })}
+                                                                    </List>
+                                                                </div>
+                                                                <Grid>
+                                                                    <Grid.Row >
+                                                                        <Grid.Column width={2}><Icon name='comments' />68</Grid.Column>
+                                                                        <Grid.Column width={2}><Icon name='heart' />收藏</Grid.Column>
+                                                                    </Grid.Row>
+                                                                </Grid>
+                                                            </Grid.Column>
+                                                            <Grid.Column width={4} >
+                                                                <Chart options={this.state.kpi.options}
+                                                                    series={this.state.kpi.series} type="donut"
+                                                                    height="125px" />
+                                                            </Grid.Column>
+                                                        </Grid.Row></Grid>
+
+                                                </List.Item>)
+                                            })}</List>
+
+                                    </div>
                                 </Table.Cell></Table.Row>
                             </Table.Body>
+
                         </>)
                     }) : <></>
                 }
@@ -209,33 +313,78 @@ class MyMsgRecord extends React.Component {
         window.location.href = path
     }
     render() {
-        const panes = [
-            { menuItem: '投票', render: () => <Tab.Pane></Tab.Pane> },
-            {
-                menuItem: '留言', render: () => <Tab.Pane>
+        return(<>
+            <Table celled><Table.Header><Table.Row>
+                <Table.HeaderCell>提案標題</Table.HeaderCell>
+                <Table.HeaderCell>留言內容</Table.HeaderCell>
+            </Table.Row></Table.Header>
+                {this.state.msg !== undefined ? this.state.msg.map((item, index) => {
+                    return (<>
+                        <Table.Body>
+                            <Table.Row
+                                onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
+                                <Table.Cell>{item.title} </Table.Cell>
+                                <Table.Cell>{item.content}</Table.Cell>
+                            </Table.Row></Table.Body>
+                    </>)
+                }) : <></>}
+            </Table>
+        </>);
+    }
+}
 
-                    <Table celled><Table.Header><Table.Row>
+class MyVoteRecord extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+    componentWillReceiveProps(newState) {
+        this.setState({ msg: newState.msg })
+    }
+    changePage = (url) => {
+        const path = `${window.location.href.split("/user")[0]}/${url}`
+        window.location.href = path
+    }
+    render() {
+        const panes = [
+            { menuItem: '提案投票', render: () => <Tab.Pane>
+                <Table celled><Table.Header><Table.Row>
                         <Table.HeaderCell>提案標題</Table.HeaderCell>
-                        <Table.HeaderCell>留言內容</Table.HeaderCell>
+                        <Table.HeaderCell>投票立場</Table.HeaderCell>
                     </Table.Row></Table.Header>
                         {this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                             return (<>
+                                <Table.Body>
+                                    <Table.Row
+                                        onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
+                                        <Table.Cell>{item.title} </Table.Cell>
+                                        <Table.Cell>{item.content}</Table.Cell>
+                                    </Table.Row></Table.Body>
+                            </>)
+                        }) : <></>}
+                    </Table></Tab.Pane> },
+
+            { menuItem: '政見評分', render: () => <Tab.Pane>
+                <Table celled><Table.Header><Table.Row>
+                    <Table.HeaderCell>政見標題</Table.HeaderCell>
+                    <Table.HeaderCell>評分分數</Table.HeaderCell>
+                </Table.Row></Table.Header>
+                    {/* {this.state.msg !== undefined ? this.state.msg.map((item, index) => {
+                        return (<>
                             <Table.Body>
-                                <Table.Row 
+                                <Table.Row
                                     onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
                                     <Table.Cell>{item.title} </Table.Cell>
                                     <Table.Cell>{item.content}</Table.Cell>
                                 </Table.Row></Table.Body>
-                            </>)
-                        }) : <></>}
-                    </Table></Tab.Pane>
+                        </>)
+                    }) : <></>} */}
+                </Table></Tab.Pane>
             },
 
         ]
         return (<>
             <Tab menu={{ secondary: true }} panes={panes} />
-
-
         </>);
     }
 }
