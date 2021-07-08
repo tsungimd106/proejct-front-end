@@ -82,7 +82,7 @@ class PolicyContent extends React.Component {
 
     getMsg = () => {
         trackPromise(
-            ProposalR.msgList(this.state.proposalId, { "user_id": this.state.login }).then(response => {
+            ProposalR.msgList(this.state.proposalId, { "user_id": this.state.userName }).then(response => {
                 console.log(response.data)
                 let msgL = (response.data.data[0].data)
                 let detail = (response.data.data[1].data)
@@ -146,9 +146,9 @@ class PolicyContent extends React.Component {
 
 
     render() {
-        console.log(this.state.msgL)
-        console.log(this.state.detail)
-        console.log(this.state.heart)
+        // console.log(this.state.msgL)
+        // console.log(this.state.detail)
+        // console.log(this.state.heart)
         return (<Pages id={ 2 }
             pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
             { content: this.state.detail && this.state.detail.title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }

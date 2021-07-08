@@ -54,6 +54,7 @@ export default class Search extends React.Component {
             }
         }
         this.setState({ like: d, count: 0 })
+        
     }
     more = (c) => {
         let a = document.getElementById(c)

@@ -26,7 +26,8 @@ export default class Proposal extends React.Component {
     componentDidMount() {
         trackPromise(
             ProposalR.list().then(response => {
-                this.setState({ data: response.data.data })
+                console.log(response)
+                this.setState({ data: response.data })
             })
         )
 
@@ -47,41 +48,41 @@ export default class Proposal extends React.Component {
             {/* <Grid.Row>
                 <Grid.Column className={ style.profile }> */}
 
-            <div className={style.data}>   </div>
-            {this.state.data && this.state.data.map((item, index) => {
+            <div className={ style.data }>   </div>
+            { this.state.data && this.state.data.map((item, index) => {
                 return (<>
-                <Grid>
-                    <Grid.Row onClick={() => { this.showEdit(index) }} className={style.topicBox} columns={"equal"}>
-                        <Grid.Column width={3}>{item.id}</Grid.Column>
-                        <Grid.Column width={3}>{item.status}</Grid.Column>
-                        <Grid.Column >{item.title}</Grid.Column>
-                        
-                   </Grid.Row></Grid> 
+                    <Grid>
+                        <Grid.Row onClick={ () => { this.showEdit(index) } } className={ style.topicBox } columns={ "equal" }>
+                            <Grid.Column width={ 3 }>{ item.id }</Grid.Column>
+                            <Grid.Column width={ 3 }>{ item.status }</Grid.Column>
+                            <Grid.Column >{ item.title }</Grid.Column>
+
+                        </Grid.Row></Grid>
 
 
                 </>)
-            })}
+            }) }
 
             {/* </Grid.Column>
            </Grid.Row></Grid>   */}
-            <ProposalEditModal show={this.state.showEdit}
-                ok={this.edit}
-                close={() => { this.showEdit(0) }}
+            <ProposalEditModal show={ this.state.showEdit }
+                ok={ this.edit }
+                close={ () => { this.showEdit(0) } }
                 content={
                     (<>
                         {
                             this.state.detail !== undefined ? this.state.cond.map(item => {
 
                                 return (<>
-                                <Grid>
-                                    <Grid.Row className=" ">
-                                        <Grid.Column width={3}>
-                                            {item.name}
-                                        </Grid.Column>
-                                        <Grid.Column>
-                                            <textarea type="text" value={this.state.data[this.state.detail][item.key]} style={{ width: "100%" }} />
-                                        </Grid.Column>
-                                   </Grid.Row></Grid>
+                                    <Grid>
+                                        <Grid.Row className=" ">
+                                            <Grid.Column width={ 3 }>
+                                                { item.name }
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <textarea type="text" value={ this.state.data[this.state.detail][item.key] } style={ { width: "100%" } } />
+                                            </Grid.Column>
+                                        </Grid.Row></Grid>
 
 
                                 </>)

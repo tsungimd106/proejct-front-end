@@ -3,7 +3,7 @@ import { FetchUtil } from "../util/fetchUtil";
 export  class ProposalR {
     static root = "proposal"
     static list() {
-        return FetchUtil.getAPI(`${this.root}/`)
+        return FetchUtil.getAPI(`${this.root}`,{"page":1})
     }
     static msg(data) {
         return FetchUtil.postAPI(`${this.root}/msg`, data)
