@@ -111,7 +111,7 @@ class Policy extends React.Component {
 
         ProposalR.list().then(response => {
             console.log(response)
-            this.setState({ "Sdata": response.data, resource: response.data.data })
+            this.setState({ "Sdata": response.data, resource: response.data })
         })
         ProposalR.cond().then(response => {
             let test = {}

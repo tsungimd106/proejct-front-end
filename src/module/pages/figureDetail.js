@@ -142,12 +142,12 @@ class FigureDetail extends React.Component {
         }).then(res => {
             if (res.data["success"]) {
                 this.scoreShow("")
-                this.setState({ "open": true ,noteModalC:"評分成功"})
+                this.setState({ "open": true, noteModalC: "評分成功" })
             }
         })
     }
     closeNoteModal = (m) => {
-        
+
         this.setState({ open: false })
     }
     render() {
@@ -160,59 +160,67 @@ class FigureDetail extends React.Component {
                 (<>
                     <div className={ style.people }>
                         {
-
-
                             <Grid> <Grid.Row className={ style.dashboard } >
-                                <Grid.Column mobile={ 16 } computer={ 5 } className={ style.dashboardcard + " " + style.white + " " + style.self }>
-                                    <Grid> <Grid.Row className={ style.line + " " } >
-                                        <Grid.Column mobile={ 16 } computer={ 8 } className={ style.box }>
-                                            <Image src={ this.state.photo } className={ style.figurePh } alt="" size={ "small" } centered />
-                                        </Grid.Column>
-                                        <Grid.Column mobile={ 16 } computer={ 8 } textAlign={ "center" }>
+                                <Grid.Column mobile={ 16 } computer={ 5 } >
+                                    <Card  >
+                                        <Grid columns={ 2 } verticalAlign={ "middle" } >
+                                            <Grid.Row >
+                                                <Grid.Column >
+                                                    <center className={ style.imgBox }>
+                                                        <Image src={ this.state.photo } alt="" size={ "small" } centered />
+                                                    </center>
+                                                </Grid.Column>
+                                                <Grid.Column >
 
-                                            <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
-                                            <p className={style.in}>
-                                                <Dropdown text={ this.state.term && this.state.term }>
-                                                    <Dropdown.Menu>
-                                                        <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
-                                                        <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
-                                                        <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
+                                                    <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
+                                                    <p className={ style.in }>
+                                                        <Dropdown text={ this.state.term && this.state.term }>
+                                                            <Dropdown.Menu>
+                                                                <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                                                <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                                                <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
+                                                    </p>
+                                                    <p className={ style.in }>{ this.state.selfD && this.state.area }</p>
+                                                    <p className={ style.in }> { this.state.selfD && this.state.areaReamrk }</p>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                        <Card.Content>
+                                            <Grid>
+                                                <Grid.Row columns={ "equal" } >
+                                                    { this.state.selfD && this.state.selfD.map(placement => {
+                                                        return (<>
+
+                                                            <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
+                                                            <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } />
 
 
-                                            </p>
+                                                        </>)
+                                                    }) }
+                                                </Grid.Row>
+                                                <Grid.Row columns={ "equal" }>
+                                                    <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
+                                                    <Grid.Column width={ 16 } className={ style.labelContent }>
+                                                        { this.state.experience && this.state.experience.map((item, index) => {
+                                                            return (<p>
+                                                                { item }
+
+                                                            </p>)
+                                                        }) }</Grid.Column>
+                                                </Grid.Row>
+                                            </Grid>
+                                        </Card.Content>
+                                    </Card>
 
 
-                                            <p className={style.in}>{ this.state.selfD && this.state.area }</p>
-                                            <p className={style.in}> { this.state.selfD && this.state.areaReamrk }</p>
-                                        </Grid.Column>
-
-                                    </Grid.Row></Grid>
-
-
-                                    { this.state.selfD && this.state.selfD.map(placement => {
-                                        return (<>
-                                            <Grid> <Grid.Row columns={ "equal" } className={ style.line }>
-                                                <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
-                                                <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } />
-                                            </Grid.Row></Grid>
-                                            {/* <div className={style.white}>{placement.title}</div> */ }
-                                        </>)
-                                    }) }
-                                    <Grid> <Grid.Row columns={ "equal" }>
-                                        <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
-                                        <Grid.Column width={ 16 } className={ style.labelContent }>
-                                            { this.state.experience && this.state.experience.map((item, index) => {
-                                                return (<>
-                                                    <Card content={ item } centered className={ style.grayFont } />
-
-                                                </>)
-                                            }) }</Grid.Column>
-                                    </Grid.Row></Grid>
                                 </Grid.Column>
                                 <Grid.Column computer={ 11 } mobile={ 16 }>
-                                    <Swiper
+                           
+                                      
+                                  <Swiper
+                                   className={ style.dashboardcard }
                                         spaceBetween={ 50 }
                                         slidesPerView={ 1 }
                                         navigation
@@ -224,8 +232,9 @@ class FigureDetail extends React.Component {
                                         <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 } width={ 450 } /></center></SwiperSlide>
                                         <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" width={ 450 } height={ 250 } /></center></SwiperSlide>
                                     </Swiper>
+                              
 
-                                    <Segment textAlign={ "center" } basic><div className={ style.white + " " + style.bigSize + " " + style.center }>政見</div></Segment>
+                                    <Segment  basic><div className={ style.bigSize + " " + style.center }>政見</div></Segment>
                                     <Card.Group itemsPerRow={ 2 }  >
                                         { this.state.policy && this.state.policy.map((placement, index) => {
                                             if (index === 0) return (<></>)
@@ -302,7 +311,7 @@ class FigureDetail extends React.Component {
                         </>) }
 
                     />
-                     <InfoModal open={ this.state.open }  content={ this.state.noteModalC } close={this.closeNoteModal}/> 
+                    <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.closeNoteModal } />
                 </>)
 
             } />)

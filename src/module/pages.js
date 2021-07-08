@@ -45,7 +45,7 @@ export class Pages extends React.Component {
                 </div>
 
                 <div className={ style.pagesC + " " + style.content }>
-                    { this.state.section === undefined ? <></> : <Breadcrumb icon='right angle' sections={ this.state.section } /> }
+                    { this.state.section === undefined ? <></> : <Breadcrumb icon='right angle' sections={ this.state.section } className={style.bread}/> }
                     {  this.props.page  || (<></>) }
                 </div>
 

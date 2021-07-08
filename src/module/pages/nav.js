@@ -31,26 +31,27 @@ export default class Nav extends React.Component {
         return (<>
 
             <Grid >
-                <Grid.Row columns={ "equal" }
+                <Grid.Row  
                     verticalAlign={ "middle" }
-
+                    
                     id={ style.navtop }
                     className={ style.navtop + " " + style.i_dont_know_how_to_name_it + "   " }>
-                    <Grid.Column computer={8} mobile={4}>
+                    <Grid.Column  computer={3} mobile={4}>
                         <a href="./#/"><img className={ style.navPicture } src={ logo_dark } alt=""/></a>
 
                     </Grid.Column>
 
 
-                    <Grid.Column floated={ "right" } textAlign={ "right" } className={ style.nav } 
-                    verticalAlign={ "middle" } computer={8} mobile={0}>
+                    <Grid.Column  className={ style.nav } 
+                    verticalAlign={ "middle" } computer={11}mobile={0}>
 
                         <a href="./#/" className={ this.props.id === 0 ? style.pageOn : style.page }  >首頁</a>
                         <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : style.page }>選舉報你知</a>
                         <a href="./#/policy/" className={ this.props.id === 2 ? style.pageOn : style.page }>提案專區</a>
                         <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : style.page }>政治人物</a>
-                        <TextAlignJustified onClick={ this.show } />
+                       
                     </Grid.Column>
+                    <Grid.Column floated={ "right" } computer={1} textAlign={"right"}> <TextAlignJustified onClick={ this.show } /></Grid.Column>
 
 
                 </Grid.Row>
