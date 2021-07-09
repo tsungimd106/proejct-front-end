@@ -2,6 +2,8 @@ import React from 'react';
  import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policy.module.css"
+import utilStyle from "../../css/util.module.css"
+
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
@@ -156,7 +158,7 @@ class Policy extends React.Component {
                 {this.state.Sdata && this.state.Sdata.map((placement, index) => {
                     return (<List.Item   onClick={ () => { this.toContent(placement) } }>
                         <Grid>
-                       <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
+                       <Grid.Row className={ utilStyle.point } columns={ 3 }>
                            <Grid.Column width={1}/>
                             <Grid.Column width={11}>
                                 <div>提案人：{ placement.proposer.map(item=>{return(<><Label >{item}</Label></>)}) }</div>

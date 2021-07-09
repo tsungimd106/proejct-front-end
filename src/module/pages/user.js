@@ -134,7 +134,7 @@ class MyProfile extends React.Component {
                     <Grid.Column className={ style.left }>
                         <Segment className={ style.data }>
                             <h5 className={ style.topicBold }>暱稱
-                                <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Icon name={ "edit" } color={ "teal" } className={ style.icon } /> } toDo={ this.editName } />
+                                <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Icon name={ "edit" } color={ "teal" } className={ utilStyle.point +" "+ style.icon } /> } toDo={ this.editName } />
                             </h5>
                             <Grid>
                                 <Grid.Row>
@@ -285,10 +285,10 @@ class MyMsgRecord extends React.Component {
                 { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                     return (<>
                         <Table.Body>
-                            <Table.Row
-                                onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
-                                <Table.Cell>{ item.title } </Table.Cell>
-                                <Table.Cell>{ item.content }</Table.Cell>
+                            <Table.Row className={utilStyle.point} 
+                                onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
+                                <Table.Cell>{item.title} </Table.Cell>
+                                <Table.Cell>{item.content}</Table.Cell>
                             </Table.Row></Table.Body>
                     </>)
                 }) : <></> }
