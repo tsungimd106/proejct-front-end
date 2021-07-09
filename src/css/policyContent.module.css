@@ -38,12 +38,12 @@ list-group {
 
 .redHeart {
     color: red;
-    cursor: pointer;
 }
 
-.heart {
-    cursor: pointer;
+.heart{
+    color:black;
 }
+
 
 :global(.react-pdf__Page__canvas) {
     margin: 0 auto;

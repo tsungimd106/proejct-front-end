@@ -4,6 +4,8 @@ import { Grid, Button, Comment, Header, Form, List, Segment, Icon, Label } from 
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
+import utilStyle from "../../css/util.module.css"
+
 import { trackPromise } from 'react-promise-tracker';
 
 import person from "../../imgs/person.png"
@@ -204,7 +206,7 @@ class PolicyContent extends React.Component {
                                     {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                 </Grid.Column>
                                 <Grid.Column width={ 16 }>
-                                    { this.state.login && <><Icon name={ "heart" } className={ this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
+                                    { this.state.login && <><Icon name={ "heart" } className={ utilStyle.point + " " + this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
                                         { this.state.heart ? "已收藏" : "收藏" }
                                     </> }
 
