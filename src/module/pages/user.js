@@ -3,7 +3,7 @@ import { Pages } from "../pages.js"
 import Chart from 'react-apexcharts'
 
 
-import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List } from 'semantic-ui-react'
+import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List, Accordion, TableCell } from 'semantic-ui-react'
 
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
@@ -276,7 +276,17 @@ class MyMsgRecord extends React.Component {
         const path = `${window.location.href.split("/user")[0]}/${url}`
         window.location.href = path
     }
+
+    handleClick = (e, titleProps) => {
+        const { index } = titleProps
+        const { activeIndex } = this.state
+        const newIndex = activeIndex === index ? -1 : index
+
+        this.setState({ activeIndex: newIndex })
+    }
+
     render() {
+        const { activeIndex } = this.state
         return (<>
             <Table celled><Table.Header><Table.Row>
                 <Table.HeaderCell>提案標題</Table.HeaderCell>
@@ -285,11 +295,25 @@ class MyMsgRecord extends React.Component {
                 { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                     return (<>
                         <Table.Body>
-                            <Table.Row className={utilStyle.point} 
+                        <Accordion><Table.Row className={utilStyle.point}  
+                                    onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
+                                <Accordion.Title
+                                    active={ activeIndex === index }
+                                    index={ index }
+                                    onClick={ this.handleClick }
+                                >
+                                    <TableCell><Icon name='dropdown' />{ item.title }</TableCell>
+                                </Accordion.Title>
+                                <Accordion.Content active={ activeIndex === index }>
+                                    <Table.Cell>{item.content}</Table.Cell>
+                                </Accordion.Content>
+                            </Table.Row></Accordion>
+                            {/* <Table.Row className={utilStyle.point} 
                                 onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
                                 <Table.Cell>{item.title} </Table.Cell>
                                 <Table.Cell>{item.content}</Table.Cell>
-                            </Table.Row></Table.Body>
+                            </Table.Row> */}
+                        </Table.Body>
                     </>)
                 }) : <></> }
             </Table>
