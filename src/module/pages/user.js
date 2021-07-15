@@ -3,7 +3,7 @@ import { Pages } from "../pages.js"
 import Chart from 'react-apexcharts'
 
 
-import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List, Accordion, TableCell } from 'semantic-ui-react'
+import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List, Accordion, TableCell, Card } from 'semantic-ui-react'
 
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
@@ -39,7 +39,7 @@ class User extends React.Component {
             { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
-            { name: "政見評分&提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "tasks" }
+            { name: "政見評分&提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } policy_vote={ this.state.policy_vote } />, icon: "tasks" }
         ]
 
         return (<Pages pageInfo={ [{ content: '會員檔案', active: true, href: "./user" }] }
@@ -107,7 +107,7 @@ class MyProfile extends React.Component {
     }
 
 
-    
+
     test = () => {
         fetch("http://localhost:5000/politician/list?name='abc','name'&name=[ab,dd]", {
             method: "GET",
@@ -134,7 +134,7 @@ class MyProfile extends React.Component {
                     <Grid.Column className={ style.left }>
                         <Segment className={ style.data }>
                             <h5 className={ style.topicBold }>暱稱
-                                <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Icon name={ "edit" } color={ "teal" } className={ utilStyle.point +" "+ style.icon } /> } toDo={ this.editName } />
+                                <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Icon name={ "edit" } color={ "teal" } className={ utilStyle.point + " " + style.icon } /> } toDo={ this.editName } />
                             </h5>
                             <Grid>
                                 <Grid.Row>
@@ -200,9 +200,9 @@ class MySave extends React.Component {
         super(props)
         this.state = {}
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log(this.props.data)
-        this.setState({save:this.props.data})
+        this.setState({ save: this.props.data })
     }
 
     componentWillReceiveProps(newState) {
@@ -216,47 +216,42 @@ class MySave extends React.Component {
     render() {
         return (<>
 
-            
-                {
-                    this.state.save !== undefined ? this.state.save.map((item, index) => {
-                       
-                        return (<Grid><>
 
-                            <List.Item onClick={ () => {   } }>
+            {
+                this.state.save !== undefined ? this.state.save.map((item, index) => {
 
-                                <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
-                                    <Grid.Column width={ 1 } />
-                                    <Grid.Column width={ 11 }>
-                                        {/* <div>提案人：{ item.proposer.map(item => { return (<><Label >{ item }</Label></>) }) }</div> */}
-                                        <h3 className={ style.ellipsis }>{ item.title }</h3>
-                                        <div>
-                                            <List horizontal>
+                    return (<Grid><>
 
-                                                <List.Item>提案進度：{ item.status }</List.Item>
-                                                {/* { item.category.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) } */}
-                                            </List>
-                                        </div>
-                                        <Grid>
-                                            <Grid.Row >
-                                                <Grid.Column width={ 2 }><Icon name='comments' />68</Grid.Column>
-                                                <Grid.Column width={ 2 }><Icon name='heart' />收藏</Grid.Column>
-                                            </Grid.Row>
-                                        </Grid>
-                                    </Grid.Column>
-                                    <Grid.Column width={ 4 } >
-                                        {/* <Chart options={ this.state.kpi.options }
+                        <List.Item onClick={ () => { } }>
+
+                            <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
+                                <Grid.Column width={ 1 } />
+                                <Grid.Column width={ 11 }>
+                                    {/* <div>提案人：{ item.proposer.map(item => { return (<><Label >{ item }</Label></>) }) }</div> */ }
+                                    <h3 className={ style.ellipsis }>{ item.title }</h3>
+                                    <div>
+                                        <List horizontal>
+
+                                            <List.Item>提案進度：{ item.status }</List.Item>
+                                            {/* { item.category.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) } */ }
+                                        </List>
+                                    </div>
+
+                                </Grid.Column>
+                                <Grid.Column width={ 4 } >
+                                    {/* <Chart options={ this.state.kpi.options }
                                             series={ this.state.kpi.series } type="donut"
                                             height="125px" /> */}
-                                    </Grid.Column>
-                                </Grid.Row>
+                                </Grid.Column>
+                            </Grid.Row>
 
-                            </List.Item>
+                        </List.Item>
 
 
-                        </></Grid>)
-                    }) : <></>
-                }
-            
+                    </></Grid>)
+                }) : <></>
+            }
+
 
         </>);
     }
@@ -269,8 +264,9 @@ class MyMsgRecord extends React.Component {
         super(props)
         this.state = {}
     }
-    componentWillReceiveProps(newState) {
-        this.setState({ msg: newState.msg })
+    componentDidMount() {
+        this.setState({ msg: this.props.msg })
+        console.log(this.props.msg)
     }
     changePage = (url) => {
         const path = `${window.location.href.split("/user")[0]}/${url}`
@@ -281,42 +277,32 @@ class MyMsgRecord extends React.Component {
         const { index } = titleProps
         const { activeIndex } = this.state
         const newIndex = activeIndex === index ? -1 : index
-
         this.setState({ activeIndex: newIndex })
     }
 
     render() {
         const { activeIndex } = this.state
         return (<>
-            <Table celled><Table.Header><Table.Row>
-                <Table.HeaderCell>提案標題</Table.HeaderCell>
-                <Table.HeaderCell>留言內容</Table.HeaderCell>
-            </Table.Row></Table.Header>
+
+            <Accordion>
                 { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                     return (<>
-                        <Table.Body>
-                        <Accordion><Table.Row className={utilStyle.point}  
-                                    onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
-                                <Accordion.Title
-                                    active={ activeIndex === index }
-                                    index={ index }
-                                    onClick={ this.handleClick }
-                                >
-                                    <TableCell><Icon name='dropdown' />{ item.title }</TableCell>
-                                </Accordion.Title>
-                                <Accordion.Content active={ activeIndex === index }>
-                                    <Table.Cell>{item.content}</Table.Cell>
-                                </Accordion.Content>
-                            </Table.Row></Accordion>
-                            {/* <Table.Row className={utilStyle.point} 
-                                onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
-                                <Table.Cell>{item.title} </Table.Cell>
-                                <Table.Cell>{item.content}</Table.Cell>
-                            </Table.Row> */}
-                        </Table.Body>
+
+                        <Accordion.Title
+                            active={ activeIndex === index }
+                            index={ index }
+                            onClick={ this.handleClick }
+                        ><Icon name='dropdown' />{ item.title }
+
+                        </Accordion.Title>
+                        <Accordion.Content active={ activeIndex === index }>
+                            <List onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } } className={ utilStyle.point }>
+                                { item.content.map(m => { return (<List.Item content={ m } />) }) } </List>
+                        </Accordion.Content>
+
                     </>)
-                }) : <></> }
-            </Table>
+                }) : <></> }</Accordion>
+
         </>);
     }
 }
@@ -326,8 +312,8 @@ class MyVoteRecord extends React.Component {
         super(props)
         this.state = {}
     }
-    componentWillReceiveProps(newState) {
-        this.setState({ msg: newState.msg })
+    componentDidMount() {
+        this.setState({})
     }
     changePage = (url) => {
         const path = `${window.location.href.split("/user")[0]}/${url}`
@@ -341,13 +327,15 @@ class MyVoteRecord extends React.Component {
                         <Table.HeaderCell>提案標題</Table.HeaderCell>
                         <Table.HeaderCell>投票立場</Table.HeaderCell>
                     </Table.Row></Table.Header>
-                        { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
+                        { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
                             return (<>
                                 <Table.Body>
                                     <Table.Row
-                                        onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }>
+
+                                    // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
+                                    >
                                         <Table.Cell>{ item.title } </Table.Cell>
-                                        <Table.Cell>{ item.content }</Table.Cell>
+                                        <Table.Cell>{ item.type }</Table.Cell>
                                     </Table.Row></Table.Body>
                             </>)
                         }) : <></> }
@@ -356,21 +344,20 @@ class MyVoteRecord extends React.Component {
 
             {
                 menuItem: '政見評分', render: () => <Tab.Pane>
-                    <Table celled><Table.Header><Table.Row>
-                        <Table.HeaderCell>政見標題</Table.HeaderCell>
-                        <Table.HeaderCell>評分分數</Table.HeaderCell>
-                    </Table.Row></Table.Header>
-                        {/* {this.state.msg !== undefined ? this.state.msg.map((item, index) => {
-                        return (<>
-                            <Table.Body>
-                                <Table.Row
-                                    onClick={() => { this.changePage(`PolicyContent/${item.proposal_id}`) }}>
-                                    <Table.Cell>{item.title} </Table.Cell>
-                                    <Table.Cell>{item.content}</Table.Cell>
-                                </Table.Row></Table.Body>
-                        </>)
-                    }) : <></>} */}
-                    </Table></Tab.Pane>
+                    <Card.Group itemsPerRow={ 2 } >
+                        { this.props.policy_vote !== undefined ? this.props.policy_vote.map((item, index) => {
+                            return (<>
+                                <Card>
+                                    <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
+                                    <Card.Content>{item.c_name.map(c=>{return(<Label>{c}</Label>)})}</Card.Content>
+                                    
+                                    <Card.Content>{item.type}</Card.Content>
+                                    
+                                </Card>
+                            </>)
+                        }) : <></> }
+                    </Card.Group>
+                </Tab.Pane>
             },
 
         ]
