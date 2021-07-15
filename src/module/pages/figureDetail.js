@@ -2,6 +2,8 @@ import React from 'react';
 import { Pages } from "../pages.js"
 import { Card, Dropdown, Button, Form, Label, Segment, Image } from 'semantic-ui-react'
 import Chart from 'react-apexcharts'
+import { Line,Bar } from 'react-chartjs-2';
+
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
@@ -151,6 +153,63 @@ class FigureDetail extends React.Component {
         this.setState({ open: false })
     }
     render() {
+        const ldata = {
+            labels: ['1', '2', '3', '4', '5', '6'],
+            datasets: [
+              {
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                fill: false,
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgba(255, 99, 132, 0.2)',
+              },
+            ],
+          };
+          
+          const loptions = {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          };
+
+          const bdata = {
+            labels: ['1', '2', '3', '4', '5', '6'],
+            datasets: [
+              {
+                label: '# of Red Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: 'rgb(255, 99, 132)',
+              },
+              {
+                label: '# of Blue Votes',
+                data: [2, 3, 20, 5, 1, 4],
+                backgroundColor: 'rgb(54, 162, 235)',
+              },
+              {
+                label: '# of Green Votes',
+                data: [3, 10, 13, 15, 22, 30],
+                backgroundColor: 'rgb(75, 192, 192)',
+              },
+            ],
+          };
+          
+          const boptions = {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          };
 
         return (<Pages id={ 3 }
             pageInfo={ [{ content: '政治人物', link: true, href: "./#/figure" },
@@ -232,6 +291,18 @@ class FigureDetail extends React.Component {
                                         <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 } width={ 450 } /></center></SwiperSlide>
                                         <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" width={ 450 } height={ 250 } /></center></SwiperSlide>
                                     </Swiper>
+
+                                    <div className='header'>
+                                        <h1 className='title'>測試Line Chart</h1>
+                                        <div className='links'></div>
+                                    </div>
+                                    <Line data={ldata} options={loptions} />
+
+                                    <div className='header'>
+                                        <h1 className='title'>測試Grouped Bar Chart</h1>
+                                        <div className='links'></div>
+                                    </div>
+                                    <Bar data={bdata} options={boptions} />
                               
 
                                     <Segment  basic><div className={ style.bigSize + " " + style.center }>政見</div></Segment>
