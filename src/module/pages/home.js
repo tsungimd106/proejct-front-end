@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pages } from "../pages.js"
 import person from "../../imgs/person.png"
-import r from "../../imgs/r.jpg"
+import r from "../../imgs/R.png"
 import { Card, Grid, List, Image, Header, Segment, Table, Icon, Tab } from 'semantic-ui-react'
 import style from "../../css/main.module.css"
 

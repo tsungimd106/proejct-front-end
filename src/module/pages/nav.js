@@ -40,6 +40,7 @@ export default class Nav extends React.Component {
                         <a href="./#/"><img className={ style.navPicture } src={ logo_dark } alt=""/></a>
 
                     </Grid.Column>
+                  
 
 
                     <Grid.Column  className={ style.nav } 
@@ -51,7 +52,7 @@ export default class Nav extends React.Component {
                         <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : style.page }>政治人物</a>
                        
                     </Grid.Column>
-                    <Grid.Column floated={ "right" } computer={1} textAlign={"right"}> <TextAlignJustified onClick={ this.show } /></Grid.Column>
+                    <Grid.Column floated={ "right" } computer={1}  textAlign={"right"} mobile={1}> <TextAlignJustified onClick={ this.show } /></Grid.Column>
 
 
                 </Grid.Row>
