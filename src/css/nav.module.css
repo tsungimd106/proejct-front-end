@@ -71,4 +71,11 @@ a.pageOn {
     .nav .pageOn {
         display: none;
     }
+    #navtop {
+        right: 0;
+    }
+    .nav {
+        width: 0;
+        display: none !important;
+    }
 }
