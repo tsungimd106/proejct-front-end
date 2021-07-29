@@ -39,7 +39,8 @@ class User extends React.Component {
             { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
-            { name: "政見評分&提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } policy_vote={ this.state.policy_vote } />, icon: "tasks" }
+            { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote }/>, icon: "flag" },
+            { name: "政見評分紀錄", in: <MyScoreRecord userName={ this.state.userName } policy_vote={ this.state.policy_vote } />, icon: "tasks" }
         ]
 
         return (<Pages pageInfo={ [{ content: '會員檔案', active: true, href: "./user" }] }
@@ -315,54 +316,53 @@ class MyVoteRecord extends React.Component {
     componentDidMount() {
         this.setState({})
     }
-    changePage = (url) => {
-        const path = `${window.location.href.split("/user")[0]}/${url}`
-        window.location.href = path
+    render() {
+        return (<>
+            <Table celled><Table.Header><Table.Row>
+                <Table.HeaderCell>提案標題</Table.HeaderCell>
+                <Table.HeaderCell>投票立場</Table.HeaderCell>
+            </Table.Row></Table.Header>
+            { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
+                return (<>
+                    <Table.Body>
+                        <Table.Row
+
+                        // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
+                        >
+                            <Table.Cell>{ item.title } </Table.Cell>
+                            <Table.Cell>{ item.type }</Table.Cell>
+                        </Table.Row></Table.Body>
+                </>)
+            }) : <></> }
+            </Table>
+        </>);
+    }
+}
+
+class MyScoreRecord extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+    componentDidMount() {
+        this.setState({})
     }
     render() {
-        const panes = [
-            {
-                menuItem: '提案投票', render: () => <Tab.Pane>
-                    <Table celled><Table.Header><Table.Row>
-                        <Table.HeaderCell>提案標題</Table.HeaderCell>
-                        <Table.HeaderCell>投票立場</Table.HeaderCell>
-                    </Table.Row></Table.Header>
-                        { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
-                            return (<>
-                                <Table.Body>
-                                    <Table.Row
 
-                                    // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
-                                    >
-                                        <Table.Cell>{ item.title } </Table.Cell>
-                                        <Table.Cell>{ item.type }</Table.Cell>
-                                    </Table.Row></Table.Body>
-                            </>)
-                        }) : <></> }
-                    </Table></Tab.Pane>
-            },
-
-            {
-                menuItem: '政見評分', render: () => <Tab.Pane>
-                    <Card.Group itemsPerRow={ 2 } >
-                        { this.props.policy_vote !== undefined ? this.props.policy_vote.map((item, index) => {
-                            return (<>
-                                <Card>
-                                    <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
-                                    <Card.Content>{item.c_name.map(c=>{return(<Label>{c}</Label>)})}</Card.Content>
-                                    
-                                    <Card.Content>{item.type}</Card.Content>
-                                    
-                                </Card>
-                            </>)
-                        }) : <></> }
-                    </Card.Group>
-                </Tab.Pane>
-            },
-
-        ]
         return (<>
-            <Tab menu={ { secondary: true } } panes={ panes } />
+            <Card.Group itemsPerRow={ 2 } >
+                { this.props.policy_vote !== undefined ? this.props.policy_vote.map((item, index) => {
+                    return (<>
+                        <Card>
+                            <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
+                            <Card.Content>{item.c_name.map(c=>{return(<Label>{c}</Label>)})}</Card.Content>
+                            
+                            <Card.Content>{item.type}</Card.Content>
+                            
+                        </Card>
+                    </>)
+                }) : <></> }
+            </Card.Group>
         </>);
     }
 }
