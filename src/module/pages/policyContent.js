@@ -58,8 +58,7 @@ class PolicyContent extends React.Component {
         }
     }
     componentDidMount() {
-        this.getMsg()
-        window.scrollTo(0, 0)
+        this.getMsg()        
     }
     showNoteModal = (m) => {
 
@@ -110,11 +109,11 @@ class PolicyContent extends React.Component {
         })
     }
     showReport = (msgid) => {
-        
+
         if (!this.state.ReportModal) {
             this.setState({
                 reportModal: !this.state.reportModal,
-              
+
                 msgid: msgid
             })
         }
@@ -161,11 +160,43 @@ class PolicyContent extends React.Component {
                         <div>
                             <div className={ style.topicBold }>{ this.state.detail.title }</div>
                             <Segment basic>
-                                <List horizontal>
+                                <List verticalAlign='middle'>
+                                    <List.Item>
+                                        <List horizontal>
+                                            <List.Item><Header>提案人</Header></List.Item>
 
-                                    <List.Item ><Header>提案人</Header></List.Item>
-                                    { this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) }
+                                            { this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) }
+
+                                        </List>
+
+
+
+                                    </List.Item>
+                                    <List.Item>
+                                        <List.Content floated='right'>
+                                            { this.state.login && <><Icon name={ "heart" } className={ utilStyle.point + " " + this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
+                                                { this.state.heart ? "已收藏" : "收藏" }
+                                            </> }
+                                        </List.Content>
+                                        <List horizontal verticalAlign='middle'>
+                                            <List.Item><Header>提案進度</Header></List.Item>
+                                            <List.Item>
+
+                                                <Label>退回程序</Label>
+
+                                            </List.Item>
+
+
+
+
+
+
+
+                                        </List>
+                                    </List.Item>
                                 </List>
+
+
 
 
                             </Segment>
@@ -205,13 +236,6 @@ class PolicyContent extends React.Component {
 
                                     {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                 </Grid.Column>
-                                <Grid.Column width={ 16 }>
-                                    { this.state.login && <><Icon name={ "heart" } className={ utilStyle.point + " " + this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
-                                        { this.state.heart ? "已收藏" : "收藏" }
-                                    </> }
-
-
-                                </Grid.Column>
 
 
 
@@ -221,17 +245,10 @@ class PolicyContent extends React.Component {
                         </div>
 
                     </>) : (<></>) }
-                    <Grid>
-                        <Grid.Row>
-                            { this.state.login && (<Grid.Column width={ 16 }>
+                   
+                            { this.state.login && (<>
                                 <Segment>
-                                    <Header>提案進度</Header>
-                                    <List horizontal>
 
-                                        <List.Item>交付審查</List.Item>
-                                        <List.Item icon={ "angle right" } />
-                                        <List.Item>退回程序</List.Item>
-                                    </List>
                                     <Grid >
                                         <Grid.Row columns={ "equal" }>
                                             <Grid.Column>
@@ -256,12 +273,13 @@ class PolicyContent extends React.Component {
                                             </Grid.Column>
 
                                         </Grid.Row>
-                                    </Grid>  </Segment>
+                                    </Grid>
+                                </Segment>
 
-                            </Grid.Column>) }
+                            </>) }
 
 
-                            <Grid.Column width={ 16 }>
+                          
                                 <Segment>
                                     <Comment.Group >
                                         <Header as='h3' dividing>RUN民討論專區</Header>
@@ -277,7 +295,7 @@ class PolicyContent extends React.Component {
                                                             <Comment.Action>回覆</Comment.Action>
 
                                                             <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
-                                                                rule={ this.state.rule }toDo={this.report}
+                                                                rule={ this.state.rule } toDo={ this.report }
                                                             />
 
                                                         </Comment.Actions>
@@ -295,9 +313,7 @@ class PolicyContent extends React.Component {
                                     </Comment.Group></Segment>
                                 <div className={ style.mes }>
                                 </div>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                            
                     <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)
