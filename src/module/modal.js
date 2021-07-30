@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from 'semantic-ui-react'
+import { Modal, Button ,List} from 'semantic-ui-react'
 
 
 export class ModalBase extends React.Component {
@@ -15,7 +15,7 @@ export class ModalBase extends React.Component {
         console.log("enter modalbase todo")
         let check = this.props.toDo()
         console.log(check)
-        if (check===true) {
+        if (check === true) {
             this.setOpen(false)
         } else {
             this.setState(check)
@@ -29,9 +29,9 @@ export class ModalBase extends React.Component {
                 onOpen={ () => this.setOpen(true) }
                 open={ this.state.open }
                 size='small'
-                trigger={ this.props.btn != null ? this.props.btn : 
-                <Button labelPosition={this.props.labelPosition}  color={this.props.color}>{ this.props.btnText }</Button> } 
-                >
+                trigger={ this.props.btn != null ? this.props.btn :
+                    <Button labelPosition={ this.props.labelPosition } color={ this.props.color }>{ this.props.btnText }</Button> }
+            >
                 <Modal.Header>{ this.props.message }</Modal.Header>
                 <Modal.Content image>
                     <Modal.Description>
@@ -66,19 +66,19 @@ export class ModalBase extends React.Component {
 
 
 export class InfoModal extends React.Component {
-   
-    
+
+
     render() {
         return (<>
             <Modal
-                onClose={  ()=>this.props.close }
-               
+                onClose={ () => this.props.close }
+
                 open={ this.props.open }
-                size={"mini"}
-                // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
+                size={ this.props.size!==undefined?this.props.size :"mini"}
+            // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
             >
                 <Modal.Header>{ this.props.message }
-                   </Modal.Header>
+                </Modal.Header>
                 <Modal.Content image>
                     <Modal.Description>
                         { this.props.content }
@@ -87,10 +87,10 @@ export class InfoModal extends React.Component {
                 <Modal.Actions>
                     <Button
                         content="關閉視窗"
-                        
-                        color={"black"}
-                        onClick={this.props.close}
-                       
+
+                        color={ "black" }
+                        onClick={ this.props.close }
+
                     />
                 </Modal.Actions></Modal>
 
@@ -103,11 +103,11 @@ export class ReportModal extends React.Component {
         return (<>
             <ModalBase
                 message="檢舉"
-                btn={this.props.btn}
-                toDo={ this.props.toDo }                
+                btn={ this.props.btn }
+                toDo={ this.props.toDo }
                 content={ (<>
 
-                    {this.props.rule && this.props.rule.map((item, index) => {
+                    { this.props.rule && this.props.rule.map((item, index) => {
                         return (<div><input type="checkbox" name="report" id={ `reportInput-${item.id}` } />
                             <label for={ `reportInput-${item.id}` }>{ item.context }</label></div>)
                     }) }
@@ -121,11 +121,11 @@ export class ReportModal extends React.Component {
 
 export class ProposalEditModal extends React.Component {
     render() {
-       
+
         return (<>
             <ModalBase
-               message="提案編輯"
-                toDo={ this.props.ok }              
+                message="提案編輯"
+                toDo={ this.props.ok }
                 content={ this.props.content } />
         </>)
     }
@@ -134,12 +134,12 @@ export class ProposalEditModal extends React.Component {
 export class ScoreModal extends React.Component {
     render() {
         return (<>
-           <Modal
+            <Modal
                 onClose={ () => this.props.setOpen(false) }
                 onOpen={ () => this.props.setOpen(true) }
                 open={ this.props.open }
                 size='small'
-                // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
+            // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
             >
                 <Modal.Header>{ this.props.message }</Modal.Header>
                 <Modal.Content >
@@ -165,6 +165,31 @@ export class ScoreModal extends React.Component {
                     />
                 </Modal.Actions>
             </Modal>
+        </>)
+    }
+}
+
+export class MsgModal extends React.Component {
+    render() {
+        return (<>
+            <InfoModal message={ this.props.title }
+                close={   this.props.close }
+                onClick={ this.props.close }
+                open={ this.props.open }
+                size={"small"}
+                content={ (<>
+                <List celled>
+                    { this.props.data&& this.props.data.map(item => {
+                        return (<>
+                        <List.Item>
+                        <List.Content floated={"right"}>{item.time}</List.Content>
+                        { item.content }
+                        
+                        </List.Item>
+                        </>)
+                    }) }</List>
+                </>) }
+            />
         </>)
     }
 }

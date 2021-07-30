@@ -15,12 +15,12 @@ export default class Search extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("Enter")
+        // console.log("Enter")
         let d = document.getElementsByClassName(style.box)
         let hasMore = []
-        console.log(d)
+        // console.log(d)
         for (let i of d) {
-            console.log(i.scrollHeight)
+            // console.log(i.scrollHeight)
             hasMore.push(i.scrollHeight > 40)
         }
         if (hasMore.length !== this.state.hasMore.length) {
@@ -40,7 +40,7 @@ export default class Search extends React.Component {
         let count = this.state.count
         let temp = ccc[name][item]
         ccc[name][item] = !temp
-        console.log(temp)
+      
         if (temp) { count -= 2 }
         this.setState({ like: ccc, count: count + 1 })
         this.props.getList()
@@ -58,9 +58,7 @@ export default class Search extends React.Component {
     }
     more = (c) => {
         let a = document.getElementById(c)
-        console.log(a.scrollHeight)
-        console.log(a.offsetHeight)
-        console.log(a.clientHeight)
+       
         if (a.offsetHeight < 40) {
             a.classList.remove(style.box)
         }

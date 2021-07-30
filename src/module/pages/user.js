@@ -11,7 +11,7 @@ import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
 import { trackPromise } from 'react-promise-tracker';
 import pic from "./pic.png"
-import { ModalBase } from '../modal.js';
+import { ModalBase, MsgModal } from '../modal.js';
 
 class User extends React.Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class User extends React.Component {
             { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
-            { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote }/>, icon: "flag" },
+            { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
             { name: "政見評分紀錄", in: <MyScoreRecord userName={ this.state.userName } policy_vote={ this.state.policy_vote } />, icon: "tasks" }
         ]
 
@@ -199,7 +199,20 @@ class MyProfile extends React.Component {
 class MySave extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            kpi: {
+                series: [10, 50, 40],
+                options: {
+                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    labels: ["同意", "中立", "反對"],
+                    title: {
+                        text: 'Run民立場投票',
+                        align: 'left',
+
+                    },
+                },
+            },
+        }
     }
     componentDidMount() {
         console.log(this.props.data)
@@ -216,42 +229,42 @@ class MySave extends React.Component {
     }
     render() {
         return (<>
-
+<List divided relaxed animated>
 
             {
                 this.state.save !== undefined ? this.state.save.map((item, index) => {
 
-                    return (<Grid><>
+                    return (<List.Item><Grid><>
 
-                        <List.Item onClick={ () => { } }>
+                    
 
-                            <Grid.Row className={ style.topicBoxBold } columns={ 3 }>
-                                <Grid.Column width={ 1 } />
+                            <Grid.Row className={ style.topicBoxBold } >
+                                {/* <Grid.Column width={ 1 } /> */}
                                 <Grid.Column width={ 11 }>
-                                    {/* <div>提案人：{ item.proposer.map(item => { return (<><Label >{ item }</Label></>) }) }</div> */ }
+                                    <div>提案人：{ item.f_name.map(item => { return (<><Label >{ item }</Label></>) }) }</div> 
                                     <h3 className={ style.ellipsis }>{ item.title }</h3>
                                     <div>
                                         <List horizontal>
 
                                             <List.Item>提案進度：{ item.status }</List.Item>
-                                            {/* { item.category.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) } */ }
+                                           { item.c_name.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) }
                                         </List>
                                     </div>
 
                                 </Grid.Column>
-                                <Grid.Column width={ 4 } >
-                                    {/* <Chart options={ this.state.kpi.options }
+                                <Grid.Column width={ 5 } >
+                                    <Chart options={ this.state.kpi.options }
                                             series={ this.state.kpi.series } type="donut"
-                                            height="125px" /> */}
+                                            height="125px" />
                                 </Grid.Column>
                             </Grid.Row>
 
-                        </List.Item>
+                       
 
 
-                    </></Grid>)
+                    </></Grid></List.Item>)
                 }) : <></>
-            }
+            }</List>
 
 
         </>);
@@ -263,7 +276,7 @@ class MySave extends React.Component {
 class MyMsgRecord extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { open: false }
     }
     componentDidMount() {
         this.setState({ msg: this.props.msg })
@@ -280,16 +293,27 @@ class MyMsgRecord extends React.Component {
         const newIndex = activeIndex === index ? -1 : index
         this.setState({ activeIndex: newIndex })
     }
+    close = () => { this.setState({ open: false }) }
+    openDatil = (d, t) => {
+        this.setState({ data: d, title: t, open: true })
+    }
+
 
     render() {
         const { activeIndex } = this.state
         return (<>
 
-            <Accordion>
+            <Card.Group itemsPerRow={ 2 }>
                 { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
                     return (<>
+                        <Card onClick={ ()=>this.openDatil(item.content, item.title) }>{ item.title }
+                            <Card.Content>
+                                {/* { item.content.map(m => { return (<Label content={ m.content } />) }) } */ }
 
-                        <Accordion.Title
+                            </Card.Content>
+                        </Card>
+
+                        {/* <Accordion.Title
                             active={ activeIndex === index }
                             index={ index }
                             onClick={ this.handleClick }
@@ -299,10 +323,16 @@ class MyMsgRecord extends React.Component {
                         <Accordion.Content active={ activeIndex === index }>
                             <List onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } } className={ utilStyle.point }>
                                 { item.content.map(m => { return (<List.Item content={ m } />) }) } </List>
-                        </Accordion.Content>
+                        </Accordion.Content> */}
 
                     </>)
-                }) : <></> }</Accordion>
+                }) : <></> }</Card.Group>
+            <MsgModal title={ this.state.title }
+                data={ this.state.data }
+                open={ this.state.open }
+                close={ this.close }
+
+            />
 
         </>);
     }
@@ -314,7 +344,7 @@ class MyVoteRecord extends React.Component {
         this.state = {}
     }
     componentDidMount() {
-        this.setState({})
+        this.setState({ matches: window.matchMedia("(min-width: 768px)").matches })
     }
     render() {
         return (<>
@@ -322,18 +352,18 @@ class MyVoteRecord extends React.Component {
                 <Table.HeaderCell>提案標題</Table.HeaderCell>
                 <Table.HeaderCell>投票立場</Table.HeaderCell>
             </Table.Row></Table.Header>
-            { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
-                return (<>
-                    <Table.Body>
-                        <Table.Row
+                { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
+                    return (<>
+                        <Table.Body>
+                            <Table.Row
 
-                        // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
-                        >
-                            <Table.Cell>{ item.title } </Table.Cell>
-                            <Table.Cell>{ item.type }</Table.Cell>
-                        </Table.Row></Table.Body>
-                </>)
-            }) : <></> }
+                            // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
+                            >
+                                <Table.Cell>{ item.title } </Table.Cell>
+                                <Table.Cell>{ item.type }</Table.Cell>
+                            </Table.Row></Table.Body>
+                    </>)
+                }) : <></> }
             </Table>
         </>);
     }
@@ -355,10 +385,10 @@ class MyScoreRecord extends React.Component {
                     return (<>
                         <Card>
                             <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
-                            <Card.Content>{item.c_name.map(c=>{return(<Label>{c}</Label>)})}</Card.Content>
-                            
-                            <Card.Content>{item.type}</Card.Content>
-                            
+                            <Card.Content>{ item.c_name.map(c => { return (<Label>{ c }</Label>) }) }</Card.Content>
+
+                            <Card.Content>{ item.type }</Card.Content>
+
                         </Card>
                     </>)
                 }) : <></> }

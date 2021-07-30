@@ -1,9 +1,11 @@
 import React from 'react';
 import { Pages } from "../pages.js"
 import { Card, Dropdown, Button, Form, Label, Segment, Image } from 'semantic-ui-react'
-import Chart from 'react-apexcharts'
-import { Line,Bar } from 'react-chartjs-2';
-
+// import Chart from 'react-apexcharts'
+import { Line, Bar } from 'react-chartjs-2';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
 import style from "../../css/figureDetail.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
@@ -21,52 +23,8 @@ class FigureDetail extends React.Component {
         this.state = {
             "login": !!localStorage.getItem("login"),
             userName: localStorage.getItem("login"),
-            options: {},
-            data: {
-                session: 10,
-                persoal: {
-                    option: {
-                        chart: { toolbar: { show: false }, foreColor: "#fff" },
-                        tootip: { style: { color: "#000" } },
-                        xaxis: { categories: ["退回程序", "審查完畢", "交付審查", "排入院會", "三讀", "逕付二讀"], },
-                        fill: { opacity: 1.0, }, colors: ['#586F7C', "#c6d8d3"],
-                        title: {
-                            text: "提案數量統計", align: 'left',
-                            style: { fontSize: "25px" }
-                        }
-                    },
-                    series: [{ name: "當屆", data: [20, 45, 64, 26, 27, 85,] }, { name: "歷屆平均", data: [44, 5, 6, 6, 27, 8,] }],
-                    legend: { show: false, }
-                }
 
-            },
-            go: [{ name: "該政治人物", data: [99, 98] }, { name: "該政治人總平均", data: [98.5, 98.5] }, { name: "立委總平均", data: [88, 85] }],
-            score: [{ name: "該政治人物", data: [85, 90] }, { name: "該政治人總平均", data: [87.5, 87.5] }, { name: "立委總平均", data: [77, 85] }],
-            scoreD: {
-                chart: { toolbar: { show: false, }, foreColor: "#fff" },
-                colors: ['#08B2E3', "#EE6352", "#EFE9F4"],
-                dataLabels: { enabled: true, },
-                stroke: { curve: 'smooth' },
-                title: {
-                    text: '政見達成分數走勢:總平均80',
-                    align: 'left',
-                    style: { fontSize: "25px" }
-                },
-                xaxis: { categories: ['9', '10'], title: { text: '', }, }
-            },
-            goO: {
-                chart: { toolbar: { show: false, }, foreColor: "#fff" },
-                colors: ['#08B2E3', "#EE6352", "#EFE9F4"],
-                dataLabels: { enabled: true, },
-                stroke: { curve: 'smooth' },
-                title: {
-                    text: '出席率走勢圖:總平均:98.5',
-                    align: 'left',
-                    style: { fontSize: "25px" }
-                },
-                xaxis: { categories: ['9', '10'], title: { text: '', }, },
 
-            },
             selfD: [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }],
             scoreShow: false,
             scoreRule: [
@@ -115,7 +73,6 @@ class FigureDetail extends React.Component {
 
             })
         )
-        window.scrollTo(0, 0)
         this.changeTerm("當屆")
 
 
@@ -156,140 +113,141 @@ class FigureDetail extends React.Component {
         const ldata = {
             labels: ['1', '2', '3', '4', '5', '6'],
             datasets: [
-              {
-                label: '該政治人物',
-                data: [10, 9, 13, 15, 12, 13],
-                fill: false,
-                backgroundColor: '#FEC240',
-                borderColor: '#FEC240',
-              },
-              {
-              label: '該政治人物總平均',
-                data: [12, 19, 3, 5, 2, 3],
-                fill: false,
-                backgroundColor: '#DE4B43',
-                borderColor: '#DE4B43',
-              },
-              {
-                label:'立委總平均',
-                data: [1, 10, 4, 7, 8, 15],
-                fill: false,
-                backgroundColor: '#98C4D1',
-                borderColor:'#98C4D1',
-              }
+                {
+                    label: '該政治人物',
+                    data: [10, 9, 13, 15, 12, 13],
+                    fill: false,
+                    backgroundColor: '#FEC240',
+                    borderColor: '#FEC240',
+                },
+                {
+                    label: '該政治人物總平均',
+                    data: [12, 19, 3, 5, 2, 3],
+                    fill: false,
+                    backgroundColor: '#DE4B43',
+                    borderColor: '#DE4B43',
+                },
+                {
+                    label: '立委總平均',
+                    data: [1, 10, 4, 7, 8, 15],
+                    fill: false,
+                    backgroundColor: '#98C4D1',
+                    borderColor: '#98C4D1',
+                }
             ],
         };
-          
-          const loptions = {
+
+        const loptions = {
             scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
+                x: {
+                    ticks: { color: "#fff" }
                 },
-              ],
+                y: {
+                    ticks: { color: "#fff" }
+                },
             },
             layout: {
                 padding: 35
             },
             plugins: {
+                legend: { labels: { font: { family: "abc" } } },
                 title: {
                     display: true,
                     text: '政見達成分數走勢圖',
-                    color:'#ffffff',
+                    color: '#ffffff',
                     font: {
-                        size: 25
+                        size: 25,
+                        family: "abc"
                     },
                     padding: {
                         top: 3,
                     }
                 }
             },
-            color:'#ffffff'
-          };
+            color: '#ffffff'
+        };
 
         const lldata = {
             labels: ['1', '2', '3', '4', '5', '6'],
             datasets: [
-              {
-                label: '該政治人物',
-                data: [9, 9, 8, 15, 7, 10],
-                fill: false,
-                backgroundColor: '#FEC240',
-                borderColor: '#FEC240',
-              },
-              {
-              label: '該政治人物總平均',
-                data: [6, 6, 5, 8, 6, 8],
-                fill: false,
-                backgroundColor: '#DE4B43',
-                borderColor: '#DE4B43',
-              },
-              {
-                label:'立委總平均',
-                data: [7, 10, 4, 6, 8, 9],
-                fill: false,
-                backgroundColor: '#98C4D1',
-                borderColor:'#98C4D1',
-              }
+                {
+                    label: '該政治人物',
+                    data: [9, 9, 8, 15, 7, 10],
+                    fill: false,
+                    backgroundColor: '#FEC240',
+                    borderColor: '#FEC240',
+                },
+                {
+                    label: '該政治人物總平均',
+                    data: [6, 6, 5, 8, 6, 8],
+                    fill: false,
+                    backgroundColor: '#DE4B43',
+                    borderColor: '#DE4B43',
+                },
+                {
+                    label: '立委總平均',
+                    data: [7, 10, 4, 6, 8, 9],
+                    fill: false,
+                    backgroundColor: '#98C4D1',
+                    borderColor: '#98C4D1',
+                }
             ],
         };
-          
-          const lloptions = {
+
+        const lloptions = {
             scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
+                x: {
+                    ticks: { color: "#fff" }
                 },
-              ],
+                y: {
+                    ticks: { color: "#fff" }
+                },
             },
             layout: {
                 padding: 35
             },
             plugins: {
+
                 title: {
                     display: true,
                     text: '出席率走勢圖',
-                    color:'#ffffff',
+                    color: '#ffffff',
                     font: {
-                        size: 25
+                        size: 25,
+                        family: "abc"
                     },
                     padding: {
                         top: 3,
                     }
                 }
             },
-            color:'#ffffff'
-          };
+            color: '#ffffff'
+        };
 
         const bdata = {
             labels: ['退回程序', '審查完畢', '交付審查', '排入院會', '三讀', '逕付二讀'],
             datasets: [
-              {
-                label: '當屆',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: '#FEC240',
-              },
-              {
-                label: '歷屆平均',
-                data: [2, 3, 20, 5, 1, 4],
-                backgroundColor: '#98C4D1',
-              },
+                {
+                    label: '當屆',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: '#FEC240',
+                },
+                {
+                    label: '歷屆平均',
+                    data: [2, 3, 20, 5, 1, 4],
+                    backgroundColor: '#98C4D1',
+                },
             ],
         };
-          
-          const boptions = {
+
+        const boptions = {
             scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
+                x: {
+                    ticks: { color: "#fff" }
                 },
-              ],
+                y: {
+                    ticks: { color: "#fff" }
+                },
             },
             layout: {
                 padding: 35
@@ -298,18 +256,20 @@ class FigureDetail extends React.Component {
                 title: {
                     display: true,
                     text: '提案數量統計長條圖',
-                    color:'#ffffff',
+                    color: '#ffffff',
                     font: {
-                        size: 25
+                        size: 25,
+                        family: "abc"
                     },
                     padding: {
                         top: 3,
                     }
                 }
             },
-            color:'#ffffff'
-          };
-
+            color: '#ffffff'
+        };
+        SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel,]);
+        // Chart.defaults.font.family="abc"
         return (<Pages id={ 3 }
             pageInfo={ [{ content: '政治人物', link: true, href: "./#/figure" },
             { content: this.state.name, active: true, href: `./#/figure/${this.props.match.params.id}` }] }
@@ -329,7 +289,6 @@ class FigureDetail extends React.Component {
                                                     </center>
                                                 </Grid.Column>
                                                 <Grid.Column >
-
                                                     <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
                                                     <p className={ style.in }>
                                                         <Dropdown text={ this.state.term && this.state.term }>
@@ -345,6 +304,11 @@ class FigureDetail extends React.Component {
                                                 </Grid.Column>
                                             </Grid.Row>
                                         </Grid>
+                                        <Card.Content>
+
+                                            <p>犯罪紀錄 : 2 筆</p>
+                                            <p>政治獻金 : 5 筆 100萬</p>
+                                        </Card.Content>
                                         <Card.Content>
                                             <Grid>
                                                 <Grid.Row columns={ "equal" } >
@@ -375,14 +339,15 @@ class FigureDetail extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column computer={ 11 } mobile={ 16 }>
-                           
-                                      
-                                  <Swiper
-                                   className={ style.dashboardcard }
-                                        spaceBetween={ 50 }
+
+
+                                    <Swiper
+                                        className={ style.dashboardcard }
+                                        mousewheel={ true }
+                                        spaceBetween={ 30 }
                                         slidesPerView={ 1 }
                                         navigation
-                                        pagination={ { clickable: true } }
+                                        pagination={ { clickable: true, } }
                                     >
                                         {/* <SwiperSlide  >
                                             <center><Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 250 } width={ 450 } /></center>
@@ -390,17 +355,17 @@ class FigureDetail extends React.Component {
                                         <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 } width={ 450 } /></center></SwiperSlide>
                                         <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" width={ 450 } height={ 250 } /></center></SwiperSlide> */}
                                         <SwiperSlide>
-                                            <Line data={ldata} options={loptions} />
+                                            <Line data={ ldata } options={ loptions } />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <Line data={lldata} options={lloptions} />
+                                            <Line data={ lldata } options={ lloptions } />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <Bar data={bdata} options={boptions} />
+                                            <Bar data={ bdata } options={ boptions } />
                                         </SwiperSlide>
                                     </Swiper>
 
-                                    <Segment  basic><div className={ style.bigSize + " " + style.center }>政見</div></Segment>
+                                    <Segment basic><div className={ style.bigSize + " " + style.center }>政見</div></Segment>
                                     <Card.Group itemsPerRow={ 2 }  >
                                         { this.state.policy && this.state.policy.map((placement, index) => {
                                             if (index === 0) return (<></>)

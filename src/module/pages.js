@@ -10,6 +10,7 @@ export class Pages extends React.Component {
         this.state = []
     }
     componentDidMount() {
+        window.scrollTo(0, 0)
         let section = []
         if (this.props.id !== 0) {
             section = [{ content: (<><Icon name={"home"}/>首頁</>), link: true, href: "./" }]

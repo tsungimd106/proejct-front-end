@@ -2,11 +2,13 @@ import React from 'react';
 import { Pages } from "../pages.js"
 import person from "../../imgs/person.png"
 import r from "../../imgs/R.png"
+import invit from "../../imgs/invit.gif"
 import { Card, Grid, List, Image, Header, Segment, Table, Icon, Tab } from 'semantic-ui-react'
 import style from "../../css/main.module.css"
-
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y ,Mousewheel} from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -18,7 +20,7 @@ class Home extends React.Component {
 
             imageData: [
                 r,
-                r, r
+                invit
             ],
             chart: [
                 { name: '政要RUN', score: 100, img: person },
@@ -69,6 +71,7 @@ class Home extends React.Component {
 
 
     render() {
+        SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel,]);
         return (<Pages id={ 0 } page={
             (<>
                 <div >
@@ -77,6 +80,7 @@ class Home extends React.Component {
                             spaceBetween={ 50 }
                             slidesPerView={ 1 }
                             navigation
+                            mousewheel
                             pagination={ { clickable: true } }
                         >
                             { this.state.imageData.map(item => {
@@ -220,7 +224,7 @@ class Home extends React.Component {
                                     { this.state.proposal.map((item, index) => {
                                         return (index > 0 ? <>
                                             <Table.Row >
-                                                 <Table.Cell width="2">{ item.name }</Table.Cell>
+                                                <Table.Cell width="2">{ item.name }</Table.Cell>
                                                 <Table.Cell >{ item.title }</Table.Cell>
                                                 <Table.Cell width={ 4 } >
                                                     <Icon name={ "heart" } />{ item.score }
