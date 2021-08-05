@@ -129,61 +129,61 @@ class MyProfile extends React.Component {
             {/* celled='internally' */ }<Grid >
                 <Grid.Row columns={ "equal" }>
                     <Grid.Column width={ 16 } textAlign={ "center" }>
-                        <div><h5>大頭貼照</h5></div>
                         <img className={ style.pic } src={ pic } alt="" />
                     </Grid.Column>
                     <Grid.Column width={8} textAlign={"right"} className={style.data}>
-                        <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Button className={style.btncolor} icon labelPosition='right' color={ "teal" } size={ "mini" } content={ this.state.user && this.state.user.name } icon={ "edit" } />}  toDo={ this.editName } />
+                        <ModalBase color={ "teal" } message={ "修改暱稱" } btn={ <Button className={style.btncolor} icon labelPosition='right' color={ "teal" } size={ "medium" } content={ this.state.user && this.state.user.name } icon={ "edit" } />}  toDo={ this.editName } />
                     </Grid.Column>
                     <Grid.Column width={8} textAlign={"left"}  className={style.data}>
-                        <ModalBase btn={ <Button className={style.btncolor} icon labelPosition='right' color={ "teal" } size={ "mini" } content={ "修改密碼" } icon={ "edit" } /> } labelPosition={ 'left' } color={ "teal" } message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } />
+                        <ModalBase btn={ <Button className={style.btncolor} icon labelPosition='right' color={ "teal" } size={ "medium" } content={ "修改密碼" } icon={ "edit" } /> } labelPosition={ 'left' } color={ "teal" } message={ "修改密碼" } btnText={ "修改密碼" } toDo={ this.editPsw } />
                     </Grid.Column>
-                    <Grid.Column className={ style.left }>
-                        <Segment className={ style.fixheight }>
-                            <h5 className={ style.topicBold }>生日</h5>
-                            <div>{ this.state.user && this.state.user.birthday }</div>
-                        </Segment>
-                        <Segment className={ style.fixheight }>
-                            <h5 className={ style.topicBold }>性別</h5>
-                            <div>{ this.state.user && this.state.user.gender }</div>
-                        </Segment>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Segment className={ style.data }><Grid><Grid.Row>
-                            <Grid.Column width={ 16 }><h5 className={ style.topicBold }>地區
-                                <Icon name={ "edit" } className={ style.icon } onClick={ this.areaShow } />
+                </Grid.Row></Grid>
 
+                <Card.Group itemsPerRow={ 2 } >
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>生日</Card.Header>
+                                <Card.Description>{ this.state.user && this.state.user.birthday }</Card.Description>
+                            </Card.Content>                            
+                        </Card>
+                        
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>地區 <Icon name={ "edit" } className={ style.icon } onClick={ this.areaShow } /></Card.Header>
                                 <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                                     <div>
                                         <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
 
                                         <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green' />
                                     </div>
-                                </Transition></h5></Grid.Column>
-                            <Grid.Column width={ 4 }><span>台北市</span></Grid.Column>
-                            <Grid.Column width={ 7 }>
+                                </Transition>
+                                <Card.Description>台北市</Card.Description>
+                            </Card.Content>
+                        </Card>
 
-                            </Grid.Column>
-                        </Grid.Row></Grid></Segment>
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>性別</Card.Header>
+                                <Card.Description>{ this.state.user && this.state.user.gender }</Card.Description>
+                            </Card.Content>
+                        </Card>
 
-                        <Segment className={ style.fixheight }><Grid><Grid.Row>
-                            <Grid.Column width={ 16 }><h5 className={ style.topicBold }>興趣
-                                <ModalBase color={ "teal" } message={ "修改興趣" } btn={ <Icon name={ "edit" } className={ style.icon } /> } toDo={ this.editClass } /></h5></Grid.Column>
-                            <Grid.Column width={ 16 } className={ style.label }>
-                                <Label.Group>
-                                    <Label>#交通</Label>
-                                    <Label>#教育</Label>
-                                    <Label>#醫療</Label>
-                                    <Label>#勞工</Label>
-                                    <Label>#弱勢</Label>
-                                    <Label>...</Label>
-                                </Label.Group>
-                            </Grid.Column>
-
-                        </Grid.Row></Grid></Segment>
-                        
-                    </Grid.Column>
-                </Grid.Row></Grid>
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>興趣 <ModalBase color={ "teal" } message={ "修改興趣" } btn={ <Icon name={ "edit" } className={ style.icon } /> } toDo={ this.editClass } /></Card.Header>
+                                <Card.Description>
+                                    <Label.Group>
+                                        <Label>#交通</Label>
+                                        <Label>#教育</Label>
+                                        <Label>#醫療</Label>
+                                        <Label>#勞工</Label>
+                                        <Label>#弱勢</Label>
+                                        <Label>...</Label>
+                                    </Label.Group>
+                                </Card.Description>
+                            </Card.Content>
+                        </Card>
+                </Card.Group>
 
         </>);
     }
