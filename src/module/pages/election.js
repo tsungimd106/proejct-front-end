@@ -63,11 +63,6 @@ class Election extends React.Component {
                         onClick={ this.toQa }
                     />
                     <Menu.Item
-                        name='查詢投票地點'
-
-                        onClick={ this.toSearch }
-                    />
-                    <Menu.Item
                         name='選舉大事紀'
 
                         onClick={ this.toThing }
@@ -147,23 +142,6 @@ class Election extends React.Component {
 
 
                                 </Accordion>
-                            </Segment>
-                        </Grid.Column>
-                    </Grid.Row></Grid>
-                </Segment>
-
-                <Segment basic >
-                    <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate }>
-                            <Ref innerRef={ this.searchRef }>
-                                <Button color={ "teal" } variant="secondary" size="lg" disabled >查詢投票地點</Button></Ref>
-                        </Grid.Column>
-                        <Grid.Column width={ 16 - rate }>
-                            <Segment >
-                                <h1 >查詢投票地點</h1>
-                                <p>
-                                    在這裡查詢自己的投票地點~
-                                </p>
                             </Segment>
                         </Grid.Column>
                     </Grid.Row></Grid>
