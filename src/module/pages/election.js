@@ -1,6 +1,10 @@
 import React from 'react';
-import { Pages } from "../pages.js"
-import { Grid, Button, Ref, Segment, Menu, Embed, Accordion, Icon, List, Table } from 'semantic-ui-react'
+import { Pages } from "../pages.js";
+import { Grid, Button, Ref, Segment, Menu, Embed, Accordion, Icon, List, Table, Tab, Image } from 'semantic-ui-react';
+import vote1 from "../../imgs/vote3-1.jpg"
+import vote2 from "../../imgs/vote3-2.jpg"
+import vote3 from "../../imgs/vote5.jpg"
+import vote4 from "../../imgs/vote6.jpg"
  
 
 
@@ -23,6 +27,8 @@ class Election extends React.Component {
             ], activeIndex: 0,
             note: ["公告全國性公民投票案第20案投票日期、投票起、止時間、編號、主文、理由書、政府機關針對公民投票案提出之意見書、公民投票權行使範圍及方式、正反意見支持代表於全國性無線電視頻道發表意見或進行辯論之辦理期間與應遵行之事項等事項", "中選會提醒有意參加公投意見發表會或辯論會者，請在6月4日前申請許可設立辦事處並完成報名", "公告全國性公民投票案第19案投票日期、投票起、止時間、編號、主文、理由書、政府機關針對公民投票案提出之意見書、公民投票權行使範圍及方式、正反意見支持代表於全國性無線電視頻道發表意見或進行辯論之辦理期間與應遵行之事項等事項"]
         }
+          
+
     }
     toVote = () => {
 
@@ -44,11 +50,34 @@ class Election extends React.Component {
 
         this.setState({ activeIndex: newIndex })
     }
+    
 
 
     render() {
         const rate = 3
         const { activeIndex } = this.state
+        const panes = [
+            { menuItem: '投票影片', render: () => 
+                <Tab.Pane>
+                    <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube'/>
+                </Tab.Pane> },
+            { menuItem: '投票三口訣', render: () => 
+                <Tab.Pane>
+                    <Image src={vote1} size='huge'centered />
+                </Tab.Pane> },
+            { menuItem: '投票三寶', render: () =>
+                <Tab.Pane>
+                    <Image src={vote2} size='huge' centered/>
+                </Tab.Pane> },
+            { menuItem: '投票這五步', render: () => 
+                <Tab.Pane>
+                    <Image src={vote3} size='large'centered />
+                </Tab.Pane> },
+            { menuItem: '投票這六不', render: () => 
+                <Tab.Pane>
+                    <Image src={vote4} size='large' centered/>
+                </Tab.Pane> },
+          ]
         return (<Pages id={ 1 } pageInfo={ [{ content: '選舉報你知', active: true, href: "./#/election" }] } page={
             (<>
                 <Menu secondary>
@@ -98,15 +127,7 @@ class Election extends React.Component {
                         <Grid.Column width={ 16 - rate }>
                             <Segment >
                                 <h1 >投票要點</h1>
-                                <Embed
-                                    id='uZp4P70H6E8'
-                                    // placeholder='/images/image-16by9.png'
-                                    source='youtube'
-                                />
-                                <p>
-                                    這裡是和投票要點,包含投票流程,投票必備品,相關影片和指南手冊
-                                </p>
-
+                                <Tab panes={panes} />
                             </Segment>
                         </Grid.Column>
                     </Grid.Row></Grid>
