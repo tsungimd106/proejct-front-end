@@ -16,14 +16,14 @@ class Base extends React.Component {
         return (<>
             <div className={ style.back }>
 
-                <Grid textAlign={ "center" } verticalAlign={ "middle" }> <Grid.Row  >
+                <Grid textAlign={ "center" } verticalAlign={ "middle" } > <Grid.Row  >
                     {/* <Grid.Column width={ 6 } xs={ 12 } className={ style.left }>
                     <h4>Welcome</h4>
                     <h6>__</h6>
                     { enough_height && <img src={  logo_light } alt="" /> }
                 </Grid.Column> */}
                     <Grid.Column floated={ "right" }> <a href="./#/"><img src={ home_icon } className={ style.homeKey } alt="" /></a></Grid.Column>
-                    <Grid.Column width={ 16 } className={ style.backC }>
+                    <Grid.Column width={ 16 } className={ style.backC } >
 
                         { this.props.content }
                     </Grid.Column>
