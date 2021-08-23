@@ -2,9 +2,10 @@ import { FetchUtil } from "../util/fetchUtil";
 
 export  class ProposalR {
     static root = "proposal"
-    static list(page) {
-        return FetchUtil.getAPI(`${this.root}`,{"page":page|1})
+    static list(data) {
+        return FetchUtil.getAPI(`${this.root}`,data)
     }
+    
     static msg(data) {
         return FetchUtil.postAPI(`${this.root}/msg`, data)
     }

@@ -18,25 +18,27 @@ import Search from "../bar/search"
     }
     componentDidMount() {
 
-        trackPromise(
-            PoliticianR.getList().then(response => {
+        PoliticianR.getList().then(response => {
 
-                this.setState({ "data": response.data.data, resource: response.data.data })
-            }))
-        trackPromise(
-            PoliticianR.cond().then(response => {
-                let test = {}
-                for (let i of response.data.data) {
-                    let inside = {}
-                    for (let j of i.data) {
-                        inside[j.name] = false
-                    }
-                    test[i.name] = inside
-
+            this.setState({ "data": response.data.data, resource: response.data.data })
+        })
+        PoliticianR.cond().then(response => {
+            console.log(response)
+            let test = {}
+            for (let i of response.data.data) {
+                // console.log(i)
+                let inside = []
+                for (let j of i.data) {
+                    // console.log(j)
+                    j["check"]=false
+                    inside.push(j)
                 }
-                this.setState({ "like": test })
-            })
-        )
+                test[i.name] = inside
+
+            }
+            console.log(test)
+            this.setState({ "like": test })
+        })
 
 
 
@@ -51,16 +53,17 @@ import Search from "../bar/search"
         console.log(this.state.like)
         for (let key in this.state.like) {
             for (let v in this.state.like[key]) {
-                if (this.state.like[key][v]) {
+                if (this.state.like[key][v]["check"]) {
+                    console.log(this.state.like[key][v]["name"])
                     switch (key) {
                         case "屆別":
-                            term.push(v)
+                            term.push(this.state.like[key][v]["name"])
                             break;
                         case "地區":
-                            area.push(v)
+                            area.push(this.state.like[key][v]["name"])
                             break;
                         case "姓名":
-                            name.push(v)
+                            name.push(this.state.like[key][v]["name"])
                             break
                         default:break
                     }

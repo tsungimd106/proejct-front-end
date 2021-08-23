@@ -12,7 +12,8 @@ import { trackPromise } from 'react-promise-tracker';
 import { ScoreModal, InfoModal } from "../modal"
 import { Grid } from 'semantic-ui-react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 // import PacmanLoader from "react-spinners/ClipLoader";
 
 
@@ -268,6 +269,8 @@ class FigureDetail extends React.Component {
             },
             color: '#ffffff'
         };
+       
+   
         SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel,]);
         // Chart.defaults.font.family="abc"
         return (<Pages id={ 3 }
@@ -291,13 +294,7 @@ class FigureDetail extends React.Component {
                                                 <Grid.Column >
                                                     <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
                                                     <p className={ style.in }>
-                                                        <Dropdown text={ this.state.term && this.state.term }>
-                                                            <Dropdown.Menu>
-                                                                <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
-                                                                <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
-                                                                <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
+
                                                     </p>
                                                     <p className={ style.in }>{ this.state.selfD && this.state.area }</p>
                                                     <p className={ style.in }> { this.state.selfD && this.state.areaReamrk }</p>
@@ -340,7 +337,46 @@ class FigureDetail extends React.Component {
                                 </Grid.Column>
                                 <Grid.Column computer={ 11 } mobile={ 16 }>
 
+                                    <Dropdown text={ this.state.term && this.state.term }>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                  
+                                        <Card.Group  itemsPerRow={ 3 }>
+                                            <Card className={style.dashboardcard}>
+                                         <div className={style.scoreCircle}>政見評分
+                                         <CircularProgressbar value={50} text={`${59}`} styles={buildStyles({
+                                                strokeLinecap:"butt",
+                                                pathColor:"#FEC240",
+                                                textColor:"#fff"
+                                                
+                                            })}/>
+                                         </div>
 
+                                            </Card>
+                                            <Card  className={style.dashboardcard}>
+                                            <div className={style.scoreCircle}>出席率
+                                            <CircularProgressbar value={99} text={`${99}%`} styles={buildStyles({
+                                                strokeLinecap:"butt",
+                                                pathColor:"#FEC240",
+                                                textColor:"#fff"
+                                                
+                                            })}/></div>
+
+                                            </Card>
+                                            <Card  className={style.dashboardcard}> <div className={style.scoreCircle}>提案數
+                                            <CircularProgressbar value={100} text={`${55}`} styles={buildStyles({
+                                                strokeLinecap:"butt",
+                                                pathColor:"#FEC240",
+                                                textColor:"#fff"
+                                                
+                                            })}/></div>
+                                            </Card>
+                                        </Card.Group>
+                                        <Segment basic>  </Segment>
                                     <Swiper
                                         className={ style.dashboardcard }
                                         mousewheel={ true }
@@ -365,7 +401,16 @@ class FigureDetail extends React.Component {
                                         </SwiperSlide>
                                     </Swiper>
 
-                                    <Segment basic><div className={ style.bigSize + " " + style.center }>政見</div></Segment>
+                                    <Segment basic padded><div className={ style.bigSize + " " + style.center }>政見
+                                    </div> <Dropdown text={ this.state.term && this.state.term }>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    </Segment>
+                                    
                                     <Card.Group itemsPerRow={ 2 }  >
                                         { this.state.policy && this.state.policy.map((placement, index) => {
                                             if (index === 0) return (<></>)
