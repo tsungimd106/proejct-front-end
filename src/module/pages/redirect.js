@@ -1,9 +1,5 @@
 import React from 'react';
 
-
-
-
-
 class Redirect extends React.Component {
     to=null
     componentDidMount() {
@@ -15,9 +11,7 @@ class Redirect extends React.Component {
 
     render() {
         return (
-            <>重新導向中</>)
-
-
+            <div>重新導向中</div>)
     }
 }
 

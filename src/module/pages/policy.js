@@ -7,8 +7,8 @@ import utilStyle from "../../css/util.module.css"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
-// import {Paging} from "../pagination"
-import { Grid, Icon, List, Label, Pagination } from 'semantic-ui-react'
+
+import { Grid, Icon, List, Label, Pagination, Segment } from 'semantic-ui-react'
 
 class Policy extends React.Component {
 
@@ -20,7 +20,7 @@ class Policy extends React.Component {
             kpi: {
                 series: [10, 50, 40],
                 options: {
-                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    colors: ['#fec240', '#98c4d1', '#de4b43'],
                     labels: ["同意", "中立", "反對"],
                     title: {
                         text: 'Run民立場投票',
@@ -47,7 +47,7 @@ class Policy extends React.Component {
 
         let status = []
 
-        console.log(this.state.like)
+        // console.log(this.state.like)
         for (let key in this.state.like) {
             for (let v in this.state.like[key]) {
                 if (this.state.like[key][v]) {
@@ -71,44 +71,48 @@ class Policy extends React.Component {
         if (status.length > 0) {
             d["status"] = status
         }
-        if (Array.isArray(this.state.resource)) {
-            let newd = this.state.resource.filter(i => {
+        this.handleF()
+        // if (Array.isArray(this.state.resource)) {
+        //     let newd = this.state.resource.filter(i => {
 
 
-                let termb = false
-                let statusb = false
+        //         let termb = false
+        //         let statusb = false
 
-                if (term.length > 0) {
-                    term.forEach(item => { if (i["term"] === item) { termb = true; return; } })
-                }
-                if (status.length > 0) {
-                    status.forEach(item => { if (i["status"] === item) { statusb = true; return; } })
-                }
+        //         if (term.length > 0) {
+        //             term.forEach(item => { if (i["term"] === item) { termb = true; return; } })
+        //         }
+        //         if (status.length > 0) {
+        //             status.forEach(item => { if (i["status"] === item) { statusb = true; return; } })
+        //         }
 
-                termb = term.length > 0 ? termb : true
-                statusb = status.length > 0 ? statusb : true
+        //         termb = term.length > 0 ? termb : true
+        //         statusb = status.length > 0 ? statusb : true
 
-                return termb & statusb
-            })
-            console.log(newd)
+        //         return termb & statusb
+        //     })
+        //     console.log(newd)
 
-            this.setState({ "Sdata": newd })
+        //     this.setState({ "Sdata": newd })
 
-        }
+
+        // }
     }
     componentDidMount() {
 
-        ProposalR.list().then(response => {
+        ProposalR.list({ page: 1 }).then(response => {
             console.log(response)
             this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
-            
+
         })
         ProposalR.cond().then(response => {
             let test = {}
             for (let i of response.data.data) {
-                let inside = {}
+                let inside = []
                 for (let j of i.data) {
-                    inside[j.name] = false
+                    j["check"] = false
+                    inside.push(j)
+                    // inside["id"]=j.id
                 }
                 test[i.name] = inside
 
@@ -120,7 +124,7 @@ class Policy extends React.Component {
 
 
 
-        this.setState({ condData: [{ n: "進度", d: ["完全落實", "部分落實", "進行中"] }] })
+        // this.setState({ condData: [{ n: "進度", d: ["完全落實", "部分落實", "進行中"] }] })
     }
     // test = () => {
     //     fetch("http://localhost:5000/politician/list?name='abc','name'&name=[ab,dd]", {
@@ -133,13 +137,31 @@ class Policy extends React.Component {
     //     }).then(res => res.json()).then(r => { console.log(r) })
     // }
     handlePaginationChange = (e, { activePage }) => {
-        this.setState({nowPage:activePage})
+        this.setState({ nowPage: activePage })
         console.log(activePage)
-        ProposalR.list(activePage).then(response => {
+        let data
+        (this.state.cond)? data={"status_id":this.state.cond,"page":activePage}:data={ "page": activePage }
+        ProposalR.list(data).then(response => {
             window.scrollTo(0, 0)
             this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
-           
+
         })
+    }
+    handleF = () => {
+        console.log(this.state.like["狀態"])
+        let statusL = []
+        this.state.like["狀態"].map(item => {
+            if (item.check) statusL.push(item.id)
+        })
+
+        console.log(statusL)
+        this.setState({ "cond": statusL })
+        ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
+            console.log(response)
+            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
+
+        })
+
     }
 
     render() {
@@ -185,18 +207,22 @@ class Policy extends React.Component {
 
                         </List.Item>)
                     }) }</List>
-                <Pagination
-                    activePage={ this.state.nowPage }
-                    boundaryRange={ 0 }
-                    defaultActivePage={1}
-                    onPageChange={ this.handlePaginationChange }
-                    size='mini'
-                    siblingRange={1}
-                    ellipsisItem={null}
-                    totalPages={ this.state.pageTotal }
-                // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+                <Segment basic textAlign={ "center" }>
+                    <Pagination
 
-                />
+                        activePage={ this.state.nowPage }
+                        boundaryRange={ 0 }
+                        secondary
+                        defaultActivePage={ 1 }
+                        onPageChange={ this.handlePaginationChange }
+                        size='mini'
+                        siblingRange={ 1 }
+                        ellipsisItem={ null }
+                        totalPages={ this.state.pageTotal }
+                    // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+
+                    />
+                </Segment>
 
             </>)
         } />)

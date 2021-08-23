@@ -36,21 +36,23 @@ export default class Search extends React.Component {
 
     newOn = (name, item) => {
         // const key = e.target
-        let ccc = this.props.like
+        let likePrev = this.props.like
         let count = this.state.count
-        let temp = ccc[name][item]
-        ccc[name][item] = !temp
+        let temp = likePrev[name][item]["check"]
+        console.log(likePrev[name][item])
+        likePrev[name][item]["check"] = !temp
       
         if (temp) { count -= 2 }
-        this.setState({ like: ccc, count: count + 1 })
         this.props.getList()
+        this.setState({ like: likePrev, count: count + 1 })
+     
     }
     removeAll = () => {
         let d = this.props.like
         for (const [key, value] of Object.entries(d)) {
             console.log(value)
             for (const [k] of Object.entries(value)) {
-                if (d[key][k]) { d[key][k] = false }
+                if (d[key][k.check]) { d[key][k.check] = false }
             }
         }
         this.setState({ like: d, count: 0 })
@@ -79,14 +81,14 @@ export default class Search extends React.Component {
                 <Grid.Row >
                     {this.state.count > 0 ? <><Grid.Column width={2}>篩選條件</Grid.Column> <Grid.Column width={13} >
                         {this.props.like && Object.keys(this.props.like).map((placement, index) => {
-                            return (<>
+                            return (<> 
 
-                                {Object.keys(this.props.like[placement]).map(item => {
-                                   
-                                        return (this.props.like[placement][item]?
+                                {(this.props.like[placement]).map(item => {
+                                //    console.log(item)
+                                        return (item.check?
                                             <Button
                                                 icon={"x"}
-                                                content={item}
+                                                content={item.name}
                                                 onClick={() => { this.remove(placement, item) }} className={style.button} />:<></>
 
                                         )
@@ -99,9 +101,7 @@ export default class Search extends React.Component {
                             <Button secondary onClick={this.removeAll} className={style.clearbtn} >清除全部</Button>
                         </Grid.Column></> : <></>}
                 </Grid.Row>
-
-
-                {this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                {/* {this.props.like && Object.keys(this.props.like).map((placement, index) => {
                     return (<> <Grid.Row >
                         <Grid.Column width={1}>{placement}</Grid.Column>
                         <Grid.Column width={11} textAlign={"justified"} verticalAlign={"middle"}>
@@ -110,6 +110,26 @@ export default class Search extends React.Component {
                                     return (<><List.Item className={style.state_listItem}>
                                         <Checkbox label={item} name={placement} value={item}
                                             onChange={() => { this.newOn(placement, item) }} checked={this.props.like[placement][item]} />
+
+                                    </List.Item>
+                                    </>)
+                                })}  </List>
+                        </Grid.Column>
+                        <Grid.Column width={2}>{this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={() => { this.more(placement) }}>更多</Button>) : ""}</Grid.Column>  </Grid.Row>
+                    </>)
+                })} */}
+
+                {this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                    return (<> <Grid.Row >
+                        <Grid.Column width={1}>{placement}</Grid.Column>
+                        <Grid.Column width={11} textAlign={"justified"} verticalAlign={"middle"}>
+                            <List horizontal className={style.box} id={placement}>
+                                
+                                {this.props.like[placement].map((item,index) => {
+                                    return (<><List.Item className={style.state_listItem}>
+                                        
+                                        <Checkbox label={item.name} name={placement} value={item.id}
+                                            onChange={() => { this.newOn(placement, index) }} checked={this.props.like[placement][item.check]} />
 
                                     </List.Item>
                                     </>)
