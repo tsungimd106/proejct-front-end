@@ -52,6 +52,11 @@ div.space {
     /* margin: 20px; */
 }
 
+.term {
+    font-size: 17px;
+    margin-left: 15px;
+}
+
 @media screen and (max-width :768px) {
     .in {
         display: inline;
