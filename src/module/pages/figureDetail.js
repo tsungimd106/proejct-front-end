@@ -402,13 +402,14 @@ class FigureDetail extends React.Component {
                                     </Swiper>
 
                                     <Segment basic padded><div className={ style.bigSize + " " + style.center }>政見
-                                    </div> <Dropdown text={ this.state.term && this.state.term }>
+                                    <span className={style.term}><Dropdown text={ this.state.term && this.state.term }>
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
                                             <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
                                             <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
                                         </Dropdown.Menu>
-                                    </Dropdown>
+                                    </Dropdown></span>
+                                    </div> 
                                     </Segment>
                                     
                                     <Card.Group itemsPerRow={ 2 }  >
@@ -416,13 +417,13 @@ class FigureDetail extends React.Component {
                                             if (index === 0) return (<></>)
                                             else {
                                                 return (<>
-                                                    <Card onClick={ () => { this.scoreShow(placement.content, placement.id, placement.cateogry) } }>
+                                                    <Card onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
 
                                                         <Card.Content> <Card.Description>
                                                             { placement.content }
                                                         </Card.Description></Card.Content>
                                                         <Card.Content extra>
-                                                            < >{ placement.cateogry.map((item, index) => {
+                                                            < >{ placement.name.map((item, index) => {
                                                                 return (<><Label>{ item }</Label></>)
                                                             }) }</ >
                                                         </Card.Content>

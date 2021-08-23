@@ -102,7 +102,7 @@ class Policy extends React.Component {
 
         ProposalR.list({ page: 1 }).then(response => {
             console.log(response)
-            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
+            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page })
 
         })
         ProposalR.cond().then(response => {
@@ -158,7 +158,7 @@ class Policy extends React.Component {
         this.setState({ "cond": statusL })
         ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
             console.log(response)
-            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
+            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page })
 
         })
 
