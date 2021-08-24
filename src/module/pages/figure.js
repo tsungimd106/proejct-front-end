@@ -19,21 +19,22 @@ import Search from "../bar/search"
     componentDidMount() {
 
         PoliticianR.getList().then(response => {
-
-            this.setState({ "data": response.data.data, resource: response.data.data })
+let resData=response.data.D
+            this.setState({ "data": resData, resource: resData })
         })
         PoliticianR.cond().then(response => {
             console.log(response)
+            let resData=response.data.D
             let test = {}
-            for (let i of response.data.data) {
+            for (let i of Object.keys(resData)) {
                 // console.log(i)
                 let inside = []
-                for (let j of i.data) {
+                for (let j of resData[i]) {
                     // console.log(j)
                     j["check"]=false
                     inside.push(j)
                 }
-                test[i.name] = inside
+                test[i] = inside
 
             }
             console.log(test)
