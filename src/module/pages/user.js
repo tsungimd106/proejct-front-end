@@ -23,14 +23,8 @@ class User extends React.Component {
     }
 
     componentDidMount() {
-        MemberR.user(this.state.userName).then(res => {
-            let d = {}
-            console.log(res)
-            for (let i of res.data.data) {
-                d[i.name] = i.data
-            }
-            console.log(d)
-            this.setState(d)
+        MemberR.user(this.state.userName).then(res => {           
+            this.setState(res.data.D)
         })
     }
 

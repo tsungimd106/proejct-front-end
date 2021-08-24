@@ -84,11 +84,12 @@ class PolicyContent extends React.Component {
     getMsg = () => {
         trackPromise(
             ProposalR.msgList(this.state.proposalId, { "user_id": this.state.userName }).then(response => {
-                console.log(response.data)
-                let msgL = (response.data.data[0].data)
-                let detail = (response.data.data[1].data)
-                let heart = (response.data.data[2].data === [])
-                let rule = (response.data.data[3].data)
+                let resData=response.data.D
+                console.log(resData)
+                let msgL =resData.msg.D
+                let detail = resData.detail
+                let heart = resData.heart
+                let rule = resData.rule
                 this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule })
             })
         )
@@ -100,7 +101,7 @@ class PolicyContent extends React.Component {
         let msg = document.getElementById("msg")
         console.log(msg.value)
         ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposalId, parent_id: 0 }).then(response => {
-            if (response.data.success) {
+            if (response.success) {
                 msg.value = ""
                 this.getMsg()
                 this.showNoteModal("留言成功")
@@ -201,7 +202,7 @@ class PolicyContent extends React.Component {
 
                             </Segment>
                             <Label.Group>
-                                { this.state.detail.category.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }
+                                { this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }
                             </Label.Group>
 
 

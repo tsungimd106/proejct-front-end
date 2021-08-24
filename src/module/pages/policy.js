@@ -101,23 +101,24 @@ class Policy extends React.Component {
     componentDidMount() {
 
         ProposalR.list({ page: 1 }).then(response => {
-            console.log(response)
-            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page })
+            let resData=response.data.D
+            this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
         })
         ProposalR.cond().then(response => {
+            let resData=response.data.D
             let test = {}
-            for (let i of response.data.data) {
+            console.log(Object.keys(resData))
+            for(let i of Object.keys(resData)){
                 let inside = []
-                for (let j of i.data) {
+                for (let j of resData[i]) {
                     j["check"] = false
                     inside.push(j)
                     // inside["id"]=j.id
                 }
-                test[i.name] = inside
-
-            }
-            console.log(test)
+                test[i] = inside
+            }            
+           
             this.setState({ "like": test })
         })
 
@@ -138,7 +139,6 @@ class Policy extends React.Component {
     // }
     handlePaginationChange = (e, { activePage }) => {
         this.setState({ nowPage: activePage })
-        console.log(activePage)
         let data
         (this.state.cond)? data={"status_id":this.state.cond,"page":activePage}:data={ "page": activePage }
         ProposalR.list(data).then(response => {
@@ -148,7 +148,7 @@ class Policy extends React.Component {
         })
     }
     handleF = () => {
-        console.log(this.state.like["狀態"])
+        
         let statusL = []
         this.state.like["狀態"].map(item => {
             if (item.check) statusL.push(item.id)
@@ -157,8 +157,8 @@ class Policy extends React.Component {
         console.log(statusL)
         this.setState({ "cond": statusL })
         ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
-            console.log(response)
-            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page })
+            let resData=response.data.D
+            this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
         })
 
@@ -179,7 +179,7 @@ class Policy extends React.Component {
                                 <Grid.Row className={ utilStyle.point } columns={ 3 }>
                                     <Grid.Column width={ 1 } />
                                     <Grid.Column width={ 11 }>
-                                        <div>提案人：{ placement.proposer.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
+                                        <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
                                         <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                         <div>
                                             <List horizontal>
@@ -187,7 +187,7 @@ class Policy extends React.Component {
                                                     2021/2/1{ placement.date }
                                                 </List.Item>
                                                 <List.Item>提案進度：{ placement.status }</List.Item>
-                                                { placement.category.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) }
+                                                { placement.hashtag_name.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) }
                                             </List>
 
                                         </div>

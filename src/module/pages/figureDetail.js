@@ -49,27 +49,28 @@ class FigureDetail extends React.Component {
         trackPromise(
 
             PoliticianR.detail(this.figureID).then(res => {
+                let resData=res.data.D
                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
                 cond.map(placement => {
-                    if (placement["no"] in res.data.data[0].data[0]) {
+                    if (placement["no"] in resData.detail[0]) {
                         selfD.push({
-                            "content": res.data.data[0].data[0][placement.no].replace(/;/g, " <br />"),
+                            "content": resData.detail[0][placement.no].replace(/;/g, " <br />"),
                             "title": placement.name
                         })
-                        document.getElementById(placement.no).innerHTML = res.data.data[0].data[0][placement.no]
+                        document.getElementById(placement.no).innerHTML = resData.detail[0][placement.no]
                             .replace(/;/g, " <br />").replace(/,/g, " <br />")
 
                     }
                 })
 
                 this.setState({
-                    policy: res.data.data[1].data,
-                    name: res.data.data[0].data[0].name,
-                    area: res.data.data[0].data[0].e_n,
-                    experience: res.data.data[0].data[0].experience.split("\n"),
-                    areaReamrk: res.data.data[0].data[0].remark.replace("null", ""),
-                    photo: res.data.data[0].data[0].photo
+                    policy: resData.policy,
+                    name: resData.detail[0].name,
+                    area: resData.detail[0].e_n,
+                    experience: resData.detail[0].experience.split("\n"),
+                    areaReamrk: resData.detail[0].remark.replace("null", ""),
+                    photo: resData.detail[0].photo
                 })
 
             })
@@ -100,7 +101,7 @@ class FigureDetail extends React.Component {
             "ps_id": this.state.scoreActitivy,
             "remark": document.getElementById("scoreRemark").value || " "
         }).then(res => {
-            if (res.data["success"]) {
+            if (res["success"]) {
                 this.scoreShow("")
                 this.setState({ "open": true, noteModalC: "評分成功" })
             }
