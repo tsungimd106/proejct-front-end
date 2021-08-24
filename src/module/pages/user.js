@@ -146,9 +146,12 @@ class MyProfile extends React.Component {
                                 <Card.Header>地區 <Icon name={ "edit" } className={ style.icon } onClick={ this.areaShow } /></Card.Header>
                                 <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                                     <div>
-                                        <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
+                                        <Select id="sarea" options={ this.state.area } 
+                                        placeholder={ "請選擇你的地區" } onChange={this.getArea}/>
 
-                                        <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green' />
+                                        <ModalBase content={ "已修改地區完成" } 
+                                        btn={ <Button icon labelPosition='left' icon={"check"} content={"確定"} className={ style.sbtn } /> } 
+                                        toDo={ this.editArea }/>
                                     </div>
                                 </Transition>
                                 <Card.Description>台北市</Card.Description>
