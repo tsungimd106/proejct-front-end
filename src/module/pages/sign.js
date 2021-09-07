@@ -15,7 +15,7 @@ class Base extends React.Component {
 
         return (<>
             <div className={ style.back } ><img ></img></div>
-            <div className={ style.from }>
+            <div className={ style.form }>
 
                 <Grid textAlign={ "center" } verticalAlign={ "middle" } > <Grid.Row  >
                     {/* <Grid.Column width={ 6 } xs={ 12 } className={ style.left }>
