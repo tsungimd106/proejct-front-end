@@ -4,7 +4,7 @@ import { ModalBase } from "../modal"
 import logo_light from '../../imgs/logo(light).png'
 import home_icon from '../../imgs/homeKey.png'
 import logo_dark from '../../imgs/LOGO1.png'
-import back from "../../imgs/login.png"
+import back from "../../imgs/login.jpg"
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
 import { Grid, Button, Checkbox, Input, Image, Segment } from 'semantic-ui-react'
@@ -14,7 +14,8 @@ class Base extends React.Component {
         let enough_height = window.innerHeight >= 576
 
         return (<>
-            <div className={ style.back }>
+            <div className={ style.back } ><img ></img></div>
+            <div className={ style.from }>
 
                 <Grid textAlign={ "center" } verticalAlign={ "middle" } > <Grid.Row  >
                     {/* <Grid.Column width={ 6 } xs={ 12 } className={ style.left }>

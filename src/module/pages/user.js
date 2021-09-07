@@ -30,7 +30,7 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
+            { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } userName={this.state.userName}/>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
@@ -90,8 +90,17 @@ class MyProfile extends React.Component {
         return { error: "abc", errorText: "ddd" }
     }
     editArea = () => {
+        console.log(document.getElementById("sarea"))
+        MemberR.userEdit({"area_id":this.state.value,"account":this.props.userName}).then (response =>{
+            console.log(response)
+        })
         this.areaShow()
         return true
+    }
+    getArea = (event, {value}) => {
+        console.log(value); 
+        this.setState({areaid:value})
+        
     }
     editPsw = () => {
         return true
