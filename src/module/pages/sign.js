@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemberR } from "../request/memberR.js"
 import { ModalBase } from "../modal"
-import logo_light from '../../imgs/logo(light).png'
+import logo from '../../imgs/LOGO.jpg'
 import home_icon from '../../imgs/homeKey.png'
 import logo_dark from '../../imgs/LOGO1.png'
 import back from "../../imgs/login.jpg"
@@ -23,7 +23,7 @@ class Base extends React.Component {
                     <h6>__</h6>
                     { enough_height && <img src={  logo_light } alt="" /> }
                 </Grid.Column> */}
-                    <Grid.Column floated={ "right" }> <a href="./#/"><img src={ home_icon } className={ style.homeKey } alt="" /></a></Grid.Column>
+                    <Grid.Column className={ style.homeKey } > <a href="./#/"><Image src={ logo } className={ style.homeKey }/></a></Grid.Column>
                     <Grid.Column width={ 16 } className={ style.backC } >
 
                         { this.props.content }
@@ -56,7 +56,7 @@ class Sign extends React.Component {
     render() {
         return (<Base content={ < >
              
-            <Grid style={{"padding-top":"10%"}}>
+            <Grid style={{"padding-top":"8%"}}>
                 <Grid.Row columns={ 2 }>
                     <Grid.Column>
                         <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
@@ -75,7 +75,7 @@ class Sign extends React.Component {
                     </Grid.Column>
                     <Grid.Column>
                         <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
-                        <p><Button variant="success" >以LINE帳號註冊</Button></p>
+                        <p><Button variant="success">以LINE帳號註冊</Button></p>
                         <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                     </Grid.Column>
                 </Grid.Row>
@@ -114,7 +114,7 @@ class Login extends React.Component {
     }
     render() {
         return (<Base content={ <div className={ style.need_to_center }>
-            <Grid> <Grid.Row>
+            <Grid className={style.formBg}> <Grid.Row>
                 <Grid.Column width={ 16 } className={ style.login_1 }>
                     <Input focus placeholder="&nbsp;帳號" id="account" />
                 </Grid.Column>
@@ -123,10 +123,10 @@ class Login extends React.Component {
                 </Grid.Column>
                 {/* <Grid.Column xs={ 12 }>忘記密碼</Grid.Column> */ }
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Button id="continue" className={ style.continue } onClick={ this.send }>繼續</Button>
+                    <Button id="continue" className={ style.continue } onClick={ this.send }>登入</Button>
                 </Grid.Column>
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Button color='green' >以LINE帳號登入</Button>
+                    <Button color='green' className={ style.continue } >以LINE帳號登入</Button>
                 </Grid.Column>
                 {/* <Grid.Column xs={12}>忘記密碼</Grid.Column> */ }
                 <Grid.Column width={ 16 }><a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>

@@ -26,6 +26,13 @@
 
 .continue {
     background-color: #4F586B;
+    width:65% !important;
+}
+
+.formBg{
+    margin:0 10vw !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius:10px !important;
 }
 
 .left {
@@ -52,9 +59,8 @@ h4 {
 }
 
 .homeKey {
-    width: 5vw;
-    margin-right: 300px;
-    float: right;
+    width: 10vw !important;
+    padding-top: 15% !important;
 }
 
 h5 {
@@ -64,7 +70,7 @@ h5 {
 .need_to_center::before {
     content: '';
     width: 0;
-    height: 20vh;
+    height: 5vh;
     display: inline-block;
     position: relative;
     vertical-align: middle;
@@ -79,7 +85,7 @@ h5 {
 }
 
 .login_5 {
-    margin: 0 0 5vh 0 !important;
+    margin: 0 0 3vh 0 !important;
 }
 
 .login_1 {
