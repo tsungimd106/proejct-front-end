@@ -7,7 +7,7 @@ import logo_dark from '../../imgs/LOGO1.png'
 import back from "../../imgs/login.jpg"
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
-import { Grid, Button, Checkbox, Input, Image, Segment } from 'semantic-ui-react'
+import { Grid, Button, Checkbox, Input, Image, Select,Segment } from 'semantic-ui-react'
 class Base extends React.Component {
 
     render() {
@@ -41,7 +41,16 @@ class Sign extends React.Component {
         super(props)
         this.state = {
             "showInfo": false,
-            "message": ""
+            "message": "",
+            city : [
+                { key: 'af', value: 'af', text: '基隆市' },
+                { key: 'ax', value: 'ax', text: '台北市' },
+                { key: 'al', value: 'al', text: '新北市' },
+                { key: 'dz', value: 'dz', text: '桃園市' },
+                { key: 'as', value: 'as', text: '新竹縣' },
+                { key: 'ad', value: 'ad', text: '新竹市'},
+                { key: 'ao', value: 'ao', text: '苗栗縣' },
+            ]
         }
     }
 
@@ -50,7 +59,7 @@ class Sign extends React.Component {
     }
 
     sendLine = () =>{
-        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde&scope=profile%20openid"
+        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&scope=profile%20openid&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde"
     }
 
     showinfo = (msg) => {
@@ -60,26 +69,19 @@ class Sign extends React.Component {
     render() {
         return (<Base content={ < >
              
-            <Grid className={style.formBg}>
+            <Grid className={style.formSBg}>
                 <Grid.Row columns={ 2 }>
                     <Grid.Column>
-                        <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
-                        <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
-                        <p><input type="password" placeholder="&nbsp;確認密碼" id="checkpsd" /></p>
-                        <p><input type="text" placeholder="&nbsp;暱稱" id="name" /></p>
-
-                        <p >出生日期</p><p><input type="date" placeholder="出生日期"></input></p>
-                        <p><select id="city">
-                            <option value=" ">現居地</option>
-                            <option value="year">基隆市</option>
-                            <option value="year">台北市</option>
-                            <option value="year">新北市</option>
-                            <option value="year">桃園市</option>
-                        </select></p>
+                        <p><Input placeholder='帳號' id="account" /></p>                        
+                        <p><Input type="password" placeholder="密碼" id="password" /></p>
+                        <p><Input type="password" placeholder="確認密碼" id="checkpsd" /></p>
+                        <p><Input type="text" placeholder="暱稱" id="name" /></p>                        
                     </Grid.Column>
                     <Grid.Column>
+                        <p >出生日期<Input type="date" placeholder="出生日期"/></p>
+                        <p><Select id="city" placeholder="居住地" options={this.state.city}/></p>
                         <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
-                        <p><Button variant="success" onClick={ this.sendLine }>以LINE帳號註冊</Button></p>
+                        <p><Button color="green" onClick={ this.sendLine } className={ style.continue }>以LINE帳號註冊</Button></p>
                         <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                     </Grid.Column>
                 </Grid.Row>
@@ -115,24 +117,24 @@ class Login extends React.Component {
     }
 
     sendLine = () =>{
-        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde&scope=profile%20openid"
+        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&scope=profile%20openid&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde"
     }
 
     render() {
         return (<Base content={ <div className={ style.need_to_center }>
-            <Grid className={style.formBg}> <Grid.Row>
+            <Grid className={style.formLBg}> <Grid.Row>
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Input focus placeholder="&nbsp;帳號" id="account" />
+                    <Input focus placeholder="帳號" id="account" />
                 </Grid.Column>
                 <Grid.Column width={ 16 } className={ style.login_5 }>
-                    <Input type="password" focus placeholder="&nbsp;密碼" id="password" />
+                    <Input type="password" focus placeholder="密碼" id="password" />
                 </Grid.Column>
                 {/* <Grid.Column xs={ 12 }>忘記密碼</Grid.Column> */ }
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Button id="continue" className={ style.continue } onClick={ this.send }>登入</Button>
+                    <Button id="continue" className={ style.loginBtn} onClick={ this.send }>登入</Button>
                 </Grid.Column>
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Button color='green' className={ style.continue } onClick={ this.sendLine }>以LINE帳號登入</Button>
+                    <Button color='green' className={ style.loginBtn } onClick={ this.sendLine }>以LINE帳號登入</Button>
                 </Grid.Column>
                 {/* <Grid.Column xs={12}>忘記密碼</Grid.Column> */ }
                 <Grid.Column width={ 16 }><a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>

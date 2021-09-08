@@ -26,11 +26,17 @@
 
 .continue {
     background-color: #4F586B;
-    width:65% !important;
+    width:90% !important;
 }
 
-.formBg{
+.formLBg{
     margin:0 10vw !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius:10px !important;
+}
+
+.formSBg{
+    margin:3vh 5vw !important;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     border-radius:10px !important;
 }
@@ -86,10 +92,16 @@ h5 {
 
 .login_5 {
     margin: 0 0 3vh 0 !important;
+    width: 90% !important;
 }
 
 .login_1 {
     margin: 0 0 1vh 0 !important;
+    width: 90% !important;
+}
+
+.loginBtn{
+    width: 65% !important;
 }
 
 .back{
