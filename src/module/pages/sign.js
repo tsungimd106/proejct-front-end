@@ -49,6 +49,10 @@ class Sign extends React.Component {
         window.location.href = "./#/sign2"
     }
 
+    sendLine = () =>{
+        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde&scope=profile%20openid"
+    }
+
     showinfo = (msg) => {
         this.setState({ showinfo: !this.state.showinfo, message: msg })
     }
@@ -56,7 +60,7 @@ class Sign extends React.Component {
     render() {
         return (<Base content={ < >
              
-            <Grid style={{"padding-top":"8%"}}>
+            <Grid className={style.formBg}>
                 <Grid.Row columns={ 2 }>
                     <Grid.Column>
                         <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
@@ -75,7 +79,7 @@ class Sign extends React.Component {
                     </Grid.Column>
                     <Grid.Column>
                         <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
-                        <p><Button variant="success">以LINE帳號註冊</Button></p>
+                        <p><Button variant="success" onClick={ this.sendLine }>以LINE帳號註冊</Button></p>
                         <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                     </Grid.Column>
                 </Grid.Row>
@@ -108,10 +112,12 @@ class Login extends React.Component {
 
             })
         )
-
-
-
     }
+
+    sendLine = () =>{
+        document.location.href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde&scope=profile%20openid"
+    }
+
     render() {
         return (<Base content={ <div className={ style.need_to_center }>
             <Grid className={style.formBg}> <Grid.Row>
@@ -126,7 +132,7 @@ class Login extends React.Component {
                     <Button id="continue" className={ style.continue } onClick={ this.send }>登入</Button>
                 </Grid.Column>
                 <Grid.Column width={ 16 } className={ style.login_1 }>
-                    <Button color='green' className={ style.continue } >以LINE帳號登入</Button>
+                    <Button color='green' className={ style.continue } onClick={ this.sendLine }>以LINE帳號登入</Button>
                 </Grid.Column>
                 {/* <Grid.Column xs={12}>忘記密碼</Grid.Column> */ }
                 <Grid.Column width={ 16 }><a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
