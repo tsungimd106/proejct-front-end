@@ -47,6 +47,10 @@
     text-align: center;
 }
 
+.birth {
+    color: gray !important;
+}
+
 h4 {
     margin-top: 15vw;
 }
@@ -56,7 +60,7 @@ h4 {
 }
 
 .agree {
-    margin: 5vh 0;
+    margin: 2vh 0;
 }
 
 .sign button,
@@ -114,8 +118,6 @@ h5 {
 }
 
 .form {
-    /* background: url("../imgs/login.jpg") center !important;
-    float: left; */
     height: 100vh;
     width:100vw;
     background-size: 100% !important;

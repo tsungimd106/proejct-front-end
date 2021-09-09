@@ -14,7 +14,7 @@ class Base extends React.Component {
         let enough_height = window.innerHeight >= 576
 
         return (<>
-            <div className={ style.back } ><img ></img></div>
+         <div className={ style.back } ></div>
             <div className={ style.form }>
 
                 <Grid textAlign={ "center" } verticalAlign={ "middle" } > <Grid.Row  >
@@ -75,10 +75,11 @@ class Sign extends React.Component {
                         <p><Input placeholder='帳號' id="account" /></p>                        
                         <p><Input type="password" placeholder="密碼" id="password" /></p>
                         <p><Input type="password" placeholder="確認密碼" id="checkpsd" /></p>
-                        <p><Input type="text" placeholder="暱稱" id="name" /></p>                        
+                        <p><Input type="text" placeholder="暱稱" id="name" /></p>      
+                        <p className={ style.birth }>生日：<Input className={ style.birth } type="date" /></p>                  
                     </Grid.Column>
                     <Grid.Column>
-                        <p >出生日期<Input type="date" placeholder="出生日期"/></p>
+                        <p></p>
                         <p><Select id="city" placeholder="居住地" options={this.state.city}/></p>
                         <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
                         <p><Button color="green" onClick={ this.sendLine } className={ style.continue }>以LINE帳號註冊</Button></p>
@@ -161,21 +162,44 @@ class SignNext extends React.Component {
         }
     }
     send = () => {
-        window.location.href = "./#/selectSubject"
+        window.location.href = "./#/signSelect"
     }
 
     render() {
         return (<Base content={ <div className={ style.need_to_center }>
-            <center><p id="rule">我們絕不會將您的個資販售給廣告商，且除非您授予我們特定權限，否則我們也不會與廣告商分享可識別您個人身分的資訊（例如姓名、電子郵件地址或其他聯絡資訊）。 然而廣告商可以告知我們想要顯示廣告的目標受眾類型，我們再針對可能會感興趣的對象顯示他們的廣告。 我們為廣告商提供廣告成效報告，協助他們瞭解用戶與廣告內容的互動情形。 請參考後續第 2 節瞭解詳情。</p></center>
-            <Checkbox className={ style.agree } label='我同意以上內容' />
+             <Segment className={style.formSBg}>
+            <center><p id="rule">選類別區</p></center>
+            <p><Checkbox className={ style.agree } label='我同意以上內容' /></p>
             <p><Button id="continue" className={ style.continue } onClick={ this.send }>確認註冊</Button></p>
-            <ModalBase
-                show={ this.state.showinfo }
-                close={ () => { this.showinfo() } }
-                ok={ () => { this.showinfo() } }
-                message={ this.state.message }
-            />
+            </Segment>
         </div> }></Base>)
+    }
+}
+
+class SignSelect extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            "showInfo": false,
+            "message": ""
+        }
+    }
+
+    state = {}
+    handleClick = () =>
+      this.setState((prevState) => ({ active: !prevState.active }))
+
+    render() {        
+    const { active } = this.state
+
+        return (<Base content={ < > <div className={ style.need_to_center }>
+            <Grid className={style.formLBg}> <Grid.Row>
+                <Grid.Column width={ 16 }>
+                    <Button toggle active={active} size='small' onClick={this.handleClick} >Toggle</Button>
+                </Grid.Column>
+            </Grid.Row></Grid>
+
+        </div> </ > }></Base>)
     }
 }
 
@@ -194,6 +218,14 @@ export const signNext = {
         component: SignNext
     },
     name: "註冊2"
+}
+
+export const signSelect = {
+    routeProps: {
+        path: "/signSelect",
+        component: SignSelect
+    },
+    name: "選擇類別"
 }
 
 export const login = {
