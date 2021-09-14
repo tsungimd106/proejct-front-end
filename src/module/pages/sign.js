@@ -79,9 +79,12 @@ class Sign extends React.Component {
                         <p className={ style.birth }>生日：<Input className={ style.birth } type="date" /></p>                  
                     </Grid.Column>
                     <Grid.Column>
-                        <p></p>
                         <p><Select id="city" placeholder="居住地" options={this.state.city}/></p>
-                        <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續</Button></p>
+                        <p className={style.csign}>
+                            點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
+                            <a href="./#/information/" target="_blank">《資料政策》</a>和<a href="./#/information/" target="_blank">《Cookie 政策》</a>。
+                        </p>
+                        <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續註冊</Button></p>
                         <p><Button color="green" onClick={ this.sendLine } className={ style.continue }>以LINE帳號註冊</Button></p>
                         <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                     </Grid.Column>
