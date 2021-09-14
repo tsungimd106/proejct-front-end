@@ -1,5 +1,5 @@
 import Home from "./pages/home.js"
-import { sign, login, signNext, signSelect } from "./pages/sign.js"
+import { sign, login, signNext } from "./pages/sign.js"
 // import SelectSubject from "./pages/selectSubject.js"
 import Policy from "./pages/policy.js"
 import Figure from "./pages/figure.js"
@@ -17,7 +17,6 @@ export const main = [
     sign,
     login,
     signNext,
-    signSelect,
     Policy,
     PolicyContent,
     Figure,

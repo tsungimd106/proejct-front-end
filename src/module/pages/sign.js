@@ -161,51 +161,32 @@ class SignNext extends React.Component {
         super(props)
         this.state = {
             "showInfo": false,
-            "message": ""
+            "message": "",
+            "sub":[ "財政金融", "教育", "內政", "司法及法制", "科技", "觀光", "國防", "食品安全", "長期照顧",
+                "衛生社福", "農業", "交通", "海洋", "性別平等", "動物保育", "原住民", "外交", "兩岸關係", "高齡化",
+                "幼托育兒", "年改", "基礎建設", "拒毒品", "客家", "治安", "都市發展", "補助", "都市美化", "汽機車",
+                "環保", "體育賽事", "勞工就業", "青年", "文創", "新住民", ]
         }
     }
     send = () => {
-        window.location.href = "./#/signSelect"
+        window.location.href = "./#/"
     }
 
     render() {
+
         return (<Base content={ <div className={ style.need_to_center }>
              <Segment className={style.formSBg}>
-            <center><p id="rule">選類別區</p></center>
-            <p><Checkbox className={ style.agree } label='我同意以上內容' /></p>
+            <p className={style.rule}>請選擇有興趣的類別：</p>
+            <div>
+                { this.state.sub.map(item => {
+                    return (<Button className={style.subBtn} size='mini' onClick={this.handleClick} >{ item }</Button>)
+                }) }
+            </div>
             <p><Button id="continue" className={ style.continue } onClick={ this.send }>確認註冊</Button></p>
             </Segment>
         </div> }></Base>)
     }
 }
-
-class SignSelect extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            "showInfo": false,
-            "message": ""
-        }
-    }
-
-    state = {}
-    handleClick = () =>
-      this.setState((prevState) => ({ active: !prevState.active }))
-
-    render() {        
-    const { active } = this.state
-
-        return (<Base content={ < > <div className={ style.need_to_center }>
-            <Grid className={style.formLBg}> <Grid.Row>
-                <Grid.Column width={ 16 }>
-                    <Button toggle active={active} size='small' onClick={this.handleClick} >Toggle</Button>
-                </Grid.Column>
-            </Grid.Row></Grid>
-
-        </div> </ > }></Base>)
-    }
-}
-
 
 export const sign = {
     routeProps: {
@@ -221,14 +202,6 @@ export const signNext = {
         component: SignNext
     },
     name: "註冊2"
-}
-
-export const signSelect = {
-    routeProps: {
-        path: "/signSelect",
-        component: SignSelect
-    },
-    name: "選擇類別"
 }
 
 export const login = {
