@@ -26,12 +26,29 @@
 
 .continue {
     background-color: #4F586B;
+    width:90% !important;
+}
+
+.formLBg{
+    margin:0 10vw !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius:10px !important;
+}
+
+.formSBg{
+    margin:3vh 5vw !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius:10px !important;
 }
 
 .left {
     background-color: #4F586B;
     color: #FFF;
     text-align: center;
+}
+
+.birth {
+    color: gray !important;
 }
 
 h4 {
@@ -43,7 +60,7 @@ h4 {
 }
 
 .agree {
-    margin: 5vh 0;
+    margin: 2vh 0;
 }
 
 .sign button,
@@ -52,9 +69,8 @@ h4 {
 }
 
 .homeKey {
-    width: 5vw;
-    margin-right: 300px;
-    float: right;
+    width: 10vw !important;
+    padding-top: 15% !important;
 }
 
 h5 {
@@ -64,35 +80,48 @@ h5 {
 .need_to_center::before {
     content: '';
     width: 0;
-    height: 20vh;
+    height: 5vh;
     display: inline-block;
     position: relative;
     vertical-align: middle;
 }
 
 .rule {
-    width: 30vw;
-    height: auto;
-    border: 5px solid #4F586B;
-    border-radius: 20px;
-    padding: 5px;
+    text-align: left !important;
 }
 
 .login_5 {
-    margin: 0 0 5vh 0 !important;
+    margin: 0 0 3vh 0 !important;
+    width: 90% !important;
 }
 
 .login_1 {
     margin: 0 0 1vh 0 !important;
+    width: 90% !important;
 }
 
-.back {
-    background: url("../imgs/login.png") center !important;
+.loginBtn{
+    width: 65% !important;
+}
+
+.back{
+    background: url("../imgs/login.jpg") left !important;
+    background-size: 50vw 100vh!important;
+    float: left;
     height: 100vh;
-    width: 100vw;
-    background-size: 60% !important;
+    width:50vw;    
+    background-repeat: repeat !important;
+}
+
+.form {
+    height: 100vh;
+    width:100vw;
+    background-size: 100% !important;
     background-repeat: no-repeat !important; 
-    padding-top: 15vh;
+}
+
+.csign{
+    font-size: 10px;
 }
 
 .backC {
@@ -100,4 +129,18 @@ h5 {
     /* 
     width: 300px !important;
     background: #ffffff !important; */
+}
+
+/* .ui.button.toggle.active, .ui.buttons .button.toggle.active, .ui.toggle.buttons .active.button{
+    background-color: #2f375b !important;
+} */
+
+.subBtn:focus{
+    margin:1% !important;
+    background-color: #2f375b !important;
+    color: #ffffff !important;
+}
+
+.subBtn{
+    margin:1% !important;
 }

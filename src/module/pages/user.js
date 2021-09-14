@@ -30,7 +30,7 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } />, icon: "address card" },
+            { name: "個人檔案", in: <MyProfile data={ this.state.user } area={ this.state.area } userName={this.state.userName}/>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
@@ -90,8 +90,17 @@ class MyProfile extends React.Component {
         return { error: "abc", errorText: "ddd" }
     }
     editArea = () => {
+        console.log(document.getElementById("sarea"))
+        MemberR.userEdit({"area_id":this.state.value,"account":this.props.userName}).then (response =>{
+            console.log(response)
+        })
         this.areaShow()
         return true
+    }
+    getArea = (event, {value}) => {
+        console.log(value); 
+        this.setState({areaid:value})
+        
     }
     editPsw = () => {
         return true
@@ -146,9 +155,12 @@ class MyProfile extends React.Component {
                                 <Card.Header>地區 <Icon name={ "edit" } className={ style.icon } onClick={ this.areaShow } /></Card.Header>
                                 <Transition visible={ this.state.areaShow } animation='scale' duration={ 500 }>
                                     <div>
-                                        <Select options={ this.state.area } placeholder={ "請選擇你的地區" } />
+                                        <Select id="sarea" options={ this.state.area } 
+                                        placeholder={ "請選擇你的地區" } onChange={this.getArea}/>
 
-                                        <ModalBase content={ "已修改地區完成" } btnText={ "確定" } toDo={ this.editArea } color='green' />
+                                        <ModalBase content={ "已修改地區完成" } 
+                                        btn={ <Button icon labelPosition='left' icon={"check"} content={"確定"} className={ style.sbtn } /> } 
+                                        toDo={ this.editArea }/>
                                     </div>
                                 </Transition>
                                 <Card.Description>台北市</Card.Description>
