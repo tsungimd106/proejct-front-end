@@ -37,7 +37,7 @@ class PolicyContent extends React.Component {
             kpi: {
                 series: [10, 50, 40],
                 options: {
-                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    colors: ['#fec240', '#98c4d1', '#de4b43'],
                     labels: ["同意", "中立", "反對"],
                     chart: { width: 50 }
                 },
@@ -58,11 +58,11 @@ class PolicyContent extends React.Component {
         }
     }
     componentDidMount() {
-        this.getMsg()        
+        this.getMsg()
     }
     showNoteModal = (m) => {
-
         this.setState({ open: !this.state.open, noteModalC: m })
+        if (!m) document.location.reload()
     }
     closeNoteModal = () => {
         this.setState({ noteModal: false })
@@ -84,9 +84,9 @@ class PolicyContent extends React.Component {
     getMsg = () => {
         trackPromise(
             ProposalR.msgList(this.state.proposalId, { "user_id": this.state.userName }).then(response => {
-                let resData=response.data.D
+                let resData = response.data.D
                 console.log(resData)
-                let msgL =resData.msg.D
+                let msgL = resData.msg
                 let detail = resData.detail
                 let heart = resData.heart
                 let rule = resData.rule
@@ -101,7 +101,7 @@ class PolicyContent extends React.Component {
         let msg = document.getElementById("msg")
         console.log(msg.value)
         ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposalId, parent_id: 0 }).then(response => {
-            if (response.success) {
+            if (response.data.success) {
                 msg.value = ""
                 this.getMsg()
                 this.showNoteModal("留言成功")
@@ -114,7 +114,6 @@ class PolicyContent extends React.Component {
         if (!this.state.ReportModal) {
             this.setState({
                 reportModal: !this.state.reportModal,
-
                 msgid: msgid
             })
         }
@@ -148,9 +147,7 @@ class PolicyContent extends React.Component {
 
 
     render() {
-        // console.log(this.state.msgL)
-        // console.log(this.state.detail)
-        // console.log(this.state.heart)
+
         return (<Pages id={ 2 }
             pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
             { content: this.state.detail && this.state.detail.title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
@@ -186,12 +183,6 @@ class PolicyContent extends React.Component {
                                                 <Label>退回程序</Label>
 
                                             </List.Item>
-
-
-
-
-
-
 
                                         </List>
                                     </List.Item>
@@ -246,75 +237,75 @@ class PolicyContent extends React.Component {
                         </div>
 
                     </>) : (<></>) }
-                   
-                            { this.state.login && (<>
-                                <Segment>
 
-                                    <Grid >
-                                        <Grid.Row columns={ "equal" }>
-                                            <Grid.Column>
-                                                <div className={ style.lable }>
-                                                    <p>您的看法：</p><p>(請點選投票)</p>
-                                                </div>
-                                                <Button.Group >
-                                                    <Button toggle basic inverted color='green' content={ <FaceHappy className={ style.green + " " + style.size } /> } />
+                    { this.state.login && (<>
+                        <Segment>
 
-                                                    <Button.Or />
-                                                    <Button toggle basic inverted color='yellow' content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } />
-                                                    <Button.Or />
-                                                    <Button toggle basic inverted color='red'><FaceSad className={ style.red + " " + style.size } /></Button>
+                            <Grid >
+                                <Grid.Row columns={ "equal" }>
+                                    <Grid.Column >
+                                        <div className={ style.lable }>
+                                            <p>您的看法：</p><p>(請點選投票)</p>
+                                        </div>
+                                        <Button.Group >
+                                            <Button toggle basic inverted content={ <FaceHappy className={ style.green + " " + style.size } /> } onClick={ () => this.voteChange(0) } />
 
-                                                </Button.Group>
+                                            <Button.Or />
+                                            <Button toggle basic inverted content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } onClick={ () => this.voteChange(1) } />
+                                            <Button.Or />
+                                            <Button toggle basic inverted onClick={ () => this.voteChange(2) } ><FaceSad className={ style.red + " " + style.size } /></Button>
 
-                                                <Button onClick={ this.vote }> 確定投票</Button>
-                                            </Grid.Column>
-                                            <Grid.Column floated={ "right" }>
-                                                <div className={ style.lable }>RUN民看法：</div>
-                                                <div style={ { width: "300px", hgieht: "300px" } }><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
-                                            </Grid.Column>
+                                        </Button.Group>
 
-                                        </Grid.Row>
-                                    </Grid>
-                                </Segment>
+                                        <Button onClick={ this.vote }> 確定投票</Button>
+                                    </Grid.Column>
+                                    <Grid.Column floated={ "right" } mobile={ 16 } width={8} computer={8}>
+                                        <div className={ style.lable }>RUN民看法：</div>
+                                        <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
+                                    </Grid.Column>
 
-                            </>) }
+                                </Grid.Row>
+                            </Grid>
+                        </Segment>
+
+                    </>) }
 
 
-                          
-                                <Segment>
-                                    <Comment.Group >
-                                        <Header as='h3' dividing>RUN民討論專區</Header>
-                                        { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
-                                            return (<>
-                                                <Comment>
-                                                    <Comment.Avatar src={ person } />
-                                                    <Comment.Content>
-                                                        <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
-                                                        <Comment.Metadata>{ placement.time }</Comment.Metadata>
-                                                        <Comment.Text>{ placement.content }</Comment.Text>
-                                                        <Comment.Actions>
-                                                            <Comment.Action>回覆</Comment.Action>
 
-                                                            <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
-                                                                rule={ this.state.rule } toDo={ this.report }
-                                                            />
+                    <Segment>
+                        <Comment.Group >
+                            <Header as='h3' dividing>RUN民討論專區</Header>
+                            { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                return (<>
+                                    <Comment>
+                                        <Comment.Avatar src={ person } />
+                                        <Comment.Content>
+                                            <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
+                                            <Comment.Metadata>{ placement.time }</Comment.Metadata>
+                                            <Comment.Text>{ placement.content }</Comment.Text>
+                                            <Comment.Actions>
+                                                <Comment.Action>回覆</Comment.Action>
 
-                                                        </Comment.Actions>
-                                                    </Comment.Content>
-                                                </Comment>
-                                            </>)
-                                        })) : <></> }
-                                        { this.state.login && <>
-                                            <Form reply>
-                                                <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
-                                                <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
-                                            </Form>
-                                        </> }
+                                                <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
+                                                    rule={ this.state.rule } toDo={ this.report }
+                                                />
 
-                                    </Comment.Group></Segment>
-                                <div className={ style.mes }>
-                                </div>
-                            
+                                            </Comment.Actions>
+                                        </Comment.Content>
+                                    </Comment>
+                                </>)
+                            })) : <></> }
+                            { this.state.login && <>
+                                <Form reply>
+                                    <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
+                                    <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
+                                </Form>
+                            </> }
+
+                        </Comment.Group></Segment>
+                    <div className={ style.mes }>
+                    </div>
+
                     <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)

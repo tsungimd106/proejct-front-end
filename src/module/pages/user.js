@@ -23,6 +23,9 @@ class User extends React.Component {
     }
 
     componentDidMount() {
+        if(!!!localStorage.getItem("login")){
+            document.location.href="/#"
+        }
         MemberR.user(this.state.userName).then(res => {           
             this.setState(res.data.D)
         })
@@ -202,7 +205,7 @@ class MySave extends React.Component {
             kpi: {
                 series: [10, 50, 40],
                 options: {
-                    colors: ['#95c95d', '#e3e53a', '#e52125'],
+                    colors: ['#fec240', '#98c4d1', '#de4b43'],
                     labels: ["同意", "中立", "反對"],
                     title: {
                         text: 'Run民立場投票',

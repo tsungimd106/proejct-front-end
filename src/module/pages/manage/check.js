@@ -13,7 +13,9 @@ export default class Check extends React.Component {
     componentDidMount() {
         ManageR.report().then(response => {
             console.log(response)
-            this.setState({ already: response.data.data[0].data, notYet: response.data.data[1].data })
+            if(response.data.data){
+                this.setState({ already: response.data.data[0].data, notYet: response.data.data[1].data })
+            }
         })
     }
 

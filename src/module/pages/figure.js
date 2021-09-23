@@ -3,10 +3,10 @@ import React from 'react';
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
 
- import {   Card, Image } from 'semantic-ui-react'
+import { Card, Grid, Image ,Segment} from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
- class Figure extends React.Component {
+class Figure extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -19,19 +19,19 @@ import Search from "../bar/search"
     componentDidMount() {
 
         PoliticianR.getList().then(response => {
-let resData=response.data.D
+            let resData = response.data.D
             this.setState({ "data": resData, resource: resData })
         })
         PoliticianR.cond().then(response => {
             console.log(response)
-            let resData=response.data.D
+            let resData = response.data.D
             let test = {}
             for (let i of Object.keys(resData)) {
                 // console.log(i)
                 let inside = []
                 for (let j of resData[i]) {
                     // console.log(j)
-                    j["check"]=false
+                    j["check"] = false
                     inside.push(j)
                 }
                 test[i] = inside
@@ -66,7 +66,7 @@ let resData=response.data.D
                         case "姓名":
                             name.push(this.state.like[key][v]["name"])
                             break
-                        default:break
+                        default: break
                     }
                 }
 
@@ -82,7 +82,7 @@ let resData=response.data.D
         if (Array.isArray(this.state.resource)) {
             let newd = this.state.resource.filter(i => {
 
-                
+
                 let areab = false
                 let termb = false
                 let nameb = false
@@ -125,7 +125,7 @@ let resData=response.data.D
 
                 < >
                     <p>{ obj["name"] }</p>
-                    {(!regPos.test(obj["name"]) ? <>
+                    { (!regPos.test(obj["name"]) ? <>
 
                         { obj["d"].map(placement => {
                             return this.cut(placement, obj["name"])
@@ -141,8 +141,8 @@ let resData=response.data.D
                 </ >)
         } else {
             return (< >
-                <Card onClick={ () => { this.toDetail(obj["id"]) } }>
-
+               
+{/* <Segment. */} <Grid.Column computer={4} mobile={7}> <Card onClick={ () => { this.toDetail(obj["id"]) } }>
                     <Card.Content>
                         <Card.Header>{ obj["name"] }</Card.Header>
                         <Card.Meta>
@@ -153,7 +153,7 @@ let resData=response.data.D
                         </Card.Description>
                     </Card.Content>
 
-                </Card>
+                </Card></Grid.Column>
 
 
 
@@ -163,19 +163,25 @@ let resData=response.data.D
 
     render() {
         return (<Pages id={ 3 }
-            pageInfo={ [{ content: '政治人物', active: true, href: "./#/figure" } ]}
+            pageInfo={ [{ content: '政治人物', active: true, href: "./#/figure" }] }
             onScroll={ console.log("ii") }
             page={
                 (<>
                     <div  >
                         <Search like={ this.state.like } getList={ this.getList } />
                     </div>
-                    <Card.Group itemsPerRow={ 4 }>{
-                        this.state.data && this.state.data.map(placement => {
-                            return this.cut(placement)
-                        })
-                    }
-                    </Card.Group>
+                    <Grid relaxed centered>
+                        <Grid.Row>
+                           
+                                {
+                                    this.state.data && this.state.data.map(placement => {
+                                        return this.cut(placement)
+                                    })
+                                }
+                           
+                        </Grid.Row>
+                    </Grid>
+                  
                 </>)
             } />)
     }

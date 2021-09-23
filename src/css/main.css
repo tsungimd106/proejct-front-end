@@ -107,3 +107,15 @@
 *:not(i.icon) {
     font-family: abc !important;
 }
+
+.ui.celled.table tr * {
+    width: 10px
+}
+
+.ui.celled.table tr:first-child {
+    width: 80%
+}
+
+.ui.card {
+    margin-bottom: 20px !important;
+}

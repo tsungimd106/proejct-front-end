@@ -5,7 +5,7 @@ import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
 import vote4 from "../../imgs/vote6.jpg"
- 
+
 
 
 class Election extends React.Component {
@@ -27,7 +27,7 @@ class Election extends React.Component {
             ], activeIndex: 0,
             note: ["公告全國性公民投票案第20案投票日期、投票起、止時間、編號、主文、理由書、政府機關針對公民投票案提出之意見書、公民投票權行使範圍及方式、正反意見支持代表於全國性無線電視頻道發表意見或進行辯論之辦理期間與應遵行之事項等事項", "中選會提醒有意參加公投意見發表會或辯論會者，請在6月4日前申請許可設立辦事處並完成報名", "公告全國性公民投票案第19案投票日期、投票起、止時間、編號、主文、理由書、政府機關針對公民投票案提出之意見書、公民投票權行使範圍及方式、正反意見支持代表於全國性無線電視頻道發表意見或進行辯論之辦理期間與應遵行之事項等事項"]
         }
-          
+
 
     }
     toVote = () => {
@@ -50,34 +50,44 @@ class Election extends React.Component {
 
         this.setState({ activeIndex: newIndex })
     }
-    
+
 
 
     render() {
         const rate = 3
         const { activeIndex } = this.state
         const panes = [
-            { menuItem: '投票影片', render: () => 
-                <Tab.Pane>
-                    <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube'/>
-                </Tab.Pane> },
-            { menuItem: '投票三口訣', render: () => 
-                <Tab.Pane>
-                    <Image src={vote1} size='huge'centered />
-                </Tab.Pane> },
-            { menuItem: '投票三寶', render: () =>
-                <Tab.Pane>
-                    <Image src={vote2} size='huge' centered/>
-                </Tab.Pane> },
-            { menuItem: '投票這五步', render: () => 
-                <Tab.Pane>
-                    <Image src={vote3} size='large'centered />
-                </Tab.Pane> },
-            { menuItem: '投票這六不', render: () => 
-                <Tab.Pane>
-                    <Image src={vote4} size='large' centered/>
-                </Tab.Pane> },
-          ]
+            {
+                menuItem: '投票影片', render: () =>
+                    <Tab.Pane>
+                        <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
+                    </Tab.Pane>
+            },
+            {
+                menuItem: '投票三口訣', render: () =>
+                    <Tab.Pane>
+                        <Image src={ vote1 } size='huge' centered />
+                    </Tab.Pane>
+            },
+            {
+                menuItem: '投票三寶', render: () =>
+                    <Tab.Pane>
+                        <Image src={ vote2 } size='huge' centered />
+                    </Tab.Pane>
+            },
+            {
+                menuItem: '投票這五步', render: () =>
+                    <Tab.Pane>
+                        <Image src={ vote3 } size='large' centered />
+                    </Tab.Pane>
+            },
+            {
+                menuItem: '投票這六不', render: () =>
+                    <Tab.Pane>
+                        <Image src={ vote4 } size='large' centered />
+                    </Tab.Pane>
+            },
+        ]
         return (<Pages id={ 1 } pageInfo={ [{ content: '選舉報你知', active: true, href: "./#/election" }] } page={
             (<>
                 <Menu secondary>
@@ -101,7 +111,7 @@ class Election extends React.Component {
                 <Segment basic>
                     <Grid><Grid.Row columns={ 2 }>
                         <Grid.Column width={ 4 } />
-                        <Grid.Column width={ 12 }>
+                        <Grid.Column width={ 12 } computer={ 12 } mobile={ 16 }>
                             <Segment >
                                 <h1>選舉公告</h1>
                                 <List animated divided>
@@ -119,15 +129,15 @@ class Election extends React.Component {
 
                 <Segment basic>
                     <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate }>
+                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                             <Ref innerRef={ this.voteRef }>
                                 <Button color={ "teal" } variant="secondary" size="lg" disabled >投票要點</Button>
                             </Ref>
                         </Grid.Column>
-                        <Grid.Column width={ 16 - rate }>
+                        <Grid.Column width={ 16 - rate }computer={ 16 - rate } mobile={ 16 }>
                             <Segment >
                                 <h1 >投票要點</h1>
-                                <Tab panes={panes} />
+                                <Tab panes={ panes } />
                             </Segment>
                         </Grid.Column>
                     </Grid.Row></Grid>
@@ -135,13 +145,13 @@ class Election extends React.Component {
 
                 <Segment basic>
                     <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate }>
+                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                             <Ref innerRef={ this.QARef }>
                                 <Button color={ "teal" } variant="secondary" size="lg" disabled >QA大集合</Button>
                             </Ref>
                         </Grid.Column>
 
-                        <Grid.Column width={ 16 - rate }>
+                        <Grid.Column width={ 16 - rate }computer={ 16 - rate } mobile={ 16 } >
                             <Segment >
                                 <h1 >QA大集合</h1>
                                 <Accordion>
@@ -170,10 +180,10 @@ class Election extends React.Component {
 
                 <Segment basic>
                     <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate }>
+                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                             <Ref innerRef={ this.thingRef }><Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大事紀</Button></Ref>
                         </Grid.Column>
-                        <Grid.Column width={ 16 - rate }>
+                        <Grid.Column width={ 16 - rate } computer={ 16 - rate } mobile={ 16 }>
                             <Segment >
                                 <h1 >選舉大事紀</h1>
                                 <p>這裡是選舉大事紀,記錄著台灣選舉開始以來發生的大事件。 </p>
@@ -285,8 +295,8 @@ class Election extends React.Component {
                                             <Table.Cell>97年3月22日</Table.Cell>
                                             <Table.Cell>
                                                 <br />第12任總統副總統選舉，候選人共計有2組，分別為中國國民黨推薦之馬英九先生、蕭萬長先生以及民主進步黨推薦之謝長廷先生、蘇貞昌先生。
-                                            <br />第12任總統副總統選舉，由中國國民黨推薦之馬英九先生及蕭萬長先生分別當選為總統及副總統。
-                                            <br />合併舉行全國性公民投票第5案及第6案投票。
+                                                <br />第12任總統副總統選舉，由中國國民黨推薦之馬英九先生及蕭萬長先生分別當選為總統及副總統。
+                                                <br />合併舉行全國性公民投票第5案及第6案投票。
                                             </Table.Cell>
                                         </Table.Row>
                                         <Table.Row>
@@ -294,7 +304,7 @@ class Election extends React.Component {
                                             <Table.Cell>101年1月14日</Table.Cell>
                                             <Table.Cell>
                                                 <br />第13任總統副總統選舉，候選人共計有3組，分別為中國國民黨推薦之馬英九先生、吳敦義先生；民主進步黨推薦之蔡英文女士、蘇嘉全先生；經連署人連署通過之宋楚瑜先生、林瑞雄先生。
-                                            <br />第13任總統副總統選舉與第8屆立法委員選舉合併舉行投票，由中國國民黨推薦之馬英九先生及吳敦義先生分別當選為總統及副總統。
+                                                <br />第13任總統副總統選舉與第8屆立法委員選舉合併舉行投票，由中國國民黨推薦之馬英九先生及吳敦義先生分別當選為總統及副總統。
                                             </Table.Cell>
                                         </Table.Row>
                                         <Table.Row>
@@ -302,7 +312,7 @@ class Election extends React.Component {
                                             <Table.Cell>105年1月16日</Table.Cell>
                                             <Table.Cell>
                                                 <br />第14任總統副總統選舉，候選人共計有3組，分別為中國國民黨推薦之朱立倫先生、王如玄女士；民主進步黨推薦之蔡英文女士、陳建仁先生；親民黨推薦之宋楚瑜先生、徐欣瑩女士。
-                                            <br />第14任總統副總統選舉與第9屆立法委員選舉合併舉行投票，由民主進步黨推薦之蔡英文女士及陳建仁先生分別當選為總統及副總統。
+                                                <br />第14任總統副總統選舉與第9屆立法委員選舉合併舉行投票，由民主進步黨推薦之蔡英文女士及陳建仁先生分別當選為總統及副總統。
                                             </Table.Cell>
                                         </Table.Row>
                                         <Table.Row>
@@ -310,7 +320,7 @@ class Election extends React.Component {
                                             <Table.Cell>109年1月11日</Table.Cell>
                                             <Table.Cell>
                                                 <br />第15任總統副總統選舉，候選人共計有3組，分別為親民黨推薦之宋楚瑜先生、余湘女士；中國國民黨推薦之韓國瑜先生、張善政先生；民主進步黨推薦之蔡英文女士、賴清德先生。
-                                            <br />第15任總統副總統選舉與第9屆立法委員選舉合併舉行投票，由民主進步黨推薦之蔡英文女士及賴清德先生分別當選為總統及副總統。
+                                                <br />第15任總統副總統選舉與第9屆立法委員選舉合併舉行投票，由民主進步黨推薦之蔡英文女士及賴清德先生分別當選為總統及副總統。
                                             </Table.Cell>
                                         </Table.Row>
                                     </Table.Body>
