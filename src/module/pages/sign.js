@@ -10,22 +10,22 @@ class Base extends React.Component {
     render() {
         return (<>
 
-            <Grid textAlign={ "center" }   >
+            <Grid textAlign={"center"}   >
                 <Grid.Row  >
-                    <Grid.Column width={ 8 } only={ "computer tablet" }  >
-                        <div className={ style.back } ></div>
+                    <Grid.Column width={8} only={"computer tablet"}  >
+                        <div className={style.back} ></div>
                     </Grid.Column>
-                    {/* <Grid.Column width={ 1 } only="computer tablet"></Grid.Column> */ }
-                    <Grid.Column width={ 8 } mobile={ 14 } computer={ 8 } tablet={ 8 } className={ style.backC } textAlign={ "center" } verticalAlign={ "middle" }>
-                        <div className={ style.homeKey } >
-                            <a href="./#/"><Image src={ logo } className={ style.homeKey } /></a>
+                    {/* <Grid.Column width={ 1 } only="computer tablet"></Grid.Column> */}
+                    <Grid.Column width={8} mobile={14} computer={8} tablet={8} className={style.backC} textAlign={"center"} verticalAlign={"middle"}>
+                        <div className={style.homeKey} >
+                            <a href="./#/"><Image src={logo} className={style.homeKey} /></a>
                         </div>
                         <div>
-                            { this.props.content }
+                            {this.props.content}
                         </div>
 
                     </Grid.Column>
-                    {/* <Grid.Column width={ 1 } only="computer tablet"></Grid.Column> */ }
+                    {/* <Grid.Column width={ 1 } only="computer tablet"></Grid.Column> */}
                 </Grid.Row></Grid>
 
 
@@ -64,29 +64,29 @@ class Sign extends React.Component {
     }
 
     render() {
-        return (<Base content={ < >
-            <Grid centered textAlign={ "center" } >
+        return (<Base content={< >
+            <Grid centered textAlign={"center"} >
                 <Grid.Row >
-                    <Grid.Column width={ 12 } textAlign={ "center" }>
+                    <Grid.Column width={12} textAlign={"center"}>
                         <Segment raised >
                             <p><Input placeholder='帳號' id="account" /></p>
                             <p><Input type="password" placeholder="密碼" id="password" /></p>
                             <p><Input type="password" placeholder="確認密碼" id="checkpsd" /></p>
                             <p><Input type="text" placeholder="暱稱" id="name" /></p>
-                            <p className={ style.birth }>生日：<Input className={ style.birth } type="date" />
-                                <Select id="city" placeholder="居住地" options={ this.state.city } /></p>
+                            <p className={style.birth}>生日：<Input className={style.birth} type="date" />
+                                <Select id="city" placeholder="居住地" options={this.state.city} /></p>
                             <p></p>
-                            <p className={ style.csign }>
+                            <p className={style.csign}>
                                 點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
                                 <a href="./#/information/" target="_blank">《資料政策》</a>和<a href="./#/information/" target="_blank">《Cookie 政策》</a>。
                             </p>
-                            <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續註冊</Button></p>
-                            <p><Button color="green" onClick={ this.sendLine } className={ style.continue }>以LINE帳號註冊</Button></p>
+                            <p><Button id="continue" variant="secondary" className={style.continue} onClick={this.send} >繼續註冊</Button></p>
+                            <p><Button color="green" onClick={this.sendLine} className={style.continue}>以LINE帳號註冊</Button></p>
                             <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                         </Segment>
 
                     </Grid.Column>
-                    <Grid.Column width={ 6 }>
+                    <Grid.Column width={6}>
 
                     </Grid.Column>
                 </Grid.Row>
@@ -95,7 +95,7 @@ class Sign extends React.Component {
 
 
 
-        </ > }></Base>)
+        </ >}></Base>)
     }
 }
 
@@ -127,21 +127,21 @@ class Login extends React.Component {
     }
 
     render() {
-        return (<Base content={ <div className={ style.need_to_center }>
-            <Grid textAlign={ "center" }> <Grid.Row>
-                <Grid.Column computer={ 10 } tablet={ 13 } mobile={ 16 }>
+        return (<Base content={<div className={style.need_to_center}>
+            <Grid textAlign={"center"}> <Grid.Row>
+                <Grid.Column computer={10} tablet={13} mobile={16}>
                     <Segment raised padded>
                         <Form.Group>
                             <p><Input focus placeholder="帳號" id="account" /></p>
                             <p><Input type="password" focus placeholder="密碼" id="password" /></p>
-                            <p>   <Button id="continue" className={ style.loginBtn } onClick={ this.send }>登入</Button></p>
-                            <p><Button color='green' className={ style.loginBtn } onClick={ this.sendLine }>以LINE帳號登入</Button></p>
+                            <p>   <Button id="continue" className={style.loginBtn} onClick={this.send}>登入</Button></p>
+                            <p><Button color='green' className={style.loginBtn} onClick={this.sendLine}>以LINE帳號登入</Button></p>
                         </Form.Group>
 
 
 
-                     
-                        
+
+
 
                         <a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
                     </Segment>
@@ -155,41 +155,65 @@ class Login extends React.Component {
             <p><i>忘記密碼</i></p> */}
             {/* <p><Button id="continue" className={ style.continue } onClick={ this.send }>繼續</Button></p>
             <p><Button variant="success" >以LINE帳號登入</Button></p> */}
-            {/* <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a> */ }
+            {/* <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a> */}
 
-        </div> }></Base>)
+        </div>}></Base>)
     }
 }
 
 class SignNext extends React.Component {
     constructor(props) {
         super(props)
+        let d = ["財政金融", "教育", "內政", "司法及法制", "科技", "觀光", "國防", "食品安全", "長期照顧",
+            "衛生社福", "農業", "交通", "海洋", "性別平等", "動物保育", "原住民", "外交", "兩岸關係", "高齡化",
+            "幼托育兒", "年改", "基礎建設", "拒毒品", "客家", "治安", "都市發展", "補助", "都市美化", "汽機車",
+            "環保", "體育賽事", "勞工就業", "青年", "文創", "新住民",]
+        let istoggle = []
+        d.forEach(() => istoggle.push(false))
+
+
+
         this.state = {
+            sub: d,
             "showInfo": false,
-            "message": "",
-            "sub": ["財政金融", "教育", "內政", "司法及法制", "科技", "觀光", "國防", "食品安全", "長期照顧",
-                "衛生社福", "農業", "交通", "海洋", "性別平等", "動物保育", "原住民", "外交", "兩岸關係", "高齡化",
-                "幼托育兒", "年改", "基礎建設", "拒毒品", "客家", "治安", "都市發展", "補助", "都市美化", "汽機車",
-                "環保", "體育賽事", "勞工就業", "青年", "文創", "新住民",]
+            "message": "",       
+             isToggleOn: istoggle
+
         }
     }
+
     send = () => {
         window.location.href = "./#/"
     }
+    
+    handleClick = (index) => {
+        this.setState(prevState => {
+            let copy = prevState
+            if ("isToggleOn" in copy) {
+                copy["isToggleOn"][index] = !copy["isToggleOn"][index]
+            }
+            return copy
+        });
+    }
 
     render() {
+      return (<Base content={<div className={style.need_to_center}>
+        <Segment className={style.formSBg}>
+            <p className={style.rule}>請選擇有興趣的類別：</p>
+            <div>
+                {
 
-        return (<Base content={ <div className={ style.need_to_center }>
-            <Segment className={ style.formSBg }>
-                <p className={ style.rule }>請選擇有興趣的類別：</p>
-                <div>
-                    { this.state.sub.map(item => {
-                        return (<Button className={ style.subBtn } size='mini' onClick={ this.handleClick } >{ item }</Button>)
-                    }) }
-                </div>
-                <p><Button id="continue" className={ style.continue } onClick={ this.send }>確認註冊</Button></p>
-            </Segment>
-        </div> }></Base>)
+                    this.state.sub !== undefined ? this.state.sub.map((item, index) => {
+                        return (<Button onClick={() => { this.handleClick(index) }} className={(this.state.isToggleOn[index] ? style.selected : style.subBtn)} size='mini'  >{item}</Button>)
+                    }) : <>no non no </>
+
+
+
+                }
+            </div>
+            <p><Button id="continue" className={style.selected} onClick={this.send}>確認註冊</Button></p>
+        </Segment>
+    </div>}></Base>)
     }
 }
 

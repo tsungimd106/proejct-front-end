@@ -134,10 +134,11 @@ h5 {
     background-color: #2f375b !important;
 } */
 
-.subBtn:focus {
+.selected {
     margin: 1% !important;
     background-color: #2f375b !important;
     color: #ffffff !important;
+    font-size: 100 !important;
 }
 
 .subBtn {
