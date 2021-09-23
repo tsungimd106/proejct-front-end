@@ -87,7 +87,6 @@ export class InfoModal extends React.Component {
                 <Modal.Actions>
                     <Button
                         content="關閉視窗"
-
                         color={ "black" }
                         onClick={ this.props.close }
 

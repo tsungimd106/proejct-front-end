@@ -110,3 +110,9 @@
     margin: 30px -12.5vw;
     padding: 15vh 15vw;
 }
+
+@media screen and (max-width:768px) {
+    .sort {
+        margin: 30px -15px
+    }
+}

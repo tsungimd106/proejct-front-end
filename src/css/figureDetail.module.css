@@ -57,6 +57,11 @@ div.space {
     margin-left: 15px;
 }
 
+.policyBorder {
+    border-left: 3px solid red;
+    padding-left: 5px
+}
+
 @media screen and (max-width :768px) {
     .in {
         display: inline;

@@ -1,6 +1,11 @@
-.sign {
+/* .sign {
     text-align: center;
     height: 100vh;
+} */
+
+input {
+    width: 100% !important;
+    max-width: 300px;
 }
 
 .left>img {
@@ -18,27 +23,22 @@
 
 .sign input,
 .sign select {
-    width: 20vw;
     border-radius: 5px;
     border: 2px solid #4F586B;
     height: 3vw;
+    margin: 15px 0;
 }
 
 .continue {
     background-color: #4F586B;
-    width:90% !important;
+    width: 90% !important;
 }
 
-.formLBg{
-    margin:0 10vw !important;
+.formSBg {
+    text-align: center;
+    margin: 10vmin 5vmin;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-    border-radius:10px !important;
-}
-
-.formSBg{
-    margin:3vh 5vw !important;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-    border-radius:10px !important;
+    border-radius: 10px !important;
 }
 
 .left {
@@ -63,14 +63,12 @@ h4 {
     margin: 2vh 0;
 }
 
-.sign button,
-.sign input {
-    width: 20vw;
-}
-
 .homeKey {
-    width: 10vw !important;
-    padding-top: 15% !important;
+    margin: auto;
+    width: 10vw;
+    min-width: 100px;
+    /* width: 10vw !important; */
+    /* padding-top: 15% !important; */
 }
 
 h5 {
@@ -100,27 +98,27 @@ h5 {
     width: 90% !important;
 }
 
-.loginBtn{
+.loginBtn {
     width: 65% !important;
 }
 
-.back{
+.back {
     background: url("../imgs/login.jpg") left !important;
     background-size: 50vw 100vh!important;
     float: left;
     height: 100vh;
-    width:50vw;    
+    width: 50vw;
     background-repeat: repeat !important;
 }
 
 .form {
     height: 100vh;
-    width:100vw;
+    width: 100vw;
     background-size: 100% !important;
-    background-repeat: no-repeat !important; 
+    background-repeat: no-repeat !important;
 }
 
-.csign{
+.csign {
     font-size: 10px;
 }
 
@@ -131,16 +129,29 @@ h5 {
     background: #ffffff !important; */
 }
 
+
 /* .ui.button.toggle.active, .ui.buttons .button.toggle.active, .ui.toggle.buttons .active.button{
     background-color: #2f375b !important;
 } */
 
-.subBtn:focus{
-    margin:1% !important;
+.subBtn:focus {
+    margin: 1% !important;
     background-color: #2f375b !important;
     color: #ffffff !important;
 }
 
-.subBtn{
-    margin:1% !important;
+.subBtn {
+    margin: 1% !important;
+}
+
+@media screen and (max-width:1300px) {
+    .formSBg {
+        margin: 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .formSBg {
+        margin: 0;
+    }
 }

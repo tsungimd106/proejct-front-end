@@ -8,7 +8,7 @@ import style from "../../css/main.module.css"
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y ,Mousewheel} from 'swiper';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -95,7 +95,7 @@ class Home extends React.Component {
                         <Segment basic textAlign={ "center" }>  <div>你知道哪一位政治人物提出政見後，有「說到做到」嗎?</div>
                             <div>這裡可以一網打盡!</div>
                             <div>透過政見執行率的評分找出前五名，讓我們一起來看看吧!</div></Segment>
-                        <Card.Group itemsPerRow={ 3 }>
+                        <Card.Group itemsPerRow={ 3 } >
                             { this.state.chart.map((item, index) => {
 
                                 return (<>
@@ -118,13 +118,54 @@ class Home extends React.Component {
 
                     </div>
 
+                    {/* 測試Rwd */ }
+                    <div className={ style.sort }>
+                        <Header textAlign={ "center" } as={ "h1" }>人物排行榜                        </Header>
+                        <Segment basic textAlign={ "center" }>  <div>你知道哪一位政治人物提出政見後，有「說到做到」嗎?</div>
+                            <div>這裡可以一網打盡!</div>
+                            <div>透過政見執行率的評分找出前三名，讓我們一起來看看吧!</div></Segment>
+                        <Grid stretched>
+                            <Grid.Row >
+                                <Grid.Column computer={ 2 }>
+
+                                </Grid.Column>
+                                {
+
+                                    this.state.chart.map((item, index) => {
+
+                                        return (<>
+                                            <Grid.Column computer={ 4 } mobile={ 16 }>
+                                                <Card  centered>
+                                                    <Card.Header textAlign={ "center" }>
+                                                        <Image src={ item.img } circular centered size={ "small" } />
+                                                        <Header>{ item.name }</Header>
+                                                    </Card.Header>
+                                                    <Card.Content textAlign={ "center" }>
+
+                                                        { item.score }分
+                                                    </Card.Content>
+                                                </Card>
+                                            </Grid.Column>
+
+                                        </>)
+
+                                    })
+                                }
+                                <Grid.Column computer={ 2 }>   </Grid.Column>
+                            </Grid.Row>
+
+                        </Grid>
+
+
+                    </div>
+
 
                 </div>
 
-                <Grid columns={ 2 }>
+                <Grid columns={ 2 } >
                     <Grid.Row stretched  >
-                        <Grid.Column width={ 16 }> <Header className={ style.hotMsg } as={ "h1" } >最熱門留言</Header></Grid.Column>
-                        <Grid.Column width={ 6 }  >
+                        <Grid.Column width={ 16 } > <Header className={ style.hotMsg } as={ "h1" } >最熱門留言</Header></Grid.Column>
+                        <Grid.Column width={ 6 } mobile={16} computer={6} tablet={6} stretched>
                             <Card fluid>
                                 <Image src={ person } size={ "small" } centered />
                                 <Card.Content>
@@ -138,22 +179,24 @@ class Home extends React.Component {
 
 
                         </Grid.Column>
-                        <Grid.Column width={ 10 }> <Table verticalAlign={ "middle" } >
-                            { this.state.message.map((item, index) => {
-                                return (index > 0 ? <>
+                        
+                        <Grid.Column width={ 10 } mobile={ 16 } computer={10} tablet={10} stretched>
+                            <Table verticalAlign={ "middle" } >
+                                { this.state.message.map((item, index) => {
+                                    return (index > 0 ? <>
 
-                                    <Table.Row>
-                                        <Table.Cell width={ 1 }><Image src={ person } size={ "mini" } />
-                                        </Table.Cell>
+                                        <Table.Row>
+                                            <Table.Cell width={ 1 }><Image src={ person } size={ "mini" } />
+                                            </Table.Cell>
 
-                                        <Table.Cell width="2" >{ item.name }</Table.Cell>
-                                        <Table.Cell>「{ item.title }」</Table.Cell>
-                                        <Table.Cell width={ 2 }><Icon name={ "thumbs up" } />{ item.score }
-                                        </Table.Cell></Table.Row>
+                                            <Table.Cell width="2" >{ item.name }</Table.Cell>
+                                            <Table.Cell>「{ item.title }」</Table.Cell>
+                                            <Table.Cell width={ 2 }><Icon name={ "thumbs up" } />{ item.score }
+                                            </Table.Cell></Table.Row>
 
 
-                                </> : <></>)
-                            }) }  </Table>
+                                    </> : <></>)
+                                }) }  </Table>
 
                         </Grid.Column>
 
@@ -162,7 +205,7 @@ class Home extends React.Component {
                     <Grid.Row stretched>
                         <Grid.Column width={ 16 }> <Header className={ style.hotPolicy } as={ "h1" }>最熱門政見</Header></Grid.Column>
 
-                        <Grid.Column width={ 6 } >
+                        <Grid.Column width={ 6 } mobile={16} tablet={6} computer={6}>
 
                             <Card fluid>
                                 <Image src={ this.state.politics[0].photo } size={ "small" } centered />
@@ -178,7 +221,7 @@ class Home extends React.Component {
                             </Card>
 
                         </Grid.Column>
-                        <Grid.Column width={ 10 }>
+                        <Grid.Column width={ 10 } mobile={16} computer={10} tablet={10}>
 
                             <Table    >
                                 <Table.Body>
@@ -201,7 +244,7 @@ class Home extends React.Component {
                         <Grid.Column width={ 16 }>
                             <Header className={ style.hotProposal } as={ "h1" }>最熱門提案</Header>
                         </Grid.Column>
-                        <Grid.Column width={ 6 }>
+                        <Grid.Column width={ 6 } mobile={16} tablet={6} computer={6}>
                             <Card fluid>
                                 <Card.Content>
                                     { this.state.proposal[0].name }
@@ -217,7 +260,7 @@ class Home extends React.Component {
                             </Card>
                         </Grid.Column>
 
-                        <Grid.Column width={ 10 } >
+                        <Grid.Column width={ 10 } mobile={16} computer={10} tablet={10}>
 
                             <Table   >
                                 <Table.Body>

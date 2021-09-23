@@ -3,7 +3,7 @@ import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policy.module.css"
 import utilStyle from "../../css/util.module.css"
-
+import BarChart from "../barchart"
 import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
@@ -17,6 +17,12 @@ class Policy extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            barChartData: [
+                { value: 10, name: "同意", color: "#fec240" },
+                { value: 50, name: "中立", color: "#98c4d1" },
+                { value: 40, name: "反對", color: "#de4b43" }
+
+            ],
             kpi: {
                 series: [10, 50, 40],
                 options: {
@@ -101,15 +107,15 @@ class Policy extends React.Component {
     componentDidMount() {
 
         ProposalR.list({ page: 1 }).then(response => {
-            let resData=response.data.D
+            let resData = response.data.D
             this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
         })
         ProposalR.cond().then(response => {
-            let resData=response.data.D
+            let resData = response.data.D
             let test = {}
             console.log(Object.keys(resData))
-            for(let i of Object.keys(resData)){
+            for (let i of Object.keys(resData)) {
                 let inside = []
                 for (let j of resData[i]) {
                     j["check"] = false
@@ -117,8 +123,8 @@ class Policy extends React.Component {
                     // inside["id"]=j.id
                 }
                 test[i] = inside
-            }            
-           
+            }
+
             this.setState({ "like": test })
         })
 
@@ -140,7 +146,7 @@ class Policy extends React.Component {
     handlePaginationChange = (e, { activePage }) => {
         this.setState({ nowPage: activePage })
         let data
-        (this.state.cond)? data={"status_id":this.state.cond,"page":activePage}:data={ "page": activePage }
+        (this.state.cond) ? data = { "status_id": this.state.cond, "page": activePage } : data = { "page": activePage }
         ProposalR.list(data).then(response => {
             window.scrollTo(0, 0)
             this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
@@ -148,7 +154,7 @@ class Policy extends React.Component {
         })
     }
     handleF = () => {
-        
+
         let statusL = []
         this.state.like["狀態"].map(item => {
             if (item.check) statusL.push(item.id)
@@ -157,7 +163,7 @@ class Policy extends React.Component {
         console.log(statusL)
         this.setState({ "cond": statusL })
         ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
-            let resData=response.data.D
+            let resData = response.data.D
             this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
         })
@@ -176,32 +182,47 @@ class Policy extends React.Component {
                     { this.state.Sdata && this.state.Sdata.map((placement, index) => {
                         return (<List.Item onClick={ () => { this.toContent(placement) } }>
                             <Grid>
-                                <Grid.Row className={ utilStyle.point } columns={ 3 }>
+                                <Grid.Row className={ utilStyle.point } columns={ 3 } verticalAlign={ "bottom" }>
                                     <Grid.Column width={ 1 } />
-                                    <Grid.Column width={ 11 }>
-                                        <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
-                                        <h3 className={ style.ellipsis }>{ placement.title }</h3>
+                                    <Grid.Column width={ 15 } only="mobile">  <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
+                                        <h3 className={ style.ellipsis }>{ placement.title }</h3></Grid.Column>
+                                        <Grid.Column width={ 1 } only="mobile"/>
+                                    <Grid.Column width={ 10 } mobile={ 7 } computer={ 10 } tablet={ 8 }>
+
                                         <div>
-                                            <List horizontal>
+                                            {/* <List horizontal>
                                                 <List.Item>
-                                                    2021/2/1{ placement.date }
+                                                 
                                                 </List.Item>
-                                                <List.Item>提案進度：{ placement.status }</List.Item>
+                                                <List.Item></List.Item>
                                                 { placement.hashtag_name.map(item => { return (item != null ? <List.Item><Label>{ item }</Label></List.Item> : <></>) }) }
-                                            </List>
+                                            </List> */}
 
                                         </div>
                                         <Grid>
-                                            <Grid.Row >
-                                                <Grid.Column width={ 2 }><Icon name='comments' />68</Grid.Column>
-                                                <Grid.Column width={ 2 }><Icon name='heart' />收藏</Grid.Column>
+                                            <Grid.Row  >
+                                                <Grid.Column width={14}only="computer tablet">
+                                                    <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
+                                                    <h3 className={ style.ellipsis }>{ placement.title }</h3>
+                                                </Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}>   2021/2/1{ placement.date }</Grid.Column>
+                                                <Grid.Column width={ 16 } computer={9}>提案進度：{ placement.status }</Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}><Icon name='comments' />68</Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}><Icon name='heart' />收藏</Grid.Column>
+                                                {/* <Grid.Column width={16} only={"mobile"}>
+                                                <BarChart data={this.state.barChartData}></BarChart>
+                                                </Grid.Column> */}
                                             </Grid.Row>
                                         </Grid>
                                     </Grid.Column>
-                                    <Grid.Column width={ 4 } >
-                                        <Chart options={ this.state.kpi.options }
+                                    {/* <Grid.Column width={ 5 } only="mobile"><Icon name='comments' />68</Grid.Column>
+                                    <Grid.Column width={ 5 } only="mobile"><Icon name='heart' />收藏</Grid.Column> */}
+                                    <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "right" }  >
+
+                                        <BarChart data={ this.state.barChartData }></BarChart>
+                                        {/* <Chart options={ this.state.kpi.options }
                                             series={ this.state.kpi.series } type="donut"
-                                            height="125px" />
+                                            height="125px" /> */}
                                     </Grid.Column>
                                 </Grid.Row></Grid>
 

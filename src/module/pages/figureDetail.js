@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Dropdown, Button, Form, Label, Segment, Image } from 'semantic-ui-react'
+import { Card, Dropdown, Button, Form, Label, Segment, Image, Table, List } from 'semantic-ui-react'
 // import Chart from 'react-apexcharts'
 import { Line, Bar } from 'react-chartjs-2';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
@@ -24,8 +24,6 @@ class FigureDetail extends React.Component {
         this.state = {
             "login": !!localStorage.getItem("login"),
             userName: localStorage.getItem("login"),
-
-
             selfD: [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }],
             scoreShow: false,
             scoreRule: [
@@ -36,20 +34,17 @@ class FigureDetail extends React.Component {
                 { name: "開始動作", class: "outline-warning", remark: "政府相關部會已開始進行研究，但尚未有草案版本" },
                 { name: "未有動作", class: "outline-danger", remark: "政府相關部會沒有任何動作" },
                 { name: "政策破局", class: "outline-danger", remark: "明確違背原本承諾的政見" }
-
             ],
             scoreActitivy: null,
-            open: false
-
-
+            open: false,
+            openTable: false
         }
     }
     componentDidMount() {
         this.figureID = this.props.match.params.id
         trackPromise(
-
             PoliticianR.detail(this.figureID).then(res => {
-                let resData=res.data.D
+                let resData = res.data.D
                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
                 cond.map(placement => {
@@ -63,26 +58,29 @@ class FigureDetail extends React.Component {
 
                     }
                 })
-
                 this.setState({
                     policy: resData.policy,
                     name: resData.detail[0].name,
                     area: resData.detail[0].e_n,
                     experience: resData.detail[0].experience.split("\n"),
                     areaReamrk: resData.detail[0].remark.replace("null", ""),
-                    photo: resData.detail[0].photo
+                    photo: resData.detail[0].photo,
+                    table: resData.table_policy,
+                    tableDetail: resData.table_policyDetail,
+                    attend: resData.attend[0]["attend"],
+                    score: resData.count_score[0]["score"],
+                    proposal_quota: resData.proposal_quota[0]["quota"],
+                    proposal: resData.proposal
                 })
 
             })
         )
         this.changeTerm("當屆")
 
-
     }
 
-    changeTerm = (s) => {
-        this.setState({ term: s })
-    }
+    changeTerm = (s) => this.setState({ term: s })
+
     scoreShow = (txt, id, tag) => {
         if (this.state.login) {
             this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id, tag: tag })
@@ -91,26 +89,67 @@ class FigureDetail extends React.Component {
         }
     }
 
-    scoreRule = (i) => {
-        this.setState({ scoreActitivy: i })
-    }
-    score = () => {
-        PoliticianR.score({
-            "user_id": this.state.userName,
-            "policy_id": this.state.scoreId,
-            "ps_id": this.state.scoreActitivy,
-            "remark": document.getElementById("scoreRemark").value || " "
-        }).then(res => {
-            if (res["success"]) {
-                this.scoreShow("")
-                this.setState({ "open": true, noteModalC: "評分成功" })
-            }
-        })
-    }
-    closeNoteModal = (m) => {
+    scoreRule = (i) => this.setState({ scoreActitivy: i })
 
-        this.setState({ open: false })
+    score = () => PoliticianR.score({
+        "user_id": this.state.userName,
+        "policy_id": this.state.scoreId,
+        "ps_id": this.state.scoreActitivy + 1,
+        "remark": document.getElementById("scoreRemark").value || " "
+    }).then(res => {
+        if (res.data.success) {
+            this.scoreShow("")
+            this.setState({ "open": true, noteModalC: "評分成功" })
+        }
+    })
+
+    closeNoteModal = () => this.setState({ open: false })
+
+    closeTableModal = () => this.setState({ openTable: false })
+
+
+
+
+    renderRowPolicy = ({ id, content, quota, total }, i) => ({
+        key: `row-${id}${i}`,
+
+        onClick: () => this.renderToDetail(id),
+        // warning: !!(status && status.match('Requires Action')),
+        cells: [
+            content || ' ',
+            quota || '0',
+            total || '0',
+        ],
+    })
+    renderToDetail = (id) => {
+        console.log(id)
+        // console.log()
+        let newData = this.state.tableDetail.filter(item => item.p_id == id)
+        this.setState({ showBack: true, render: this.renderRowPolicyDetail, renderData: newData, header: ["進度", "投票人數", "占比", "小計"] })
     }
+    renderRowPolicyDetail = ({ p_id, s_name, quota, value, total }, i) => ({
+        key: `row-${p_id}-${i}`,
+        cells: [
+
+            s_name || '0',
+            quota || '0',
+            value || '0',
+            total || ""
+        ],
+    })
+    renderRowProposal = ({ title, proposal_id }, i) => ({
+        key: `row-${proposal_id}${i}`,
+        cells: [
+            title || ' ',
+
+        ],
+    })
+    renderRow = (cond) => {
+        this.setState({ renderData: [], showBack: false })
+        if (cond === "proposal") this.setState({ "openTable": true, render: this.renderRowProposal, renderData: this.state.proposal, header: ["提案"] })
+        else this.setState({ "openTable": true, render: this.renderRowPolicy, renderData: this.state.table, header: ['政見', '投票人數', '小計'] })
+    }
+
     render() {
         const ldata = {
             labels: ['1', '2', '3', '4', '5', '6'],
@@ -141,16 +180,10 @@ class FigureDetail extends React.Component {
 
         const loptions = {
             scales: {
-                x: {
-                    ticks: { color: "#fff" }
-                },
-                y: {
-                    ticks: { color: "#fff" }
-                },
+                x: { ticks: { color: "#fff" } },
+                y: { ticks: { color: "#fff" } },
             },
-            layout: {
-                padding: 35
-            },
+            layout: { padding: 35 },
             plugins: {
                 legend: { labels: { font: { family: "abc" } } },
                 title: {
@@ -161,9 +194,7 @@ class FigureDetail extends React.Component {
                         size: 25,
                         family: "abc"
                     },
-                    padding: {
-                        top: 3,
-                    }
+                    padding: { top: 3, }
                 }
             },
             color: '#ffffff'
@@ -198,16 +229,10 @@ class FigureDetail extends React.Component {
 
         const lloptions = {
             scales: {
-                x: {
-                    ticks: { color: "#fff" }
-                },
-                y: {
-                    ticks: { color: "#fff" }
-                },
+                x: { ticks: { color: "#fff" } },
+                y: { ticks: { color: "#fff" } },
             },
-            layout: {
-                padding: 35
-            },
+            layout: { padding: 35 },
             plugins: {
 
                 title: {
@@ -218,9 +243,7 @@ class FigureDetail extends React.Component {
                         size: 25,
                         family: "abc"
                     },
-                    padding: {
-                        top: 3,
-                    }
+                    padding: { top: 3, }
                 }
             },
             color: '#ffffff'
@@ -244,16 +267,10 @@ class FigureDetail extends React.Component {
 
         const boptions = {
             scales: {
-                x: {
-                    ticks: { color: "#fff" }
-                },
-                y: {
-                    ticks: { color: "#fff" }
-                },
+                x: { ticks: { color: "#fff" } },
+                y: { ticks: { color: "#fff" } },
             },
-            layout: {
-                padding: 35
-            },
+            layout: { padding: 35 },
             plugins: {
                 title: {
                     display: true,
@@ -263,15 +280,13 @@ class FigureDetail extends React.Component {
                         size: 25,
                         family: "abc"
                     },
-                    padding: {
-                        top: 3,
-                    }
+                    padding: { top: 3, }
                 }
             },
             color: '#ffffff'
         };
-       
-   
+
+
         SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel,]);
         // Chart.defaults.font.family="abc"
         return (<Pages id={ 3 }
@@ -284,60 +299,47 @@ class FigureDetail extends React.Component {
                         {
                             <Grid> <Grid.Row className={ style.dashboard } >
                                 <Grid.Column mobile={ 16 } computer={ 5 } >
+
                                     <Card  >
                                         <Grid columns={ 2 } verticalAlign={ "middle" } >
                                             <Grid.Row >
-                                                <Grid.Column >
+                                                <Grid.Column mobile={ 16 } computer={ 8 }>
                                                     <center className={ style.imgBox }>
                                                         <Image src={ this.state.photo } alt="" size={ "small" } centered />
                                                     </center>
                                                 </Grid.Column>
-                                                <Grid.Column >
+                                                <Grid.Column mobile={ 16 } computer={ 8 }>
                                                     <p className={ style.bigSize }>{ this.state.selfD && this.state.name }</p>
-                                                    <p className={ style.in }>
-
-                                                    </p>
+                                                    <p className={ style.in }>  </p>
                                                     <p className={ style.in }>{ this.state.selfD && this.state.area }</p>
                                                     <p className={ style.in }> { this.state.selfD && this.state.areaReamrk }</p>
                                                 </Grid.Column>
                                             </Grid.Row>
                                         </Grid>
-                                        <Card.Content>
-
-                                            <p>犯罪紀錄 : 2 筆</p>
-                                            <p>政治獻金 : 5 筆 100萬</p>
-                                        </Card.Content>
-                                        <Card.Content>
-                                            <Grid>
-                                                <Grid.Row columns={ "equal" } >
-                                                    { this.state.selfD && this.state.selfD.map(placement => {
-                                                        return (<>
-
-                                                            <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
-                                                            <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } />
-
-
-                                                        </>)
-                                                    }) }
-                                                </Grid.Row>
-                                                <Grid.Row columns={ "equal" }>
-                                                    <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
-                                                    <Grid.Column width={ 16 } className={ style.labelContent }>
-                                                        { this.state.experience && this.state.experience.map((item, index) => {
-                                                            return (<p>
-                                                                { item }
-
-                                                            </p>)
-                                                        }) }</Grid.Column>
-                                                </Grid.Row>
-                                            </Grid>
-                                        </Card.Content>
                                     </Card>
+                                    <Card  ><p>犯罪紀錄 : 2 筆</p>
+                                        <p>政治獻金 : 5 筆 100萬</p></Card>
+                                    <Card vertical> <Grid>
+                                        <Grid.Row columns={ "equal" } >
+                                            { this.state.selfD && this.state.selfD.map(placement => {
+                                                return (<>
+                                                    <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
+                                                    <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } />
+                                                </>)
+                                            }) }
+                                        </Grid.Row>
+                                        <Grid.Row columns={ "equal" }>
+                                            <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
+                                            <Grid.Column width={ 16 } className={ style.labelContent }>
+                                                { this.state.experience && this.state.experience.map((item, index) => {
+                                                    return (<p>  { item } </p>)
+                                                }) }</Grid.Column>
+                                        </Grid.Row>
+                                    </Grid></Card>
 
 
                                 </Grid.Column>
                                 <Grid.Column computer={ 11 } mobile={ 16 }>
-
                                     <Dropdown text={ this.state.term && this.state.term }>
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
@@ -345,39 +347,36 @@ class FigureDetail extends React.Component {
                                             <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                  
-                                        <Card.Group  itemsPerRow={ 3 }>
-                                            <Card className={style.dashboardcard}>
-                                         <div className={style.scoreCircle}>政見評分
-                                         <CircularProgressbar value={50} text={`${59}`} styles={buildStyles({
-                                                strokeLinecap:"butt",
-                                                pathColor:"#FEC240",
-                                                textColor:"#fff"
-                                                
-                                            })}/>
-                                         </div>
+                                    <Card.Group itemsPerRow={ 3 }>
+                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("policy") }>
+                                            <div className={ style.scoreCircle }>政見評分
+                                                <CircularProgressbar value={ this.state.score * 100 } text={ `${parseInt(this.state.score * 100)}` } styles={ buildStyles({
+                                                    strokeLinecap: "butt",
+                                                    pathColor: "#FEC240",
+                                                    textColor: "#fff"
 
-                                            </Card>
-                                            <Card  className={style.dashboardcard}>
-                                            <div className={style.scoreCircle}>出席率
-                                            <CircularProgressbar value={99} text={`${99}%`} styles={buildStyles({
-                                                strokeLinecap:"butt",
-                                                pathColor:"#FEC240",
-                                                textColor:"#fff"
-                                                
-                                            })}/></div>
+                                                }) } />
+                                            </div>
+                                        </Card>
+                                        <Card className={ style.dashboardcard }>
+                                            <div className={ style.scoreCircle }>出席率
+                                                <CircularProgressbar value={ this.state.attend } text={ `${this.state.attend}%` } styles={ buildStyles({
+                                                    strokeLinecap: "butt",
+                                                    pathColor: "#FEC240",
+                                                    textColor: "#fff"
 
-                                            </Card>
-                                            <Card  className={style.dashboardcard}> <div className={style.scoreCircle}>提案數
-                                            <CircularProgressbar value={100} text={`${55}`} styles={buildStyles({
-                                                strokeLinecap:"butt",
-                                                pathColor:"#FEC240",
-                                                textColor:"#fff"
-                                                
-                                            })}/></div>
-                                            </Card>
-                                        </Card.Group>
-                                        <Segment basic>  </Segment>
+                                                }) } /></div>
+                                        </Card>
+                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("proposal") }> <div className={ style.scoreCircle }>提案數
+                                            <CircularProgressbar value={ 100 } text={ `${this.state.proposal_quota}` } styles={ buildStyles({
+                                                strokeLinecap: "butt",
+                                                pathColor: "#FEC240",
+                                                textColor: "#fff"
+
+                                            }) } /></div>
+                                        </Card>
+                                    </Card.Group>
+                                    <Segment basic>  </Segment>
                                     <Swiper
                                         className={ style.dashboardcard }
                                         mousewheel={ true }
@@ -386,11 +385,6 @@ class FigureDetail extends React.Component {
                                         navigation
                                         pagination={ { clickable: true, } }
                                     >
-                                        {/* <SwiperSlide  >
-                                            <center><Chart options={ this.state.scoreD } series={ this.state.score } type="line" height={ 250 } width={ 450 } /></center>
-                                        </SwiperSlide>
-                                        <SwiperSlide  > <center><Chart options={ this.state.goO } series={ this.state.go } type="line" height={ 250 } width={ 450 } /></center></SwiperSlide>
-                                        <SwiperSlide  ><center><Chart options={ this.state.data.persoal.option } series={ this.state.data.persoal.series } type="bar" width={ 450 } height={ 250 } /></center></SwiperSlide> */}
                                         <SwiperSlide>
                                             <Line data={ ldata } options={ loptions } />
                                         </SwiperSlide>
@@ -403,44 +397,40 @@ class FigureDetail extends React.Component {
                                     </Swiper>
 
                                     <Segment basic padded><div className={ style.bigSize + " " + style.center }>政見
-                                    <span className={style.term}><Dropdown text={ this.state.term && this.state.term }>
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown></span>
-                                    </div> 
+                                        <span className={ style.term }><Dropdown text={ this.state.term && this.state.term }>
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                                <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                                <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown></span>
+                                    </div>
                                     </Segment>
-                                    
-                                    <Card.Group itemsPerRow={ 2 }  >
+
+                                    <Grid >
+                                        <Grid.Row stretched  >
+                                     
                                         { this.state.policy && this.state.policy.map((placement, index) => {
                                             if (index === 0) return (<></>)
                                             else {
                                                 return (<>
-                                                    <Card onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
-
-                                                        <Card.Content> <Card.Description>
+                                                {/* <Grid.Column mobile={"2"} only="computer"></Grid.Column> */}
+                                                    <Grid.Column mobile={12}  computer={8}textAlign={"center"} onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
+                                                     <Card centered>   <Card.Content> <Card.Description className={ style.policyBorder }>
                                                             { placement.content }
                                                         </Card.Description></Card.Content>
                                                         <Card.Content extra>
                                                             < >{ placement.name.map((item, index) => {
                                                                 return (<><Label>{ item }</Label></>)
                                                             }) }</ >
-                                                        </Card.Content>
-                                                    </Card>
-
+                                                        </Card.Content></Card>
+                                                    </Grid.Column>
+                                                    {/* <Grid.Column mobile={"2"} only="mobile"></Grid.Column> */}
                                                 </>)
                                             }
-                                        }) } </Card.Group>
-
-
-
+                                        }) } </Grid.Row></Grid>
                                 </Grid.Column>
-
-
                             </Grid.Row></Grid>
-
                         }</div>
                     <ScoreModal open={ this.state.scoreShow } toDo={ () => this.score() } setOpen={ () => { this.scoreShow("") } }
                         message={ this.state.scoreTitle }
@@ -448,7 +438,6 @@ class FigureDetail extends React.Component {
                             <div >{ this.state.tag != null ? this.state.tag.map((item, index) => { return (<Label>{ item }</Label>) }) : <></> }</ div>
                             <div>您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。</div>
                             <Grid> <Grid.Row>
-
                                 <Grid.Column width={ 2 }>
                                     <Button.Group vertical type="radio" id={ "ps_id" }>
                                         { this.state.scoreRule.map((item, index) => {
@@ -460,7 +449,6 @@ class FigureDetail extends React.Component {
 
                                             </>)
                                         }) }
-
                                     </Button.Group>
                                 </Grid.Column>
                                 <Grid.Column width={ 13 } floated={ "right" }>
@@ -469,11 +457,8 @@ class FigureDetail extends React.Component {
                                             return (<>
                                                 { index !== 0 ? <>  <Button.Or text={ "" } /></> : <></> }
                                                 <Button value={ index + 1 } disabled style={ { height: "45px", "margin-left": "5px" } } content={ item.remark } />
-
-
                                             </>)
                                         }) }
-
                                     </Button.Group>
                                     <Form.TextArea rows={ 1 } className={ style.input } placeholder={ "備註" } id={ "scoreRemark" } />
                                 </Grid.Column>
@@ -483,22 +468,24 @@ class FigureDetail extends React.Component {
                                     </>)
                                 }) }
                             </Grid.Row></Grid>
-
-
-
                         </>) }
 
                     />
                     <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.closeNoteModal } />
+                    <InfoModal open={ this.state.openTable } close={ this.closeTableModal } size={ "large" }
+                        content={ <>
+                            { this.state.showBack ? <Button onClick={ () => this.renderRow("policy") } content={ "返回" } /> : <></> }
+                            <Table
+                                basic='very' padded='very'
+                                headerRow={ this.state.header }
+                                renderBodyRow={ this.state.render }
+                                tableData={ this.state.renderData } />
+                        </> } />
                 </>)
 
             } />)
     }
 }
-
-
-
-
 
 export default FigureDetail = {
     routeProps: {

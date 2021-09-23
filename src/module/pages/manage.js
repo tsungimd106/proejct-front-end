@@ -14,6 +14,7 @@ class Manage extends React.Component {
         this.state = {
             "login": !!localStorage.getItem("login"),
             userName: localStorage.getItem("login"),
+            isManage:localStorage.getItem("isManage"),
             items: [
                 { key: "check", name: "審核檢舉", in: <Check /> },
                 { key: "article", name: "廣告及公告管理", in: <Article /> },
@@ -22,6 +23,11 @@ class Manage extends React.Component {
                 { key: "welcome", name: "使用者管理", in: <User /> }
             ]
 
+        }
+    }
+    componentDidMount(){
+        if(!!!localStorage.getItem("isManage")){
+            document.location.href="/#"
         }
     }
 
