@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@craco/craco": "^6.3.0",
         "@react-pdf-viewer/core": "^2.4.2",
         "@react-pdf-viewer/page-navigation": "^2.4.2",
         "@testing-library/jest-dom": "^4.2.4",
@@ -21,17 +22,16 @@
         "react-loader-spinner": "^4.0.0",
         "react-promise-tracker": "^2.1.0",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "3.4.3",
+        "react-scripts": "^4.0.3",
         "react-svg-map": "^2.2.0",
         "semantic-ui-css": "^2.4.1",
         "semantic-ui-react": "^2.0.3",
-        "swiper": "^6.6.2",
-        "tailwindcss": "^2.2.15"
+        "swiper": "^6.6.2"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
+        "start": "craco start --verbose",
+        "build": "craco build",
+        "test": "craco test",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
@@ -44,6 +44,9 @@
         "not op_mini all"
     ],
     "devDependencies": {
-        "@types/d3-scale": "^4.0.1"
+        "@types/d3-scale": "^4.0.1",
+        "autoprefixer": "^9.8.6",
+        "postcss": "^7.0.36",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
     }
 }
