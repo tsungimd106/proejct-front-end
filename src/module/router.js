@@ -11,6 +11,7 @@ import PolicyContent from "./pages/policyContent.js"
 import Manage from "./pages/manage.js"
 import Information from "./pages/information.js"
 import Redirect from "./pages/redirect.js"
+import Line from "./pages/line"
 
 export const main = [
     Home,
@@ -26,7 +27,7 @@ export const main = [
     Election,
     Manage,
     Information,
-    Redirect
+    Redirect,Line
 ]
 
 export const navUrl = {
