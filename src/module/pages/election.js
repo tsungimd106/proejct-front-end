@@ -5,6 +5,13 @@ import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
 import vote4 from "../../imgs/vote6.jpg"
+import time1 from "../../imgs/time1.jpg"
+import time2 from "../../imgs/time2.jpg"
+import time3 from "../../imgs/time3.jpg"
+import time4 from "../../imgs/time4.jpg"
+import time5 from "../../imgs/time5.jpg"
+import time6 from "../../imgs/time6.jpg"
+import time7 from "../../imgs/time7.jpg"
 
 
 
@@ -102,7 +109,7 @@ class Election extends React.Component {
                         onClick={ this.toQa }
                     />
                     <Menu.Item
-                        name='選舉大事紀'
+                        name='民主大事紀'
 
                         onClick={ this.toThing }
                     />
@@ -185,9 +192,17 @@ class Election extends React.Component {
                         </Grid.Column>
                         <Grid.Column width={ 16 - rate } computer={ 16 - rate } mobile={ 16 }>
                             <Segment >
-                                <h1 >選舉大事紀</h1>
-                                <p>這裡是選舉大事紀,記錄著台灣選舉開始以來發生的大事件。 </p>
-                                <Table celled>
+                                <h1 >民主大事紀</h1>
+                                <p>這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
+                                <Image src={ time1 } size='large' centered />
+                                <Image src={ time2 } size='large' centered />
+                                <Image src={ time3 } size='large' centered />
+                                <Image src={ time4 } size='large' centered />
+                                <Image src={ time5 } size='large' centered />
+                                <Image src={ time6 } size='large' centered />
+                                <Image src={ time7 } size='large' centered />
+
+                                {/* <Table celled>
                                     <Table.Header>
                                         <Table.Row>
                                             <Table.HeaderCell>屆別</Table.HeaderCell>
@@ -323,7 +338,7 @@ class Election extends React.Component {
                                                 <br />第15任總統副總統選舉與第9屆立法委員選舉合併舉行投票，由民主進步黨推薦之蔡英文女士及賴清德先生分別當選為總統及副總統。
                                             </Table.Cell>
                                         </Table.Row>
-                                    </Table.Body>
+                                    </Table.Body> */}
 
                                     {/* <Table.Footer>
                                         <Table.Row>
@@ -342,9 +357,9 @@ class Election extends React.Component {
                                                 </Menu>
                                             </Table.HeaderCell>
                                         </Table.Row>
-                                    </Table.Footer> */}
+                                    </Table.Footer> 
 
-                                </Table>
+                                </Table>*/}
                             </Segment>
                         </Grid.Column>
                     </Grid.Row></Grid>
