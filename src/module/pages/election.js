@@ -12,6 +12,7 @@ import time4 from "../../imgs/time4.jpg"
 import time5 from "../../imgs/time5.jpg"
 import time6 from "../../imgs/time6.jpg"
 import time7 from "../../imgs/time7.jpg"
+import "tailwindcss/tailwind.css"
 
 
 
@@ -37,19 +38,50 @@ class Election extends React.Component {
 
 
     }
-    toVote = () => {
 
-        this.voteRef.current.scrollIntoView({ behavior: 'smooth' })
+    componentDidMount() {
+        let tabsContainer = document.querySelector("#tabs");
+
+        let tabTogglers = tabsContainer.querySelectorAll("a");
+        console.log(tabTogglers);
+
+        tabTogglers.forEach(function (toggler) {
+            toggler.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                let tabName = this.getAttribute("href");
+                console.log(tabName)
+                let tabContents = document.querySelector("#tab-contents");
+
+                for (let i = 0; i < tabContents.children.length; i++) {
+
+                    tabTogglers[i].parentElement.classList.remove("border-blue-400", "border-b", "-mb-px", "opacity-100");
+                    tabContents.children[i].classList.remove("hidden");
+                    if ("#" + tabContents.children[i].id === tabName) {
+                        continue;
+                    }
+                    tabContents.children[i].classList.add("hidden");
+
+                }
+                e.target.parentElement.classList.add("border-blue-400", "border-b-4", "-mb-px", "opacity-100");
+            });
+        });
+
+        document.getElementById("default-tab").click();
     }
-    toQa = () => {
-        this.QARef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    toSearch = () => {
-        this.searchRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    toThing = () => {
-        this.thingRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
+    // toVote = () => {
+
+    //     this.voteRef.current.scrollIntoView({ behavior: 'smooth' })
+    // }
+    // toQa = () => {
+    //     this.QARef.current.scrollIntoView({ behavior: 'smooth' })
+    // }
+    // toSearch = () => {
+    //     this.searchRef.current.scrollIntoView({ behavior: 'smooth' })
+    // }
+    // toThing = () => {
+    //     this.thingRef.current.scrollIntoView({ behavior: 'smooth' })
+    // }
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
@@ -60,10 +92,12 @@ class Election extends React.Component {
 
 
 
+
+
     render() {
         const rate = 3
         const { activeIndex } = this.state
-        const panes = [
+        const panes1 = [
             {
                 menuItem: '投票影片', render: () =>
                     <Tab.Pane>
@@ -73,31 +107,31 @@ class Election extends React.Component {
             {
                 menuItem: '投票三口訣', render: () =>
                     <Tab.Pane>
-                        <Image src={ vote1 } size='huge' centered />
+                        <Image src={vote1} size='huge' centered />
                     </Tab.Pane>
             },
             {
                 menuItem: '投票三寶', render: () =>
                     <Tab.Pane>
-                        <Image src={ vote2 } size='huge' centered />
+                        <Image src={vote2} size='huge' centered />
                     </Tab.Pane>
             },
             {
                 menuItem: '投票這五步', render: () =>
                     <Tab.Pane>
-                        <Image src={ vote3 } size='large' centered />
+                        <Image src={vote3} size='large' centered />
                     </Tab.Pane>
             },
             {
                 menuItem: '投票這六不', render: () =>
                     <Tab.Pane>
-                        <Image src={ vote4 } size='large' centered />
+                        <Image src={vote4} size='large' centered />
                     </Tab.Pane>
             },
         ]
-        return (<Pages id={ 1 } pageInfo={ [{ content: '選舉報你知', active: true, href: "./#/election" }] } page={
+        return (<Pages id={1} pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
             (<>
-                <Menu secondary>
+                {/* <Menu secondary>
                     <Menu.Item
                         name='投票要點'
 
@@ -114,95 +148,114 @@ class Election extends React.Component {
                         onClick={ this.toThing }
                     />
 
-                </Menu>
-                <Segment basic>
-                    <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ 4 } />
-                        <Grid.Column width={ 12 } computer={ 12 } mobile={ 16 }>
-                            <Segment >
-                                <h1>選舉公告</h1>
-                                <List animated divided>
-                                    { this.state.note.map((item, index) => {
-                                        return (<List.Item icon={ "bullhorn" } content={ item } />)
-                                    }) }
-                                </List>
-                                <p>
-                                    <Button color={ "teal" } variant="primary">看更多</Button>
-                                </p>
+                </Menu> */}
+                <div class="text-5xl font-semibold text-center m-16">選舉報你知</div>
+                <div class="w-auto mx-auto mt-4  rounded">
+                    {/* <!-- Tabs --> */}
+                    <ul id="tabs" class="flex justify-center ">
+                        <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50"><a id="default-tab" href="#first">選舉公告</a></li>
+                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">投票要點</a></li>
+                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#third">QA大集合</a></li>
+                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#fourth">民主大事紀</a></li>
+                    </ul>
+
+                    {/* <!-- Tab Contents --> */}
+                    <div id="tab-contents">
+                        <div id="first" class="p-4">
+                            <Segment basic>
+                                <Grid><Grid.Row>
+                                    <Grid.Column width={16} >
+                                        <Segment >
+                                            <h1>選舉公告</h1>
+                                            <List animated divided>
+                                                {this.state.note.map((item, index) => {
+                                                    return (<List.Item icon={"bullhorn"} content={item} />)
+                                                })}
+                                            </List>
+                                            <p>
+                                                <Button color={"teal"} variant="primary">看更多</Button>
+                                            </p>
+                                        </Segment>
+                                    </Grid.Column>
+                                </Grid.Row></Grid>
                             </Segment>
-                        </Grid.Column>
-                    </Grid.Row></Grid>
-                </Segment>
+                        </div>
 
-                <Segment basic>
-                    <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
-                            <Ref innerRef={ this.voteRef }>
-                                <Button color={ "teal" } variant="secondary" size="lg" disabled >投票要點</Button>
-                            </Ref>
-                        </Grid.Column>
-                        <Grid.Column width={ 16 - rate }computer={ 16 - rate } mobile={ 16 }>
-                            <Segment >
-                                <h1 >投票要點</h1>
-                                <Tab panes={ panes } />
+                        <div id="second" class="hidden p-4">
+                            <Segment basic>
+                                <Grid><Grid.Row>
+                                    {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
+                            
+                                            <Button color={ "teal" } variant="secondary" size="lg" disabled >投票要點</Button>
+                                        
+                                    </Grid.Column> */}
+                                    <Grid.Column width={16}>
+                                        <Segment >
+                                            <Ref innerRef={this.voteRef}><h1 >投票要點</h1></Ref>
+                                            <Tab panes={panes1} />
+                                        </Segment>
+                                    </Grid.Column>
+                                </Grid.Row></Grid>
                             </Segment>
-                        </Grid.Column>
-                    </Grid.Row></Grid>
-                </Segment>
+                        </div>
 
-                <Segment basic>
-                    <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
-                            <Ref innerRef={ this.QARef }>
-                                <Button color={ "teal" } variant="secondary" size="lg" disabled >QA大集合</Button>
-                            </Ref>
-                        </Grid.Column>
+                        <div id="third" class="hidden p-4">
+                            <Segment basic>
+                                <Grid><Grid.Row>
+                                    {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
+                                
+                                            <Button color={ "teal" } variant="secondary" size="lg" disabled >QA大集合</Button>
+                                        
+                                    </Grid.Column> */}
 
-                        <Grid.Column width={ 16 - rate }computer={ 16 - rate } mobile={ 16 } >
-                            <Segment >
-                                <h1 >QA大集合</h1>
-                                <Accordion>
-                                    { this.state.qa.map((item, index) => {
-                                        return (<>
-                                            <Accordion.Title
-                                                active={ activeIndex === index }
-                                                index={ index }
-                                                onClick={ this.handleClick }
-                                            >
-                                                <Icon name='dropdown' />
-                                                { item.title }
-                                            </Accordion.Title>
-                                            <Accordion.Content active={ activeIndex === index }>
-                                                { item.content }
-                                            </Accordion.Content>
-                                        </>)
-                                    }) }
+                                    <Grid.Column width={16}  >
+                                        <Segment >
+                                            <Ref innerRef={this.QARef}>
+                                                <h1 >QA大集合</h1></Ref>
+                                            <Accordion>
+                                                {this.state.qa.map((item, index) => {
+                                                    return (<>
+                                                        <Accordion.Title
+                                                            active={activeIndex === index}
+                                                            index={index}
+                                                            onClick={this.handleClick}
+                                                        >
+                                                            <Icon name='dropdown' />
+                                                            {item.title}
+                                                        </Accordion.Title>
+                                                        <Accordion.Content active={activeIndex === index}>
+                                                            {item.content}
+                                                        </Accordion.Content>
+                                                    </>)
+                                                })}
 
 
-                                </Accordion>
+                                            </Accordion>
+                                        </Segment>
+                                    </Grid.Column>
+                                </Grid.Row></Grid>
                             </Segment>
-                        </Grid.Column>
-                    </Grid.Row></Grid>
-                </Segment>
+                        </div>
 
-                <Segment basic>
-                    <Grid><Grid.Row columns={ 2 }>
-                        <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
-                            <Ref innerRef={ this.thingRef }><Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大事紀</Button></Ref>
-                        </Grid.Column>
-                        <Grid.Column width={ 16 - rate } computer={ 16 - rate } mobile={ 16 }>
-                            <Segment >
-                                <h1 >民主大事紀</h1>
-                                <p>這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
-                                <Image src={ time1 } size='large' centered />
-                                <Image src={ time2 } size='large' centered />
-                                <Image src={ time3 } size='large' centered />
-                                <Image src={ time4 } size='large' centered />
-                                <Image src={ time5 } size='large' centered />
-                                <Image src={ time6 } size='large' centered />
-                                <Image src={ time7 } size='large' centered />
+                        <div id="fourth" class="hidden p-4">
+                            <Segment basic>
+                                <Grid><Grid.Row>
+                                    {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
+                                        <Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大事紀</Button>
+                                    </Grid.Column> */}
+                                    <Grid.Column width={16} >
+                                        <Segment >
+                                            <Ref innerRef={this.thingRef}><h1 >民主大事紀</h1></Ref>
+                                            <p>這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
+                                            <Image src={time1} size='large' centered />
+                                            <Image src={time2} size='large' centered />
+                                            <Image src={time3} size='large' centered />
+                                            <Image src={time4} size='large' centered />
+                                            <Image src={time5} size='large' centered />
+                                            <Image src={time6} size='large' centered />
+                                            <Image src={time7} size='large' centered />
 
-                                {/* <Table celled>
+                                            {/* <Table celled>
                                     <Table.Header>
                                         <Table.Row>
                                             <Table.HeaderCell>屆別</Table.HeaderCell>
@@ -340,7 +393,7 @@ class Election extends React.Component {
                                         </Table.Row>
                                     </Table.Body> */}
 
-                                    {/* <Table.Footer>
+                                            {/* <Table.Footer>
                                         <Table.Row>
                                             <Table.HeaderCell colSpan='3'>
                                                 <Menu floated='right' pagination>
@@ -360,14 +413,14 @@ class Election extends React.Component {
                                     </Table.Footer> 
 
                                 </Table>*/}
+                                        </Segment>
+                                    </Grid.Column>
+                                </Grid.Row></Grid>
                             </Segment>
-                        </Grid.Column>
-                    </Grid.Row></Grid>
-                </Segment>
+                        </div>
 
-
-
-
+                    </div>
+                </div>
             </>)
         } />)
     }
