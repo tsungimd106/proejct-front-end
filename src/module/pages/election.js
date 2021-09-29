@@ -55,7 +55,7 @@ class Election extends React.Component {
 
                 for (let i = 0; i < tabContents.children.length; i++) {
 
-                    tabTogglers[i].parentElement.classList.remove("border-blue-400", "border-b", "-mb-px", "opacity-100");
+                    tabTogglers[i].parentElement.classList.remove("border-red-600", "bg-white", "border-b", "-mb-px", "opacity-100");
                     tabContents.children[i].classList.remove("hidden");
                     if ("#" + tabContents.children[i].id === tabName) {
                         continue;
@@ -63,7 +63,7 @@ class Election extends React.Component {
                     tabContents.children[i].classList.add("hidden");
 
                 }
-                e.target.parentElement.classList.add("border-blue-400", "border-b-4", "-mb-px", "opacity-100");
+                e.target.parentElement.classList.add("border-red-600", "bg-white", "border-b-4", "-mb-px", "opacity-100");
             });
         });
 
@@ -129,7 +129,7 @@ class Election extends React.Component {
                     </Tab.Pane>
             },
         ]
-        return (<Pages id={1} pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
+        return (<Pages id={1} class="p-0" pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={ 
             (<>
                 {/* <Menu secondary>
                     <Menu.Item
@@ -150,22 +150,21 @@ class Election extends React.Component {
 
                 </Menu> */}
                 <div class="text-5xl font-semibold text-center m-16">選舉報你知</div>
-                <div class="w-auto mx-auto mt-4  rounded">
+                <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
                     <ul id="tabs" class="flex justify-center ">
-                        <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50"><a id="default-tab" href="#first">選舉公告</a></li>
-                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">投票要點</a></li>
-                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#third">QA大集合</a></li>
-                        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#fourth">民主大事紀</a></li>
+                        <li class="px-8 py-2 -mb-px font-semibold bg-white  border-b-2 border-red-600 rounded-t opacity-50"><a class="text-gray-700 hover:text-red-600 focus:text-red-600" id="default-tab" href="#first">選舉公告</a></li>
+                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-red-600 focus:text-red-600" href="#second">投票要點</a></li>
+                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-red-600 focus:text-red-600" href="#third">QA大集合</a></li>
+                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-red-600 focus:text-red-600" href="#fourth">民主大事紀</a></li>
                     </ul>
 
                     {/* <!-- Tab Contents --> */}
-                    <div id="tab-contents">
+                    <div id="tab-contents" class="bg-white w-full">
                         <div id="first" class="p-4">
-                            <Segment basic>
                                 <Grid><Grid.Row>
                                     <Grid.Column width={16} >
-                                        <Segment >
+                                        <div class="p-4 rounded-md" >
                                             <h1>選舉公告</h1>
                                             <List animated divided>
                                                 {this.state.note.map((item, index) => {
@@ -173,16 +172,14 @@ class Election extends React.Component {
                                                 })}
                                             </List>
                                             <p>
-                                                <Button color={"teal"} variant="primary">看更多</Button>
+                                                <button class="bg-red-600 hover:bg-red-800 text-white text-2xl font-semibold rounded-md px-4 py-2 m-2" >看更多</button>
                                             </p>
-                                        </Segment>
+                                        </div>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
-                            </Segment>
                         </div>
 
                         <div id="second" class="hidden p-4">
-                            <Segment basic>
                                 <Grid><Grid.Row>
                                     {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                             
@@ -190,17 +187,15 @@ class Election extends React.Component {
                                         
                                     </Grid.Column> */}
                                     <Grid.Column width={16}>
-                                        <Segment >
+                                        <div class="p-4 rounded-md">
                                             <Ref innerRef={this.voteRef}><h1 >投票要點</h1></Ref>
                                             <Tab panes={panes1} />
-                                        </Segment>
+                                        </div>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
-                            </Segment>
                         </div>
 
                         <div id="third" class="hidden p-4">
-                            <Segment basic>
                                 <Grid><Grid.Row>
                                     {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                                 
@@ -209,7 +204,7 @@ class Election extends React.Component {
                                     </Grid.Column> */}
 
                                     <Grid.Column width={16}  >
-                                        <Segment >
+                                        <div class="p-4 rounded-md">
                                             <Ref innerRef={this.QARef}>
                                                 <h1 >QA大集合</h1></Ref>
                                             <Accordion>
@@ -231,20 +226,18 @@ class Election extends React.Component {
 
 
                                             </Accordion>
-                                        </Segment>
+                                        </div>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
-                            </Segment>
                         </div>
 
                         <div id="fourth" class="hidden p-4">
-                            <Segment basic>
                                 <Grid><Grid.Row>
                                     {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
                                         <Button color={ "teal" } variant="secondary" size="lg" disabled >選舉大事紀</Button>
                                     </Grid.Column> */}
                                     <Grid.Column width={16} >
-                                        <Segment >
+                                        <div class="p-4 rounded-md">
                                             <Ref innerRef={this.thingRef}><h1 >民主大事紀</h1></Ref>
                                             <p>這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
                                             <Image src={time1} size='large' centered />
@@ -413,10 +406,9 @@ class Election extends React.Component {
                                     </Table.Footer> 
 
                                 </Table>*/}
-                                        </Segment>
+                                        </div>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
-                            </Segment>
                         </div>
 
                     </div>
