@@ -207,7 +207,8 @@ class PolicyContent extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column width={ 16 } >
-                                    <div>
+                                    <iframe src={ this.state.detail.pdfUrl } title="doc" className="w-full h-screen"></iframe>
+                                    {/* <div>
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
 
@@ -224,7 +225,7 @@ class PolicyContent extends React.Component {
                                             // ]}
                                             />
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* <PdfComponent uu={placement.pdfUrl}/> */ }
                                 </Grid.Column>
@@ -259,7 +260,7 @@ class PolicyContent extends React.Component {
 
                                         <Button onClick={ this.vote }> 確定投票</Button>
                                     </Grid.Column>
-                                    <Grid.Column floated={ "right" } mobile={ 16 } width={8} computer={8}>
+                                    <Grid.Column floated={ "right" } mobile={ 16 } width={ 8 } computer={ 8 }>
                                         <div className={ style.lable }>RUN民看法：</div>
                                         <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
                                     </Grid.Column>
