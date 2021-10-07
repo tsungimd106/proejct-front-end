@@ -212,20 +212,20 @@ class Election extends React.Component {
                                             return (<>
                                             <div class="bg-red-50  p-6 py-0 flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
                                                 <div class=" h-20 w-20">
-                                                    <h1 class="text-red-600 text-6xl flex flex-wrap content-center">Q.</h1>
+                                                    <h1 class="w-full h-full inline-block align-middle py-1 text-red-600 text-6xl">Q.</h1>
                                                     {/* <img src={Q}></img> */}
                                                 </div>
-                                                <div>
+                                                <div class="w-full">
                                                     <p class="text-3xl font-bold">{item.title}</p>                                    
                                                 </div>
                                             </div>
                                             <div class="p-6 py-0 mb-12 bg-white flex items-center space-x-6 rounded-lg">
                                                 <div  class=" h-20 w-20">
-                                                    <h1 class="text-gray-700 text-6xl flex flex-wrap content-center">A.</h1>
+                                                    <h1 class="w-full h-full inline-block align-middle py-1 text-gray-700 text-6xl">A.</h1>
                                                     {/* <img src={Q}></img> */}
                                                 </div>
-                                                <div>
-                                                    <p class="pl-8 text-2xl text-gray-700">{item.content}</p>
+                                                <div class="w-full">
+                                                    <p class="py-4 text-2xl text-gray-700 flex text-left">{item.content}</p>
                                                 </div>
                                             </div>
                                         {/* <Accordion>
