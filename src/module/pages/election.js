@@ -206,13 +206,12 @@ class Election extends React.Component {
                                 <Grid.Column width={16}  >
                                     <div class="p-4 px-24 rounded-md">
                                         <Ref innerRef={this.QARef}>
-                                            <h1 class="flex justify-center text-5xl mb-12">QA大集合</h1>
+                                            <h1 class="flex justify-center text-5xl mb-12">Q & A 大集合</h1>
                                         </Ref>
                                         {this.state.qa.map((item, index) => {
                                             return (<>
                                             <div class="bg-red-50  p-6 py-0 flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
-                                                <div class=" h-20 w-20">
-                                                    <h1 class="w-full h-full inline-block align-middle py-1 text-red-600 text-6xl">Q.</h1>
+                                                <div class="h-20 w-20 inline-block align-middle py-1 text-red-600 text-6xl font-semibold">Q.
                                                     {/* <img src={Q}></img> */}
                                                 </div>
                                                 <div class="w-full">
@@ -220,8 +219,7 @@ class Election extends React.Component {
                                                 </div>
                                             </div>
                                             <div class="p-6 py-0 mb-12 bg-white flex items-center space-x-6 rounded-lg">
-                                                <div  class=" h-20 w-20">
-                                                    <h1 class="w-full h-full inline-block align-middle py-1 text-gray-700 text-6xl">A.</h1>
+                                                <div  class="h-20 w-20 inline-block align-middle py-1 text-gray-700 text-6xl font-semibold">A.
                                                     {/* <img src={Q}></img> */}
                                                 </div>
                                                 <div class="w-full">
