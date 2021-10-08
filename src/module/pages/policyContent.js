@@ -38,7 +38,7 @@ class PolicyContent extends React.Component {
                 series: [10, 50, 40],
                 options: {
                     colors: ['#fec240', '#98c4d1', '#de4b43'],
-                    labels: ["同意", "中立", "反對"],
+                    labels: ["贊成", "中立", "反對"],
                     chart: { width: 50 }
                 },
             },
@@ -274,7 +274,7 @@ class PolicyContent extends React.Component {
 
                     <Segment>
                         <Comment.Group >
-                            <Header as='h3' dividing>RUN民討論專區</Header>
+                            <Header as='h3' dividing>RUN民討論區</Header>
                             { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
                                 return (<>
                                     <Comment>
