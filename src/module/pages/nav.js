@@ -48,7 +48,7 @@ export default class Nav extends React.Component {
 
                         <a href="./#/" className={ this.props.id === 0 ? style.pageOn : style.page }  >首頁</a>
                         <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : style.page }>選舉報你知</a>
-                        <a href="./#/policy/" className={ this.props.id === 2 ? style.pageOn : style.page }>提案專區</a>
+                        <a href="./#/policy/1" className={ this.props.id === 2 ? style.pageOn : style.page }>提案專區</a>
                         <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : style.page }>政治人物</a>
                        
                     </Grid.Column>
@@ -65,9 +65,9 @@ export default class Nav extends React.Component {
                         <p> <a href="./#/election" className={ this.props.id === 1 ? style.pageOn : "" }>選舉報你知</a></p>
 
 
-                            <p><a href="./#/policy/" className={ this.props.id === 2 ? style.pageOn : "" }>提案專區</a></p>
+                            <p><a href="./#/policy/1" className={ this.props.id === 2 ? style.pageOn : "" }>提案專區</a></p>
                             <p>   <a href="./#/figure/" className={ this.props.id === 3 ? style.pageOn : "" }>政治人物</a></p>
-                            <p>  <Envelope /> <a href="./#//" className={ this.props.id === 5 ? style.pageOn : "" }>提出問題與反饋</a></p>
+                            <p>  <Envelope /> <a href="./#/" className={ this.props.id === 5 ? style.pageOn : "" }>提出問題與反饋</a></p>
                             <p><Info />   <a href="./#/information/" className={ this.props.id === 6 ? style.pageOn : "" }>法規與條款資訊</a></p>
                         { (this.state.login || false ? (<>
 

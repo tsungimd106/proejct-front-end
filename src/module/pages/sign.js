@@ -75,7 +75,6 @@ class Sign extends React.Component {
                             <p><Input type="text" placeholder="暱稱" id="name" /></p>
                             <p className={ style.birth }>生日：<Input className={ style.birth } type="date" />
                                 <Select id="city" placeholder="居住地" options={ this.state.city } /></p>
-                            <p></p>
                             <p className={ style.csign }>
                                 點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
                                 <a href="./#/information/" target="_blank">《資料政策》</a>和<a href="./#/information/" target="_blank">《Cookie 政策》</a>。
@@ -87,14 +86,9 @@ class Sign extends React.Component {
 
                     </Grid.Column>
                     <Grid.Column width={ 6 }>
-
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-
-
-
-
         </ > }></Base>)
     }
 }
@@ -137,26 +131,10 @@ class Login extends React.Component {
                             <p>   <Button id="continue" className={ style.loginBtn } onClick={ this.send }>登入</Button></p>
                             <p><Button color='green' className={ style.loginBtn } onClick={ this.sendLine }>以LINE帳號登入</Button></p>
                         </Form.Group>
-
-
-
-
-
-
                         <a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
                     </Segment>
                 </Grid.Column>
-
             </Grid.Row></Grid>
-
-
-            {/* <p><input type="text" placeholder="&nbsp;帳號" id="account" /></p>
-            <p><input type="password" placeholder="&nbsp;密碼" id="password" /></p>
-            <p><i>忘記密碼</i></p> */}
-            {/* <p><Button id="continue" className={ style.continue } onClick={ this.send }>繼續</Button></p>
-            <p><Button variant="success" >以LINE帳號登入</Button></p> */}
-            {/* <a href="./#/sign">沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a> */ }
-
         </div> }></Base>)
     }
 }
