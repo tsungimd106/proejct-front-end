@@ -12,6 +12,7 @@ import time4 from "../../imgs/time4.jpg"
 import time5 from "../../imgs/time5.jpg"
 import time6 from "../../imgs/time6.jpg"
 import time7 from "../../imgs/time7.jpg"
+import ele from "../../imgs/election.jpg"
 import "tailwindcss/tailwind.css"
 
 
@@ -149,7 +150,7 @@ class Election extends React.Component {
                     />
 
                 </Menu> */}
-                <div class="text-2xl  text-center m-16">可以在這裡查閱所有和台灣選舉有關的任何資訊。<br />投票前想臨時抱佛腳嗎？ 歡迎點擊投票要點與QA大集合查閱！<br />私心推薦點擊民主大事紀喔！</div>
+                <div class="flex justify-center "> <img class="w-3/5" src={ele}></img></div>               
                 <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
                     <ul id="tabs" class="flex justify-center ">
