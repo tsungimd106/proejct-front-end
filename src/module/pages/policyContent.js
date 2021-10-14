@@ -260,7 +260,7 @@ class PolicyContent extends React.Component {
 
                                         <Button onClick={ this.vote }> 確定投票</Button>
                                     </Grid.Column>
-                                    <Grid.Column floated={ "right" } mobile={ 16 } width={ 8 } computer={ 8 }>
+                                    <Grid.Column floated={ "right" } mobile={ 16 } width={ 8 } computer={ 8 } className="justify-center">
                                         <div className={ style.lable }>RUN民看法：</div>
                                         <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
                                     </Grid.Column>

@@ -75,4 +75,7 @@
             width: 0;
             display: none !important;
         }
+        #navtop {
+            left: 0;
+        }
     }

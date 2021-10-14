@@ -14,8 +14,7 @@ import { Grid } from 'semantic-ui-react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-// import PacmanLoader from "react-spinners/ClipLoader";
-
+import { ColorNumber } from "../tailwind"
 
 class FigureDetail extends React.Component {
     figureID = null
@@ -47,7 +46,7 @@ class FigureDetail extends React.Component {
                 let resData = res.data.D
                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
-                cond.map(placement => {
+                cond.forEach(placement => {
                     if (placement["no"] in resData.detail[0]) {
                         selfD.push({
                             "content": resData.detail[0][placement.no].replace(/;/g, " <br />"),
@@ -72,9 +71,11 @@ class FigureDetail extends React.Component {
                     proposal_quota: resData.proposal_quota[0]["quota"],
                     proposal: resData.proposal
                 })
+                console.log(resData)
 
-            })
+            }, error => { console.log(error) })
         )
+
         this.changeTerm("當屆")
 
     }
@@ -82,6 +83,7 @@ class FigureDetail extends React.Component {
     changeTerm = (s) => this.setState({ term: s })
 
     scoreShow = (txt, id, tag) => {
+
         if (this.state.login) {
             this.setState({ scoreShow: !this.state.scoreShow, scoreTitle: txt, scoreId: id, tag: tag })
         } else {
@@ -298,7 +300,7 @@ class FigureDetail extends React.Component {
                     <div className={ style.people }>
                         {
                             <Grid> <Grid.Row className={ style.dashboard } >
-                                <Grid.Column mobile={ 16 } computer={ 5 } >
+                                {/* <Grid.Column mobile={ 16 } computer={ 16 } tablet={ 8 }>
 
                                     <Card  >
                                         <Grid columns={ 2 } verticalAlign={ "middle" } >
@@ -317,7 +319,9 @@ class FigureDetail extends React.Component {
                                             </Grid.Row>
                                         </Grid>
                                     </Card>
-                                    <Card  ><p>犯罪紀錄 : 2 筆</p>
+                                </Grid.Column> */}
+                                <Grid.Column mobile={ 16 } computer={ 5 } tablet={ 8 }>
+                                    {/* <Card  ><p>犯罪紀錄 : 2 筆</p>
                                         <p>政治獻金 : 5 筆 100萬</p></Card>
                                     <Card vertical> <Grid>
                                         <Grid.Row columns={ "equal" } >
@@ -335,8 +339,86 @@ class FigureDetail extends React.Component {
                                                     return (<p>  { item } </p>)
                                                 }) }</Grid.Column>
                                         </Grid.Row>
-                                    </Grid></Card>
+                                    </Grid></Card> */}
+                                    <div class="flex justify-center">
 
+                                        <div class="w-full   bg-white p-6">
+                                            {/* <div class="flex items-center border-b py-4">
+                                                <div>
+                                                    <i class="fas fa-chevron-left text-lg"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-center">Joshua Welford</p>
+                                                </div>
+                                                <div>
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </div>
+                                                <div class="ml-4">
+                                                    <i class="fas fa-search"></i>
+                                                </div>
+                                            </div> */}
+                                            <div class="mt-6">
+                                                <div class="h-56  overflow-hidden rounded-tl-lg rounded-tr-lg justify-center">
+                                                    <img class="rounded-tl-xl rounded-tr-xl h-56 w-auto" src={ this.state.selfD !== undefined ? this.state.photo : "" } alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-2 text-lg">
+                                                <p class="text-center"><span class="font-bold">{ this.state.selfD !== undefined ? this.state.name : "" }</span>  </p>
+                                            </div>
+
+                                            <div class="flex pb-4 mt-4 items-center border-b">
+
+
+                                            </div>
+                                            { this.state.selfD && this.state.selfD.map(placement => {
+                                                return (<>
+                                                    <div>
+                                                        <div class="flex mt-2 items-center">
+                                                            <div class="text-gray-400">
+                                                                <i class="fas fa-graduation-cap"></i>
+                                                            </div>
+
+                                                            <div class="text-lg ml-3">
+                                                                <p class={ "font-bold " }>{ placement.name }  </p>
+                                                                <p><span class={ style.labelContent } id={ placement.no }>  </span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {/* <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
+                                                    <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } /> */}
+                                                </>)
+                                            }) }
+
+
+
+                                            {/* <Grid.Column > <Label content={ "經歷" } tag /> </Grid.Column>
+                                            <Grid.Column width={ 16 } className={ style.labelContent }>
+                                                { this.state.experience && this.state.experience.map((item, index) => {
+                                                    return (<p>  { item } </p>)
+                                                }) }</Grid.Column> */}
+                                            <div class="flex mt-2 items-center">
+                                                <div class="text-gray-400">
+                                                    <i class="fas fa-link"></i>
+                                                </div>
+                                                <div class="text-lg ml-3">
+                                                    <p class={ "font-bold " }>經歷 </p>
+                                                </div>
+                                            </div>
+
+                                            { this.state.experience && this.state.experience.map((item, index) => {
+                                                return (
+                                                    <div class="flex mt-2 items-center">
+
+                                                        <div class="text-lg ml-3">
+                                                            <p>  { item } </p>
+                                                        </div>
+                                                    </div>)
+                                            }) }
+
+
+                                        </div>
+                                    </div>
 
                                 </Grid.Column>
                                 <Grid.Column computer={ 11 } mobile={ 16 }>
@@ -405,30 +487,54 @@ class FigureDetail extends React.Component {
                                             </Dropdown.Menu>
                                         </Dropdown></span>
                                     </div>
+                                        <div class=" grid grid-cols-2   justify-center items-stretch" >
+                                            { this.state.policy && this.state.policy.map((placement, index) => {
+                                                if (index === 0) return (<></>)
+                                                else {
+                                                    return (<>
+                                                        <div class="px-2 mb-5" onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
+                                                            <div class="bg-white max-w-xl rounded-2xl px-5 py-8 shadow-lg hover:shadow-2xl transition duration-500">
+                                                                <div class="mt-4">
+                                                                    <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">  < >{ placement.name.map((item, index) => {
+                                                                        return (<><Label>{ item }</Label></>)
+                                                                    }) }</ ></div>
+                                                                    <div class="flex mt-2">
+                                                                        <ColorNumber value={ index } neg={ index % 2 === 0 } />
+                                                                    </div>
+                                                                    <p class="mt-2 text-md text-gray-600">  { placement.content }</p>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </>)
+                                                }
+                                            }) }
+
+                                        </div>
                                     </Segment>
 
-                                    <Grid >
+                                    {/* <Grid >
                                         <Grid.Row stretched  >
-                                     
-                                        { this.state.policy && this.state.policy.map((placement, index) => {
-                                            if (index === 0) return (<></>)
-                                            else {
-                                                return (<>
-                                                {/* <Grid.Column mobile={"2"} only="computer"></Grid.Column> */}
-                                                    <Grid.Column mobile={12}  computer={8}textAlign={"center"} onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
-                                                     <Card centered>   <Card.Content> <Card.Description className={ style.policyBorder }>
-                                                            { placement.content }
-                                                        </Card.Description></Card.Content>
-                                                        <Card.Content extra>
-                                                            < >{ placement.name.map((item, index) => {
-                                                                return (<><Label>{ item }</Label></>)
-                                                            }) }</ >
-                                                        </Card.Content></Card>
-                                                    </Grid.Column>
-                                                    {/* <Grid.Column mobile={"2"} only="mobile"></Grid.Column> */}
-                                                </>)
-                                            }
-                                        }) } </Grid.Row></Grid>
+
+                                            { this.state.policy && this.state.policy.map((placement, index) => {
+                                                if (index === 0) return (<></>)
+                                                else {
+                                                    return (<>
+                                                       
+                                                        <Grid.Column mobile={ 16 } computer={ 8 } textAlign={ "center" } tablet={ 8 } onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
+                                                            <Card centered>   <Card.Content> <Card.Description className={ style.policyBorder }>
+                                                                { placement.content }
+                                                            </Card.Description></Card.Content>
+                                                                <Card.Content extra>
+                                                                    < >{ placement.name.map((item, index) => {
+                                                                        return (<><Label>{ item }</Label></>)
+                                                                    }) }</ >
+                                                                </Card.Content></Card>
+                                                        </Grid.Column>
+                                                       
+                                                    </>)
+                                                }
+                                            }) } </Grid.Row></Grid> */}
                                 </Grid.Column>
                             </Grid.Row></Grid>
                         }</div>

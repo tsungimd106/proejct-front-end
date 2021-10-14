@@ -105,8 +105,8 @@ class Policy extends React.Component {
         // }
     }
     componentDidMount() {
-
-        ProposalR.list({ page: 1 }).then(response => {
+        let page = this.props.match.params.id
+        ProposalR.list({ page: page ? page : 1 }).then(response => {
             let resData = response.data.D
             this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
@@ -144,14 +144,16 @@ class Policy extends React.Component {
     //     }).then(res => res.json()).then(r => { console.log(r) })
     // }
     handlePaginationChange = (e, { activePage }) => {
-        this.setState({ nowPage: activePage })
-        let data
-        (this.state.cond) ? data = { "status_id": this.state.cond, "page": activePage } : data = { "page": activePage }
-        ProposalR.list(data).then(response => {
-            window.scrollTo(0, 0)
-            this.setState({ "Sdata": response.data.list, resource: response.data.list, pageTotal: response.data.page[0].n })
+        document.location.href = `/#/Policy/${activePage}`
+        // this.setState({ nowPage: activePage })
+        // let data
+        // (this.state.cond) ? data = { "status_id": this.state.cond, "page": activePage } : data = { "page": activePage }
+        // ProposalR.list(data).then(response => {
+        //     let resData = response.data.D
+        //     window.scrollTo(0, 0)
+        //     this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
-        })
+        // })
     }
     handleF = () => {
 
@@ -186,7 +188,7 @@ class Policy extends React.Component {
                                     <Grid.Column width={ 1 } />
                                     <Grid.Column width={ 15 } only="mobile">  <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
                                         <h3 className={ style.ellipsis }>{ placement.title }</h3></Grid.Column>
-                                        <Grid.Column width={ 1 } only="mobile"/>
+                                    <Grid.Column width={ 1 } only="mobile" />
                                     <Grid.Column width={ 10 } mobile={ 7 } computer={ 10 } tablet={ 8 }>
 
                                         <div>
@@ -201,14 +203,14 @@ class Policy extends React.Component {
                                         </div>
                                         <Grid>
                                             <Grid.Row  >
-                                                <Grid.Column width={14}only="computer tablet">
+                                                <Grid.Column width={ 14 } only="computer tablet">
                                                     <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
                                                     <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                                 </Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}>   2021/2/1{ placement.date }</Grid.Column>
-                                                <Grid.Column width={ 16 } computer={9}>提案進度：{ placement.status }</Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}><Icon name='comments' />68</Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={5}><Icon name='heart' />收藏</Grid.Column>
+                                                {/* <Grid.Column width={ 5 } mobile={ 16 } computer={5}>   2021/2/1{ placement.date }</Grid.Column> */ }
+                                                <Grid.Column width={ 16 } computer={ 12 }>提案進度：{ placement.status }</Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='comments' />68</Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='heart' />收藏</Grid.Column>
                                                 {/* <Grid.Column width={16} only={"mobile"}>
                                                 <BarChart data={this.state.barChartData}></BarChart>
                                                 </Grid.Column> */}
@@ -256,7 +258,7 @@ class Policy extends React.Component {
 
 export default Policy = {
     routeProps: {
-        path: "/Policy",
+        path: "/Policy/:id",        
         component: Policy
     },
     name: "提案專區"
