@@ -5,13 +5,7 @@ import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
 import vote4 from "../../imgs/vote6.jpg"
-import time1 from "../../imgs/time1.jpg"
-import time2 from "../../imgs/time2.jpg"
-import time3 from "../../imgs/time3.jpg"
-import time4 from "../../imgs/time4.jpg"
-import time5 from "../../imgs/time5.jpg"
-import time6 from "../../imgs/time6.jpg"
-import time7 from "../../imgs/time7.jpg"
+import time from "../../imgs/time.jpg"
 import ele from "../../imgs/election.jpg"
 import "tailwindcss/tailwind.css"
 
@@ -132,24 +126,6 @@ class Election extends React.Component {
         ]
         return (<Pages id={1} class="p-0" pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
             (<>
-                {/* <Menu secondary>
-                    <Menu.Item
-                        name='投票要點'
-
-                        onClick={ this.toVote }
-                    />
-                    <Menu.Item
-                        name='QA大集合'
-
-                        onClick={ this.toQa }
-                    />
-                    <Menu.Item
-                        name='民主大事紀'
-
-                        onClick={ this.toThing }
-                    />
-
-                </Menu> */}
                 <div class="flex justify-center "> <img class="w-0 lg:w-3/5   " src={ele}></img></div>               
                 <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
@@ -261,13 +237,7 @@ class Election extends React.Component {
                                     <div class="p-4 rounded-md">
                                         <Ref innerRef={this.thingRef}><h1 class="flex justify-center text-5xl mb-12">民主大事紀</h1></Ref>
                                         <p class="flex justify-center">這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
-                                        <Image src={time1} size='large' centered />
-                                        <Image src={time2} size='large' centered />
-                                        <Image src={time3} size='large' centered />
-                                        <Image src={time4} size='large' centered />
-                                        <Image src={time5} size='large' centered />
-                                        <Image src={time6} size='large' centered />
-                                        <Image src={time7} size='large' centered />                                    
+                                        <Image src={time} size='huge' centered />                                  
                                     </div>
                                 </Grid.Column>
                             </Grid.Row></Grid>
