@@ -449,12 +449,13 @@ class FigureDetail extends React.Component {
 
                                                 }) } /></div>
                                         </Card>
-                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("proposal") }> <div className={ style.scoreCircle }>提案數
-                                            <CircularProgressbar value={ 100 } text={ `${this.state.proposal_quota}` } styles={ buildStyles({
-                                                strokeLinecap: "butt",
-                                                pathColor: "#FEC240",
-                                                textColor: "#fff"
-
+                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("proposal") }> 
+                                            <div className={ style.scoreCircle }>提案數
+                                                <CircularProgressbar value={ 100 } text={ `${this.state.proposal_quota}` } styles={ buildStyles({
+                                                    strokeLinecap: "butt",
+                                                    pathColor: "#FEC240",
+                                                    textColor: "#fff"
+                                                    
                                             }) } /></div>
                                         </Card>
                                     </Card.Group>
@@ -478,7 +479,8 @@ class FigureDetail extends React.Component {
                                         </SwiperSlide>
                                     </Swiper>
 
-                                    <Segment basic padded><div className={ style.bigSize + " " + style.center }>政見
+                                    <div class="mt-10">
+                                        <div className={ style.bigSize + " " + style.center }>政見
                                         <span className={ style.term }><Dropdown text={ this.state.term && this.state.term }>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
@@ -511,7 +513,7 @@ class FigureDetail extends React.Component {
                                             }) }
 
                                         </div>
-                                    </Segment>
+                                    </div>
 
                                     {/* <Grid >
                                         <Grid.Row stretched  >
