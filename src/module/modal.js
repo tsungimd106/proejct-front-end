@@ -156,7 +156,18 @@ export class ScoreModal extends React.Component {
                 size='small'
             // trigger={ this.props.btn != null ? this.props.btn : <Button>{ this.props.btnText }</Button> }
             >
-                <Modal.Header>{this.props.message}</Modal.Header>
+                <Modal.Header>                    
+                    <div class="grid grid-rows-2 grid-flow-col gap-2">
+                        <div class="row-span-2 col-span-1">{this.props.message}</div>
+                        <div class="row-span-1 col-span-1 justify-end">                            
+                            <button onClick={() => this.props.setOpen(false)} class=".float-right ">
+                                <svg class="fill-current bg-black text-white font-bold rounded p-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentcolor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </Modal.Header>
                 <Modal.Content >
                     <Modal.Description>
                         {this.props.content}
