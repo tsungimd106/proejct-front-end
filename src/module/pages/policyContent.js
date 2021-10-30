@@ -90,6 +90,7 @@ class PolicyContent extends React.Component {
                 let detail = resData.detail
                 let heart = resData.heart
                 let rule = resData.rule
+                console.log(detail)
                 this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule })
             })
         )
@@ -163,7 +164,7 @@ class PolicyContent extends React.Component {
                                         <List horizontal>
                                             <List.Item><Header>提案人</Header></List.Item>
 
-                                            { this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) }
+                                            {this.state.detail.name!==undefined? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) :<></>}
 
                                         </List>
 
@@ -193,7 +194,7 @@ class PolicyContent extends React.Component {
 
                             </Segment>
                             <Label.Group>
-                                { this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }
+                                { this.state.detail.hashtag_name!==undefined?this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }):<></> }
                             </Label.Group>
 
 
@@ -207,7 +208,7 @@ class PolicyContent extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column width={ 16 } >
-                                    <iframe src={ this.state.detail.pdfUrl } title="doc" className="w-full h-screen"></iframe>
+                                    <iframe src={ this.state.detail.pdfUrl !==undefined?this.state.detail.pdfUrl:""} title="doc" className="w-full h-screen"></iframe>
                                     {/* <div>
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
@@ -279,9 +280,9 @@ class PolicyContent extends React.Component {
                             { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
                                 return (<>
                                     <Comment>
-                                        <Comment.Avatar src={ person } />
                                         <Comment.Content>
                                             <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
+                                            <Comment.Metadata>B{ index+1}</Comment.Metadata>
                                             <Comment.Metadata>{ placement.time }</Comment.Metadata>
                                             <Comment.Text>{ placement.content }</Comment.Text>
                                             <Comment.Actions>
@@ -307,7 +308,7 @@ class PolicyContent extends React.Component {
                     <div className={ style.mes }>
                     </div>
 
-                    <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.showNoteModal } />
+                    <InfoModal open={ this.state.open &false} content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)
     }
