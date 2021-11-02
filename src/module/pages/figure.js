@@ -145,11 +145,11 @@ class Figure extends React.Component {
                 {/* <Segment. */ } <Grid.Column computer={ 4 } mobile={ 7 }>
                     {/* <Card onClick={ () => { this.toDetail(obj["id"]) } }> */ }
                     <div class="relative flex flex-col items-center justify-center mb-10">
-                        <div class="container">
-                            <div class="max-w-md w-72 bg-white shadow-lg rounded-xl p-6">
+                        <div class="container ">
+                            <div class="w-68 bg-white shadow-lg rounded-xl p-4">
                                 <div class="flex flex-col ">
                                     <div class="">
-                                        <div class="relative h-72 w-full mb-10">
+                                        <div class="relative h-68 w-full mb-10">
                                             <div class="absolute flex flex-col top-0 right-0 p-3">
                                                 <button class="transition ease-in duration-300 bg-gray-200  hover:text-red-500 shadow hover:shadow-md text-gray-500 rounded-full w-8 h-8 text-center p-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -174,11 +174,11 @@ class Figure extends React.Component {
 
 
                                             </div>
-                                            <div class="flex space-x-2 text-sm font-medium justify-start">
+                                            <div class="flex space-x-2 text-sm font-medium justify-center">
                                                 <button class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-gray-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-gray-600 "
                                                     onClick={ () => { this.toDetail(obj["id"]) } }
                                                 >
-                                                    <span>more </span>
+                                                    <span>更多 </span>
                                                 </button>
 
                                             </div>
