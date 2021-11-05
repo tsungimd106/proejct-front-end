@@ -177,6 +177,7 @@ class Figure extends React.Component {
                                             <div class="lg:flex  py-4  text-sm text-gray-600">
                                             </div>
 
+                                            {/* 大螢幕 */} 
                                             <div class="space-x-2 text-sm font-medium justify-center hidden lg:flex">
                                                 <button class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-gray-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-gray-600 "
                                                     onClick={() => { this.toDetail(obj["id"]) }}
@@ -185,14 +186,14 @@ class Figure extends React.Component {
                                                 </button>
                                             </div>
 
+                                            {/* 小螢幕 */} 
                                             <div class="flex space-x-2 text-sm font-medium justify-center lg:hidden">
                                                 <button class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-gray-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-gray-600 "
                                                     onClick={() => { this.toDetail(obj["id"]) }}
                                                 >
                                                     <span>更多 </span>
                                                 </button>
-
-                                                {/* 愛心(小螢幕) */}
+                                                {/* 愛心(小螢幕) */}                                                
                                                 <button class="transition ease-in duration-300 bg-gray-200  hover:text-red-500 shadow hover:shadow-md text-gray-500 rounded-full w-8 h-8 text-center p-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />

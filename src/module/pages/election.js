@@ -130,10 +130,10 @@ class Election extends React.Component {
                 <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
                     <ul id="tabs" class="flex justify-center ">
-                        <li class="px-8 py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" id="default-tab" href="#first">選舉公告</a></li>
-                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#second">投票要點</a></li>
-                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#third">QA大集合</a></li>
-                        <li class="px-8 py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#fourth">民主大事紀</a></li>
+                        <li class="px-2 py-1 lg:px-8.py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" id="default-tab" href="#first">選舉公告</a></li>
+                        <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#second">投票要點</a></li>
+                        <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#third">QA大集合</a></li>
+                        <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#fourth">民主大事紀</a></li>
                     </ul>
 
                     {/* <!-- Tab Contents --> */}
@@ -141,15 +141,15 @@ class Election extends React.Component {
                         <div id="first" class="p-4">
                             <Grid><Grid.Row>
                                 <Grid.Column width={16} >
-                                    <div class="p-4 px-24 rounded-md" >
-                                        <h1 class="flex justify-center text-5xl mb-12">選舉公告</h1>
-                                        <List class="py-2 text-xl" animated divided>
+                                    <div class="p-4 lg:px-24 rounded-md" >
+                                        <h1 class="flex justify-center text-3xl m-0 lg:text-5xl lg:mb-12">選舉公告</h1>
+                                        <List class="py-2 text-base lg:text-xl" animated divided>
                                             {this.state.note.map((item, index) => {
                                                 return (<List.Item class="my-2" icon={"bullhorn"} content={item} />)
                                             })}
                                         </List>
                                         <p>
-                                            <button class="float-right bg-blue-800 hover:bg-blue-900 text-white text-2xl font-semibold rounded-md px-4 py-2 m-2 mb-4" >看更多</button>
+                                            <button class="float-right bg-blue-800 hover:bg-blue-900 text-white text-xl lg:text-2xl font-semibold rounded-md px-4 py-2 m-2 mb-4" >看更多</button>
                                         </p>
                                     </div>
                                 </Grid.Column>
@@ -165,7 +165,7 @@ class Election extends React.Component {
                                     </Grid.Column> */}
                                 <Grid.Column width={16}>
                                     <div class="p-4 rounded-md">
-                                        <Ref innerRef={this.voteRef}><h1 class="flex justify-center text-5xl mb-12">投票要點</h1></Ref>
+                                        <Ref innerRef={this.voteRef}><h1 class="flex justify-center text-3xl lg:text-5xl mb-12">投票要點</h1></Ref>
                                         <Tab class="text-xl" panes={panes1} />
                                     </div>
                                 </Grid.Column>
@@ -181,26 +181,26 @@ class Election extends React.Component {
                                     </Grid.Column> */}
 
                                 <Grid.Column width={16}  >
-                                    <div class="p-4 px-24 rounded-md">
+                                    <div class="p-4 lg:px-24 rounded-md">
                                         <Ref innerRef={this.QARef}>
-                                            <h1 class="flex justify-center text-5xl mb-12">Q & A 大集合</h1>
+                                            <h1 class="flex justify-center text-3xl lg:text-5xl mb-12">Q & A 大集合</h1>
                                         </Ref>
                                         {this.state.qa.map((item, index) => {
                                             return (<>
-                                            <div class="bg-red-50  p-6 py-0 flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
-                                                <div class="h-20 w-20 inline-block align-middle py-1 text-red-600 text-6xl font-semibold">Q.
+                                            <div class="bg-red-50 p-0 lg:p-6  flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
+                                                <div class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-red-600 font-semibold">Q.
                                                     {/* <img src={Q}></img> */}
                                                 </div>
                                                 <div class="w-full">
-                                                    <p class="text-3xl font-bold">{item.title}</p>                                    
+                                                    <p class="text-xl lg:text-3xl font-bold">{item.title}</p>                                    
                                                 </div>
                                             </div>
-                                            <div class="p-6 py-0 mb-12 bg-white flex items-center space-x-6 rounded-lg">
-                                                <div  class="h-20 w-20 inline-block align-middle py-1 text-gray-700 text-6xl font-semibold">A.
+                                            <div class="p-0 lg:p-6  mb-12 bg-white flex items-center space-x-6 rounded-lg">
+                                                <div  class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-gray-700 font-semibold">A.
                                                     {/* <img src={Q}></img> */}
                                                 </div>
                                                 <div class="w-full">
-                                                    <p class="py-4 text-2xl text-gray-700 flex text-left">{item.content}</p>
+                                                    <p class="py-4 text-base lg:text-2xl text-gray-700 flex text-left">{item.content}</p>
                                                 </div>
                                             </div>
                                         {/* <Accordion>
@@ -235,7 +235,7 @@ class Election extends React.Component {
                                     </Grid.Column> */}
                                 <Grid.Column width={16} >
                                     <div class="p-4 rounded-md">
-                                        <Ref innerRef={this.thingRef}><h1 class="flex justify-center text-5xl mb-12">民主大事紀</h1></Ref>
+                                        <Ref innerRef={this.thingRef}><h1 class="flex justify-center text-3xl lg:text-5xl mb-12">民主大事紀</h1></Ref>
                                         <p class="flex justify-center">這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
                                         <Image src={time} size='huge' centered />                                  
                                     </div>
