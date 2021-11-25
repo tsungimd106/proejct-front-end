@@ -37,7 +37,7 @@ export default class Nav extends React.Component {
                     className={style.navtop + " " + style.i_dont_know_how_to_name_it + "   "}>
                         
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 h-20 w-full">
-                        <a href="./#/" class="inline-flex p-5">
+                        <a href="./#/" class="inline-flex p-7 lg:p-5">
                             <img class="flex object-contain object-left h-10 lg:h-full w-full" src={logo_dark} alt="" />
                         </a>                        
                         <div class="sm:flex col-start-2 col-end-5 hidden invisible lg:visible">
