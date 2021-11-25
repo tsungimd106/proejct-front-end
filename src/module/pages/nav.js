@@ -33,26 +33,21 @@ export default class Nav extends React.Component {
             <Grid >
                 <Grid.Row
                     verticalAlign={"middle"}
-
                     id={style.navtop}
                     className={style.navtop + " " + style.i_dont_know_how_to_name_it + "   "}>
-                    <Grid.Column computer={3} mobile={9}>
-                        <a href="./#/"><img class="md:p-5 justify-items-start" src={logo_dark} alt="" /></a>
-
-                    </Grid.Column>
-
-
-
-                    <Grid.Column className={style.nav}
-                        verticalAlign={"middle"} computer={11} mobile={0}>
-
-                        <a href="./#/" className={this.props.id === 0 ? style.pageOn : style.page}  >首頁</a>
-                        <a href="./#/election" className={this.props.id === 1 ? style.pageOn : style.page}>選舉報你知</a>
-                        <a href="./#/policy/1" className={this.props.id === 2 ? style.pageOn : style.page}>提案專區</a>
-                        <a href="./#/figure/" className={this.props.id === 3 ? style.pageOn : style.page}>政治人物</a>
-
-                    </Grid.Column>
-                    <Grid.Column floated={"right"} computer={1} textAlign={"right"} mobile={1}> <TextAlignJustified onClick={this.show} /></Grid.Column>
+                        
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 h-20 w-full">
+                        <a href="./#/" class="inline-flex p-5">
+                            <img class="flex object-contain object-left h-10 lg:h-full w-full" src={logo_dark} alt="" />
+                        </a>                        
+                        <div class="sm:flex col-start-2 col-end-5 hidden invisible lg:visible">
+                            <span class="p-5 mt-5 flex content-center" ><a href="./#/" className={this.props.id === 0 ? style.pageOn : style.page} >首頁</a></span>
+                            <span class="p-5 mt-5 flex content-center" ><a href="./#/election" className={this.props.id === 1 ? style.pageOn : style.page}>選舉報你知</a></span>
+                            <span class="p-5 mt-5 flex content-center"><a href="./#/policy/1" className={this.props.id === 2 ? style.pageOn : style.page}>提案專區</a></span>
+                            <span class="p-5 mt-5 flex content-center"><a href="./#/figure/" className={this.props.id === 3 ? style.pageOn : style.page}>政治人物</a></span>
+                        </div>          
+                        <div class="flex col-start-5 justify-end pt-5 mt-4 text-right text-lg lg:text-3xl"><TextAlignJustified onClick={this.show} /></div>
+                    </div>
 
 
                 </Grid.Row>
