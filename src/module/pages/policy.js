@@ -151,8 +151,7 @@ class Policy extends React.Component {
                                     {/* <Grid.Column width={ 5 } only="mobile"><Icon name='comments' />68</Grid.Column>
                                     <Grid.Column width={ 5 } only="mobile"><Icon name='heart' />收藏</Grid.Column> */}
                                     <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "left" }  >
-
-            ]}></BarChart>
+                                        <BarChart data={ this.state.barChartData }> </BarChart>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
 
