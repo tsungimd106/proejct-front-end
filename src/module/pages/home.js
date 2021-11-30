@@ -54,16 +54,14 @@ class Home extends React.Component {
                                 return (<SwiperSlide  ><center><img src={ item } alt="" /></center></SwiperSlide>)
                             }) }
                         </Swiper>
-                    </div>
-
-                    {/* 測試新套件 */ }
+                    </div>                  
                     <div className={ style.sort }>
-                        <Header textAlign={ "center" } as={ "h1" }>人物排行榜                        </Header>
+                        <Header textAlign={ "center" } as={ "h1" }>人物排行榜 </Header>
                         <Segment basic textAlign={ "center" }>
                             <div>你知道哪一位政治人物提出政見後，有「說到做到」嗎?</div>
                             <div>這裡可以一網打盡!</div>
                             <div>透過政見執行率的評分找出前三名，讓我們一起來看看吧!</div>
-                            <div><TailwindModal show={ true } child={(<>
+                            <div><TailwindModal show={ false } child={(<>
                             test</>)}></TailwindModal></div>
                         </Segment>
                         <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-3  ">
@@ -86,7 +84,6 @@ class Home extends React.Component {
                                                                         </svg>
                                                                         <span class="mr-2 text-gray-400">
                                                                             { item.score }分
-                                                                            {/* { obj["a_n"] } */ }
                                                                         </span>
                                                                     </div>
 
@@ -128,7 +125,7 @@ class Home extends React.Component {
 
                     </Grid.Row>
 
-                    <Grid.Row stretched className="mt-6">
+                    <Grid.Row stretched className="mt-8">
                         <Grid.Column width={ 16 }> <h1 className={ style.hotPolicy + " m-3" }  >最熱門政見</h1></Grid.Column>
 
                         <Grid.Column width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>

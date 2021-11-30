@@ -16,24 +16,17 @@ export class Pages extends React.Component {
             section = [{ content: (<><Icon name={"home"}/>首頁</>), link: true, href: "./" }]
             this.props.pageInfo.forEach(i=>section.push(i))
         }
-        this.setState({ section: section })
-       
-
+        this.setState({ section: section })     
     }
     componentDidUpdate = (prevState) => {
-
         if (this.props !== prevState) {
             let section = []
             if (this.props.id !== 0) {
                 section = [{ content: (<><Icon name={"home"}/>首頁</>), link: true, href: "./" }]
                 this.props.pageInfo.forEach(i=>section.push(i))
-                this.setState({ section: section })
-               
+                this.setState({ section: section })               
             }
-
-            
         }
-
     }
     render() {
 
@@ -42,15 +35,11 @@ export class Pages extends React.Component {
             <div>
                 <div>
                     <Nav id={ this.props.id } />
-
                 </div>
-
                 <div className={ style.pagesC + " " + style.content }>
                     { this.state.section === undefined ? <></> : <Breadcrumb icon='right angle' sections={ this.state.section } className={style.bread}/> }
                     {  this.props.page  || (<></>) }
                 </div>
-
-
             </div>
             <div className={ style.footer }>
 

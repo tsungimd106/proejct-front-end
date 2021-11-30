@@ -108,6 +108,10 @@
     font-family: abc !important;
 }
 
+svg {
+    display: inline;
+}
+
 .ui.celled.table tr * {
     width: 10px
 }

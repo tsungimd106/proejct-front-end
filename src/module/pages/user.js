@@ -4,6 +4,7 @@ import Chart from 'react-apexcharts'
 
 
 import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List, Accordion, TableCell, Card } from 'semantic-ui-react'
+import {   TailwindModal } from "../tailwind"
 
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
@@ -56,12 +57,12 @@ class User extends React.Component {
                         })
                     })} />
 
-                    <Tab className={utilStyle.tab} menu={{ secondary: true, pointing: true, vertical: true, }} panes={pitems.map(item => {
+                    {/* <Tab className={utilStyle.tab} menu={{ secondary: true, pointing: true, vertical: true, }} panes={pitems.map(item => {
                         return ({
                             menuItem: { icon: item.icon, content: item.name },
                             render: () => <Tab.Pane attached={false}>   {item.in}</Tab.Pane>,
                         })
-                    })} />
+                    })} /> */}
                 </>)
             } />)
     }
@@ -136,7 +137,9 @@ class MyProfile extends React.Component {
                         <img className={style.pic} src={pic} alt="" />
                     </Grid.Column>
                     <Grid.Column width={8} textAlign={"right"} className={style.data}>
-                        <ModalBase color={"teal"} message={"修改暱稱"} btn={<Button className={style.btncolor} icon labelPosition='right' color={"teal"} size={"medium"} content={this.state.user && this.state.user.name} icon={"edit"} />} toDo={this.editName} />
+                    <div><TailwindModal show={ true } title={"修改姓名"}child={(<>
+                            <input type="text" /></>)}></TailwindModal></div>
+                        <ModalBase color={"teal"} message={"修改姓名"} btn={<Button className={style.btncolor} icon labelPosition='right' color={"teal"} size={"medium"} content={this.state.user && this.state.user.name} icon={"edit"} />} toDo={this.editName} />
                     </Grid.Column>
                     <Grid.Column width={8} textAlign={"left"} className={style.data}>
                         <ModalBase btn={<Button className={style.btncolor} icon labelPosition='right' color={"teal"} size={"medium"} content={"修改密碼"} icon={"edit"} />} labelPosition={'left'} color={"teal"} message={"修改密碼"} btnText={"修改密碼"} toDo={this.editPsw} />

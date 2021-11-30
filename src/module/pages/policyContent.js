@@ -87,7 +87,7 @@ class PolicyContent extends React.Component {
                 let resData = response.data.D
                 console.log(resData)
                 let msgL = resData.msg
-                let detail = resData.detail
+                let detail = resData.detail[0]
                 let heart = resData.heart
                 let rule = resData.rule
                 console.log(detail)
@@ -164,7 +164,7 @@ class PolicyContent extends React.Component {
                                         <List horizontal>
                                             <List.Item><Header>提案人</Header></List.Item>
 
-                                            {this.state.detail.name!==undefined? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) :<></>}
+                                            {this.state.detail!==undefined? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) :<></>}
 
                                         </List>
 
@@ -193,9 +193,9 @@ class PolicyContent extends React.Component {
 
 
                             </Segment>
-                            <Label.Group>
-                                { this.state.detail.hashtag_name!==undefined?this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }):<></> }
-                            </Label.Group>
+                            {/* <Label.Group>
+                                { this.state.detail.hashtag_name!==null?this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }):<></> }
+                            </Label.Group> */}
 
 
                             <div>
@@ -208,7 +208,7 @@ class PolicyContent extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column width={ 16 } >
-                                    <iframe src={ this.state.detail.pdfUrl !==undefined?this.state.detail.pdfUrl:""} title="doc" className="w-full h-screen"></iframe>
+                                    <iframe src={ this.state.detail !==undefined?this.state.detail.pdfUrl:""} title="doc" className="w-full h-screen"></iframe>
                                     {/* <div>
                                         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
 
@@ -281,7 +281,7 @@ class PolicyContent extends React.Component {
                                 return (<>
                                     <Comment>
                                         <Comment.Content>
-                                            <Comment.Author as={ "span" }>{ placement.user_id }</Comment.Author>
+                                            <Comment.Author as={ "span" }>{ placement.name }</Comment.Author>
                                             <Comment.Metadata>B{ index+1}</Comment.Metadata>
                                             <Comment.Metadata>{ placement.time }</Comment.Metadata>
                                             <Comment.Text>{ placement.content }</Comment.Text>
@@ -305,10 +305,10 @@ class PolicyContent extends React.Component {
                             </> }
 
                         </Comment.Group></Segment>
-                    <div className={ style.mes }>
-                    </div>
+                    {/* <div className={ style.mes }>
+                    </div> */}
 
-                    <InfoModal open={ this.state.open &false} content={ this.state.noteModalC } close={ this.showNoteModal } />
+                    <InfoModal open={ this.state.open} content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)
     }
