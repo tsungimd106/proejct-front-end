@@ -560,6 +560,10 @@ class FigureDetail extends React.Component {
                                             </div>
                                         </>)
                                     })}
+                                    <div class="md:col-span-5">
+                
+                <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" placeholder="備註" />
+              </div>
                                 </div>
                             </div>
                             </>)}
