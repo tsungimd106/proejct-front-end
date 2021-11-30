@@ -111,8 +111,12 @@ export default class Nav extends React.Component {
                                     <span class="hover:text-gray-300">登出</span>
                                 </p>
                             </>) : (<>
-                                <p><a className={style.pageOff} href="./#/login">登入</a></p>
-                                <p ><a className={style.pageOff} href="./#/sign">註冊</a></p>
+                                <p class="grid gap-2 grid-rows-1 grid-cols-1 pl-12 text-center cursor-pointer">
+                                    <a className={style.pageOff} href="./#/login">登入</a>                                    
+                                </p>
+                                <p class="grid gap-2 grid-rows-1 grid-cols-1 pl-12 text-center cursor-pointer">
+                                    <a className={style.pageOff} href="./#/sign">註冊</a>
+                                </p>
                             </>))}
                         </div>
                     </div>
