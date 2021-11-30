@@ -1,12 +1,13 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Dropdown, Button, Form, Label, Segment, Image, Table, List, Icon } from 'semantic-ui-react'
+import { Card, Dropdown, Button,  Label, Segment,  Table} from 'semantic-ui-react'
 // import Chart from 'react-apexcharts'
 import { Line, Bar } from 'react-chartjs-2';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import style from "../../css/figureDetail.module.css"
+import utilStyle from "../../css/util.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
 import { ScoreModal, InfoModal } from "../modal"
@@ -491,7 +492,7 @@ class FigureDetail extends React.Component {
                                         </div>
                                         <div class=" grid grid-cols-2   justify-center items-stretch" >
                                             {this.state.policy && this.state.policy.map((placement, index) => {
-                                                if (index === 0) return (<></>)
+                                                if (index === null) return (<></>)
                                                 else {
                                                     return (<>
                                                         <div class="px-2 mb-5" onClick={() => { this.scoreShow(placement.content, placement.id, placement.name) }}>
@@ -562,7 +563,7 @@ class FigureDetail extends React.Component {
                                     })}
                                     <div class="md:col-span-5">
                 
-                <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" placeholder="備註" />
+                <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" id="scoreRemark" placeholder="備註" />
               </div>
                                 </div>
                             </div>
@@ -574,6 +575,7 @@ class FigureDetail extends React.Component {
                                 content={<>
                                     {this.state.showBack ? <Button onClick={() => this.renderRow("policy")} content={"返回"} /> : <></>}
                                     <Table
+                                        selectable
                                         basic='very' padded='very'
                                         headerRow={this.state.header}
                                         renderBodyRow={this.state.render}

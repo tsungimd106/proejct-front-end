@@ -1,6 +1,6 @@
 import React from 'react';
 
- import { Grid, Button, Form, List,  Checkbox } from 'semantic-ui-react'
+import { Grid, Button, Form, List, Checkbox } from 'semantic-ui-react'
 import style from "./search.module.css"
 export default class Search extends React.Component {
     constructor(props) {
@@ -15,12 +15,10 @@ export default class Search extends React.Component {
     }
 
     componentDidUpdate() {
-        // console.log("Enter")
+
         let d = document.getElementsByClassName(style.box)
         let hasMore = []
-        // console.log(d)
         for (let i of d) {
-            // console.log(i.scrollHeight)
             hasMore.push(i.scrollHeight > 40)
         }
         if (hasMore.length !== this.state.hasMore.length) {
@@ -35,17 +33,14 @@ export default class Search extends React.Component {
     }
 
     newOn = (name, item) => {
-        // const key = e.target
         let likePrev = this.props.like
         let count = this.state.count
         let temp = likePrev[name][item]["check"]
-        console.log(likePrev[name][item])
         likePrev[name][item]["check"] = !temp
-      
-        if (temp) { count -= 2 }
-        this.props.getList()
+        if (temp) { count -= 2 }       
         this.setState({ like: likePrev, count: count + 1 })
-     
+        this.props.getList()
+
     }
     removeAll = () => {
         let d = this.props.like
@@ -56,11 +51,11 @@ export default class Search extends React.Component {
             }
         }
         this.setState({ like: d, count: 0 })
-        
+
     }
     more = (c) => {
         let a = document.getElementById(c)
-       
+
         if (a.offsetHeight < 40) {
             a.classList.remove(style.box)
         }
@@ -71,73 +66,56 @@ export default class Search extends React.Component {
 
 
     render() {
-        return (<div className={style.searchBar}>
+        return (<div className={ style.searchBar }>
 
             <List horizontal>
                 <List.Item> <Form.Input label='關鍵字搜尋：' placeholder="請輸入關鍵字" /></List.Item>
                 <List.Item>  <Form.Button>確認</Form.Button></List.Item>
             </List>
-            <Grid className={style.border}>
+            <Grid className={ style.border }>
                 <Grid.Row >
-                    {this.state.count > 0 ? <><Grid.Column width={2}>篩選條件</Grid.Column> <Grid.Column width={13} >
-                        {this.props.like && Object.keys(this.props.like).map((placement, index) => {
-                            return (<> 
+                    { this.state.count > 0 ? <>
+                        <Grid.Column width={ "auto" }>篩選條件</Grid.Column>
+                        <Grid.Column width={ 13 } >
+                            { this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                                return (<>
 
-                                {(this.props.like[placement]).map(item => {
-                                //    console.log(item)
-                                        return (item.check?
+                                    { (this.props.like[placement]).map(item => {
+                                        return (item.check ?
                                             <Button
-                                                icon={"x"}
-                                                content={item.name}
-                                                onClick={() => { this.remove(placement, item) }} className={style.button} />:<></>
+                                                icon={ "x" }
+                                                content={ item.name }
+                                                onClick={ () => { this.remove(placement, item) } } className={ style.button } /> : <></>
 
                                         )
-                                    
 
-                                })} </>)
-                        })}</Grid.Column>
-                        <Grid.Column width={2}></Grid.Column>
-                        <Grid.Column width={13}>
-                            <Button secondary onClick={this.removeAll} className={style.clearbtn} >清除全部</Button>
-                        </Grid.Column></> : <></>}
+                                    }) } </>)
+                            }) }
+                        </Grid.Column>
+                        <Grid.Column width={ 2 }></Grid.Column>
+                        <Grid.Column width={ 13 }>
+                            <Button secondary onClick={ this.removeAll } className={ style.clearbtn } >清除全部</Button>
+                        </Grid.Column></> : <></> }
                 </Grid.Row>
-                {/* {this.props.like && Object.keys(this.props.like).map((placement, index) => {
+                { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                     return (<> <Grid.Row >
-                        <Grid.Column width={1}>{placement}</Grid.Column>
-                        <Grid.Column width={11} textAlign={"justified"} verticalAlign={"middle"}>
-                            <List horizontal className={style.box} id={placement}>
-                                {Object.keys(this.props.like[placement]).map((item) => {
-                                    return (<><List.Item className={style.state_listItem}>
-                                        <Checkbox label={item} name={placement} value={item}
-                                            onChange={() => { this.newOn(placement, item) }} checked={this.props.like[placement][item]} />
+                        <Grid.Column width={ 1 }>{ placement }</Grid.Column>
+                        <Grid.Column width={ 11 } textAlign={ "justified" } verticalAlign={ "middle" }>
+                            <List horizontal className={ style.box } id={ placement }>
+
+                                { this.props.like[placement].map((item, index) => {
+                                    return (<><List.Item className={ style.state_listItem }>
+
+                                        <Checkbox label={ item.name } name={ placement } value={ item.id }
+                                            onChange={ () => { this.newOn(placement, index) } } checked={ this.props.like[placement][item.check] } />
 
                                     </List.Item>
                                     </>)
-                                })}  </List>
+                                }) }  </List>
                         </Grid.Column>
-                        <Grid.Column width={2}>{this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={() => { this.more(placement) }}>更多</Button>) : ""}</Grid.Column>  </Grid.Row>
+                        <Grid.Column width={ 2 }>{ this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={ () => { this.more(placement) } }>更多</Button>) : "" }</Grid.Column>  </Grid.Row>
                     </>)
-                })} */}
-
-                {this.props.like && Object.keys(this.props.like).map((placement, index) => {
-                    return (<> <Grid.Row >
-                        <Grid.Column width={1}>{placement}</Grid.Column>
-                        <Grid.Column width={11} textAlign={"justified"} verticalAlign={"middle"}>
-                            <List horizontal className={style.box} id={placement}>
-                                
-                                {this.props.like[placement].map((item,index) => {
-                                    return (<><List.Item className={style.state_listItem}>
-                                        
-                                        <Checkbox label={item.name} name={placement} value={item.id}
-                                            onChange={() => { this.newOn(placement, index) }} checked={this.props.like[placement][item.check]} />
-
-                                    </List.Item>
-                                    </>)
-                                })}  </List>
-                        </Grid.Column>
-                        <Grid.Column width={2}>{this.state.hasMore[index] ? (<Button variant="outline-secondary" onClick={() => { this.more(placement) }}>更多</Button>) : ""}</Grid.Column>  </Grid.Row>
-                    </>)
-                })}
+                }) }
 
 
             </Grid>

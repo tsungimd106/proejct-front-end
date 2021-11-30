@@ -138,7 +138,7 @@ class Election extends React.Component {
 
                     {/* <!-- Tab Contents --> */}
                     <div id="tab-contents" class="bg-white w-full">
-                        <div id="first" class="p-4">
+                        {/* <div id="first" class="p-4">
                             <Grid><Grid.Row>
                                 <Grid.Column width={16} >
                                     <div class="p-4 lg:px-24 rounded-md" >
@@ -154,7 +154,7 @@ class Election extends React.Component {
                                     </div>
                                 </Grid.Column>
                             </Grid.Row></Grid>
-                        </div>
+                        </div> */}
 
                         <div id="second" class="hidden p-4">
                             <Grid><Grid.Row>
