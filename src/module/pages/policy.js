@@ -219,7 +219,7 @@ class Policy extends React.Component {
                                     </Grid.Column>
                                     {/* <Grid.Column width={ 5 } only="mobile"><Icon name='comments' />68</Grid.Column>
                                     <Grid.Column width={ 5 } only="mobile"><Icon name='heart' />收藏</Grid.Column> */}
-                                    <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "right" }  >
+                                    <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "left" }  >
 
                                         <BarChart data={ this.state.barChartData }></BarChart>
                                         {/* <Chart options={ this.state.kpi.options }
