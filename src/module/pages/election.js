@@ -92,13 +92,7 @@ class Election extends React.Component {
     render() {
         const rate = 3
         const { activeIndex } = this.state
-        const panes1 = [
-            {
-                menuItem: '投票流程教學', render: () =>
-                    <Tab.Pane>
-                        <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
-                    </Tab.Pane>
-            },
+        const panes1 = [            
             {
                 menuItem: '投票三口訣', render: () =>
                     <Tab.Pane>
@@ -121,6 +115,12 @@ class Election extends React.Component {
                 menuItem: '投票這六不', render: () =>
                     <Tab.Pane>
                         <Image src={vote4} size='large' centered />
+                    </Tab.Pane>
+            },
+            {
+                menuItem: '投票流程教學', render: () =>
+                    <Tab.Pane>
+                        <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
                     </Tab.Pane>
             },
         ]
