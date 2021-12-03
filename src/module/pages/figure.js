@@ -146,7 +146,7 @@ class Figure extends React.Component {
                     {/* <Card onClick={ () => { this.toDetail(obj["id"]) } }> */}
                     <div class="relative flex flex-col items-center justify-center mb-10 ">
                         <div class="container ">
-                            <div class="w-36 lg:w-auto bg-white shadow-lg rounded-xl p-4">
+                            <div class="w-32 md:w-auto bg-white shadow-lg rounded-xl p-4">
                                 <div class="flex flex-col ">
                                     <div class="">
                                         <div class="relative h-68 w-full mb-10 " >

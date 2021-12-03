@@ -241,39 +241,44 @@ class PolicyContent extends React.Component {
                     </>) : (<></>) }
 
                     { this.state.login && (<>
-                        <Segment>
+                    <div class="grid grid-rows-1 grid-flow-col gap-4 mt-6">
+                        <div class="col-start-1 col-end-7">
+                            <Segment>
+                                <div className={ style.lable }>
+                                    <p>您的看法：</p><p>(請點選投票)</p>
+                                </div>
+                                <div class="grid grid-cols-3 gap-0 justify-items-center">
+                                    <div class="bg-white hover:bg-gray-50">
+                                        <Button content={ <FaceHappy className={ style.green + " " + style.size } /> } onClick={ () => this.voteChange(0) } />
+                                    </div>
+                                    <span>
+                                        <Button content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } onClick={ () => this.voteChange(1) } />
+                                    </span>
+                                    <span>
+                                        <Button onClick={ () => this.voteChange(2) } ><FaceSad className={ style.red + " " + style.size } /></Button>
+                                    </span>
+                                </div>                              
 
-                            <Grid >
-                                <Grid.Row columns={ "equal" }>
-                                    <Grid.Column >
-                                        <div className={ style.lable }>
-                                            <p>您的看法：</p><p>(請點選投票)</p>
-                                        </div>
-                                        <Button.Group >
-                                            <Button toggle basic inverted content={ <FaceHappy className={ style.green + " " + style.size } /> } onClick={ () => this.voteChange(0) } />
+                                <div class="grid justify-items-center mt-3">
+                                    <div><Button onClick={ this.vote }> 確定投票</Button></div>
+                                </div>
+                            </Segment>
+                        </div>
 
-                                            <Button.Or />
-                                            <Button toggle basic inverted content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } onClick={ () => this.voteChange(1) } />
-                                            <Button.Or />
-                                            <Button toggle basic inverted onClick={ () => this.voteChange(2) } ><FaceSad className={ style.red + " " + style.size } /></Button>
-
-                                        </Button.Group>
-
-                                        <Button onClick={ this.vote }> 確定投票</Button>
-                                    </Grid.Column>
-                                    <Grid.Column floated={ "right" } mobile={ 16 } width={ 8 } computer={ 8 } className="justify-center">
-                                        <div className={ style.lable }>RUN民看法：</div>
-                                        <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
-                                    </Grid.Column>
-
-                                </Grid.Row>
-                            </Grid>
-                        </Segment>
+                        <div class="col-start-8 col-end-10">
+                            <Segment>                            
+                                <div>
+                                    <div className={ style.lable }>RUN民看法：</div>
+                                    <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
+                                </div>                             
+                            </Segment>
+                        </div>
+                    </div>
 
                     </>) }
 
 
-
+                    <div class="mt-6">
                     <Segment>
                         <Comment.Group >
                             <Header as='h3' dividing>RUN民討論區</Header>
@@ -305,6 +310,7 @@ class PolicyContent extends React.Component {
                             </> }
 
                         </Comment.Group></Segment>
+                    </div>
                     {/* <div className={ style.mes }>
                     </div> */}
 
