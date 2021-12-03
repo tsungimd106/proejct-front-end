@@ -171,7 +171,7 @@ class Policy extends React.Component {
                         siblingRange={ 1 }
                         ellipsisItem={ null }
                         totalPages={ this.state.pageTotal }
-                    /
+                    
                     />
                 </Segment>
 
