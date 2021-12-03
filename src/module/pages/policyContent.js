@@ -181,7 +181,7 @@ class PolicyContent extends React.Component {
                                             <List.Item><Header>提案進度</Header></List.Item>
                                             <List.Item>
 
-                                                <Label>退回程序</Label>
+                                                <Label>  {this.state.detail!==undefined? this.state.detail.status:""}</Label>
 
                                             </List.Item>
 
@@ -202,33 +202,13 @@ class PolicyContent extends React.Component {
 
                             </div>
                             <Grid> <Grid.Row >
-                                {/* <Grid.Column className={ style.lable } >{ placement.date }</Grid.Column> */ }
-                                {/* { placement.tag.map(item => (<Grid.Column  className={ style.lable }>#{item }</Grid.Column>)) } */ }
+                                
                                 <Grid.Column width={ 16 }>
 
                                 </Grid.Column>
                                 <Grid.Column width={ 16 } >
                                     <iframe src={ this.state.detail !==undefined?this.state.detail.pdfUrl:""} title="doc" className="w-full h-screen"></iframe>
-                                    {/* <div>
-                                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-
-
-                                        </Worker>
-                                        <div
-                                            style={ {
-                                                border: '1px solid rgba(0, 0, 0, 0.3)',
-                                                height: '750px',
-                                            } }
-                                        >
-                                            <Viewer fileUrl={ `https://cors-anywhere.herokuapp.com/${this.state.detail.pdfUrl}` }
-                                            //   plugins={[
-                                            //     pageNavigationPluginInstance,
-                                            // ]}
-                                            />
-                                        </div>
-                                    </div> */}
-
-                                    {/* <PdfComponent uu={placement.pdfUrl}/> */ }
+                                   
                                 </Grid.Column>
 
 

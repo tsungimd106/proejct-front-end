@@ -7,6 +7,7 @@ import { Grid, Header, Segment } from 'semantic-ui-react'
 import { HomeFirst, HomeTable, TailwindModal } from "../tailwind"
 import style from "../../css/main.module.css"
 import { HomeR } from '../request/homeR.js';
+import { trackPromise } from 'react-promise-tracker';
 
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
@@ -29,11 +30,14 @@ class Home extends React.Component {
         }
     }
     componentDidMount() {
-        HomeR.home().then(res => {
-            let resData = res.data.D
-            this.setState({ politics: resData.policy, message: resData.mes, proposal: resData.proposal, chart: resData.rank })
-            console.log(resData)
-        }, error => console.log(error))
+        trackPromise(
+            HomeR.home().then(res => {
+                let resData = res.data.D
+                this.setState({ politics: resData.policy, message: resData.mes, proposal: resData.proposal, chart: resData.rank })
+                
+            }, error => console.log(error))
+        )
+        
     }
 
 

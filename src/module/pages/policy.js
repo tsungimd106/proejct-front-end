@@ -36,9 +36,6 @@ class Policy extends React.Component {
             },
             like: {},
             nowPage: 1
-
-
-
         }
     }
     toContent = (id) => {
@@ -72,15 +69,20 @@ class Policy extends React.Component {
             d["status"] = status
         }
         this.handleF()
-       
+
     }
     componentDidMount() {
         let page = this.props.match.params.id
-        ProposalR.list({ page: page ? page : 1 }).then(response => {
-            let resData = response.data.D
-            this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
-
-        })
+        trackPromise(
+            ProposalR.list({ page: page ? page : 1 }).then(response => {
+                let resData = response.data.D
+                this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
+    
+            })
+        )
+        
+     
+        
         ProposalR.cond().then(response => {
             let resData = response.data.D
             let test = {}
@@ -90,7 +92,7 @@ class Policy extends React.Component {
                 for (let j of resData[i]) {
                     j["check"] = false
                     inside.push(j)
-                 
+
                 }
                 test[i] = inside
             }
@@ -98,16 +100,16 @@ class Policy extends React.Component {
             this.setState({ "like": test })
         })
     }
-   
+
     handlePaginationChange = (e, { activePage }) => {
         document.location.href = `/#/Policy/${activePage}`
-       
+
     }
     handleF = () => {
         let statusL = []
         this.state.like["狀態"].map(item => {
             if (item.check) statusL.push(item.id)
-        })       
+        })
         console.log(statusL)
         this.setState({ "cond": statusL })
         ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
@@ -142,8 +144,8 @@ class Policy extends React.Component {
                                                     <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                                 </Grid.Column>
                                                 <Grid.Column width={ 16 } computer={ 12 }>提案進度：{ placement.status }</Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='comments' />68</Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='heart' />收藏</Grid.Column>
+                                                {/* <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='comments' />68</Grid.Column>
+                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='heart' />收藏</Grid.Column> */}
 
                                             </Grid.Row>
                                         </Grid>
@@ -169,8 +171,7 @@ class Policy extends React.Component {
                         siblingRange={ 1 }
                         ellipsisItem={ null }
                         totalPages={ this.state.pageTotal }
-                    // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
-
+                    /
                     />
                 </Segment>
 
