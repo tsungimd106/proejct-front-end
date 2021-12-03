@@ -38,7 +38,7 @@ export default class Nav extends React.Component {
                         
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 h-20 w-full">
                         <a href="./#/" class="inline-flex p-7 lg:p-5">
-                            <img class="flex object-contain object-left h-10 lg:h-full w-full" src={logo_dark} alt="" />
+                            <img class="flex object-contain object-left h-16 w-full" src={logo_dark} alt="" style={{height:"75%"}}/>
                         </a>                        
                         <div class="sm:flex col-start-2 col-end-5 hidden invisible lg:visible">
                             <span class="p-5 mt-5 flex content-center" ><a href="./#/" className={this.props.id === 0 ? style.pageOn : style.page} >首頁</a></span>
