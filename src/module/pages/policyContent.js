@@ -242,10 +242,9 @@ class PolicyContent extends React.Component {
 
                     { this.state.login && (<>
                     <div class="grid grid-rows-1 grid-flow-col gap-4 mt-6">
-                        <div class="col-start-1 col-end-7">
-                            <Segment>
-                                <div className={ style.lable }>
-                                    <p>您的看法：</p><p>(請點選投票)</p>
+                        <div class="col-start-1 col-end-7 row-span-1 flex flex-col bg-white p-4 shadow rounded-lg">
+                            <div className={ style.lable }>
+                                    <p class="float-left">您的看法：(請點選投票)</p>
                                 </div>
                                 <div class="grid grid-cols-3 gap-0 justify-items-center" role="group">
                                         <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(0) } >
@@ -261,18 +260,15 @@ class PolicyContent extends React.Component {
 
                                 <div class="grid justify-items-center mt-3">
                                     <div><Button onClick={ this.vote }> 確定投票</Button></div>
-                                </div>
-                            </Segment>
+                                </div>                        
                         </div>
 
-                        <div class="col-start-8 col-end-10">
-                            <Segment>                            
-                                <div>
+                        <div class="col-start-8 col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
+                            <div>
                                     <div className={ style.lable }>RUN民看法：</div>
                                     <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
                                 </div>                             
-                            </Segment>
-                        </div>
+                            </div>
                     </div>
 
                     </>) }
