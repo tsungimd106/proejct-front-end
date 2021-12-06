@@ -247,16 +247,16 @@ class PolicyContent extends React.Component {
                                 <div className={ style.lable }>
                                     <p>您的看法：</p><p>(請點選投票)</p>
                                 </div>
-                                <div class="grid grid-cols-3 gap-0 justify-items-center">
-                                    <div class="bg-white hover:bg-gray-50">
-                                        <Button content={ <FaceHappy className={ style.green + " " + style.size } /> } onClick={ () => this.voteChange(0) } />
-                                    </div>
-                                    <span>
-                                        <Button content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } onClick={ () => this.voteChange(1) } />
-                                    </span>
-                                    <span>
-                                        <Button onClick={ () => this.voteChange(2) } ><FaceSad className={ style.red + " " + style.size } /></Button>
-                                    </span>
+                                <div class="grid grid-cols-3 gap-0 justify-items-center" role="group">
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(0) } >
+                                            <FaceHappy className={ style.green + " " + style.size } />
+                                        </button>
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(1) } >
+                                            <FaceNeutral className={ style.yellow + " " + style.size } />
+                                        </button>
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(2) } >
+                                            <FaceSad className={ style.red + " " + style.size } />
+                                        </button>                                    
                                 </div>                              
 
                                 <div class="grid justify-items-center mt-3">
