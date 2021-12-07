@@ -221,38 +221,34 @@ class PolicyContent extends React.Component {
                     </>) : (<></>) }
 
                     { this.state.login && (<>
-                    <div class="grid grid-rows-1 grid-flow-col gap-4 mt-6">
-                        <div class="col-start-1 col-end-7">
-                            <Segment>
-                                <div className={ style.lable }>
-                                    <p>您的看法：</p><p>(請點選投票)</p>
+                    <div class="grid grid-rows-3 sm:grid-rows-1 grid-flow-col gap-4 mt-6">
+                        <div class="row-span-2 w-full inset-0 sm:col-start-1 sm:col-end-7 sm:row-span-1 flex flex-col bg-white p-4 shadow rounded-lg">
+                            <div className={ style.lable }>
+                                    <p class="float-left">您的看法：(請點選投票)</p>
                                 </div>
-                                <div class="grid grid-cols-3 gap-0 justify-items-center">
-                                    <div class="bg-white hover:bg-gray-50">
-                                        <Button content={ <FaceHappy className={ style.green + " " + style.size } /> } onClick={ () => this.voteChange(0) } />
-                                    </div>
-                                    <span>
-                                        <Button content={ <FaceNeutral className={ style.yellow + " " + style.size } /> } onClick={ () => this.voteChange(1) } />
-                                    </span>
-                                    <span>
-                                        <Button onClick={ () => this.voteChange(2) } ><FaceSad className={ style.red + " " + style.size } /></Button>
-                                    </span>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-0 justify-items-center" role="group">
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(0) } >
+                                            <FaceHappy className={ style.green + " " + style.size } />
+                                        </button>
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(1) } >
+                                            <FaceNeutral className={ style.yellow + " " + style.size } />
+                                        </button>
+                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(2) } >
+                                            <FaceSad className={ style.red + " " + style.size } />
+                                        </button>                                    
                                 </div>                              
 
                                 <div class="grid justify-items-center mt-3">
                                     <div><Button onClick={ this.vote }> 確定投票</Button></div>
-                                </div>
-                            </Segment>
+                                </div>                        
                         </div>
 
-                        <div class="col-start-8 col-end-10">
-                            <Segment>                            
-                                <div>
+                        <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
+                            <div>
                                     <div className={ style.lable }>RUN民看法：</div>
-                                    <div style={ { width: "300px", hgieht: "300px" } } ><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
+                                    <div><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
                                 </div>                             
-                            </Segment>
-                        </div>
+                            </div>
                     </div>
 
                     </>) }
