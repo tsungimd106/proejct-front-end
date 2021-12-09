@@ -44,9 +44,9 @@ export default class Search extends React.Component {
     }
     removeAll = () => {
         let d = this.props.like
-        for (const [key, value] of Object.entries(d)) {
+        for (let [key, value] of Object.entries(d)) {
             console.log(value)
-            for (const [k] of Object.entries(value)) {
+            for (let [k] of Object.entries(value)) {
                 if (d[key][k.check]) { d[key][k.check] = false }
             }
         }
@@ -66,12 +66,7 @@ export default class Search extends React.Component {
 
 
     render() {
-        return (<div className={ style.searchBar }>
-
-            <List horizontal>
-                <List.Item> <Form.Input label='關鍵字搜尋：' placeholder="請輸入關鍵字" /></List.Item>
-                <List.Item>  <Form.Button>確認</Form.Button></List.Item>
-            </List>
+        return (<div className={ style.searchBar }>            
             <Grid className={ style.border }>
                 <Grid.Row >
                     { this.state.count > 0 ? <>
@@ -79,7 +74,6 @@ export default class Search extends React.Component {
                         <Grid.Column width={ 13 } >
                             { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                                 return (<>
-
                                     { (this.props.like[placement]).map(item => {
                                         return (item.check ?
                                             <Button
@@ -88,7 +82,6 @@ export default class Search extends React.Component {
                                                 onClick={ () => { this.remove(placement, item) } } className={ style.button } /> : <></>
 
                                         )
-
                                     }) } </>)
                             }) }
                         </Grid.Column>
