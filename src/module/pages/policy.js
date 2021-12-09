@@ -22,18 +22,6 @@ class Policy extends React.Component {
                 { value: 40, name: "反對", color: "#de4b43" }
 
             ],
-            kpi: {
-                series: [10, 50, 40],
-                options: {
-                    colors: ['#fec240', '#98c4d1', '#de4b43'],
-                    labels: ["同意", "中立", "反對"],
-                    title: {
-                        text: 'Run民立場投票',
-                        align: 'left',
-
-                    },
-                },
-            },
             like: {},
             nowPage: 1
         }
@@ -77,12 +65,12 @@ class Policy extends React.Component {
             ProposalR.list({ page: page ? page : 1 }).then(response => {
                 let resData = response.data.D
                 this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
-    
+
             })
         )
-        
-     
-        
+
+
+
         ProposalR.cond().then(response => {
             let resData = response.data.D
             let test = {}
@@ -128,6 +116,7 @@ class Policy extends React.Component {
 
                 <List divided relaxed animated className={ style.list }>
                     { this.state.Sdata && this.state.Sdata.map((placement, index) => {
+                        let voteT = placement.good + placement.med + placement.bad
                         return (<List.Item onClick={ () => { this.toContent(placement) } }>
                             <Grid>
                                 <Grid.Row className={ utilStyle.point } columns={ 3 } verticalAlign={ "bottom" }>
@@ -144,16 +133,16 @@ class Policy extends React.Component {
                                                     <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                                 </Grid.Column>
                                                 <Grid.Column width={ 16 } computer={ 12 }>提案進度：{ placement.status }</Grid.Column>
-                                                {/* <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='comments' />68</Grid.Column>
-                                                <Grid.Column width={ 5 } mobile={ 16 } computer={ 5 }><Icon name='heart' />收藏</Grid.Column> */}
-
                                             </Grid.Row>
                                         </Grid>
                                     </Grid.Column>
-                                    {/* <Grid.Column width={ 5 } only="mobile"><Icon name='comments' />68</Grid.Column>
-                                    <Grid.Column width={ 5 } only="mobile"><Icon name='heart' />收藏</Grid.Column> */}
                                     <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "left" }  >
-                                        <BarChart data={ this.state.barChartData }> </BarChart>
+                                        <BarChart data={ [
+                                            { value: placement.good / voteT * 100, name: "同意", color: "#fec240" },
+                                            { value: placement.med / voteT * 100, name: "中立", color: "#98c4d1" },
+                                            { value: placement.bad / voteT * 100, name: "反對", color: "#de4b43" }
+
+                                        ] }> </BarChart>
                                     </Grid.Column>
                                 </Grid.Row></Grid>
 
@@ -171,7 +160,7 @@ class Policy extends React.Component {
                         siblingRange={ 1 }
                         ellipsisItem={ null }
                         totalPages={ this.state.pageTotal }
-                    
+
                     />
                 </Segment>
 
