@@ -68,16 +68,16 @@ class Home extends React.Component {
                             <div><TailwindModal show={ false } child={(<>
                             test</>)}></TailwindModal></div>
                         </Segment>
-                        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-3  ">
+                        <div class="grid grid-cols-1 flex-shrink md:flex-shrink-0 md:grid-cols-3 ">
                             {
                                 this.state.chart ? this.state.chart.map((item, index) => {
                                     return (<>
-                                        <div class="relative flex flex-col items-center justify-center mb-10">
+                                        <div class="relative flex items-center justify-center mb-10">
                                             <div class="container flex justify-center">
-                                                <div class="max-w-md w-72 bg-white shadow-lg rounded-xl p-6">
+                                                <div class="w-52 h-80 sm:h-auto sm:w-72 bg-white shadow-lg rounded-xl p-6">
                                                     <div class="flex flex-col ">
                                                         <div class="">
-                                                            <div class="relative h-72 w-full mb-10">
+                                                            <div class="relative sm:h-72 w-full sm:mb-10">
                                                                 <img src={ item.photo } alt="Just a flower" class=" h-18 w-auto   object-fill  rounded-2xl" />
                                                             </div>
                                                             <div class="flex-auto justify-evenly ">
