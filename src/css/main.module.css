@@ -110,6 +110,13 @@
     padding: 15vh 15vw;
 }
 
+.moduleX {
+    background: #f0f0f0;
+    width: 25px;
+    height: 25px;
+    color: #000
+}
+
 @media screen and (max-width:768px) {
     .sort {
         margin: 30px -15px

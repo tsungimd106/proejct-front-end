@@ -13,13 +13,6 @@ import { FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
 import { InfoModal, ReportModal } from "../modal"
 
-
-
-
-import { Worker, Viewer } from '@react-pdf-viewer/core';
-
-import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
-
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 
@@ -88,10 +81,14 @@ class PolicyContent extends React.Component {
                 console.log(resData)
                 let msgL = resData.msg
                 let detail = resData.detail[0]
+                let vote = resData.vote[0]
                 let heart = resData.heart
                 let rule = resData.rule
-                console.log(detail)
-                this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule })
+                let voteT =  (vote.goodc + vote.badc + vote.medc)               
+                console.log(voteT)
+                let voteD = [vote.goodc===0?0:vote.goodc / voteT*100, vote.medc===0?0:vote.medc / voteT*100, vote.badc===0?0:vote.badc / voteT*100]
+                console.log(voteD)
+                this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule, voteD: voteD })
             })
         )
 
@@ -164,7 +161,7 @@ class PolicyContent extends React.Component {
                                         <List horizontal>
                                             <List.Item><Header>提案人</Header></List.Item>
 
-                                            {this.state.detail!==undefined? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) :<></>}
+                                            { this.state.detail !== undefined ? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) : <></> }
 
                                         </List>
 
@@ -181,7 +178,7 @@ class PolicyContent extends React.Component {
                                             <List.Item><Header>提案進度</Header></List.Item>
                                             <List.Item>
 
-                                                <Label>  {this.state.detail!==undefined? this.state.detail.status:""}</Label>
+                                                <Label>  { this.state.detail !== undefined ? this.state.detail.status : "" }</Label>
 
                                             </List.Item>
 
@@ -202,95 +199,91 @@ class PolicyContent extends React.Component {
 
                             </div>
                             <Grid> <Grid.Row >
-                                
+
                                 <Grid.Column width={ 16 }>
 
                                 </Grid.Column>
                                 <Grid.Column width={ 16 } >
-                                    <iframe src={ this.state.detail !==undefined?this.state.detail.pdfUrl:""} title="doc" className="w-full h-screen"></iframe>
-                                   
+                                    <iframe src={ this.state.detail !== undefined ? this.state.detail.pdfUrl : "" } title="doc" className="w-full h-screen"></iframe>
+
                                 </Grid.Column>
-
-
-
                             </Grid.Row></Grid>
-
-
                         </div>
 
                     </>) : (<></>) }
 
                     { this.state.login && (<>
-                    <div class="grid grid-rows-3 sm:grid-rows-1 grid-flow-col gap-4 mt-6">
-                        <div class="row-span-2 w-full inset-0 sm:col-start-1 sm:col-end-7 sm:row-span-1 flex flex-col bg-white p-4 shadow rounded-lg">
-                            <div className={ style.lable }>
+                        <div class="grid grid-rows-3 sm:grid-rows-1 grid-flow-col gap-4 mt-6">
+                            <div class="row-span-2 w-full inset-0 sm:col-start-1 sm:col-end-7 sm:row-span-1 flex flex-col bg-white p-4 shadow rounded-lg">
+                                <div className={ style.lable }>
                                     <p class="float-left">您的看法：(請點選投票)</p>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-0 justify-items-center" role="group">
-                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(0) } >
-                                            <FaceHappy className={ style.green + " " + style.size } />
-                                        </button>
-                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(1) } >
-                                            <FaceNeutral className={ style.yellow + " " + style.size } />
-                                        </button>
-                                        <button type="button"  class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(2) } >
-                                            <FaceSad className={ style.red + " " + style.size } />
-                                        </button>                                    
-                                </div>                              
+                                    <button type="button" class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(0) } >
+                                        <FaceHappy className={ style.green + " " + style.size } />
+                                    </button>
+                                    <button type="button" class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(1) } >
+                                        <FaceNeutral className={ style.yellow + " " + style.size } />
+                                    </button>
+                                    <button type="button" class="bg-white rounded w-30 p-5 hover:bg-gray-200 cursor-pointer focus:bg-gray-200" onClick={ () => this.voteChange(2) } >
+                                        <FaceSad className={ style.red + " " + style.size } />
+                                    </button>
+                                </div>
 
                                 <div class="grid justify-items-center mt-3">
                                     <div><Button onClick={ this.vote }> 確定投票</Button></div>
-                                </div>                        
-                        </div>
-
-                        <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
-                            <div>
-                                    <div className={ style.lable }>RUN民看法：</div>
-                                    <div><Chart options={ this.state.kpi.options } series={ this.state.kpi.series } type="donut" /></div>
-                                </div>                             
+                                </div>
                             </div>
-                    </div>
+
+                            <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
+                                <div>
+                                    <div className={ style.lable }>RUN民看法：</div>
+                                    { this.state.voteD ? <>
+                                        <div><Chart options={ this.state.kpi.options } series={ this.state.voteD  } type="donut" /></div>
+                                    </> : <></> }
+
+                                </div>
+                            </div>
+                        </div>
 
                     </>) }
 
 
                     <div class="mt-6">
-                    <Segment>
-                        <Comment.Group >
-                            <Header as='h3' dividing>RUN民討論區</Header>
-                            { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
-                                return (<>
-                                    <Comment>
-                                        <Comment.Content>
-                                            <Comment.Author as={ "span" }>{ placement.name }</Comment.Author>
-                                            <Comment.Metadata>B{ index+1}</Comment.Metadata>
-                                            <Comment.Metadata>{ placement.time }</Comment.Metadata>
-                                            <Comment.Text>{ placement.content }</Comment.Text>
-                                            <Comment.Actions>
-                                                <Comment.Action>回覆</Comment.Action>
+                        <Segment>
+                            <Comment.Group >
+                                <Header as='h3' dividing>RUN民討論區</Header>
+                                { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+                                    return (<>
+                                        <Comment>
+                                            <Comment.Content>
+                                                <Comment.Author as={ "span" }>{ placement.name }</Comment.Author>
+                                                <Comment.Metadata>B{ index + 1 }</Comment.Metadata>
+                                                <Comment.Metadata>{ placement.time }</Comment.Metadata>
+                                                <Comment.Text>{ placement.content }</Comment.Text>
+                                                <Comment.Actions>
+                                                    <Comment.Action>回覆</Comment.Action>
+                                                    <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
+                                                        rule={ this.state.rule } toDo={ this.report }
+                                                    />
 
-                                                <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
-                                                    rule={ this.state.rule } toDo={ this.report }
-                                                />
+                                                </Comment.Actions>
+                                            </Comment.Content>
+                                        </Comment>
+                                    </>)
+                                })) : <></> }
+                                { this.state.login && <>
+                                    <Form reply>
+                                        <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
+                                        <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
+                                    </Form>
+                                </> }
 
-                                            </Comment.Actions>
-                                        </Comment.Content>
-                                    </Comment>
-                                </>)
-                            })) : <></> }
-                            { this.state.login && <>
-                                <Form reply>
-                                    <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
-                                    <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
-                                </Form>
-                            </> }
-
-                        </Comment.Group></Segment>
+                            </Comment.Group></Segment>
                     </div>
-                    {/* <div className={ style.mes }>
-                    </div> */}
 
-                    <InfoModal open={ this.state.open} content={ this.state.noteModalC } close={ this.showNoteModal } />
+
+                    <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.showNoteModal } />
                 </>)
             } />)
     }
