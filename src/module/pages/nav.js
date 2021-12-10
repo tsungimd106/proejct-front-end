@@ -61,14 +61,14 @@ export default class Nav extends React.Component {
                                 <p class="row-span-5 col-span-1">製作團隊</p>
                                 <p class="col-start-2">廖暄毓</p> <p class="col-start-2">羅毓翔</p> <p class="col-start-2">曹芷瑜</p> 
                                 <p class="col-start-2">王昱喆</p> <p class="col-start-2">王佳淇</p>
-                                <p class="row-span-1 text-2xl pr-2"><Icon name="instagram" /></p> <p class="col-start-2">politics_is_running </p>
-                                <p class="row-span-1 text-2xl pr-2 "><Icon name="linechat" /></p> <p class="col-start-2">政要RUN</p>
+                                <p class="row-span-1 text-2xl pr-2"><Icon name="instagram" /></p> <p class="col-start-2"><a class="text-black" target='blank' href='https://www.instagram.com/politics_is_running/'>politics_is_running</a></p>
+                                <p class="row-span-1 text-2xl pr-2 "><Icon name="linechat" /></p> <p class="col-start-2"><a class="text-black" target='blank' href='https://line.me/R/ti/p/%40975vlmkd'>政要RUN</a></p>
                                 <p class="row-span-1 col-span-2">
                                     <div class="grid grid-cols-4 divide-x divide-black pt-14">
                                         <span>資料來源</span>
-                                        <span class="text-center">中央選舉委員會</span>
-                                        <span class="text-center">立法院開放資料</span>
-                                        <span class="text-center pl-2">政府開放資料平台</span>
+                                        <span class="text-center"><a class="text-black" target='blank' href='https://www.cec.gov.tw/#gsc.tab=0'>中央選舉委員會</a></span>
+                                        <span class="text-center"><a class="text-black" target='blank' href='https://data.ly.gov.tw/'>立法院開放資料</a></span>
+                                        <span class="text-center pl-2"><a class="text-black" target='blank' href='https://data.gov.tw/'>政府開放資料平台</a></span>
                                     </div>
                                 </p>
                             </div>
