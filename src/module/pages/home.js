@@ -118,7 +118,7 @@ class Home extends React.Component {
 
                         <Grid.Column className='justify-center' width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
                             { this.state.message == null ? <></> : <>
-                            <div class="flex items-stretch">
+                            <div class="flex items-stretch ">
                                 <HomeFirst person={ person } name={ this.state.message[0].name } title={ this.state.message[0].title } score={ this.state.message[0].score }></HomeFirst>
                             </div>
                             </> }

@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react'
 class HomeFirst extends React.Component {
     render() {
         return (<>
-            <div class="p-3 w-full self-center">              
+            <div class="p-3 w-full self-center ">              
                 <div class="mt-8 h-20 w-4/5 sm:w-80 absolute flex justify-center items-center">
                     {this.props.person ? <img
                         class="object-cover h-24 w-24 rounded-full"
