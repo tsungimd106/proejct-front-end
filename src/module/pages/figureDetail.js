@@ -675,18 +675,14 @@ class FigureDetail extends React.Component {
                                     </div>
 
                                 </Grid.Column>
-                                <Grid.Column computer={ 11 } mobile={ 16 }><div></div>
-                                    {/* <Dropdown text={ this.state.term && this.state.term }>
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown> */}
-                                    <Card.Group itemsPerRow={ 3 }>
-                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("policy") }>
-                                            <div className={ style.scoreCircle }>政見評分
-                                                <CircularProgressbar value={ this.state.score * 100 } text={ `${parseInt(this.state.score * 100)}` } styles={ buildStyles({
+                                <Grid.Column computer={11} mobile={16}>
+                                    {/* p */}
+                                    <Card.Group itemsPerRow={3}>
+                                        <Card className={style.dashboardcard} onClick={() => this.renderRow("policy")}>
+                                            <div title="您在乎的政治人物有履行政見承諾嗎？
+                                                政要RUN整合投票數據，並將運算過程公布此區，讓您更清楚了解分數來由。" 
+                                                className={style.scoreCircle}><div class="text-xl mb-5">政見評分</div>
+                                                <CircularProgressbar value={this.state.score * 100} text={`${parseInt(this.state.score * 100)}`} styles={buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
@@ -694,18 +690,22 @@ class FigureDetail extends React.Component {
                                                 }) } />
                                             </div>
                                         </Card>
-                                        <Card className={ style.dashboardcard }>
-                                            <div className={ style.scoreCircle }>出席率
-                                                <CircularProgressbar value={ this.state.attend } text={ `${this.state.attend}%` } styles={ buildStyles({
+                                        <Card className={style.dashboardcard}>
+                                            <div title="您在乎的政治人物有確實出席立法院會議嗎？
+                                            政要RUN整合公民監督國會聯盟提供的院會出席率及委員會出席率，並取平均作為參考指標。歡迎您加以參考。"
+                                            className={style.scoreCircle + " " + "hover:cursor-pointer"}><div class="text-xl mb-5">出席率</div>
+                                                <CircularProgressbar value={this.state.attend} text={`${this.state.attend}%`} styles={buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
 
                                                 }) } /></div>
                                         </Card>
-                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("proposal") }>
-                                            <div className={ style.scoreCircle }>提案數
-                                                <CircularProgressbar value={ 100 } text={ `${this.state.proposal_quota}` } styles={ buildStyles({
+                                        <Card className={style.dashboardcard} onClick={() => this.renderRow("proposal")}>
+                                            <div title="您在乎的政治人物有提出多少法案呢？
+                                            政要RUN整合立法院資料服務平台的提案數據，讓您一手掌握不遺漏！"
+                                            className={style.scoreCircle}><div class="text-xl mb-5">提案數</div>
+                                                <CircularProgressbar value={100} text={`${this.state.proposal_quota}`} styles={buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
@@ -734,27 +734,28 @@ class FigureDetail extends React.Component {
                                     </Swiper>
 
                                     <div class="mt-10">
-                                        <div className={ style.bigSize + " " + style.center }>政見
-                                        <div></div>
-                                            {/* <span className={ style.term }><Dropdown text={ this.state.term && this.state.term }>
+                                        <div className={style.bigSize + " " + style.center}><span class="text-2xl">政見</span>
+                                            {/* <span className={style.term}>
+                                                <Dropdown text={this.state.term && this.state.term}>
                                                 <Dropdown.Menu>
                                                     <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
                                                     <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
                                                     <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
                                                 </Dropdown.Menu>
-                                            </Dropdown></span> */}
+                                            </Dropdown>
+                                            </span> */}
                                         </div>
                                         <div class=" grid grid-cols-2   justify-center items-stretch mt-5" >
                                             { this.state.policy && this.state.policy.map((placement, index) => {
                                                 if (index === null) return (<></>)
                                                 else {
                                                     return (<>
-                                                        <div class="px-2 mb-5" onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
+                                                        <div class="pr-4 mb-5" onClick={() => { this.scoreShow(placement.content, placement.id, placement.name) }}>
                                                             <div class="bg-white max-w-xl rounded-2xl px-5 py-8 shadow-lg hover:shadow-2xl transition duration-500">
                                                                 <div class="mt-4">
-                                                                    <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">  < >{ placement.name.map((item, index) => {
-                                                                        return (<><Label>{ item }</Label></>)
-                                                                    }) }</ ></div>
+                                                                    <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">  < >{placement.name.map((item, index) => {
+                                                                        return (<><Label className={style.class}>{item}</Label></>)
+                                                                    })}</ ></div>
                                                                     {/* <div class="flex mt-2">
                                                                         <ColorNumber value={ index } neg={ index % 2 === 0 } />
                                                                     </div> */}
@@ -810,9 +811,11 @@ class FigureDetail extends React.Component {
 
                                 </RadioGroup>
                                     <div class="md:col-span-5">
-
-                                        <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" id="scoreRemark" placeholder="備註" />
-                                    </div>
+                
+                <input title="為什麼會投給此進度呢？
+                邀請你針對政見的滿意度填下參考依據，也歡迎你隨時回來發表新的意見。" 
+                type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" id="scoreRemark" placeholder="備註" />
+              </div>
                                 </div>
                             </div>
                         </>) }

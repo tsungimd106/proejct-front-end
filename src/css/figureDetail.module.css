@@ -54,8 +54,13 @@ div.space {
 }
 
 .term {
-    font-size: 17px;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
     margin-left: 15px;
+}
+
+.class{
+    margin-top: 3px!important;
 }
 
 .policyBorder {
