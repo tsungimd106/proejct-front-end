@@ -1,13 +1,12 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Dropdown, Button,  Label, Segment,  Table} from 'semantic-ui-react'
+import { Card, Dropdown, Button, Label, Segment, Table } from 'semantic-ui-react'
 // import Chart from 'react-apexcharts'
 import { Line, Bar } from 'react-chartjs-2';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import style from "../../css/figureDetail.module.css"
-import utilStyle from "../../css/util.module.css"
 import { PoliticianR } from "../request/politicianR"
 import { trackPromise } from 'react-promise-tracker';
 import { ScoreModal, InfoModal } from "../modal"
@@ -16,6 +15,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { ColorNumber } from "../tailwind"
+import { RadioGroup } from '@headlessui/react'
 
 class FigureDetail extends React.Component {
     figureID = null
@@ -37,13 +37,15 @@ class FigureDetail extends React.Component {
             ],
             scoreActitivy: null,
             open: false,
-            openTable: false
+            openTable: false,
+            plan: 0
         }
     }
     componentDidMount() {
         this.figureID = this.props.match.params.id
         trackPromise(
             PoliticianR.detail(this.figureID).then(res => {
+              
                 let resData = res.data.D
                 let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
                 let selfD = []
@@ -58,6 +60,110 @@ class FigureDetail extends React.Component {
 
                     }
                 })
+                
+                let trend_attend = {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '該政治人物',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#FEC240',
+                            borderColor: '#FEC240',
+                        },
+                        {
+                            label: '該政治人物總平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#DE4B43',
+                            borderColor: '#DE4B43',
+                        },
+                        {
+                            label: '立委平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#98C4D1',
+                            borderColor: '#98C4D1',
+                        }
+                    ]
+                }
+                let trend_policy= {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '該政治人物',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#FEC240',
+                            borderColor: '#FEC240',
+                        },
+                        // {
+                        //     label: '該政治人物總平均',
+                        //     data: [],
+                        //     fill: false,
+                        //     backgroundColor: '#DE4B43',
+                        //     borderColor: '#DE4B43',
+                        // },
+                        {
+                            label: '立委總平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#98C4D1',
+                            borderColor: '#98C4D1',
+                        }
+                    ],
+                };
+                
+                let trend_pro= {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '當屆',
+                            data: [],
+                            backgroundColor: '#FEC240',
+                        },
+                        {
+                            label: '歷屆平均',
+                            data: [],
+                            backgroundColor: '#98C4D1',
+                        },
+                    ],
+                };
+                //出席率
+                let trend_attend_avg = 0;         
+                       
+
+                for (let i in resData.trend_attend_group) {
+                    let item = resData.trend_attend_group[i]
+                    let figure = resData.attend[i]
+                    trend_attend.labels.push(item.session)
+                    trend_attend.datasets[0].data.push(figure.attend)
+                    trend_attend_avg += figure.attend
+                    trend_attend.datasets[2].data.push(item.avg)
+                }
+                let attend_avg=Math.round(trend_attend_avg / resData.attend.length)
+                for (let i in resData.attend) {
+                    trend_attend.datasets[1].data.push(attend_avg)
+                }
+            
+                //政見分數
+                for(let i in resData.trend_policy_group){
+                    let item =resData.trend_policy_group[i]
+                    trend_policy.labels.push(item.t)
+                    // trend_policy.datasets[2].data.push(item.score)
+                    trend_policy.datasets[0].data.push(resData.trend_policy[i].score)
+                    trend_policy.datasets[1].data.push(item.score)
+                }
+                console.log("success")
+                //提案數
+                for(let i in resData.pro){
+                    let item =resData.pro[i]
+                    console.log(resData.trend_pro[i].c)
+                    trend_pro.labels.push(item.status)
+                    trend_pro.datasets[0].data.push(item.c)
+                    trend_pro.datasets[1].data.push(Math.floor(resData.trend_pro[i].c))
+                }
+                console.log(trend_pro)
                 this.setState({
                     policy: resData.policy,
                     name: resData.detail[0].name,
@@ -67,10 +173,13 @@ class FigureDetail extends React.Component {
                     photo: resData.detail[0].photo,
                     table: resData.table_policy,
                     tableDetail: resData.table_policyDetail,
-                    attend: resData.attend[0]["attend"],
+                    attend: attend_avg,
                     score: resData.count_score[0]["score"],
                     proposal_quota: resData.proposal_quota[0]["quota"],
-                    proposal: resData.proposal
+                    proposal: resData.proposal,
+                    trend_attend: trend_attend,
+                    trend_policy:trend_policy,
+                    trend_pro:trend_pro
                 })
                 console.log(resData)
 
@@ -82,7 +191,7 @@ class FigureDetail extends React.Component {
     }
 
     changeTerm = (s) => this.setState({ term: s })
-
+    setPlan = (p) => { this.setState({ plan: p }) }
     scoreShow = (txt, id, tag) => {
 
         if (this.state.login) {
@@ -91,18 +200,163 @@ class FigureDetail extends React.Component {
 
         }
     }
+    forreload=()=>{
+        trackPromise(
+            PoliticianR.detail(this.figureID).then(res => {
+              
+                let resData = res.data.D
+                let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+                let selfD = []
+                cond.forEach(placement => {
+                    if (placement["no"] in resData.detail[0]) {
+                        selfD.push({
+                            "content": resData.detail[0][placement.no].replace(/;/g, " <br />"),
+                            "title": placement.name
+                        })
+                        document.getElementById(placement.no).innerHTML = resData.detail[0][placement.no]
+                            .replace(/;/g, " <br />").replace(/,/g, " <br />")
+
+                    }
+                })
+                
+                let trend_attend = {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '該政治人物',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#FEC240',
+                            borderColor: '#FEC240',
+                        },
+                        {
+                            label: '該政治人物總平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#DE4B43',
+                            borderColor: '#DE4B43',
+                        },
+                        {
+                            label: '立委平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#98C4D1',
+                            borderColor: '#98C4D1',
+                        }
+                    ]
+                }
+                let trend_policy= {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '該政治人物',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#FEC240',
+                            borderColor: '#FEC240',
+                        },
+                        // {
+                        //     label: '該政治人物總平均',
+                        //     data: [],
+                        //     fill: false,
+                        //     backgroundColor: '#DE4B43',
+                        //     borderColor: '#DE4B43',
+                        // },
+                        {
+                            label: '立委總平均',
+                            data: [],
+                            fill: false,
+                            backgroundColor: '#98C4D1',
+                            borderColor: '#98C4D1',
+                        }
+                    ],
+                };
+                
+                let trend_pro= {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '當屆',
+                            data: [],
+                            backgroundColor: '#FEC240',
+                        },
+                        {
+                            label: '歷屆平均',
+                            data: [],
+                            backgroundColor: '#98C4D1',
+                        },
+                    ],
+                };
+                //出席率
+                let trend_attend_avg = 0;         
+                       
+
+                for (let i in resData.trend_attend_group) {
+                    let item = resData.trend_attend_group[i]
+                    let figure = resData.attend[i]
+                    trend_attend.labels.push(item.session)
+                    trend_attend.datasets[0].data.push(figure.attend)
+                    trend_attend_avg += figure.attend
+                    trend_attend.datasets[2].data.push(item.avg)
+                }
+                let attend_avg=Math.round(trend_attend_avg / resData.attend.length)
+                for (let i in resData.attend) {
+                    trend_attend.datasets[1].data.push(attend_avg)
+                }
+            
+                //政見分數
+                for(let i in resData.trend_policy_group){
+                    let item =resData.trend_policy_group[i]
+                    trend_policy.labels.push(item.t)
+                    // trend_policy.datasets[2].data.push(item.score)
+                    trend_policy.datasets[0].data.push(resData.trend_policy[i].score)
+                    trend_policy.datasets[1].data.push(item.score)
+                }
+                console.log("success")
+                //提案數
+                for(let i in resData.pro){
+                    let item =resData.pro[i]
+                    console.log(resData.trend_pro[i].c)
+                    trend_pro.labels.push(item.status)
+                    trend_pro.datasets[0].data.push(item.c)
+                    trend_pro.datasets[1].data.push(Math.floor(resData.trend_pro[i].c))
+                }
+                console.log(trend_pro)
+                this.setState({
+                    policy: resData.policy,
+                    name: resData.detail[0].name,
+                    area: resData.detail[0].e_n,
+                    experience: resData.detail[0].experience.split("\n"),
+                    areaReamrk: resData.detail[0].remark.replace("null", ""),
+                    photo: resData.detail[0].photo,
+                    table: resData.table_policy,
+                    tableDetail: resData.table_policyDetail,
+                    attend: attend_avg,
+                    score: resData.count_score[0]["score"],
+                    proposal_quota: resData.proposal_quota[0]["quota"],
+                    proposal: resData.proposal,
+                    trend_attend: trend_attend,
+                    trend_policy:trend_policy,
+                    trend_pro:trend_pro
+                })
+                console.log(resData)
+
+            }, error => { console.log(error) })
+        )
+    }
 
     scoreRule = (i) => this.setState({ scoreActitivy: i })
 
     score = () => PoliticianR.score({
         "user_id": this.state.userName,
         "policy_id": this.state.scoreId,
-        "ps_id": this.state.scoreActitivy + 1,
+        "ps_id": this.state.plan+1,
         "remark": document.getElementById("scoreRemark").value || " "
     }).then(res => {
         if (res.data.success) {
             this.scoreShow("")
             this.setState({ "open": true, noteModalC: "評分成功" })
+            this.forreload()
         }
     })
 
@@ -117,7 +371,6 @@ class FigureDetail extends React.Component {
         key: `row-${id}${i}`,
 
         onClick: () => this.renderToDetail(id),
-        // warning: !!(status && status.match('Requires Action')),
         cells: [
             content || ' ',
             quota || '0',
@@ -292,15 +545,15 @@ class FigureDetail extends React.Component {
 
         SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel,]);
         // Chart.defaults.font.family="abc"
-        return (<Pages id={3}
-            pageInfo={[{ content: '政治人物', link: true, href: "./#/figure" },
-            { content: this.state.name, active: true, href: `./#/figure/${this.props.match.params.id}` }]}
+        return (<Pages id={ 3 }
+            pageInfo={ [{ content: '政治人物', link: true, href: "./#/figure" },
+            { content: this.state.name, active: true, href: `./#/figure/${this.props.match.params.id}` }] }
 
             page={
                 (<>
-                    <div className={style.people}>
+                    <div className={ style.people }>
                         {
-                            <Grid> <Grid.Row className={style.dashboard} >
+                            <Grid> <Grid.Row className={ style.dashboard } >
                                 {/* <Grid.Column mobile={ 16 } computer={ 16 } tablet={ 8 }>
 
                                     <Card  >
@@ -321,7 +574,7 @@ class FigureDetail extends React.Component {
                                         </Grid>
                                     </Card>
                                 </Grid.Column> */}
-                                <Grid.Column mobile={16} computer={5} tablet={8}>
+                                <Grid.Column mobile={ 16 } computer={ 5 } tablet={ 8 }>
                                     {/* <Card  ><p>犯罪紀錄 : 2 筆</p>
                                         <p>政治獻金 : 5 筆 100萬</p></Card>
                                     <Card vertical> <Grid>
@@ -360,19 +613,19 @@ class FigureDetail extends React.Component {
                                             </div> */}
                                             <div class="mt-6">
                                                 <div class="h-56  overflow-hidden rounded-tl-lg rounded-tr-lg justify-center">
-                                                    <img class="rounded-tl-xl rounded-tr-xl h-56 w-auto" src={this.state.selfD !== undefined ? this.state.photo : ""} alt="" />
+                                                    <img class="rounded-tl-xl rounded-tr-xl h-56 w-auto" src={ this.state.selfD !== undefined ? this.state.photo : "" } alt="" />
                                                 </div>
                                             </div>
 
                                             <div class="mt-2 text-lg">
-                                                <p class="text-center"><span class="font-bold">{this.state.selfD !== undefined ? this.state.name : ""}</span>  </p>
+                                                <p class="text-center"><span class="font-bold">{ this.state.selfD !== undefined ? this.state.name : "" }</span>  </p>
                                             </div>
 
                                             <div class="flex pb-4 mt-4 items-center border-b">
 
 
                                             </div>
-                                            {this.state.selfD && this.state.selfD.map(placement => {
+                                            { this.state.selfD && this.state.selfD.map(placement => {
                                                 return (<>
                                                     <div>
                                                         <div class="flex mt-2 items-center">
@@ -381,15 +634,15 @@ class FigureDetail extends React.Component {
                                                             </div>
 
                                                             <div class="text-lg ml-3">
-                                                                <p class={"font-bold "}>{placement.name}  </p>
-                                                                <p><span class={style.labelContent} id={placement.no}>  </span></p>
+                                                                <p class={ "font-bold " }>{ placement.name }  </p>
+                                                                <p><span class={ style.labelContent } id={ placement.no }>  </span></p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     {/* <Grid.Column ><Label content={ placement.name } tag /></Grid.Column>
                                                     <Grid.Column id={ placement.no } width={ 16 } className={ style.labelContent } /> */}
                                                 </>)
-                                            })}
+                                            }) }
 
 
 
@@ -403,194 +656,192 @@ class FigureDetail extends React.Component {
                                                     <i class="fas fa-link"></i>
                                                 </div>
                                                 <div class="text-lg ml-3">
-                                                    <p class={"font-bold "}>經歷 </p>
+                                                    <p class={ "font-bold " }>經歷 </p>
                                                 </div>
                                             </div>
 
-                                            {this.state.experience && this.state.experience.map((item, index) => {
+                                            { this.state.experience && this.state.experience.map((item, index) => {
                                                 return (
                                                     <div class="flex mt-2 items-center">
 
                                                         <div class="text-lg ml-3">
-                                                            <p>  {item} </p>
+                                                            <p>  { item } </p>
                                                         </div>
                                                     </div>)
-                                            })}
+                                            }) }
 
 
                                         </div>
                                     </div>
 
                                 </Grid.Column>
-                                <Grid.Column computer={11} mobile={16}>
-                                    <Dropdown text={this.state.term && this.state.term}>
+                                <Grid.Column computer={ 11 } mobile={ 16 }><div></div>
+                                    {/* <Dropdown text={ this.state.term && this.state.term }>
                                         <Dropdown.Menu>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("當屆") }}>當屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("歷屆") }}>歷屆</Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("9") }}>9</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                            <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
                                         </Dropdown.Menu>
-                                    </Dropdown>
-                                    <Card.Group itemsPerRow={3}>
-                                        <Card className={style.dashboardcard} onClick={() => this.renderRow("policy")}>
-                                            <div className={style.scoreCircle}>政見評分
-                                                <CircularProgressbar value={this.state.score * 100} text={`${parseInt(this.state.score * 100)}`} styles={buildStyles({
+                                    </Dropdown> */}
+                                    <Card.Group itemsPerRow={ 3 }>
+                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("policy") }>
+                                            <div className={ style.scoreCircle }>政見評分
+                                                <CircularProgressbar value={ this.state.score * 100 } text={ `${parseInt(this.state.score * 100)}` } styles={ buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
 
-                                                })} />
+                                                }) } />
                                             </div>
                                         </Card>
-                                        <Card className={style.dashboardcard}>
-                                            <div className={style.scoreCircle}>出席率
-                                                <CircularProgressbar value={this.state.attend} text={`${this.state.attend}%`} styles={buildStyles({
+                                        <Card className={ style.dashboardcard }>
+                                            <div className={ style.scoreCircle }>出席率
+                                                <CircularProgressbar value={ this.state.attend } text={ `${this.state.attend}%` } styles={ buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
 
-                                                })} /></div>
+                                                }) } /></div>
                                         </Card>
-                                        <Card className={style.dashboardcard} onClick={() => this.renderRow("proposal")}>
-                                            <div className={style.scoreCircle}>提案數
-                                                <CircularProgressbar value={100} text={`${this.state.proposal_quota}`} styles={buildStyles({
+                                        <Card className={ style.dashboardcard } onClick={ () => this.renderRow("proposal") }>
+                                            <div className={ style.scoreCircle }>提案數
+                                                <CircularProgressbar value={ 100 } text={ `${this.state.proposal_quota}` } styles={ buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
                                                     textColor: "#fff"
 
-                                                })} /></div>
+                                                }) } /></div>
                                         </Card>
                                     </Card.Group>
                                     <Segment basic>  </Segment>
                                     <Swiper
-                                        className={style.dashboardcard}
-                                        mousewheel={true}
-                                        spaceBetween={30}
-                                        slidesPerView={1}
+                                        className={ style.dashboardcard }
+                                        mousewheel={ true }
+                                        spaceBetween={ 30 }
+                                        slidesPerView={ 1 }
                                         navigation
-                                        pagination={{ clickable: true, }}
+                                        pagination={ { clickable: true, } }
                                     >
                                         <SwiperSlide>
-                                            <Line data={ldata} options={loptions} />
+                                            <Line data={ this.state.trend_policy } options={ loptions } />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <Line data={lldata} options={lloptions} />
+                                            <Line data={ this.state.trend_attend } options={ lloptions } />
                                         </SwiperSlide>
                                         <SwiperSlide>
-                                            <Bar data={bdata} options={boptions} />
+                                            <Bar data={ this.state.trend_pro } options={ boptions } />
                                         </SwiperSlide>
                                     </Swiper>
 
                                     <div class="mt-10">
-                                        <div className={style.bigSize + " " + style.center}>政見
-                                            <span className={style.term}><Dropdown text={this.state.term && this.state.term}>
+                                        <div className={ style.bigSize + " " + style.center }>政見
+                                        <div></div>
+                                            {/* <span className={ style.term }><Dropdown text={ this.state.term && this.state.term }>
                                                 <Dropdown.Menu>
-                                                    <Dropdown.Item onClick={() => { this.changeTerm("當屆") }}>當屆</Dropdown.Item>
-                                                    <Dropdown.Item onClick={() => { this.changeTerm("歷屆") }}>歷屆</Dropdown.Item>
-                                                    <Dropdown.Item onClick={() => { this.changeTerm("9") }}>9</Dropdown.Item>
+                                                    <Dropdown.Item onClick={ () => { this.changeTerm("當屆") } }>當屆</Dropdown.Item>
+                                                    <Dropdown.Item onClick={ () => { this.changeTerm("歷屆") } }>歷屆</Dropdown.Item>
+                                                    <Dropdown.Item onClick={ () => { this.changeTerm("9") } }>9</Dropdown.Item>
                                                 </Dropdown.Menu>
-                                            </Dropdown></span>
+                                            </Dropdown></span> */}
                                         </div>
-                                        <div class=" grid grid-cols-2   justify-center items-stretch" >
-                                            {this.state.policy && this.state.policy.map((placement, index) => {
+                                        <div class=" grid grid-cols-2   justify-center items-stretch mt-5" >
+                                            { this.state.policy && this.state.policy.map((placement, index) => {
                                                 if (index === null) return (<></>)
                                                 else {
                                                     return (<>
-                                                        <div class="px-2 mb-5" onClick={() => { this.scoreShow(placement.content, placement.id, placement.name) }}>
+                                                        <div class="px-2 mb-5" onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
                                                             <div class="bg-white max-w-xl rounded-2xl px-5 py-8 shadow-lg hover:shadow-2xl transition duration-500">
                                                                 <div class="mt-4">
-                                                                    <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">  < >{placement.name.map((item, index) => {
-                                                                        return (<><Label>{item}</Label></>)
-                                                                    })}</ ></div>
-                                                                    <div class="flex mt-2">
-                                                                        <ColorNumber value={index} neg={index % 2 === 0} />
-                                                                    </div>
-                                                                    <p class="mt-2 text-md text-gray-600">  {placement.content}</p>
+                                                                    <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">  < >{ placement.name.map((item, index) => {
+                                                                        return (<><Label>{ item }</Label></>)
+                                                                    }) }</ ></div>
+                                                                    {/* <div class="flex mt-2">
+                                                                        <ColorNumber value={ index } neg={ index % 2 === 0 } />
+                                                                    </div> */}
+                                                                    <p class="mt-2 text-md text-gray-600">  { placement.content }</p>
 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </>)
                                                 }
-                                            })}
+                                            }) }
 
                                         </div>
                                     </div>
 
-                                    {/* <Grid >
-                                        <Grid.Row stretched  >
 
-                                            { this.state.policy && this.state.policy.map((placement, index) => {
-                                                if (index === 0) return (<></>)
-                                                else {
-                                                    return (<>
-                                                       
-                                                        <Grid.Column mobile={ 16 } computer={ 8 } textAlign={ "center" } tablet={ 8 } onClick={ () => { this.scoreShow(placement.content, placement.id, placement.name) } }>
-                                                            <Card centered>   <Card.Content> <Card.Description className={ style.policyBorder }>
-                                                                { placement.content }
-                                                            </Card.Description></Card.Content>
-                                                                <Card.Content extra>
-                                                                    < >{ placement.name.map((item, index) => {
-                                                                        return (<><Label>{ item }</Label></>)
-                                                                    }) }</ >
-                                                                </Card.Content></Card>
-                                                        </Grid.Column>
-                                                       
-                                                    </>)
-                                                }
-                                            }) } </Grid.Row></Grid> */}
                                 </Grid.Column>
                             </Grid.Row></Grid>
                         }</div>
-                    <ScoreModal open={this.state.scoreShow} toDo={() => this.score()} setOpen={() => { this.scoreShow("") }}
-                        message={<div>{this.state.scoreTitle}
-                            <p>{this.state.tag != null ? this.state.tag.map((item, index) => { return (<Label>{item}</Label>) }) : <></>}</p>
-                        </div>}
-                        content={(<>
+                    <ScoreModal open={ this.state.scoreShow } toDo={ () => this.score() } setOpen={ () => { this.scoreShow("") } }
+                        message={ <div>{ this.state.scoreTitle }
+                            <p>{ this.state.tag != null ? this.state.tag.map((item, index) => { return (<Label>{ item }</Label>) }) : <></> }</p>
+                        </div> }
+                        content={ (<>
 
                             <div class="border-2 rounded-full border-gray-300  text-black px-4 py-3 ">您可依自己的判斷，針對每項政見承諾的落實程度，進行評分。</div>
+                            <div>
+                               
+                            </div>
                             <div class="font-sans flex items-center justify-center w-full py-8">
                                 <div class="overflow-hidden bg-white roundeds w-full shadow-lg  leading-normal">
-                                    {this.state.scoreRule.map((item, index) => {
-                                        return (<>
-                                            <div class="block group p-4 border-b">
-                                                <div class="grid grid-rows-2 grid-flow-col gap-2">
-                                                    <div class="row-span-1 col-span-2 font-bold text-lg mb-1 text-black group-hover:text-black">{item.name}</div>
-                                                    <div class="col-span-2 text-grey-darker mb-2 group-hover:text-black">{item.remark}</div>
-                                                    <div class="row-span-2 col-span-1 flex items-center justify-end "><Button circular inverted color='green' icon='check' /></div>
-                                                </div>
-                                            </div>
-                                        </>)
-                                    })}
+                                <RadioGroup value={ this.state.plan } onChange={ this.setPlan }>
+                                 
+                                    {
+                                        this.state.scoreRule.map((item, index) => {
+                                            return (<>
+                                                <RadioGroup.Option value={ index }>
+                                                    { ({ checked }) => (
+                                                        <div class={ checked ? 'block group p-4 border-b bg-green-50' : 'block group p-4 border-b' }>
+                                                            <div class="grid grid-rows-2 grid-flow-col gap-2">
+                                                                <div class="row-span-1 col-span-2 font-bold text-lg mb-1 text-black group-hover:text-black">{ item.name }</div>
+                                                                <div class="col-span-2 text-grey-darker mb-2 group-hover:text-black">{ item.remark }</div>
+                                                                <div class="row-span-2 col-span-1 flex items-center justify-end "><Button circular  color={"green"}  className={checked?"":"inverted"} icon='check' /></div>
+                                                            </div>
+                                                        </div>
+                                                        // <span className=>{ item.name }</span>
+                                                    ) }
+                                                </RadioGroup.Option>
+                                            </>)
+                                        })
+                                    }
+
+
+                                </RadioGroup>
                                     <div class="md:col-span-5">
-                
-                <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" id="scoreRemark" placeholder="備註" />
-              </div>
+
+                                        <input type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" id="scoreRemark" placeholder="備註" />
+                                    </div>
                                 </div>
                             </div>
-                            </>)}
+                        </>) }
 
                     />
-                            <InfoModal open={this.state.open} content={this.state.noteModalC} close={this.closeNoteModal} />
-                            <InfoModal open={this.state.openTable} close={this.closeTableModal} size={"large"}
-                                content={<>
-                                    {this.state.showBack ? <Button onClick={() => this.renderRow("policy")} content={"返回"} /> : <></>}
-                                    <Table
-                                        selectable
-                                        basic='very' padded='very'
-                                        headerRow={this.state.header}
-                                        renderBodyRow={this.state.render}
-                                        tableData={this.state.renderData} />
-                                </>} />
-                        </>)
+                    <InfoModal open={ this.state.open } content={ this.state.noteModalC } close={ this.closeNoteModal } />
+                    <InfoModal open={ this.state.openTable } close={ this.closeTableModal } size={ "large" }
+                        content={ <>
+                            { this.state.showBack ? <Button onClick={ () => this.renderRow("policy") } content={ "返回" } /> : <></> }
+                            <Table
+                            padded
+                            singleLine={false}
+                                selectable
+                                basic='very'
+                                
+                                headerRow={ this.state.header }
+                                renderBodyRow={ this.state.render }
+                                tableData={ this.state.renderData } />
+                        </> } />
+                </>)
 
-                        } />)
+            } />)
     }
 }
 
-                    export default FigureDetail = {
-                        routeProps: {
-                        path: "/figure/:id",
-                    component: FigureDetail
+export default FigureDetail = {
+    routeProps: {
+        path: "/figure/:id",
+        component: FigureDetail
     },
-                    name: "人物專區"
+    name: "人物專區"
 }
