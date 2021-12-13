@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Pages } from "../pages.js"
 import { PoliticianR } from "../request/politicianR"
-
-import { Card, Grid, Image, Segment } from 'semantic-ui-react'
+// import utilStyle from "../../css/main.module.css"
+import {  Grid } from 'semantic-ui-react'
 import { trackPromise } from 'react-promise-tracker'
 import Search from "../bar/search"
 class Figure extends React.Component {
@@ -50,8 +50,6 @@ class Figure extends React.Component {
         let term = []
         let area = []
         let name = []
-
-        console.log(this.state.like)
         for (let key in this.state.like) {
             for (let v in this.state.like[key]) {
                 if (this.state.like[key][v]["check"]) {
@@ -100,7 +98,6 @@ class Figure extends React.Component {
 
                 return areab & termb & nameb
             })
-            console.log(newd)
 
             this.setState({ "data": newd })
 
