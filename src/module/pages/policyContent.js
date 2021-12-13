@@ -35,19 +35,11 @@ class PolicyContent extends React.Component {
                     chart: { width: 50 }
                 },
             },
-            data: [
-                {
-                    title: "公民投票法部分條文修正草案",
-                    tag: ["金融", "國防"], date: "2020/11/22",
-                    message: []
-                },
-
-            ],
-            vote: { title: "我是標題", content: "我是內文", tag: ["金融", "國防"], vote: [43, 53, 4] },
-            voteValue: [null],
-            proposalId: props.match.params.id,
+            proposal_id: props.match.params.id,
             open: false,
-            proposal: localStorage.getItem("proposal")
+            proposal: localStorage.getItem("proposal"),
+            parent_b: 0,
+            parent_id: 0
         }
     }
     componentDidMount() {
@@ -63,10 +55,11 @@ class PolicyContent extends React.Component {
     }
     vote = () => {
         trackPromise(
-            ProposalR.vote({ user_id: this.state.userName, sp_id: this.state.voteValue, proposal_id: this.state.proposalId }).then(response => {
+            ProposalR.vote({ user_id: this.state.userName, sp_id: this.state.voteValue, proposal_id: this.state.proposal_id }).then(response => {
                 console.log(response)
                 if (response.data.success) {
                     this.showNoteModal("投票成功")
+                    this.getMsg()
                 }
             })
         )
@@ -76,7 +69,7 @@ class PolicyContent extends React.Component {
 
     getMsg = () => {
         trackPromise(
-            ProposalR.msgList(this.state.proposalId, { "user_id": this.state.userName }).then(response => {
+            ProposalR.msgList(this.state.proposal_id, { "user_id": this.state.userName }).then(response => {
                 let resData = response.data.D
                 console.log(resData)
                 let msgL = resData.msg
@@ -84,9 +77,9 @@ class PolicyContent extends React.Component {
                 let vote = resData.vote[0]
                 let heart = resData.heart
                 let rule = resData.rule
-                let voteT =  (vote.goodc + vote.badc + vote.medc)               
+                let voteT = (vote.goodc + vote.badc + vote.medc)
                 console.log(voteT)
-                let voteD = [vote.goodc===0?0:vote.goodc / voteT*100, vote.medc===0?0:vote.medc / voteT*100, vote.badc===0?0:vote.badc / voteT*100]
+                let voteD = [vote.goodc === 0 ? 0 : vote.goodc / voteT * 100, vote.medc === 0 ? 0 : vote.medc / voteT * 100, vote.badc === 0 ? 0 : vote.badc / voteT * 100]
                 console.log(voteD)
                 this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule, voteD: voteD })
             })
@@ -98,11 +91,12 @@ class PolicyContent extends React.Component {
     msg = () => {
         let msg = document.getElementById("msg")
         console.log(msg.value)
-        ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposalId, parent_id: 0 }).then(response => {
+        ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
             if (response.data.success) {
                 msg.value = ""
                 this.getMsg()
                 this.showNoteModal("留言成功")
+                this.getMsg()
 
             }
         })
@@ -129,30 +123,34 @@ class PolicyContent extends React.Component {
             if (document.getElementById(`reportInput-${i.id}`).checked) ruleInput.push(i.id)
         }
         let remark = document.getElementById("reportInputRemark").value || " "
-        console.log(this.state.msgid)
-        // ProposalR.report({ user_id: this.state.userName, message_id: this.state.msgid, remark: remark, rule: ruleInput }).then(response => {
-        //     console.log(response)
-        // })
+        console.log(this.state.report_id)
+        ProposalR.report({ user_id: this.state.userName, message_id: this.state.report_id, remark: remark, rule: ruleInput }).then(response => {
+            //補回傳
+            console.log(response)
+        })
     }
 
     save = () => {
         if (this.state.heart) { }
         this.setState({ heart: !this.state.heart })
-        ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposalId }).then(res => {
+        ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposal_id }).then(res => {
             console.log(res)
         })
     }
+    reply = (msg_id, b_id) => {
+        this.setState({ parent_id: msg_id, parent_b: b_id })
+        document.getElementById("msg").scrollIntoView();
+    }
+    cancelReply = () => this.setState({ parent_b: 0, parent_id: 0 })
 
 
     render() {
-
         return (<Pages id={ 2 }
             pageInfo={ [{ content: '提案專區', link: true, href: "./#/Policy" },
-            { content: this.state.detail && this.state.detail.title, active: true, href: `./#/PolicyContent/${this.state.proposalId}` }] }
+            { content: this.state.detail && this.state.detail.title, active: true, href: `./#/PolicyContent/${this.state.proposal_id}` }] }
             page={
                 (<>{ }
                     { this.state.detail != null ? (<>
-
                         <div>
                             <div className={ style.topicBold }>{ this.state.detail.title }</div>
                             <Segment basic>
@@ -160,54 +158,38 @@ class PolicyContent extends React.Component {
                                     <List.Item>
                                         <List horizontal>
                                             <List.Item><Header>提案人</Header></List.Item>
-
-                                            { this.state.detail !== undefined ? this.state.detail.name.map(item => { return (<List.Item ><Label> { item }</Label></List.Item>) }) : <></> }
-
+                                            { this.state.detail !== undefined ?
+                                                this.state.detail.name.map(item => {
+                                                    return (<List.Item ><Label> { item }</Label></List.Item>)
+                                                }) : <></> }
                                         </List>
-
-
-
                                     </List.Item>
                                     <List.Item>
                                         <List.Content floated='right'>
-                                            { this.state.login && <><Icon name={ "heart" } className={ utilStyle.point + " " + this.state.heart ? style.redHeart : style.heart } onClick={ this.save } />
-                                                { this.state.heart ? "已收藏" : "收藏" }
-                                            </> }
+                                            {
+                                                this.state.login && <><Icon name={ "heart" } onClick={ this.save }
+                                                    className={ utilStyle.point + " " + this.state.heart ? style.redHeart : style.heart } />
+                                                    { this.state.heart ? "已收藏" : "收藏" }
+                                                </>
+                                            }
                                         </List.Content>
                                         <List horizontal verticalAlign='middle'>
                                             <List.Item><Header>提案進度</Header></List.Item>
                                             <List.Item>
-
                                                 <Label>  { this.state.detail !== undefined ? this.state.detail.status : "" }</Label>
-
                                             </List.Item>
-
                                         </List>
                                     </List.Item>
                                 </List>
-
-
-
 
                             </Segment>
                             {/* <Label.Group>
                                 { this.state.detail.hashtag_name!==null?this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }):<></> }
                             </Label.Group> */}
 
-
-                            <div>
-
+                            <div className="w-full">
+                                <iframe src={ this.state.detail !== undefined ? this.state.detail.pdfUrl : "" } title="doc" className="w-full h-screen"></iframe>
                             </div>
-                            <Grid> <Grid.Row >
-
-                                <Grid.Column width={ 16 }>
-
-                                </Grid.Column>
-                                <Grid.Column width={ 16 } >
-                                    <iframe src={ this.state.detail !== undefined ? this.state.detail.pdfUrl : "" } title="doc" className="w-full h-screen"></iframe>
-
-                                </Grid.Column>
-                            </Grid.Row></Grid>
                         </div>
 
                     </>) : (<></>) }
@@ -239,7 +221,7 @@ class PolicyContent extends React.Component {
                                 <div>
                                     <div className={ style.lable }>RUN民看法：</div>
                                     { this.state.voteD ? <>
-                                        <div><Chart options={ this.state.kpi.options } series={ this.state.voteD  } type="donut" /></div>
+                                        <div><Chart options={ this.state.kpi.options } series={ this.state.voteD } type="donut" /></div>
                                     </> : <></> }
 
                                 </div>
@@ -262,8 +244,8 @@ class PolicyContent extends React.Component {
                                                 <Comment.Metadata>{ placement.time }</Comment.Metadata>
                                                 <Comment.Text>{ placement.content }</Comment.Text>
                                                 <Comment.Actions>
-                                                    <Comment.Action>回覆</Comment.Action>
-                                                    <ReportModal btn={ (<Comment.Action>檢舉</Comment.Action>) }
+                                                    <Comment.Action onClick={ () => this.reply(placement.id, index + 1) }>回覆</Comment.Action>
+                                                    <ReportModal btn={ (<Comment.Action onClick={ () => this.setState({ "report_id": placement.id }) }>檢舉</Comment.Action>) }
                                                         rule={ this.state.rule } toDo={ this.report }
                                                     />
 
@@ -274,6 +256,7 @@ class PolicyContent extends React.Component {
                                 })) : <></> }
                                 { this.state.login && <>
                                     <Form reply>
+                                        { this.state.parent_b ? this.state.parent_b === 0 ? <></> : <Button onClick={ this.cancelReply } content={ <>回覆 B{ this.state.parent_b }</> } icon="close" /> : <></> }
                                         <Form.TextArea rows={ 1 } className={ style.input } id="msg" />
                                         <Button content='發佈' labelPosition='left' icon='edit' primary onClick={ this.msg } />
                                     </Form>
