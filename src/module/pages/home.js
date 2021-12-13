@@ -112,42 +112,47 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Grid columns={ 2 } >
+                <Grid columns={2}>
                     <Grid.Row stretched className="mt-6">
-                        <Grid.Column width={ 16 } > <h1 className={ style.hotMsg + " m-3" }   >最熱門留言</h1></Grid.Column>
-                        <Grid.Column width={ 6 } mobile={ 16 } computer={ 6 } tablet={ 6 } stretched >
+                        <Grid.Column width={ 16 }><h1 className={ style.hotMsg + "m-3" }   >最熱門留言</h1></Grid.Column>
+
+                        <Grid.Column className='justify-center' width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
                             { this.state.message == null ? <></> : <>
+                            <div class="flex items-stretch ">
                                 <HomeFirst person={ person } name={ this.state.message[0].name } title={ this.state.message[0].title } score={ this.state.message[0].score }></HomeFirst>
+                            </div>
                             </> }
-
-
                         </Grid.Column>
 
-                        <Grid.Column width={ 10 } mobile={ 16 } computer={ 10 } tablet={ 10 } stretched>
-                            <HomeTable data={ this.state.message } person={ person }></HomeTable>
+                        <Grid.Column className='justify-center'width={ 10 } mobile={ 16 } computer={ 10 } tablet={ 10 }>                        
+                            <HomeTable data={ this.state.message } person={ person }></HomeTable>                        
                         </Grid.Column>
 
                     </Grid.Row>
-
+                    
                     <Grid.Row stretched className="mt-8">
                         <Grid.Column width={ 16 }> <h1 className={ style.hotPolicy + " m-3" }  >最熱門政見</h1></Grid.Column>
 
-                        <Grid.Column width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
+                        <Grid.Column className='justify-center' width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
                             { this.state.politics == null ? <></> : <>
+                            <div class="flex items-stretch">
                                 <HomeFirst person={ this.state.politics[0].photo } name={ this.state.politics[0].name } title={ this.state.politics[0].title } score={ this.state.politics[0].score }></HomeFirst>
+                            </div>
                             </> }
-
-
                         </Grid.Column>
-                        <Grid.Column width={ 10 } mobile={ 16 } computer={ 10 } tablet={ 10 }>
+
+                        <Grid.Column className='justify-center'width={ 10 } mobile={ 16 } computer={ 10 } tablet={ 10 }>
                             <HomeTable data={ this.state.politics } ></HomeTable>
                         </Grid.Column>
                     </Grid.Row>
+
                     <Grid.Row stretched className="mt-6">
-                        <Grid.Column width={ 16 }>  <h1 className={ style.hotProposal + " m-3" } >最熱門提案</h1>                        </Grid.Column>
+                        <Grid.Column width={ 16 }>  <h1 className={ style.hotProposal + " m-3" } >最熱門提案</h1></Grid.Column>
                         <Grid.Column width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
                             { this.state.politics == null ? <></> : <>
+                            <div class="flex items-stretch">
                                 <HomeFirst name={ this.state.proposal[0].name } title={ this.state.proposal[0].title } score={ this.state.proposal[0].score }></HomeFirst>
+                            </div>
                             </> }
 
                         </Grid.Column>
