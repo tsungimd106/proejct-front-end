@@ -1,21 +1,5 @@
 import * as React from "react";
-import * as d3 from "d3-scale";
 
-// type DataItem = {
-//   name: string;
-//   value: number;
-//   color: string;
-// };
-
-// type ChartProps = {
-//   data: DataItem[];
-// };
-
-// type BarProps = {
-//   width: number;
-//   label: string;
-//   color: string;
-// };
 
 const Bar = ({ width, label, color }) => (
   <div

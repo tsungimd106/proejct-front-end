@@ -7,12 +7,9 @@ import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
 
-import { Grid, Icon, List, Label, Pagination, Segment } from 'semantic-ui-react'
+import { Grid,  List, Label, Pagination, Segment } from 'semantic-ui-react'
 
 class Policy extends React.Component {
-
-
-
     constructor(props) {
         super(props)
         this.state = {
@@ -95,7 +92,7 @@ class Policy extends React.Component {
     }
     handleF = () => {
         let statusL = []
-        this.state.like["狀態"].map(item => {
+        this.state.like["狀態"].foreach(item => {
             if (item.check) statusL.push(item.id)
         })
         console.log(statusL)

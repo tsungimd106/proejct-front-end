@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js";
-import { Grid, Button, Ref, Segment, Menu, Embed, Accordion, Icon, List, Table, Tab, Image } from 'semantic-ui-react';
+import { Grid,  Ref,   Embed, Tab, Image } from 'semantic-ui-react';
 import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
