@@ -676,14 +676,7 @@ class FigureDetail extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column computer={11} mobile={16}>
-                                    {/* <div class='text-lg'>
-                                    <Dropdown text={this.state.term && this.state.term}>
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("當屆") }}><span class='text-lg'>當屆</span></Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("歷屆") }}><span class='text-lg'>歷屆</span></Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { this.changeTerm("9") }}><span class='text-lg'>9</span></Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown></div> */}
+                                    {/* p */}
                                     <Card.Group itemsPerRow={3}>
                                         <Card className={style.dashboardcard} onClick={() => this.renderRow("policy")}>
                                             <div title="您在乎的政治人物有履行政見承諾嗎？
