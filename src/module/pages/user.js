@@ -1,6 +1,8 @@
 import React from 'react';
+import { render } from 'react-dom'
 import { Pages } from "../pages.js"
 import Chart from 'react-apexcharts'
+import Thermometer from 'react-thermometer-component'
 
 
 import { Tab, Button, Divider, Transition, Grid, Select, Label, Segment, Icon, Table, List, Accordion, TableCell, Card } from 'semantic-ui-react'
@@ -201,30 +203,65 @@ class MyProfile extends React.Component {
             <div>政治人物個人檔案
                 {/* 第一行：基本資料 */}
                 <h3>基本資料</h3>
-                <div class="grid grid-rows-1 grid-cols-2 gap-4 py-4 px-8 bg-white shadow-lg rounded-lg my-3">
+                <Segment><div class="grid grid-rows-1 grid-cols-2 gap-4 p-4 bg-white my-3">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex justify-center">
-                            <img></img>
+                            <img className={style.pic} src={pic} />
                         </div>
-                        <div class="mt-2 text-3xl font-semibold">政治人物Name</div>
+                        <div class="items-center self-center mt-2 text-3xl font-semibold">政治人物Name</div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="#" class="text-xl font-medium text-indigo-500">John Doe</a>
+                    <div class="grid grid-cols-4 grid-row-5 gap-4 text-center">
+                        <div title="聯絡政要RUN：tsungimd106@gmail.com" class="col-start-4 col-end-4 row-start-1 row-end-1 cursor-pointer" slot="avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info w-5 h-5 mx-2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </div>
+
+                        <div class="col-start-1 col-end-3 row-start-2 row-end-4">
+                            <div class="inline-flex items-center float-right justify-items-end bg-white leading-none text-black rounded-full p-2 shadow text-sm">
+                                <span class="inline-flex bg-black text-white rounded-full h-6  px-3 justify-center items-center text-">選區</span>
+                                <span class="inline-flex px-2">台北市</span>
+                            </div>
+                        </div>
+
+                        <div class="col-start-3 col-end-5 row-start-2 row-end-4">
+                            <div class="inline-flex items-center float-left bg-white leading-none text-black rounded-full p-2 shadow text-sm">
+                                <span class="inline-flex bg-black text-white rounded-full h-6 px-3 justify-center items-center text-">委員會</span>
+                                <span class="inline-flex px-2">內政</span>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                </div></Segment>
 
                 {/* 第二行：分數圖表 */}
-                <div class="grid grid-rows-1 grid-cols-3 gap-4 py-4 px-8 bg-white shadow-lg rounded-lg my-3">分數圖表
+                <Segment><div class="grid grid-rows-1 grid-cols-3 gap-4 p-4 bg-white my-3">
+                    <div><p class="text-center">分數</p></div>
+                    <div><p class="text-center">正負向比例</p>                
+                        <Thermometer className={style.thermometer}
+                            theme="light"
+                            value="88"
+                            max="100"
+                            steps="4"
+                            format="%"
+                            size="large"
+                            height="300"
+                            width="200"                            
+                        />
+                    </div>
+                    <div><p class="text-center">圓餅圖</p></div>
 
-                </div>
+                </div></Segment>
 
                 {/* 第三行：政見 */}
-                <div class="grid grid-rows-1 grid-cols-2 gap-4 py-4 px-8 bg-white shadow-lg rounded-lg my-3">政見
+                <div class="grid grid-rows-1 grid-cols-2 gap-4 p-4 bg-white my-3">政見
 
                 </div>
 
                 {/* 第四行：提案列表及留言 */}
-                <div class="grid grid-rows-1 grid-cols-1 gap-4 py-4 px-8 bg-white shadow-lg rounded-lg my-3">提案列表及留言
+                <div class="grid grid-rows-1 grid-cols-1 gap-4 p-4 bg-white my-3">提案列表及留言
 
                 </div>
             </div>
