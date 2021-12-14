@@ -3,8 +3,8 @@ import { FetchUtil } from "../util/fetchUtil";
 export class MemberR {
     static root = "user"
     static sign(data) {
-        return FetchUtil.postAPI("/sign", data)
-    }
+        return FetchUtil.postAPI(`${this.root}/sign`, data)
+    } 
 
     static login(data) {
         return FetchUtil.postAPI(`${this.root}/login`, data)
