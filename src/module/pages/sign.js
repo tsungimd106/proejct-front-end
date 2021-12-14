@@ -1,10 +1,13 @@
 import React from 'react';
 import { MemberR } from "../request/memberR.js"
+import { PoliticianR } from "../request/politicianR"
 import { ModalBase } from "../modal"
 import logo from '../../imgs/LOGO.jpg'
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';
 import { Grid, Button, Input, Image, Select, Segment, Form } from 'semantic-ui-react'
+import { sha256 } from 'js-sha256';
+
 class Base extends React.Component {
 
     render() {
@@ -52,7 +55,22 @@ class Sign extends React.Component {
     }
 
     send = () => {
-        window.location.href = "./#/sign2"
+        // ["account", "password", "age", "sex", "areaid", "name"]
+        let account = document.getElementById("account").value
+        let psw = sha256(document.getElementById("password").value)
+        let age = document.getElementById("birth").value
+        let sex = this.state.sex
+        let city = this.state.city_id
+        let name = document.getElementById("name").value
+        let degree = this.state.degree
+        console.log(account, psw, age, sex, name, city)
+        MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree }).then(res => {
+            if (res.data.success) {
+                window.location.href = "./#/sign2"
+            }
+
+        })
+
     }
 
     sendLine = () => {
@@ -62,8 +80,21 @@ class Sign extends React.Component {
     showinfo = (msg) => {
         this.setState({ showinfo: !this.state.showinfo, message: msg })
     }
+    componentDidMount() {
+        PoliticianR.area().then(res => {
+            this.setState({ city: res.data.D })
+            // console.log(res.data.D)
+        })
+    }
+    sexChange = (event, sex) => this.setState({ "sex": sex.value })
+
+    cityChange = (event, city) => this.setState({ "city_id": city.value })
+    degreeChange = (event, degree) => this.setState({ "city_id": degree.value })
+
 
     render() {
+        const sexList = [{ value: "男", text: "男" }, { value: "女", text: "女" }]
+        const degreeList = [{ value: "0", text: "國小以下" }, { value: "1", text: "國小" }, { value: "2", text: "國中" }, { value: "3", text: "高中" }, { value: "4", text: "專科" }, { value: "5", text: "大學" }, { value: "6", text: "碩士" }, { value: "7", text: "博士" }]
         return (<Base content={ < >
             <Grid centered textAlign={ "center" } >
                 <Grid.Row >
@@ -73,8 +104,10 @@ class Sign extends React.Component {
                             <p><Input type="password" placeholder="密碼" id="password" /></p>
                             <p><Input type="password" placeholder="確認密碼" id="checkpsd" /></p>
                             <p><Input type="text" placeholder="暱稱" id="name" /></p>
-                            <p className={ style.birth }>生日：<Input className={ style.birth } type="date" />
-                                <Select id="city" placeholder="居住地" options={ this.state.city } /></p>
+                            <p><Select id="sex" placeholder="性別" options={ sexList } onChange={ this.sexChange } /></p>
+                            <p><Select id="sex" placeholder="學歷" options={ degreeList } onChange={ this.degreeChange } /></p>
+                            <p className={ style.birth }>生日：<Input className={ style.birth } type="date" id="birth" />
+                                <Select id="city" placeholder="居住地" options={ this.state.city } onChange={ this.cityChange } /></p>
                             <p className={ style.csign }>
                                 點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
                                 <a href="./#/information/" target="_blank">《資料政策》</a>和<a href="./#/information/" target="_blank">《Cookie 政策》</a>。
@@ -104,7 +137,7 @@ class Login extends React.Component {
 
     send = () => {
         var account = document.getElementById("account").value
-        var password = document.getElementById("password").value
+        var password = sha256(document.getElementById("password").value);
         trackPromise(
             MemberR.login({ "account": account, "password": password }).then(response => {
                 console.log(response.data.data.data)
