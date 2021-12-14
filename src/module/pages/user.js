@@ -12,6 +12,8 @@ import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
 import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
+import { PoliticianR } from "../request/politicianR"
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { trackPromise } from 'react-promise-tracker';
 import pic from "./pic.png"
 import { ModalBase, MsgModal } from '../modal.js';
@@ -26,6 +28,46 @@ class User extends React.Component {
     }
 
     componentDidMount() {
+        this.figureID = this.props.match.params.id
+        trackPromise(
+            PoliticianR.detail(this.figureID).then(res => {
+
+                let resData = res.data.D
+                let cond = [{ no: "degree", name: "學歷" }, { no: "tel", name: "電話" }]
+                let selfD = []
+                cond.forEach(placement => {
+                    if (placement["no"] in resData.detail[0]) {
+                        selfD.push({
+                            "content": resData.detail[0][placement.no].replace(/;/g, " <br />"),
+                            "title": placement.name
+                        })
+                        document.getElementById(placement.no).innerHTML = resData.detail[0][placement.no]
+                            .replace(/;/g, " <br />").replace(/,/g, " <br />")
+
+                    }
+                })
+                //政見分數
+                for(let i in resData.trend_policy_group){
+                    let item =resData.trend_policy_group[i]
+                }
+                this.setState({
+                    policy: resData.policy,
+                    name: resData.detail[0].name,
+                    area: resData.detail[0].e_n,
+                    experience: resData.detail[0].experience.split("\n"),
+                    areaReamrk: resData.detail[0].remark.replace("null", ""),
+                    photo: resData.detail[0].photo,
+                    table: resData.table_policy,
+                    tableDetail: resData.table_policyDetail,
+                    score: resData.count_score[0]["score"],
+                    proposal_quota: resData.proposal_quota[0]["quota"],
+                    proposal: resData.proposal,
+                })
+                console.log(resData)
+
+            }), error => { console.log(error) }
+        )
+    
         if (!!!localStorage.getItem("login")) {
             document.location.href = "/#"
         }
@@ -130,6 +172,9 @@ class MyProfile extends React.Component {
         localStorage.setItem("proposal", id)
         document.location.href = `.#/policyContent/${id.id}`
     }
+
+    // 政治人物個人檔案
+
 
     render() {
         return (<>
@@ -238,8 +283,20 @@ class MyProfile extends React.Component {
 
                 {/* 第二行：分數圖表 */}
                 <Segment><div class="grid grid-rows-1 grid-cols-3 gap-4 p-4 bg-white my-3">
-                    <div><p class="text-center">分數</p></div>
-                    <div><p class="text-center">正負向比例</p>                
+                    <div><p class="text-center">政見評分分數</p>
+                        <div class="h-full flex" onClick={() => this.renderRow("policy")}>
+                            <div title="您在乎的政治人物有履行政見承諾嗎？
+                                        政要RUN整合投票數據，並將運算過程公布此區，讓您更清楚了解分數來由。"
+                            class="self-center pb-10">
+                                <CircularProgressbar value={this.state.score * 100} text={`${parseInt(this.state.score * 100)}`} styles={buildStyles({
+                                    strokeLinecap: "butt",
+                                    pathColor: "#FEC240",
+                                    textColor: "#000"
+                                })} />
+                            </div>
+                        </div>
+                    </div>
+                    <div><p class="text-center">正負向比例</p>
                         <Thermometer className={style.thermometer}
                             theme="light"
                             value="88"
@@ -248,7 +305,7 @@ class MyProfile extends React.Component {
                             format="%"
                             size="large"
                             height="300"
-                            width="200"                            
+                            width="200"
                         />
                     </div>
                     <div><p class="text-center">圓餅圖</p></div>
