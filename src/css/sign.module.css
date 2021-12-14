@@ -2,10 +2,6 @@
     text-align: center;
     height: 100vh;
 } */
-.select{
-    width:100% !important;
-}
-
 input {
     width: 100% !important;
     max-width: 300px;
@@ -50,9 +46,13 @@ input {
     text-align: center;
 }
 
+.select{    
+    width:100% !important;
+}
+
 .birth {
     color: gray !important;
-    width:85% !important;
+    width:80% !important;
     margin-right:10px !important;
 }
 
@@ -160,4 +160,10 @@ h5 {
     .formSBg {
         margin: 0;
     }
+
+    /* .select{
+        width:auto !important;
+        display: inline-flex !important;
+    } */
+    
 }

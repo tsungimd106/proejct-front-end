@@ -100,15 +100,15 @@ class Sign extends React.Component {
                 <Grid.Row >
                     <Grid.Column width={ 12 } textAlign={ "center" }>
                         <Segment raised >
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><Input placeholder='帳號' id="account" /></div>
-                                <div><Input type="password" placeholder="密碼" id="password" /></div>
-                                <div><Input type="password" placeholder="確認密碼" id="checkpsd" /></div>
-                                <div><Input type="text" placeholder="暱稱" id="name" /></div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div><Input className={ style.select } placeholder='帳號' id="account" /></div>
+                                <div><Input className={ style.select } type="password" placeholder="密碼" id="password" /></div>
+                                <div><Input className={ style.select } type="password" placeholder="確認密碼" id="checkpsd" /></div>
+                                <div><Input className={ style.select } type="text" placeholder="暱稱" id="name" /></div>
                                 <div><Select className={ style.select } id="sex" placeholder="性別" options={ sexList } onChange={ this.sexChange } /></div>
                                 <div><Select className={ style.select } id="sex" placeholder="學歷" options={ degreeList } onChange={ this.degreeChange } /></div>
                                 <p class="text-gray-400 flex px-1"><span class="flex-none self-center">生日：</span><span class='flex-none'><Input className={ style.birth } type="date" id="birth"/></span></p>
-                                <div><Select className={ style.select } id="city" placeholder="居住地" options={ this.state.city } onChange={ this.cityChange } /></div>
+                                <div class="pb-1"><Select className={ style.select } id="city" placeholder="居住地" options={ this.state.city } onChange={ this.cityChange } /></div>
                             </div>
                             <p className={ style.csign }>
                                 點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
