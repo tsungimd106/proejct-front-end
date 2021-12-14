@@ -2,6 +2,9 @@
     text-align: center;
     height: 100vh;
 } */
+.select{
+    width:100% !important;
+}
 
 input {
     width: 100% !important;
@@ -49,6 +52,8 @@ input {
 
 .birth {
     color: gray !important;
+    width:85% !important;
+    margin-right:10px !important;
 }
 
 h4 {
