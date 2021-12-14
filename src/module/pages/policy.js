@@ -7,7 +7,7 @@ import { ProposalR } from "../request/proposalR"
 import Search from "../bar/search"
 import { trackPromise } from 'react-promise-tracker';
 
-import { Grid,  List, Label, Pagination, Segment } from 'semantic-ui-react'
+import { Grid, List, Label, Pagination, Segment } from 'semantic-ui-react'
 
 class Policy extends React.Component {
     constructor(props) {
@@ -92,16 +92,21 @@ class Policy extends React.Component {
     }
     handleF = () => {
         let statusL = []
-        this.state.like["狀態"].foreach(item => {
-            if (item.check) statusL.push(item.id)
-        })
-        console.log(statusL)
-        this.setState({ "cond": statusL })
-        ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
-            let resData = response.data.D
-            this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
+        console.log( this.state.like["狀態"])
+        if (this.state.like["狀態"] instanceof Array) {
+            this.state.like["狀態"].forEach(item => {
+                if (item.check) statusL.push(item.id)
+            })
+            this.setState({ "cond": statusL })
+            ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
+                let resData = response.data.D
+                this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
-        })
+            })
+        }
+
+        console.log(statusL)
+
     }
 
     render() {
