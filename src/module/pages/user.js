@@ -4,7 +4,7 @@ import Chart from 'react-apexcharts'
 import Thermometer from 'react-thermometer-component'
 import { Tab, Button, Input, Transition, Grid, Select, Label, Segment, Icon, Table, List, Card } from 'semantic-ui-react'
 import { TailwindModal } from "../tailwind"
-
+import BarChart from "../barchart"
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
 import { ProposalR } from '../request/proposalR.js';
@@ -61,7 +61,7 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "個人檔案", in: this.state.identity === 2 ? <><Pprofile /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } /></>, icon: "address card" },
+            { name: "個人檔案", in: this.state.identity === 2 ? <><Pprofile /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
@@ -104,17 +104,19 @@ class MyProfile extends React.Component {
             area.push({ key: a.id, value: a.id, text: a.name })
         }
         this.setState({ user: newState.data[0], area: area })
+        let d = ["財政金融", "教育", "內政", "司法及法制", "科技", "觀光", "國防", "食品安全", "長期照顧",
+            "衛生社福", "農業", "交通", "海洋", "性別平等", "動物保育", "原住民", "外交", "兩岸關係", "高齡化",
+            "幼托育兒", "年改", "基礎建設", "拒毒品", "客家", "治安", "都市發展", "補助", "都市美化", "汽機車",
+            "環保", "體育賽事", "勞工就業", "青年", "文創", "新住民",]
+        let istoggle = []
+        d.forEach(() => istoggle.push(false))
+        this.setState({ sub: d, isToggleOn: istoggle })
     }
     areaShow = () => this.setState((prevState) => ({ areaShow: !prevState.areaShow }))
     // pswShow = (show) => this.setState({ pswShow: show })
-    editName = async() => {
-        let check = true
+    editName = () => {
         let name = document.getElementById("new_name").value
-        MemberR.userEdit({ "name": name, "account": this.props.userName }).then(response => {
-            check = response.data.success
-            console.log(`here ${check}`)
-            return check
-        })
+        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then()
 
     }
     editArea = () => {
@@ -134,21 +136,31 @@ class MyProfile extends React.Component {
         let old_psw = sha256(document.getElementById("old_psw").value)
         let psw = sha256(document.getElementById("psw").value)
         let c_psw = sha256(document.getElementById("c_psw").value)
-        MemberR.pswEdit({ oldPassword: old_psw, password: psw, passwordConfire: c_psw, account: this.props.userName })
-            .then(res => {
-                return res.success
-            })
+        return MemberR.pswEdit({ oldPassword: old_psw, password: psw, passwordConfire: c_psw, account: this.props.userName })
+            .then()
     }
     editClass = () => {
-
-        return { error: "abc", errorText: "ddd" }
+        let c_id = []
+        this.state.isToggleOn.forEach((item, index) => {
+            if (item) {
+                c_id.push(index + 1)
+            }
+        })
+        return MemberR.category({ "add": c_id, "user_id": this.props.userName, "remove": [] }).then()
     }
     toContent = (id) => {
         localStorage.setItem("proposal", id)
         document.location.href = `.#/policyContent/${id.id}`
     }
-
-    // 政治人物個人檔案
+    handleClick = (index) => {
+        this.setState(prevState => {
+            let copy = prevState
+            if ("isToggleOn" in copy) {
+                copy["isToggleOn"][index] = !copy["isToggleOn"][index]
+            }
+            return copy
+        });
+    }
 
 
     render() {
@@ -159,10 +171,6 @@ class MyProfile extends React.Component {
                         <img className={ style.pic } src={ pic } alt="" />
                     </Grid.Column>
                     <Grid.Column width={ 8 } textAlign={ "right" } className={ style.data }>
-                        {/* <div>
-                            <TailwindModal show={ true } title={ "修改姓名" } child={ (<>
-                                <input type="text" /></>) }></TailwindModal>
-                        </div> */}
                         <ModalBase color={ "teal" } message={ "修改姓名" } btn={ <Button className={ style.btncolor } labelPosition='right' color={ "teal" }
                             size={ "medium" } content={ this.state.user && this.state.user.name } icon={ "edit" } /> } toDo={ this.editName }
                             content={
@@ -198,7 +206,6 @@ class MyProfile extends React.Component {
                             <div>
                                 <Select id="sarea" options={ this.state.area }
                                     placeholder={ "請選擇你的地區" } onChange={ this.getArea } />
-
                                 <ModalBase content={ "已修改地區完成" }
                                     btn={ <Button icon labelPosition='left' icon={ "check" } content={ "確定" } className={ style.sbtn } /> }
                                     toDo={ this.editArea } />
@@ -217,16 +224,29 @@ class MyProfile extends React.Component {
 
                 <Card>
                     <Card.Content>
-                        <Card.Header>興趣 <ModalBase color={ "teal" } message={ "修改興趣" } btn={ <Icon name={ "edit" } className={ style.icon } /> } toDo={ this.editClass } /></Card.Header>
+                        <Card.Header>興趣 <ModalBase color={ "teal" } message={ "修改興趣" }
+                            btn={ <Icon name={ "edit" } className={ style.icon } /> } toDo={ this.editClass }
+                            content={
+                                (<>
+                                    <div className={ style.category_model }>
+                                        {
+                                            this.state.sub !== undefined ? this.state.sub.map((item, index) => {
+                                                return (<Button onClick={ () => { this.handleClick(index) } } className={ (this.state.isToggleOn[index] ? style.selected : style.subBtn) } size='mini'  >{ item }</Button>)
+                                            }) : <>no non no </>
+                                        }
+                                    </div>
+                                </>)
+                            } /></Card.Header>
                         <Card.Description>
-                            <Label.Group>
-                                <Label>#交通</Label>
-                                <Label>#教育</Label>
-                                <Label>#醫療</Label>
-                                <Label>#勞工</Label>
-                                <Label>#弱勢</Label>
-                                <Label>...</Label>
-                            </Label.Group>
+
+                            { Array.isArray(this.props.category) ?
+                                <>  <Label.Group>
+                                    { this.props.category.map(item => {
+                                        return <Label>{ item.name }</Label>
+                                    }) }
+                                </Label.Group></> : <></> }
+
+
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -432,7 +452,7 @@ class MySave extends React.Component {
 
                 {
                     this.state.save !== undefined ? this.state.save.map((item, index) => {
-
+                        let voteT = item.good + item.med + item.bad
                         return (<List.Item><Grid><>
 
 
@@ -451,10 +471,13 @@ class MySave extends React.Component {
                                     </div>
 
                                 </Grid.Column>
-                                <Grid.Column width={ 5 } >
-                                    <Chart options={ this.state.kpi.options }
-                                        series={ this.state.kpi.series } type="donut"
-                                        height="125px" />
+                                <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "left" }>
+                                    <BarChart data={ [
+                                        { value: item.good > 0 ? item.good / voteT * 100 : 0, name: "同意", color: "#fec240" },
+                                        { value: item.med > 0 ? item.med / voteT * 100 : 0, name: "中立", color: "#98c4d1" },
+                                        { value: item.bad > 0 ? item.bad / voteT * 100 : 0, name: "反對", color: "#de4b43" }
+
+                                    ] }> </BarChart>
                                 </Grid.Column>
                             </Grid.Row>
 

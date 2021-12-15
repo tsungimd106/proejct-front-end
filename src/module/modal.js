@@ -19,18 +19,17 @@ export class ModalBase extends React.Component {
         }
     }
     setOpen = (val) => this.setState({ open: val })
-    toDo = () => {
+    toDo = async () => {
         console.log("enter modalbase todo")
-        let check = false
-        this.props.toDo().then(res=>{
-            if (check === true) {
+        // let check = this.props.toDo()
+        // this.setState({"check":check})
+        let d = this.props.toDo().then()
+        d.then(res => {
+            console.log(res.data.success)
+            if (res.data.success) {
                 this.setOpen(false)
-            } else {
-                this.setState(check)
             }
         })
-        
-       
     }
     render() {
 
