@@ -814,7 +814,7 @@ class FigureDetail extends React.Component {
                 
                 <input title="為什麼會投給此進度呢？
                 邀請你針對政見的滿意度填下參考依據，也歡迎你隨時回來發表新的意見。" 
-                type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50" value="" id="scoreRemark" placeholder="備註" />
+                type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50"  id="scoreRemark" placeholder="備註" />
               </div>
                                 </div>
                             </div>

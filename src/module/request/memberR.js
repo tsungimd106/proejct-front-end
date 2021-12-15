@@ -4,7 +4,7 @@ export class MemberR {
     static root = "user"
     static sign(data) {
         return FetchUtil.postAPI(`${this.root}/sign`, data)
-    } 
+    }
 
     static login(data) {
         return FetchUtil.postAPI(`${this.root}/login`, data)
@@ -18,17 +18,21 @@ export class MemberR {
         return FetchUtil.getAPI(`${this.root}/vote/${u_id}`)
     }
 
-    static user(u_id){
+    static user(u_id) {
         return FetchUtil.getAPI(`${this.root}/${u_id}`)
     }
 
-    static userEdit(data){
+    static userEdit(data) {
         return FetchUtil.patchAPI(`${this.root}/`, data)
+    }
+
+    static pswEdit(data) {
+        return FetchUtil.postAPI(`${this.root}/psw`, data)
     }
 
     // static getUser(u_id){
     //     return FetchUtil.getAPI(`${this.root}/`,u_id)
     // }
-    
+
 
 }

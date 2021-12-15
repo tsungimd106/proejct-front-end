@@ -151,7 +151,7 @@ class Home extends React.Component {
                         <Grid.Column width={ 6 } mobile={ 16 } tablet={ 6 } computer={ 6 }>
                             { this.state.politics == null ? <></> : <>
                             <div class="flex items-stretch">
-                                <HomeFirst name={ this.state.proposal[0].name } title={ this.state.proposal[0].title } score={ this.state.proposal[0].score }></HomeFirst>
+                                <HomeFirst  title={ this.state.proposal[0].title } score={ this.state.proposal[0].score }></HomeFirst>
                             </div>
                             </> }
 
