@@ -133,8 +133,8 @@ class Login extends React.Component {
                 let resD = response.data.D
                 console.log()
                 localStorage.setItem("login", account)
-                localStorage.setItem("isManage", resD.data[0].identity === 2)
-                localStorage.setItem("isFigure", resD.data[0].identity === 1)
+                localStorage.setItem("identity", resD.data[0].identity)
+
                 window.history.back()
 
 
