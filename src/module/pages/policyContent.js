@@ -124,10 +124,7 @@ class PolicyContent extends React.Component {
         }
         let remark = document.getElementById("reportInputRemark").value || " "
         console.log(this.state.report_id)
-        ProposalR.report({ user_id: this.state.userName, message_id: this.state.report_id, remark: remark, rule: ruleInput }).then(response => {
-            //補回傳
-            console.log(response)
-        })
+        return ProposalR.report({ user_id: this.state.userName, message_id: this.state.report_id, remark: remark, rule: ruleInput }).then()
     }
 
     save = () => {

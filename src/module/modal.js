@@ -156,18 +156,6 @@ export class ReportModal extends React.Component {
 }
 
 
-export class ProposalEditModal extends React.Component {
-    render() {
-
-        return (<>
-            <ModalBase
-                message="提案編輯"
-                toDo={ this.props.ok }
-                content={ this.props.content } />
-        </>)
-    }
-}
-
 export class ScoreModal extends React.Component {
     render() {
         return (<>
