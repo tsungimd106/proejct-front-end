@@ -13,12 +13,6 @@ class Policy extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            barChartData: [
-                { value: 10, name: "同意", color: "#fec240" },
-                { value: 50, name: "中立", color: "#98c4d1" },
-                { value: 40, name: "反對", color: "#de4b43" }
-
-            ],
             like: {},
             nowPage: 1
         }
@@ -58,6 +52,7 @@ class Policy extends React.Component {
     }
     componentDidMount() {
         let page = this.props.match.params.id
+        console.log(page)
         trackPromise(
             ProposalR.list({ page: page ? page : 1 }).then(response => {
                 let resData = response.data.D
@@ -65,9 +60,6 @@ class Policy extends React.Component {
 
             })
         )
-
-
-
         ProposalR.cond().then(response => {
             let resData = response.data.D
             let test = {}
@@ -77,22 +69,28 @@ class Policy extends React.Component {
                 for (let j of resData[i]) {
                     j["check"] = false
                     inside.push(j)
-
                 }
                 test[i] = inside
             }
-
             this.setState({ "like": test })
         })
     }
 
     handlePaginationChange = (e, { activePage }) => {
+        trackPromise(
+            ProposalR.list({ page: activePage }).then(response => {
+                let resData = response.data.D
+                this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page, nowPage: activePage })
+
+            })
+        )
+
         document.location.href = `/#/Policy/${activePage}`
 
     }
     handleF = () => {
         let statusL = []
-        console.log( this.state.like["狀態"])
+        console.log(this.state.like["狀態"])
         if (this.state.like["狀態"] instanceof Array) {
             this.state.like["狀態"].forEach(item => {
                 if (item.check) statusL.push(item.id)
@@ -104,9 +102,6 @@ class Policy extends React.Component {
 
             })
         }
-
-        console.log(statusL)
-
     }
 
     render() {
@@ -134,15 +129,26 @@ class Policy extends React.Component {
                                                     <div>提案人：{ placement.name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
                                                     <h3 className={ style.ellipsis }>{ placement.title }</h3>
                                                 </Grid.Column>
-                                                <Grid.Column width={ 16 } computer={ 12 }>提案進度：{ placement.status }</Grid.Column>
+                                                <Grid.Column width={ 16 } computer={ 12 }>提案進度：{ placement.status }
+                                                    { Array.isArray(placement.c_name) ? <>
+
+                                                        {
+                                                            placement.c_name.map((item, index) => {
+                                                                return (<>
+                                                                    { <Label >{item}</Label> }
+                                                                </>)
+                                                            })
+                                                        }
+                                                    </> : <></> }
+                                                </Grid.Column>
                                             </Grid.Row>
                                         </Grid>
                                     </Grid.Column>
                                     <Grid.Column width={ 5 } computer={ 5 } tablet={ 7 } floated={ "left" }  >
                                         <BarChart data={ [
-                                            { value: placement.good / voteT * 100, name: "同意", color: "#fec240" },
-                                            { value: placement.med / voteT * 100, name: "中立", color: "#98c4d1" },
-                                            { value: placement.bad / voteT * 100, name: "反對", color: "#de4b43" }
+                                            { value: placement.good > 0 ? placement.good / voteT * 100 : 0, name: "同意", color: "#fec240" },
+                                            { value: placement.med > 0 ? placement.med / voteT * 100 : 0, name: "中立", color: "#98c4d1" },
+                                            { value: placement.bad > 0 ? placement.bad / voteT * 100 : 0, name: "反對", color: "#de4b43" }
 
                                         ] }> </BarChart>
                                     </Grid.Column>

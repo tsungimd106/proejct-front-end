@@ -35,14 +35,30 @@
     /* margin-left: 10px; */
 }
 
-.btncolor{
+.btncolor {
     background-color: #2f375b !important;
     font-weight: 200 !important;
 }
 
-.sbtn{
+.sbtn {
     background-color: #98c4d1 !important;
-    color:white !important;
+    color: white !important;
     font-weight: 300 !important;
+}
 
+.selected {
+    margin: 1% !important;
+    background-color: #2f375b !important;
+    color: #ffffff !important;
+    font-size: 100 !important;
+}
+
+.subBtn {
+    margin: 1% !important;
+}
+
+.category_model {
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
 }

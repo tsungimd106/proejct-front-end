@@ -42,20 +42,11 @@ class Sign extends React.Component {
         this.state = {
             "showInfo": false,
             "message": "",
-            city: [
-                { key: 'af', value: 'af', text: '基隆市' },
-                { key: 'ax', value: 'ax', text: '台北市' },
-                { key: 'al', value: 'al', text: '新北市' },
-                { key: 'dz', value: 'dz', text: '桃園市' },
-                { key: 'as', value: 'as', text: '新竹縣' },
-                { key: 'ad', value: 'ad', text: '新竹市' },
-                { key: 'ao', value: 'ao', text: '苗栗縣' },
-            ]
         }
     }
 
     send = () => {
-        // ["account", "password", "age", "sex", "areaid", "name"]
+        let cond = { "account": "帳號", "password": "密碼", "age": "生日", "sex": "性別", "areaid": "地區", "name": "名稱" }
         let account = document.getElementById("account").value
         let psw = sha256(document.getElementById("password").value)
         let age = document.getElementById("birth").value
@@ -63,12 +54,10 @@ class Sign extends React.Component {
         let city = this.state.city_id
         let name = document.getElementById("name").value
         let degree = this.state.degree
-        console.log(account, psw, age, sex, name, city)
         MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree }).then(res => {
             if (res.data.success) {
                 window.location.href = "./#/sign2"
             }
-
         })
 
     }
@@ -83,13 +72,12 @@ class Sign extends React.Component {
     componentDidMount() {
         PoliticianR.area().then(res => {
             this.setState({ city: res.data.D })
-            // console.log(res.data.D)
         })
     }
     sexChange = (event, sex) => this.setState({ "sex": sex.value })
 
     cityChange = (event, city) => this.setState({ "city_id": city.value })
-    degreeChange = (event, degree) => this.setState({ "city_id": degree.value })
+    degreeChange = (event, degree) => this.setState({ "degree": degree.value })
 
 
     render() {
@@ -107,7 +95,7 @@ class Sign extends React.Component {
                                 <div><Input className={ style.select } type="text" placeholder="暱稱" id="name" /></div>
                                 <div><Select className={ style.select } id="sex" placeholder="性別" options={ sexList } onChange={ this.sexChange } /></div>
                                 <div><Select className={ style.select } id="sex" placeholder="學歷" options={ degreeList } onChange={ this.degreeChange } /></div>
-                                <p class="text-gray-400 flex px-1"><span class="flex-none self-center">生日：</span><span class='flex-none'><Input className={ style.birth } type="date" id="birth"/></span></p>
+                                <p class="text-gray-400 flex px-1"><span class="flex-none self-center">生日：</span><span class='flex-none'><Input className={ style.birth } type="date" id="birth" /></span></p>
                                 <div class="pb-1"><Select className={ style.select } id="city" placeholder="居住地" options={ this.state.city } onChange={ this.cityChange } /></div>
                             </div>
                             <p className={ style.csign }>
@@ -142,12 +130,15 @@ class Login extends React.Component {
         var password = sha256(document.getElementById("password").value);
         trackPromise(
             MemberR.login({ "account": account, "password": password }).then(response => {
-                console.log(response.data.data.data)
+                let resD = response.data.D
+                console.log()
                 localStorage.setItem("login", account)
-                localStorage.setItem("isManage", response.data.data.data[0].identity === 2)
-                window.location.href = "./#/"
+                localStorage.setItem("isManage", resD.data[0].identity === 2)
+                localStorage.setItem("isFigure", resD.data[0].identity === 1)
+                window.history.back()
 
-            })
+
+            }, error => console.log("error", error))
         )
     }
 
@@ -177,10 +168,7 @@ class Login extends React.Component {
 class SignNext extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            "showInfo": false,
-            "message": "",
-        }
+        this.state = {}
     }
 
     componentDidMount() {
@@ -194,7 +182,17 @@ class SignNext extends React.Component {
     }
 
     send = () => {
-        window.location.href = "./#/"
+        let c_id = []
+        this.state.isToggleOn.forEach((item, index) => {
+            if (item) {
+                c_id.push(index + 1)
+            }
+        })
+        MemberR.category({ "c_id": c_id }).then(res => {
+            console.log(res)
+        })
+
+        // window.location.href = "./#/"
     }
 
     handleClick = (index) => {
@@ -213,16 +211,12 @@ class SignNext extends React.Component {
                 <p className={ style.rule }>請選擇有興趣的類別：</p>
                 <div>
                     {
-
                         this.state.sub !== undefined ? this.state.sub.map((item, index) => {
                             return (<Button onClick={ () => { this.handleClick(index) } } className={ (this.state.isToggleOn[index] ? style.selected : style.subBtn) } size='mini'  >{ item }</Button>)
                         }) : <>no non no </>
-
-
-
                     }
                 </div>
-                <p><Button id="continue" className={ style.selected } onClick={ this.send }>確認註冊</Button></p>
+                <p><Button id="continue" className={ style.selected } onClick={ this.send }>確認送出</Button></p>
             </Segment>
         </div> }></Base>)
     }
@@ -241,7 +235,7 @@ export const signNext = {
         path: "/sign2",
         component: SignNext
     },
-    name: "註冊2"
+    name: "興趣選單"
 }
 
 export const login = {
