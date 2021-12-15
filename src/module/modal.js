@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, List, Icon } from 'semantic-ui-react'
+import { Modal, Button, List } from 'semantic-ui-react'
 import "tailwindcss/tailwind.css"
 
 
@@ -21,13 +21,16 @@ export class ModalBase extends React.Component {
     setOpen = (val) => this.setState({ open: val })
     toDo = () => {
         console.log("enter modalbase todo")
-        let check = this.props.toDo()
-        console.log(check)
-        if (check === true) {
-            this.setOpen(false)
-        } else {
-            this.setState(check)
-        }
+        let check = false
+        this.props.toDo().then(res=>{
+            if (check === true) {
+                this.setOpen(false)
+            } else {
+                this.setState(check)
+            }
+        })
+        
+       
     }
     render() {
 
@@ -44,7 +47,7 @@ export class ModalBase extends React.Component {
                     <div className="flex mb-4">
                         <div className="flex-1">{ this.props.message }</div>
                         <div className="justify-end">
-                            <button onClick={ () => this.setOpen(false)} class="float-right">
+                            <button onClick={ () => this.setOpen(false) } class="float-right">
                                 { close_icon() }
                             </button>
                         </div>
