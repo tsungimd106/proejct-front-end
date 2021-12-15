@@ -75,13 +75,13 @@ class PolicyContent extends React.Component {
                 let msgL = resData.msg
                 let detail = resData.detail[0]
                 let vote = resData.vote[0]
-                let heart = resData.heart
+                let heart = resData.heart.length
                 let rule = resData.rule
                 let voteT = (vote.goodc + vote.badc + vote.medc)
                 console.log(voteT)
                 let voteD = [vote.goodc === 0 ? 0 : vote.goodc / voteT * 100, vote.medc === 0 ? 0 : vote.medc / voteT * 100, vote.badc === 0 ? 0 : vote.badc / voteT * 100]
                 console.log(voteD)
-                this.setState({ detail: detail, heart: false, msgL: msgL, rule: rule, voteD: voteD })
+                this.setState({ detail: detail, heart: heart, msgL: msgL, rule: rule, voteD: voteD })
             })
         )
 
@@ -131,12 +131,22 @@ class PolicyContent extends React.Component {
     }
 
     save = () => {
-        if (this.state.heart) { }
+        if (this.state.heart) {
+            ProposalR.removeSave({ user_id: this.state.userName, proposal_id: this.state.proposal_id }).then(res => {
+                console.log(res)
+            })
+        }
+
+        else {
+            ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposal_id }).then(res => {
+                console.log(res)
+            })
+        }
         this.setState({ heart: !this.state.heart })
-        ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposal_id }).then(res => {
-            console.log(res)
-        })
     }
+
+
+
     reply = (msg_id, b_id) => {
         this.setState({ parent_id: msg_id, parent_b: b_id })
         document.getElementById("msg").scrollIntoView();
@@ -159,7 +169,7 @@ class PolicyContent extends React.Component {
                                         <List horizontal>
                                             <List.Item><Header>提案人</Header></List.Item>
                                             { this.state.detail !== undefined ?
-                                                this.state.detail.name.map(item => {
+                                                this.state.detail.f_name.map(item => {
                                                     return (<List.Item ><Label> { item }</Label></List.Item>)
                                                 }) : <></> }
                                         </List>
@@ -183,9 +193,9 @@ class PolicyContent extends React.Component {
                                 </List>
 
                             </Segment>
-                            {/* <Label.Group>
-                                { this.state.detail.hashtag_name!==null?this.state.detail.hashtag_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }):<></> }
-                            </Label.Group> */}
+                            <Label.Group>
+                                { this.state.detail.c_name !== null ? this.state.detail.c_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) : <></> }
+                            </Label.Group>
 
                             <div className="w-full">
                                 <iframe src={ this.state.detail !== undefined ? this.state.detail.pdfUrl : "" } title="doc" className="w-full h-screen"></iframe>

@@ -19,6 +19,10 @@ export  class ProposalR {
     static save(data) {
         return FetchUtil.postAPI(`${this.root}/save`, data)
     }
+
+    static removeSave(data) {
+        return FetchUtil.postAPI(`${this.root}/save/del`, data)
+    }
     
     
     static rule() {
