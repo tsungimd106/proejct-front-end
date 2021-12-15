@@ -30,7 +30,7 @@ class User extends React.Component {
         if (!!!localStorage.getItem("login")) {
             document.location.href = "/#"
         }
-        if (this.state.identity === 2) {
+        if (this.state.identity === 3) {
             this.figureID = 403
             trackPromise(
                 PoliticianR.detail(this.figureID).then(res => {
@@ -61,7 +61,7 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "個人檔案", in: this.state.identity === 2 ? <><Pprofile /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
+            { name: "個人檔案", in: this.state.identity == 3 ? <><Pprofile /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
