@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js";
-import { Grid,  Ref,   Embed, Tab, Image } from 'semantic-ui-react';
+import { Grid, Ref, Embed, Tab, Image } from 'semantic-ui-react';
 import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
@@ -36,9 +36,11 @@ class Election extends React.Component {
 
     componentDidMount() {
         let tabsContainer = document.querySelector("#tabs");
-
+        let tabsContainerVote = document.querySelector("#voteTabs");
         let tabTogglers = tabsContainer.querySelectorAll("a");
+        let tabTogglersVote = tabsContainerVote.querySelectorAll("a");
         console.log(tabTogglers);
+        console.log(tabTogglersVote);
 
         tabTogglers.forEach(function (toggler) {
             toggler.addEventListener("click", function (e) {
@@ -62,7 +64,30 @@ class Election extends React.Component {
             });
         });
 
+        tabTogglersVote.forEach(function (toggler) {
+            toggler.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                let tabName = this.getAttribute("href");
+                console.log(tabName)
+                let tabContentsVote = document.querySelector("#tab-contentsVote");
+
+                for (let i = 0; i < tabContentsVote.children.length; i++) {
+
+                    tabTogglersVote[i].parentElement.classList.remove("border-blue-800", "bg-white", "border-b", "-mb-px", "opacity-100");
+                    tabContentsVote.children[i].classList.remove("hidden");
+                    if ("#" + tabContentsVote.children[i].id === tabName) {
+                        continue;
+                    }
+                    tabContentsVote.children[i].classList.add("hidden");
+
+                }
+                e.target.parentElement.classList.add("border-blue-800", "bg-white", "border-b-4", "-mb-px", "opacity-100");
+            });
+        });
+
         document.getElementById("default-tab").click();
+        document.getElementById("default-tabVote").click();
     }
     // toVote = () => {
 
@@ -92,7 +117,7 @@ class Election extends React.Component {
     render() {
         const rate = 3
         const { activeIndex } = this.state
-        const panes1 = [            
+        const panes1 = [
             {
                 menuItem: '投票三口訣', render: () =>
                     <Tab.Pane>
@@ -126,18 +151,18 @@ class Election extends React.Component {
         ]
         return (<Pages id={1} class="p-0" pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
             (<>
-                <div class="flex justify-center "> <img class="w-0 lg:w-3/5   " src={ele}></img></div>               
+                <div class="flex justify-center "> <img class="w-0 lg:w-3/5   " src={ele}></img></div>
                 <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
                     <ul id="tabs" class="flex justify-center ">
-                        <li class="px-2 py-1 lg:px-8.py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900"  id="default-tab" href="#second">投票要點</a></li>
+                        <li class="px-2 py-1 lg:px-8.py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" id="default-tab" href="#second">投票要點</a></li>
                         <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#third">QA大集合</a></li>
                         <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#fourth">民主大事紀</a></li>
                     </ul>
 
                     {/* <!-- Tab Contents --> */}
                     <div id="tab-contents" class="bg-white w-full">
-           
+
                         <div id="second" class="hidden p-4">
                             <Grid><Grid.Row>
                                 {/* <Grid.Column width={ rate } computer={ rate } mobile={ 16 }>
@@ -148,7 +173,37 @@ class Election extends React.Component {
                                 <Grid.Column width={16}>
                                     <div class="p-4 rounded-md">
                                         <Ref innerRef={this.voteRef}><h1 class="flex justify-center text-3xl lg:text-5xl mb-12">投票要點</h1></Ref>
-                                        <Tab class="text-xl" panes={panes1} />
+                                        {/* <Tab class="text-xl" panes={panes1} /> */}
+                                        <div class="w-full  mt-4  rounded">
+                                            {/* <!-- Tabs --> */}
+                                            <ul id="voteTabs" class="flex justify-center ">
+                                                <li class="px-2 py-1 lg:px-8.py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" id="default-tabVote" href="#one">投票三口訣</a></li>
+                                                <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#two">投票三寶</a></li>
+                                                <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#three">投票這五步</a></li>
+                                                <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#four">投票這六不</a></li>
+                                                <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#five">投票流程教學</a></li>
+                                            </ul>
+
+                                            {/* <!-- Tab Contents --> */}
+                                            <div id="tab-contentsVote" class="bg-white w-full">
+                                                <div id="one" class="hidden p-4">
+                                                    <Image src={vote1} size='huge' centered />
+                                                </div>
+                                                <div id="two" class="hidden p-4">
+                                                    <Image src={vote2} size='huge' centered />
+                                                </div>
+                                                <div id="three" class="hidden p-4">
+                                                    <Image src={vote3} size='large' centered />
+                                                </div>
+                                                <div id="four" class="hidden p-4">
+                                                    <Image src={vote4} size='large' centered />
+                                                </div>
+                                                <div id="five" class="hidden p-4">
+                                                    <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </Grid.Column>
                             </Grid.Row></Grid>
@@ -169,23 +224,23 @@ class Election extends React.Component {
                                         </Ref>
                                         {this.state.qa.map((item, index) => {
                                             return (<>
-                                            <div class="bg-red-50 p-0 lg:p-6  flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
-                                                <div class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-red-600 font-semibold">Q.
-                                                    {/* <img src={Q}></img> */}
+                                                <div class="bg-red-50 p-0 lg:p-6  flex items-center space-x-6 rounded-lg hover:scale-105 transition transform duration-500">
+                                                    <div class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-red-600 font-semibold">Q.
+                                                        {/* <img src={Q}></img> */}
+                                                    </div>
+                                                    <div class="w-full">
+                                                        <p class="text-xl lg:text-3xl font-bold">{item.title}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="w-full">
-                                                    <p class="text-xl lg:text-3xl font-bold">{item.title}</p>                                    
+                                                <div class="p-0 lg:p-6  mb-12 bg-white flex items-center space-x-6 rounded-lg">
+                                                    <div class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-gray-700 font-semibold">A.
+                                                        {/* <img src={Q}></img> */}
+                                                    </div>
+                                                    <div class="w-full">
+                                                        <p class="py-4 text-base lg:text-2xl text-gray-700 flex text-left">{item.content}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="p-0 lg:p-6  mb-12 bg-white flex items-center space-x-6 rounded-lg">
-                                                <div  class="h-15 w-10 lg:h-20 lg:w-20 p-3 lg:px-0 text-3xl lg:text-6xl inline-block align-middle py-1 text-gray-700 font-semibold">A.
-                                                    {/* <img src={Q}></img> */}
-                                                </div>
-                                                <div class="w-full">
-                                                    <p class="py-4 text-base lg:text-2xl text-gray-700 flex text-left">{item.content}</p>
-                                                </div>
-                                            </div>
-                                        {/* <Accordion>
+                                                {/* <Accordion>
                                         
                                                 <Accordion.Title
                                                     active={activeIndex === index}
@@ -203,7 +258,7 @@ class Election extends React.Component {
 
 
                                         </Accordion> */}
-                                        </>)
+                                            </>)
                                         })}
                                     </div>
                                 </Grid.Column>
@@ -219,7 +274,7 @@ class Election extends React.Component {
                                     <div class="p-4 rounded-md">
                                         <Ref innerRef={this.thingRef}><h1 class="flex justify-center text-3xl lg:text-5xl mb-12">民主大事紀</h1></Ref>
                                         <p class="flex justify-center">這裡是民主大事紀,記錄著台灣民主有關發生的大事件。 </p>
-                                        <Image src={time} size='huge' centered />                                  
+                                        <Image src={time} size='huge' centered />
                                     </div>
                                 </Grid.Column>
                             </Grid.Row></Grid>
