@@ -3,17 +3,12 @@
     width: 50%;
 }
 
-.table,
-.slider_item {
+.table{
     padding: 0;
     margin: 25px 0;
     /* height: calc(80vh - 30px); */
 }
 
-.slider_item img {
-    width: auto;
-    height: 65vh;
-}
 
 .table :global(div.list-group-item) {
     border: 0.15px #000 solid !important;
