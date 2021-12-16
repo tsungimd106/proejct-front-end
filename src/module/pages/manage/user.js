@@ -4,6 +4,7 @@ import style from "../../../css/manage.module.css"
 import { ManageR } from "../../request/manageR"
 
 import { Tab as TabUI, Button as BtnUI } from 'semantic-ui-react'
+import { trackPromise } from 'react-promise-tracker';
 export default class Check extends React.Component {
     constructor(props) {
         super(props)
@@ -12,13 +13,17 @@ export default class Check extends React.Component {
         }
     }
     componentDidMount() {
-        ManageR.user().then(response => {
-            this.setState(response.data.D)
-        })
+        trackPromise(
+            ManageR.user().then(response => {
+                this.setState(response.data.D)
+            })
+        )
     }
 
     setIdentity = (u_id, i_id) => {
-        ManageR.identity({ "user_id": u_id, "identity": i_id }).then()
+        trackPromise(
+            ManageR.identity({ "user_id": u_id, "identity": i_id }).then()
+        )
     }
 
     render() {
