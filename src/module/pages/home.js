@@ -46,7 +46,7 @@ class Home extends React.Component {
         return (<Pages id={ 0 } page={
             (<>
                 <div >
-                    <div className={ style.slider_item }>
+                    <div >
                         <Swiper
                             spaceBetween={ 50 }
                             slidesPerView={ 1 }
