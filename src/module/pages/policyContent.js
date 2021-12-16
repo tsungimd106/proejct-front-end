@@ -71,17 +71,20 @@ class PolicyContent extends React.Component {
         trackPromise(
             ProposalR.msgList(this.state.proposal_id, { "user_id": this.state.userName }).then(response => {
                 let resData = response.data.D
-                console.log(resData)
                 let msgL = resData.msg
                 let detail = resData.detail[0]
                 let vote = resData.vote[0]
                 let heart = resData.heart.length
                 let rule = resData.rule
                 let voteT = (vote.goodc + vote.badc + vote.medc)
-                console.log(voteT)
                 let voteD = [vote.goodc === 0 ? 0 : vote.goodc / voteT * 100, vote.medc === 0 ? 0 : vote.medc / voteT * 100, vote.badc === 0 ? 0 : vote.badc / voteT * 100]
-                console.log(voteD)
-                this.setState({ detail: detail, heart: heart, msgL: msgL, rule: rule, voteD: voteD })
+                let msgL_B = []
+                if (Array.isArray(msgL)) {
+                    msgL.forEach(item => {
+                        msgL_B.push(item.id)
+                    })
+                }
+                this.setState({ detail: detail, heart: heart, msgL: msgL, rule: rule, voteD: voteD, msgL_B: msgL_B })
             })
         )
 
@@ -94,7 +97,7 @@ class PolicyContent extends React.Component {
         ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
             if (response.data.success) {
                 msg.value = ""
-                this.getMsg()
+                this.setState({ parent_b: 0, parent_id: 0 })
                 this.showNoteModal("留言成功")
                 this.getMsg()
 
@@ -243,11 +246,15 @@ class PolicyContent extends React.Component {
                             <Comment.Group >
                                 <Header as='h3' dividing>RUN民討論區</Header>
                                 { this.state.msgL || false ? (this.state.msgL.map((placement, index) => {
+
                                     return (<>
                                         <Comment>
                                             <Comment.Content>
-                                                <Comment.Author as={ "span" }>{ placement.name }</Comment.Author>
+                                                <Comment.Author as={ "span" } className='bg-red'>{ placement.name }</Comment.Author>
+                                                { placement.parent_id !== 0 ? <Comment.Metadata><Label>回覆 B{ this.state.msgL_B.indexOf(placement.parent_id) + 1 } </Label></Comment.Metadata> : "" }
+
                                                 <Comment.Metadata>B{ index + 1 }</Comment.Metadata>
+                                                { placement.risk !== 0 ? <Comment.Metadata><Icon name="exclamation circle" />待觀察</Comment.Metadata> : <></> }
                                                 <Comment.Metadata>{ placement.time }</Comment.Metadata>
                                                 <Comment.Text>{ placement.content }</Comment.Text>
                                                 <Comment.Actions>

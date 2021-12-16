@@ -5,7 +5,7 @@ import Check from "./manage/check"
 
 import User from "./manage/user"
 import utilStyle from "../../css/util.module.css"
-import {  Tab } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 
 class Manage extends React.Component {
     constructor(props) {
@@ -13,17 +13,17 @@ class Manage extends React.Component {
         this.state = {
             "login": !!localStorage.getItem("login"),
             userName: localStorage.getItem("login"),
-            isManage:localStorage.getItem("isManage"),
+            isManage: localStorage.getItem("identity") === "2",
             items: [
-                { key: "check", name: "審核檢舉", in: <Check /> },               
+                { key: "check", name: "審核檢舉", in: <Check /> },
                 { key: "welcome", name: "使用者管理", in: <User /> }
             ]
 
         }
     }
-    componentDidMount(){
-        if(!!!localStorage.getItem("isManage")){
-            document.location.href="/#"
+    componentDidMount() {
+        if (localStorage.getItem("identity")!=="2") {
+            document.location.href = "/#"
         }
     }
 
@@ -31,7 +31,7 @@ class Manage extends React.Component {
         return (<Pages pageInfo={ [{ content: '管理者', active: true, href: "./manage" }] }
             page={
                 (<>
-                    <Tab className={utilStyle.tab} menu={ { secondary: true, pointing: true, vertical: true, } } panes={ this.state.items.map((item, index) => {
+                    <Tab className={ utilStyle.tab } menu={ { secondary: true, pointing: true, vertical: true, } } panes={ this.state.items.map((item, index) => {
                         return ({
                             menuItem: { content: item.name },
                             render: () => <Tab.Pane attached={ false }>  { item.in }</Tab.Pane>,
@@ -42,11 +42,6 @@ class Manage extends React.Component {
             } />)
     }
 }
-
-
-
-
-
 
 
 export default Manage = {
