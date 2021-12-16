@@ -299,9 +299,7 @@ class Pprofile extends React.Component {
     render() {
         return (<>
             {/* 政治人物個人檔案 */}
-            <div>政治人物個人檔案
                 {/* 第一行：基本資料 */}
-                <h3>基本資料</h3>
                 <Segment><div class="grid grid-rows-1 grid-cols-2 gap-4 p-4 bg-white my-3">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex justify-center">
@@ -408,8 +406,7 @@ class Pprofile extends React.Component {
                         </div>
                     </div>
                 </Segment>
-
-            </div>
+                
         </>);
     }
 }
