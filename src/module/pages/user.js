@@ -454,6 +454,10 @@ class MySave extends React.Component {
         const path = `${window.location.href.split("/user")[0]}/${url}`
         window.location.href = path
     }
+    toContent = (id) => {
+        localStorage.setItem("proposal", id)
+        document.location.href = `.#/policyContent/${id.id}`
+    }
     render() {
         return (<>
             <List divided relaxed animated>
@@ -465,7 +469,7 @@ class MySave extends React.Component {
 
 
 
-                            <Grid.Row className={ style.topicBoxBold } >
+                            <Grid.Row className={ style.topicBoxBoldC } onClick={ () => { this.toContent(item) } }>
                                 {/* <Grid.Column width={ 1 } /> */ }
                                 <Grid.Column width={ 11 }>
                                     <div>提案人：{ item.f_name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
