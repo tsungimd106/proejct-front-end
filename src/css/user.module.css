@@ -4,8 +4,9 @@
 }
 
 .pic {
-    margin: 5% 30% 1% 30%;
-    height: 150px;
+    margin: auto;
+    margin-top: 5%; margin-bottom: 5%;
+    height: 150px;    
     width: 150px;
     border-radius: 50%;
     border: none;

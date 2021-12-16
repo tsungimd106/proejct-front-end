@@ -117,38 +117,38 @@ class Election extends React.Component {
     render() {
         const rate = 3
         const { activeIndex } = this.state
-        const panes1 = [
-            {
-                menuItem: '投票三口訣', render: () =>
-                    <Tab.Pane>
-                        <Image src={vote1} size='huge' centered />
-                    </Tab.Pane>
-            },
-            {
-                menuItem: '投票三寶', render: () =>
-                    <Tab.Pane>
-                        <Image src={vote2} size='huge' centered />
-                    </Tab.Pane>
-            },
-            {
-                menuItem: '投票這五步', render: () =>
-                    <Tab.Pane>
-                        <Image src={vote3} size='large' centered />
-                    </Tab.Pane>
-            },
-            {
-                menuItem: '投票這六不', render: () =>
-                    <Tab.Pane>
-                        <Image src={vote4} size='large' centered />
-                    </Tab.Pane>
-            },
-            {
-                menuItem: '投票流程教學', render: () =>
-                    <Tab.Pane>
-                        <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
-                    </Tab.Pane>
-            },
-        ]
+        // const panes1 = [
+        //     {
+        //         menuItem: '投票三口訣', render: () =>
+        //             <Tab.Pane>
+        //                 <Image src={vote1} size='huge' centered />
+        //             </Tab.Pane>
+        //     },
+        //     {
+        //         menuItem: '投票三寶', render: () =>
+        //             <Tab.Pane>
+        //                 <Image src={vote2} size='huge' centered />
+        //             </Tab.Pane>
+        //     },
+        //     {
+        //         menuItem: '投票這五步', render: () =>
+        //             <Tab.Pane>
+        //                 <Image src={vote3} size='large' centered />
+        //             </Tab.Pane>
+        //     },
+        //     {
+        //         menuItem: '投票這六不', render: () =>
+        //             <Tab.Pane>
+        //                 <Image src={vote4} size='large' centered />
+        //             </Tab.Pane>
+        //     },
+        //     {
+        //         menuItem: '投票流程教學', render: () =>
+        //             <Tab.Pane>
+        //                 <Embed id='uZp4P70H6E8' /*placeholder='/images/image-16by9.png'*/ source='youtube' />
+        //             </Tab.Pane>
+        //     },
+        // ]
         return (<Pages id={1} class="p-0" pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
             (<>
                 <div class="flex justify-center "> <img class="w-0 lg:w-3/5   " src={ele}></img></div>
@@ -175,7 +175,7 @@ class Election extends React.Component {
                                         <Ref innerRef={this.voteRef}><h1 class="flex justify-center text-3xl lg:text-5xl mb-12">投票要點</h1></Ref>
                                         {/* <Tab class="text-xl" panes={panes1} /> */}
                                         <div class="w-full  mt-4  rounded">
-                                            {/* <!-- Tabs --> */}
+                                            {/* <!-- 投票Tabs --> */}
                                             <ul id="voteTabs" class="flex justify-center ">
                                                 <li class="px-2 py-1 lg:px-8.py-2 -mb-px font-semibold bg-white  border-b-2 border-blue-800  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" id="default-tabVote" href="#one">投票三口訣</a></li>
                                                 <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#two">投票三寶</a></li>
@@ -184,7 +184,7 @@ class Election extends React.Component {
                                                 <li class="px-2 py-1 lg:px-8.py-2 font-semibold bg-white  rounded-t opacity-50"><a class="text-gray-700 hover:text-blue-800 focus:text-blue-900" href="#five">投票流程教學</a></li>
                                             </ul>
 
-                                            {/* <!-- Tab Contents --> */}
+                                            {/* <!-- 投票Tab Contents --> */}
                                             <div id="tab-contentsVote" class="bg-white w-full">
                                                 <div id="one" class="hidden p-4">
                                                     <Image src={vote1} size='huge' centered />
