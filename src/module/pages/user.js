@@ -69,11 +69,7 @@ class User extends React.Component {
         ]
 
 
-        let pitems = [
 
-            { name: "我的提案", in: <Pproposal userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
-            { name: "我的政見", in: <Ppolitics userName={ this.state.userName } policy_vote={ this.state.policy_vote } />, icon: "tasks" }
-        ]
 
         return (<Pages pageInfo={ [{ content: '會員檔案', active: true, href: "./user" }] }
             page={
@@ -219,7 +215,7 @@ class MyProfile extends React.Component {
                                 <Select id="sarea" options={ this.state.area }
                                     placeholder={ "請選擇你的地區" } onChange={ this.getArea } />
                                 <ModalBase content={ "已修改地區完成" }
-                                    btn={ <Button icon labelPosition='left' icon={ "check" } content={ "確定" } className={ style.sbtn } /> }
+                                    btn={ <Button labelPosition='left' icon={ "check" } content={ "確定" } className={ style.sbtn } /> }
                                     toDo={ this.editArea } />
                             </div>
                         </Transition>
@@ -244,7 +240,7 @@ class MyProfile extends React.Component {
                                         {
                                             this.state.sub !== undefined ? this.state.sub.map((item, index) => {
                                                 return (<Button onClick={ () => { this.handleClick(index) } } className={ (this.state.isToggleOn[index] ? style.selected : style.subBtn) } size='mini'  >{ item }</Button>)
-                                            }) : <>no non no </>
+                                            }) : <></>
                                         }
                                     </div>
                                 </>)
@@ -274,7 +270,14 @@ class Pprofile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            kpi: {
+                series: [10, 50, 40],
+                options: {
+                    colors: ['#fec240', '#98c4d1', '#de4b43'],
+                    labels: ["贊成", "中立", "反對"],
+                    chart: { width: 50 }
+                },
+            },
         }
     }
 
@@ -284,12 +287,26 @@ class Pprofile extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.detail)
+        if (!this.state.detail) {
             this.setState(this.props.data)
+            let voteRow = this.props.data.stand
+            console.log(voteRow)
+            if (voteRow) {
+                let goodc = voteRow[0] ? voteRow[0].score : 0
+                let medc = voteRow[1] ? voteRow[1].score : 0
+                let badc = voteRow[2] ? voteRow[2].score : 0
+                let voteD = goodc + medc + badc
+                this.setState({ voteD: [goodc / voteD, medc / voteD, badc / voteD] })
+            }
+
+
+        }
+
 
     }
 
     render() {
+
         return (<>
             {/* 政治人物個人檔案 */ }
             {/* 第一行：基本資料 */ }
@@ -312,7 +329,7 @@ class Pprofile extends React.Component {
                     <div class="col-start-1 col-end-3 row-start-2 row-end-4">
                         <div class="inline-flex items-center float-right justify-items-end bg-white leading-none text-black rounded-full p-2 shadow text-sm">
                             <span class="inline-flex bg-black text-white rounded-full h-6  px-3 justify-center items-center text-">選區</span>
-                            <span class="inline-flex px-2">台北市</span>
+                            <span class="inline-flex px-2">{ this.state.detail ? this.state.detail[0].e_n : "" }</span>
                         </div>
                     </div>
 
@@ -344,7 +361,7 @@ class Pprofile extends React.Component {
                 <div><p class="text-center">正負向比例</p>
                     <Thermometer className={ style.thermometer }
                         theme="light"
-                        value="88"
+                        value={ this.state.message ? this.state.message[0].score * 100 : 0 }
                         max="100"
                         steps="4"
                         format="%"
@@ -408,64 +425,6 @@ class Pprofile extends React.Component {
     }
 }
 
-class Pproposal extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    componentDidMount() {
-        this.setState({ matches: window.matchMedia("(min-width: 768px)").matches })
-    }
-    render() {
-        return (<>
-            <Table celled><Table.Header><Table.Row>
-                <Table.HeaderCell>提案標題</Table.HeaderCell>
-                <Table.HeaderCell>投票立場</Table.HeaderCell>
-            </Table.Row></Table.Header>
-                { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
-                    return (<>
-                        <Table.Body>
-                            <Table.Row
-
-                            // onClick={ () => { this.changePage(`PolicyContent/${item.proposal_id}`) } }
-                            >
-                                <Table.Cell>{ item.title } </Table.Cell>
-                                <Table.Cell>{ item.type }</Table.Cell>
-                            </Table.Row></Table.Body>
-                    </>)
-                }) : <></> }
-            </Table>
-        </>);
-    }
-}
-
-class Ppolitics extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    componentDidMount() {
-        this.setState({})
-    }
-    render() {
-
-        return (<>
-            <Card.Group itemsPerRow={ 2 } >
-                { this.props.policy_vote !== undefined ? this.props.policy_vote.map((item, index) => {
-                    return (<>
-                        <Card>
-                            <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
-                            <Card.Content>{ item.c_name.map(c => { return (<Label>{ c }</Label>) }) }</Card.Content>
-
-                            <Card.Content>{ item.type }</Card.Content>
-
-                        </Card>
-                    </>)
-                }) : <></> }
-            </Card.Group>
-        </>);
-    }
-}
 
 class MySave extends React.Component {
     constructor(props) {
