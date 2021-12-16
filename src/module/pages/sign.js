@@ -54,11 +54,13 @@ class Sign extends React.Component {
         let city = this.state.city_id
         let name = document.getElementById("name").value
         let degree = this.state.degree
-        MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree }).then(res => {
-            if (res.data.success) {
-                window.location.href = "./#/sign2"
-            }
-        })
+        trackPromise(
+            MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree }).then(res => {
+                if (res.data.success) {
+                    window.location.href = "./#/sign2"
+                }
+            })
+        )
 
     }
 
@@ -70,9 +72,11 @@ class Sign extends React.Component {
         this.setState({ showinfo: !this.state.showinfo, message: msg })
     }
     componentDidMount() {
-        PoliticianR.area().then(res => {
-            this.setState({ city: res.data.D })
-        })
+        trackPromise(
+            PoliticianR.area().then(res => {
+                this.setState({ city: res.data.D })
+            })
+        )
     }
     sexChange = (event, sex) => this.setState({ "sex": sex.value })
 
@@ -186,9 +190,11 @@ class SignNext extends React.Component {
                 c_id.push(index + 1)
             }
         })
-        MemberR.category({ "c_id": c_id }).then(res => {
-            console.log(res)
-        })
+        trackPromise(
+            MemberR.category({ "c_id": c_id }).then(res => {
+                console.log(res)
+            })
+        )
 
         // window.location.href = "./#/"
     }

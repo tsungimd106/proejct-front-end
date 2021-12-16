@@ -112,12 +112,12 @@ class MyProfile extends React.Component {
     // pswShow = (show) => this.setState({ pswShow: show })
     editName = () => {
         let name = document.getElementById("new_name").value
-        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { this.areaShow(); return res })
+        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { this.areaShow(); return res }) 
 
     }
     editArea = () => {
         console.log(document.getElementById("sarea"))
-        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then()
+        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then() 
 
     }
     getArea = (event, { value }) => {
@@ -129,7 +129,7 @@ class MyProfile extends React.Component {
         let psw = sha256(document.getElementById("psw").value)
         let c_psw = sha256(document.getElementById("c_psw").value)
         return MemberR.pswEdit({ oldPassword: old_psw, password: psw, passwordConfire: c_psw, account: this.props.userName })
-            .then()
+            .then() 
     }
     editClass = () => {
         let c_id = []
@@ -138,7 +138,7 @@ class MyProfile extends React.Component {
                 c_id.push(index + 1)
             }
         })
-        return MemberR.category({ "add": c_id, "user_id": this.props.userName, "remove": [] }).then()
+        return MemberR.category({ "add": c_id, "user_id": this.props.userName, "remove": [] }).then() 
     }
     toContent = (id) => {
         localStorage.setItem("proposal", id)

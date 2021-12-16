@@ -60,20 +60,22 @@ class Policy extends React.Component {
 
             })
         )
-        ProposalR.cond().then(response => {
-            let resData = response.data.D
-            let test = {}
-            console.log(Object.keys(resData))
-            for (let i of Object.keys(resData)) {
-                let inside = []
-                for (let j of resData[i]) {
-                    j["check"] = false
-                    inside.push(j)
+        trackPromise(
+            ProposalR.cond().then(response => {
+                let resData = response.data.D
+                let test = {}
+                console.log(Object.keys(resData))
+                for (let i of Object.keys(resData)) {
+                    let inside = []
+                    for (let j of resData[i]) {
+                        j["check"] = false
+                        inside.push(j)
+                    }
+                    test[i] = inside
                 }
-                test[i] = inside
-            }
-            this.setState({ "like": test })
-        })
+                this.setState({ "like": test })
+            })
+        )
     }
 
     handlePaginationChange = (e, { activePage }) => {
@@ -96,11 +98,13 @@ class Policy extends React.Component {
                 if (item.check) statusL.push(item.id)
             })
             this.setState({ "cond": statusL })
-            ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
-                let resData = response.data.D
-                this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
+            trackPromise(
+                ProposalR.list({ "status_id": statusL, page: 1 }).then(response => {
+                    let resData = response.data.D
+                    this.setState({ "Sdata": resData.list, resource: resData.list, pageTotal: resData.page })
 
-            })
+                })
+            )
         }
     }
 
