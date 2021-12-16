@@ -18,6 +18,7 @@ export default class Nav extends React.Component {
     logout = () => {
         localStorage.clear()
         this.setState({ "login": false, menu: false })
+        document.location.reload()
         
     }
     show = () => {

@@ -30,9 +30,14 @@ export class MemberR {
         return FetchUtil.postAPI(`${this.root}/psw`, data)
     }
 
-    static category(data){
-        return FetchUtil.postAPI(`${this.root}/category`,data)
+    static category(data) {
+        return FetchUtil.postAPI(`${this.root}/category`, data)
     }
+
+    static p_user(p_id) {
+        return FetchUtil.getAPI(`${this.root}/p_user/${p_id}`)
+    }
+
 
 
 }
