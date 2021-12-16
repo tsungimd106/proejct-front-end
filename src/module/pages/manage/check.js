@@ -7,15 +7,25 @@ export default class Check extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            userName: localStorage.getItem("login"),
         }
     }
     componentDidMount() {
-        ManageR.report().then(response => {
-            console.log(response)
-            if(response.data.data){
-                this.setState({ already: response.data.data[0].data, notYet: response.data.data[1].data })
+        ManageR.report().then(res => {
+            console.log(res)
+            let d = res.data.D
+            if (d) {
+                this.setState({ already: d.already, notYet: d.not_yet })
             }
+        })
+    }
+
+    report = (c_id, r_id) => {
+        let d = new Date();
+        d.setDate(d.getDate() + 7);
+        
+        ManageR.check({ check: c_id, report_id: r_id, manager_id: this.state.userName, time: d }).then(res => {
+            console.log(res)
         })
     }
 
@@ -35,8 +45,8 @@ export default class Check extends React.Component {
                                     <Grid.Column width={ 8 } >{ item.content }</Grid.Column>
                                     <Grid.Column width={ 3 }>{ item.remark }</Grid.Column>
                                     <Grid.Column width={ 5 }>
-                                        <Button>停權</Button>
-                                        <Button>不停權</Button>
+                                        <Button onClick={ () => this.report(1, item.id) }>停權</Button>
+                                        <Button onClick={ () => this.report(0, item.id) }>不停權</Button>
                                     </Grid.Column></Grid.Row>
                             </>)
                         }) }
