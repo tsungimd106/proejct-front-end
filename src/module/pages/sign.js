@@ -131,10 +131,8 @@ class Login extends React.Component {
         trackPromise(
             MemberR.login({ "account": account, "password": password }).then(response => {
                 let resD = response.data.D
-                console.log()
                 localStorage.setItem("login", account)
                 localStorage.setItem("identity", resD.data[0].identity)
-
                 window.history.back()
 
 

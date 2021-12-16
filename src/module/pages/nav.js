@@ -10,20 +10,17 @@ export default class Nav extends React.Component {
         super(props)
         this.state = {
             "login": !!localStorage.getItem("login"),
-            "check": localStorage.getItem("isManage"),
+            "check": localStorage.getItem("identity")==="2",
             menu: false
-
         }
+        
     }
     logout = () => {
         localStorage.clear()
         this.setState({ "login": false, menu: false })
-        window.location.href = "./"
-
-
+        
     }
     show = () => {
-        console.log("ee")
         this.setState(prevState => ({ menu: !prevState.menu }))
     }
 
@@ -100,7 +97,7 @@ export default class Nav extends React.Component {
                                     <a href="./#/user/" className={this.props.id === 4 ? style.pageOn : style.pageOff}>會員檔案</a>
                                 </p>
 
-                                {this.state.check === "true" ? 
+                                {this.state.check ? 
                                 <p class="grid gap-2 grid-rows-1 grid-cols-2 justify-center">
                                     <span class="place-self-end"><a href="./#/manage/" className={this.props.id === 6 ? style.pageOn : style.pageOff}><Star /></a></span>
                                     <span class="place-self-start"><a href="./#/manage/" className={this.props.id === 6 ? style.pageOn : style.pageOff}>管理者</a></span>
