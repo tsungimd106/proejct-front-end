@@ -81,12 +81,8 @@ export default class Nav extends React.Component {
                         </div>
 
                         {/* 其他功能 */}
-                        <div class="cols-span-2 row-span-2 p-4 pt-16 pr-8 sm:pr-16  border border-t-0 border-b-0 border-r-0 sm:border-0  border-black">
-                            <p class="grid gap-2 grid-rows-1 grid-cols-2 justify-center">
-                                <span class="place-self-end"><a href="./#/" className={this.props.id === 5 ? style.pageOn : style.pageOff}> <Envelope /></a></span>
-                                <a href="./#/" className={this.props.id === 5 ? style.pageOn : style.pageOff}>提出問題與反饋</a>
-                            </p>
-                            <p class="grid gap-2 grid-rows-1 grid-cols-2 justify-center">
+                        <div class="cols-span-2 row-span-1 p-4 pt-16 pr-8 sm:pr-16  border border-t-0 border-b-0 border-r-0 sm:border-0  border-black">
+                           <p class="grid gap-2 grid-rows-1 grid-cols-2 justify-center">
                                 <span class="place-self-end"><a href="./#/information/" className={this.props.id === 6 ? style.pageOn : style.pageOff}><Info /></a></span>
                                 <a href="./#/information/" className={this.props.id === 6 ? style.pageOn : style.pageOff}>法規與條款資訊</a>
                             </p>
