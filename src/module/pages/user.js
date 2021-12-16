@@ -3,13 +3,10 @@ import { Pages } from "../pages.js"
 import Chart from 'react-apexcharts'
 import Thermometer from 'react-thermometer-component'
 import { Tab, Button, Input, Transition, Grid, Select, Label, Segment, Icon, Table, List, Card } from 'semantic-ui-react'
-import { TailwindModal } from "../tailwind"
 import BarChart from "../barchart"
 import style from "../../css/user.module.css"
 import utilStyle from "../../css/util.module.css"
-import { ProposalR } from '../request/proposalR.js';
 import { MemberR } from '../request/memberR';
-import { PoliticianR } from "../request/politicianR"
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { trackPromise } from 'react-promise-tracker';
 import pic from "./pic.png"
@@ -61,7 +58,7 @@ class User extends React.Component {
 
     render() {
         let items = [
-            { name: "個人檔案", in: this.state.identity == 3 ? <><Pprofile data={ this.state.p_data } /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
+            { name: "個人檔案", in: this.state.identity === 3 ? <><Pprofile data={ this.state.p_data } /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
@@ -164,7 +161,7 @@ class MyProfile extends React.Component {
             {/* celled='internally' */ }<Grid >
                 <Grid.Row columns={ "equal" }>
                     <Grid.Column width={ 16 } textAlign={ "center" }>
-                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" src={ pic } />
+                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" alt=""src={ pic } />
                     </Grid.Column>
                     <Grid.Column width={ 8 } textAlign={ "right" } className={ style.data }>
                         <div class="hidden sm:flex justify-end"><ModalBase color={ "teal" } message={ "修改姓名" } btn={ <Button className={ style.btncolor } labelPosition='right' color={ "teal" }
@@ -219,7 +216,7 @@ class MyProfile extends React.Component {
                                 <Select id="sarea" options={ this.state.area }
                                     placeholder={ "請選擇你的地區" } onChange={ this.getArea } />
                                 <ModalBase content={ "已修改地區完成" }
-                                    btn={ <Button icon labelPosition='left' icon={ "check" } content={ "確定" } className={ style.sbtn } /> }
+                                    btn={ <Button labelPosition='left' icon={ "check" } content={ "確定" } className={ style.sbtn } /> }
                                     toDo={ this.editArea } />
                             </div>
                         </Transition>
@@ -296,7 +293,7 @@ class Pprofile extends React.Component {
             <Segment><div class="grid grid-rows-1 grid-cols-2 gap-4 p-4 bg-white my-3">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="flex justify-center">
-                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" src={ pic } />
+                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" alt="" src={ pic } />
                     </div>
                     <div class="items-center self-center mt-2 text-3xl font-semibold">{ this.state.detail ? this.state.detail[0].name : "" }</div>
                 </div>

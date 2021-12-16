@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Button, Comment, Header, Form, List, Segment, Icon, Label } from 'semantic-ui-react'
+import { Button, Comment, Header, Form, List, Segment, Icon, Label } from 'semantic-ui-react'
 import { Pages } from "../pages.js";
 import Chart from 'react-apexcharts'
 import style from "../../css/policyContent.module.css"
@@ -8,7 +8,6 @@ import utilStyle from "../../css/util.module.css"
 
 import { trackPromise } from 'react-promise-tracker';
 
-import person from "../../imgs/person.png"
 import { FaceHappy, FaceNeutral, FaceSad } from 'akar-icons';
 import { ProposalR } from "../request/proposalR"
 import { InfoModal, ReportModal } from "../modal"

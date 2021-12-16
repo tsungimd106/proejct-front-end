@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Card, Dropdown, Button, Label, Segment, Table } from 'semantic-ui-react'
+import { Card, Button, Label, Segment, Table } from 'semantic-ui-react'
 // import Chart from 'react-apexcharts'
 import { Line, Bar } from 'react-chartjs-2';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper';
@@ -14,7 +14,6 @@ import { Grid } from 'semantic-ui-react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { ColorNumber } from "../tailwind"
 import { RadioGroup } from '@headlessui/react'
 
 class FigureDetail extends React.Component {
@@ -380,7 +379,7 @@ class FigureDetail extends React.Component {
     renderToDetail = (id) => {
         console.log(id)
         // console.log()
-        let newData = this.state.tableDetail.filter(item => item.p_id == id)
+        let newData = this.state.tableDetail.filter(item => item.p_id === id)
         this.setState({ showBack: true, render: this.renderRowPolicyDetail, renderData: newData, header: ["進度", "投票人數", "占比", "小計"] })
     }
     renderRowPolicyDetail = ({ p_id, s_name, quota, value, total }, i) => ({
@@ -693,7 +692,7 @@ class FigureDetail extends React.Component {
                                         <Card className={style.dashboardcard}>
                                             <div title="您在乎的政治人物有確實出席立法院會議嗎？
                                             政要RUN整合公民監督國會聯盟提供的院會出席率及委員會出席率，並取平均作為參考指標。歡迎您加以參考。"
-                                            className={style.scoreCircle + " " + "hover:cursor-pointer"}><div class="text-xl mb-5">出席率</div>
+                                            className={style.scoreCircle + "hover:cursor-pointer"}><div class="text-xl mb-5">出席率</div>
                                                 <CircularProgressbar value={this.state.attend} text={`${this.state.attend}%`} styles={buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
@@ -814,7 +813,7 @@ class FigureDetail extends React.Component {
                 
                 <input title="為什麼會投給此進度呢？
                 邀請你針對政見的滿意度填下參考依據，也歡迎你隨時回來發表新的意見。" 
-                type="text" name="email" id="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50"  id="scoreRemark" placeholder="備註" />
+                type="text" name="email" class="h-10 border m-4 rounded p-5 w-full bg-gray-50"  id="scoreRemark" placeholder="備註" />
               </div>
                                 </div>
                             </div>

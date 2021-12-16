@@ -1,7 +1,6 @@
 import React from 'react';
 import { MemberR } from "../request/memberR.js"
 import { PoliticianR } from "../request/politicianR"
-import { ModalBase } from "../modal"
 import logo from '../../imgs/LOGO.jpg'
 import style from "../../css/sign.module.css"
 import { trackPromise } from 'react-promise-tracker';

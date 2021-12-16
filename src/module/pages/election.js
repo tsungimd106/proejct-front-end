@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pages } from "../pages.js";
-import { Grid, Ref, Embed, Tab, Image } from 'semantic-ui-react';
+import { Grid, Ref, Embed,  Image } from 'semantic-ui-react';
 import vote1 from "../../imgs/vote3-1.jpg"
 import vote2 from "../../imgs/vote3-2.jpg"
 import vote3 from "../../imgs/vote5.jpg"
@@ -151,7 +151,7 @@ class Election extends React.Component {
         // ]
         return (<Pages id={1} class="p-0" pageInfo={[{ content: '選舉報你知', active: true, href: "./#/election" }]} page={
             (<>
-                <div class="flex justify-center "> <img class="w-0 lg:w-3/5   " src={ele}></img></div>
+                <div class="flex justify-center "> <img class="w-0 lg:w-3/5 " alt="" src={ele}></img></div>
                 <div class="w-full  mt-4  rounded">
                     {/* <!-- Tabs --> */}
                     <ul id="tabs" class="flex justify-center ">
