@@ -94,15 +94,17 @@ class PolicyContent extends React.Component {
     msg = () => {
         let msg = document.getElementById("msg")
         console.log(msg.value)
-        ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
-            if (response.data.success) {
-                msg.value = ""
-                this.setState({ parent_b: 0, parent_id: 0 })
-                this.showNoteModal("留言成功")
-                this.getMsg()
+            trackPromise(
+                ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
+                if (response.data.success) {
+                    msg.value = ""
+                    this.setState({ parent_b: 0, parent_id: 0 })
+                    this.showNoteModal("留言成功")
+                    this.getMsg()
 
-            }
-        })
+                }
+            })  
+        )    
     }
     showReport = (msgid) => {
 
@@ -132,15 +134,19 @@ class PolicyContent extends React.Component {
 
     save = () => {
         if (this.state.heart) {
-            ProposalR.removeSave({ user_id: this.state.userName, proposal_id: this.state.proposal_id }).then(res => {
-                console.log(res)
-            })
+            trackPromise(
+                ProposalR.removeSave({ user_id: this.state.userName, proposal_id: this.state.proposal_id }).then(res => {
+                    console.log(res)
+                })
+            )
         }
 
         else {
-            ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposal_id }).then(res => {
-                console.log(res)
-            })
+            trackPromise(
+                ProposalR.save({ "user_id": this.state.userName, "proposal_id": this.state.proposal_id }).then(res => {
+                    console.log(res)
+                })
+            )
         }
         this.setState({ heart: !this.state.heart })
     }

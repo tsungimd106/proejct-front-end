@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react'
 import { ManageR } from "../../request/manageR"
 import { Tab, Button } from 'semantic-ui-react'
+import { trackPromise } from 'react-promise-tracker';
 
 export default class Check extends React.Component {
     constructor(props) {
@@ -11,22 +12,25 @@ export default class Check extends React.Component {
         }
     }
     componentDidMount() {
-        ManageR.report().then(res => {
-            console.log(res)
-            let d = res.data.D
-            if (d) {
-                this.setState({ already: d.already, notYet: d.not_yet })
-            }
-        })
+        trackPromise(
+            ManageR.report().then(res => {
+                console.log(res)
+                let d = res.data.D
+                if (d) {
+                    this.setState({ already: d.already, notYet: d.not_yet })
+                }
+            })
+        )
     }
 
     report = (c_id, r_id) => {
         let d = new Date();
         d.setDate(d.getDate() + 7);
-        
-        ManageR.check({ check: c_id, report_id: r_id, manager_id: this.state.userName, time: d }).then(res => {
-            console.log(res)
-        })
+        trackPromise(
+            ManageR.check({ check: c_id, report_id: r_id, manager_id: this.state.userName, time: d }).then(res => {
+                console.log(res)
+            })
+        )
     }
 
     render() {
