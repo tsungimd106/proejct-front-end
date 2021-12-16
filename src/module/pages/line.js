@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pages } from "../pages.js"
-import { Grid, Segment, Accordion, Icon, GridRow } from 'semantic-ui-react'
 
 
 

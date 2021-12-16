@@ -1,6 +1,6 @@
 import React from 'react';
 import logo_dark from '../../imgs/LOGO1.png'
-import { Person, SignOut, Info, Envelope, Star, TextAlignJustified } from 'akar-icons';
+import { Person, SignOut, Info, Star, TextAlignJustified } from 'akar-icons';
 
 import style from "../../css/nav.module.css"
 import { Grid,Icon } from 'semantic-ui-react'
