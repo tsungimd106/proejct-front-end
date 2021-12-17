@@ -93,8 +93,8 @@ class PolicyContent extends React.Component {
     msg = () => {
         let msg = document.getElementById("msg")
         console.log(msg.value)
-            trackPromise(
-                ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
+        trackPromise(
+            ProposalR.msg({ user_id: this.state.userName, content: msg.value, article_id: this.state.proposal_id, parent_id: this.state.parent_id }).then(response => {
                 if (response.data.success) {
                     msg.value = ""
                     this.setState({ parent_b: 0, parent_id: 0 })
@@ -102,8 +102,11 @@ class PolicyContent extends React.Component {
                     this.getMsg()
 
                 }
-            })  
-        )    
+                else{
+                    this.showNoteModal(response.message)
+                }
+            })
+        )
     }
     showReport = (msgid) => {
 
@@ -208,9 +211,9 @@ class PolicyContent extends React.Component {
                         </div>
 
                     </>) : (<></>) }
+                    <div class="grid grid-rows-3 sm:grid-rows-1 grid-flow-col gap-4 mt-6">
+                        { this.state.login === true ? (<>
 
-                    { this.state.login && (<>
-                        <div class="grid grid-rows-3 sm:grid-rows-1 grid-flow-col gap-4 mt-6">
                             <div class="row-span-2 w-full inset-0 sm:col-start-1 sm:col-end-7 sm:row-span-1 flex flex-col bg-white p-4 shadow rounded-lg">
                                 <div className={ style.lable }>
                                     <p class="float-left">您的看法：(請點選投票)</p>
@@ -232,19 +235,20 @@ class PolicyContent extends React.Component {
                                 </div>
                             </div>
 
-                            <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
-                                <div>
-                                    <div className={ style.lable }>RUN民看法：</div>
-                                    { this.state.voteD ? <>
-                                        <div><Chart options={ this.state.kpi.options } series={ this.state.voteD } type="donut" /></div>
-                                    </> : <></> }
 
-                                </div>
+
+
+                        </>) : <>請登入後，投票對於此提案的立場</> }
+                        <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
+                            <div>
+                                <div className={ style.lable }>RUN民看法：</div>
+                                { this.state.voteD ? <>
+                                    <div><Chart options={ this.state.kpi.options } series={ this.state.voteD } type="donut" /></div>
+                                </> : <></> }
+
                             </div>
                         </div>
-
-                    </>) }
-
+                    </div>
 
                     <div class="mt-6">
                         <Segment>

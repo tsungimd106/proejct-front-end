@@ -35,6 +35,11 @@ class User extends React.Component {
         if (!!!localStorage.getItem("login")) {
             document.location.href = "/#"
         }
+        trackPromise(
+            MemberR.user(this.state.userName).then(res => {
+                this.setState(res.data.D)
+            })
+        )
         if (this.state.identity === "3") {
             this.figureID = 405
             trackPromise(
@@ -45,20 +50,13 @@ class User extends React.Component {
                 }), error => { console.log(error) }
             )
 
-        } else {
-
-
         }
-        trackPromise(
-            MemberR.user(this.state.userName).then(res => {
-                this.setState(res.data.D)
-            })
-        )
+
     }
 
     render() {
         let items = [
-            { name: "個人檔案", in: this.state.identity === 3 ? <><Pprofile data={ this.state.p_data } /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
+            { name: "個人檔案", in: this.state.identity === "3" ? <><Pprofile data={ this.state.p_data } /></> : <><MyProfile data={ this.state.user } area={ this.state.area } userName={ this.state.userName } category={ this.state.category } /></>, icon: "address card" },
             { name: "提案收藏", in: <MySave login={ this.state.userName } data={ this.state.save } />, icon: "heart" },
             { name: "留言紀錄", in: <MyMsgRecord userName={ this.state.userName } msg={ this.state.msg } />, icon: "comment" },
             { name: "提案投票紀錄", in: <MyVoteRecord userName={ this.state.userName } proposal_vote={ this.state.proposal_vote } />, icon: "flag" },
@@ -109,12 +107,12 @@ class MyProfile extends React.Component {
     // pswShow = (show) => this.setState({ pswShow: show })
     editName = () => {
         let name = document.getElementById("new_name").value
-        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { this.areaShow(); return res }) 
+        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { this.areaShow(); return res })
 
     }
     editArea = () => {
         console.log(document.getElementById("sarea"))
-        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then() 
+        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then()
 
     }
     getArea = (event, { value }) => {
@@ -126,7 +124,7 @@ class MyProfile extends React.Component {
         let psw = sha256(document.getElementById("psw").value)
         let c_psw = sha256(document.getElementById("c_psw").value)
         return MemberR.pswEdit({ oldPassword: old_psw, password: psw, passwordConfire: c_psw, account: this.props.userName })
-            .then() 
+            .then()
     }
     editClass = () => {
         let c_id = []
@@ -135,7 +133,7 @@ class MyProfile extends React.Component {
                 c_id.push(index + 1)
             }
         })
-        return MemberR.category({ "add": c_id, "user_id": this.props.userName, "remove": [] }).then() 
+        return MemberR.category({ "add": c_id, "user_id": this.props.userName, "remove": [] }).then()
     }
     toContent = (id) => {
         localStorage.setItem("proposal", id)
@@ -150,14 +148,14 @@ class MyProfile extends React.Component {
             return copy
         });
     }
-
+   
 
     render() {
         return (<>
             {/* celled='internally' */ }<Grid >
                 <Grid.Row columns={ "equal" }>
                     <Grid.Column width={ 16 } textAlign={ "center" }>
-                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" alt=""src={ pic } />
+                        <img class="m-auto my-2 w-20 h-20 rounded-full border-0 sm:w-40 sm:h-40" alt="" src={ pic } />
                     </Grid.Column>
                     <Grid.Column width={ 8 } textAlign={ "right" } className={ style.data }>
                         <div class="hidden sm:flex justify-end"><ModalBase color={ "teal" } message={ "修改姓名" } btn={ <Button className={ style.btncolor } labelPosition='right' color={ "teal" }
@@ -194,7 +192,10 @@ class MyProfile extends React.Component {
                             </>) }
                         /></div>
                     </Grid.Column>
-                </Grid.Row></Grid>
+                  
+                </Grid.Row>
+
+            </Grid>
 
             <Card.Group itemsPerRow={ 2 } >
                 <Card>
@@ -284,8 +285,9 @@ class Pprofile extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.detail) {
+        if (!this.state.detail && this.props.data) {
             this.setState(this.props.data)
+            console.log(this.props.data)
             let voteRow = this.props.data.stand
             console.log(voteRow)
             if (voteRow) {
@@ -323,17 +325,17 @@ class Pprofile extends React.Component {
                         </svg>
                     </div>
 
-                    <div class="col-start-1 col-end-3 row-start-2 row-end-4">
-                        <div class="inline-flex items-center float-right justify-items-end bg-white leading-none text-black rounded-full p-2 shadow text-sm">
+                    <div class="col-start-1 col-end-4 row-start-2 ">
+                        <div class="inline-flex items-center  justify-items-end bg-white leading-none text-black rounded-full p-2 shadow text-sm">
                             <span class="inline-flex bg-black text-white rounded-full h-6  px-3 justify-center items-center text-">選區</span>
                             <span class="inline-flex px-2">{ this.state.detail ? this.state.detail[0].e_n : "" }</span>
                         </div>
                     </div>
 
-                    <div class="col-start-3 col-end-5 row-start-2 row-end-4">
-                        <div class="inline-flex items-center float-left bg-white leading-none text-black rounded-full p-2 shadow text-sm">
+                    <div class="col-start-1 col-end-4 row-start-5 row-end-5">
+                        <div class="inline-flex items-center  bg-white leading-none text-black rounded-full p-2 shadow text-sm">
                             <span class="inline-flex bg-black text-white rounded-full h-6 px-3 justify-center items-center text-">委員會</span>
-                            <span class="inline-flex px-2">內政</span>
+                            <span class="inline-flex px-2">{ this.state.committee ? this.state.committee[0].name:""}</span>
                         </div>
                     </div>
 

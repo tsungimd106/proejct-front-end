@@ -45,28 +45,27 @@ class Sign extends React.Component {
     }
 
     send = () => {
-        let cond = { "account": "帳號", "password": "密碼", "age": "生日", "sex": "性別", "areaid": "地區", "name": "名稱" }
+
         let account = document.getElementById("account").value
         let psw = sha256(document.getElementById("password").value)
         let age = document.getElementById("birth").value
         let sex = this.state.sex
         let city = this.state.city_id
         let name = document.getElementById("name").value
+        let phone = document.getElementById("phone").value
         let degree = this.state.degree
         trackPromise(
-            MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree }).then(res => {
+            MemberR.sign({ "account": account, password: psw, age: age, sex: sex, areaid: city, name: name, degree: degree, phone: phone }).then(res => {
                 if (res.data.success) {
+                    localStorage.setItem("login", account)
                     window.location.href = "./#/sign2"
+                } else {
+                    this.setState({ errorMes: res.message })
                 }
             })
         )
 
     }
-
-    sendLine = () => {
-        document.location.href = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&scope=profile%20openid&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde"
-    }
-
     showinfo = (msg) => {
         this.setState({ showinfo: !this.state.showinfo, message: msg })
     }
@@ -93,20 +92,23 @@ class Sign extends React.Component {
                         <Segment raised >
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div><Input className={ style.select } placeholder='帳號' id="account" /></div>
+                                <div><Input className={ style.select } type="text" placeholder="暱稱" id="name" /></div>
                                 <div><Input className={ style.select } type="password" placeholder="密碼" id="password" /></div>
                                 <div><Input className={ style.select } type="password" placeholder="確認密碼" id="checkpsd" /></div>
-                                <div><Input className={ style.select } type="text" placeholder="暱稱" id="name" /></div>
+
                                 <div><Select className={ style.select } id="sex" placeholder="性別" options={ sexList } onChange={ this.sexChange } /></div>
                                 <div><Select className={ style.select } id="sex" placeholder="學歷" options={ degreeList } onChange={ this.degreeChange } /></div>
                                 <p class="text-gray-400 flex px-1"><span class="flex-none self-center">生日：</span><span class='flex-none'><Input className={ style.birth } type="date" id="birth" /></span></p>
                                 <div class="pb-1"><Select className={ style.select } id="city" placeholder="居住地" options={ this.state.city } onChange={ this.cityChange } /></div>
+                                <p><Input className={ style.select } type="phone" placeholder="手機號碼" id="phone" /></p>
+                                <p>{ this.state.errorMes ? this.state.errorMes : "" }</p>
                             </div>
                             <p className={ style.csign }>
                                 點擊「繼續註冊」即表示你同意我們的 <a href="./#/information/" target="_blank">《服務條款》</a>、
                                 <a href="./#/information/" target="_blank">《資料政策》</a>和<a href="./#/information/" target="_blank">《Cookie 政策》</a>。
                             </p>
                             <p><Button id="continue" variant="secondary" className={ style.continue } onClick={ this.send } >繼續註冊</Button></p>
-                            <p><Button color="green" onClick={ this.sendLine } className={ style.continue }>以LINE帳號註冊</Button></p>
+
                             <a href="./#/login">已有帳號  &nbsp; &nbsp; <h5>登入</h5></a>
                         </Segment>
 
@@ -132,21 +134,20 @@ class Login extends React.Component {
         var account = document.getElementById("account").value
         var password = sha256(document.getElementById("password").value);
         trackPromise(
-            MemberR.login({ "account": account, "password": password }).then(response => {
-                let resD = response.data.D
-                localStorage.setItem("login", account)
-                localStorage.setItem("identity", resD.data[0].identity)
-                window.history.back()
-
+            MemberR.login({ "account": account, "password": password }).then(res => {
+                console.log(res)
+                if (res.data.success) {
+                    let resD = res.data.D
+                    localStorage.setItem("login", account)
+                    localStorage.setItem("identity", resD.data[0].identity)
+                    window.history.back()
+                } else {
+                    this.setState({ errorMes: res.message })
+                }
 
             }, error => console.log("error", error))
         )
     }
-
-    sendLine = () => {
-        document.location.href = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1656404446&scope=profile%20openid&redirect_uri=https://test1022ntubimd.herokuapp.com/lineLogin&state=12345abcde"
-    }
-
     render() {
         return (<Base content={ <div className={ style.need_to_center }>
             <Grid textAlign={ "center" }> <Grid.Row>
@@ -156,7 +157,8 @@ class Login extends React.Component {
                             <p><Input focus placeholder="帳號" id="account" /></p>
                             <p><Input type="password" focus placeholder="密碼" id="password" /></p>
                             <p>   <Button id="continue" className={ style.loginBtn } onClick={ this.send }>登入</Button></p>
-                            <p><Button color='green' className={ style.loginBtn } onClick={ this.sendLine }>以LINE帳號登入</Button></p>
+                            <p>{ this.state.errorMes ? this.state.errorMes : "" }</p>
+                            
                         </Form.Group>
                         <a href="./#/sign" >沒有帳號  &nbsp; &nbsp; <h5>註冊</h5></a>
                     </Segment>
@@ -169,7 +171,9 @@ class Login extends React.Component {
 class SignNext extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            userName: localStorage.getItem("login"),
+        }
     }
 
     componentDidMount() {
@@ -190,12 +194,18 @@ class SignNext extends React.Component {
             }
         })
         trackPromise(
-            MemberR.category({ "c_id": c_id }).then(res => {
+            MemberR.category({ "add": c_id, "user_id": this.state.userName, "remove": [] }).then(res => {
                 console.log(res)
+                if (res.data.success) {
+                    window.location.href = "./#/"
+                }
             })
         )
 
-        // window.location.href = "./#/"
+
+    }
+    cancel = () => {
+        window.location.href = "./#/"
     }
 
     handleClick = (index) => {
@@ -219,7 +229,10 @@ class SignNext extends React.Component {
                         }) : <>no non no </>
                     }
                 </div>
-                <p><Button id="continue" className={ style.selected } onClick={ this.send }>確認送出</Button></p>
+                <p>
+                    <Button id="continue" className={ style.selected } onClick={ this.cancel }>取消</Button>
+                    <Button id="continue" className={ style.selected } onClick={ this.send }>確認送出</Button>
+                </p>
             </Segment>
         </div> }></Base>)
     }
