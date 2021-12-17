@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Button,  List, Checkbox } from 'semantic-ui-react'
+import { Grid, Button, List, Checkbox } from 'semantic-ui-react'
 import style from "./search.module.css"
 export default class Search extends React.Component {
     constructor(props) {
@@ -27,9 +27,12 @@ export default class Search extends React.Component {
     }
 
     remove = (c, v) => {
+
         let d = this.props.like
         d[c][v] = false
-        this.setState({ like: d, count: this.state.count - 1 })
+        console.log(d[c][v])
+        this.setState({ like: d, count: this.state.count - 1 })        
+        this.props.getList()
     }
 
     newOn = (name, item) => {
@@ -37,7 +40,7 @@ export default class Search extends React.Component {
         let count = this.state.count
         let temp = likePrev[name][item]["check"]
         likePrev[name][item]["check"] = !temp
-        if (temp) { count -= 2 }       
+        if (temp) { count -= 2 }
         this.setState({ like: likePrev, count: count + 1 })
         this.props.getList()
 
@@ -66,9 +69,9 @@ export default class Search extends React.Component {
 
 
     render() {
-        return (<div className={ style.searchBar }>            
+        return (<div className={ style.searchBar }>
             <Grid className={ style.border } >
-                <Grid.Row verticalAlign={"middle"}>
+                {/* <Grid.Row verticalAlign={ "middle" }>
                     { this.state.count > 0 ? <>
                         <Grid.Column width={ "auto" }>篩選條件</Grid.Column>
                         <Grid.Column width={ 13 } >
@@ -87,9 +90,9 @@ export default class Search extends React.Component {
                         </Grid.Column>
                         <Grid.Column width={ 2 }></Grid.Column>
                         <Grid.Column width={ 13 }>
-                            {/* <Button secondary onClick={ this.removeAll } className={ style.clearbtn } >清除全部</Button> */}
+                             <Button secondary onClick={ this.removeAll } className={ style.clearbtn } >清除全部</Button> 
                         </Grid.Column></> : <></> }
-                </Grid.Row>
+                </Grid.Row> */}
                 { this.props.like && Object.keys(this.props.like).map((placement, index) => {
                     return (<> <Grid.Row >
                         <Grid.Column width={ 1 }>{ placement }</Grid.Column>
