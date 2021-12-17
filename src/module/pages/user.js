@@ -456,6 +456,10 @@ class MySave extends React.Component {
         const path = `${window.location.href.split("/user")[0]}/${url}`
         window.location.href = path
     }
+    toContent = (id) => {
+        localStorage.setItem("proposal", id)
+        document.location.href = `.#/policyContent/${id.id}`
+    }
     render() {
         return (<>
             <List divided relaxed animated>
@@ -467,7 +471,7 @@ class MySave extends React.Component {
 
 
 
-                            <Grid.Row className={ style.topicBoxBold } >
+                            <Grid.Row className={ style.topicBoxBoldC } onClick={ () => { this.toContent(item) } }>
                                 {/* <Grid.Column width={ 1 } /> */ }
                                 <Grid.Column width={ 11 }>
                                     <div>提案人：{ item.f_name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
@@ -514,11 +518,6 @@ class MyMsgRecord extends React.Component {
         this.setState({ msg: this.props.msg })
         console.log(this.props.msg)
     }
-    changePage = (url) => {
-        const path = `${window.location.href.split("/user")[0]}/${url}`
-        window.location.href = path
-    }
-
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
@@ -529,6 +528,10 @@ class MyMsgRecord extends React.Component {
     openDatil = (d, t) => {
         this.setState({ data: d, title: t, open: true })
     }
+    toContent = (id) => {
+        localStorage.setItem("proposal", id)
+        document.location.href = `.#/policyContent/${id.id}`
+    }
 
 
     render() {
@@ -537,12 +540,18 @@ class MyMsgRecord extends React.Component {
 
             <Card.Group itemsPerRow={ 2 }>
                 { this.state.msg !== undefined ? this.state.msg.map((item, index) => {
+
                     return (<>
-                        <Card onClick={ () => this.openDatil(item.content, item.title) }>{ item.title }
+                        <Card onClick={ () => this.openDatil(item.content, item.title) }>
+                            <button onClick={ () => { this.toContent(item) } } 
+                                class="flex-start bg-gray-400 rounded-full text-gray-200 p-2 transition duration-300 ease-in-out hover:bg-gray-500">
+                                點我到此提案
+                            </button>
+                            <p class="text-black font-semibold text-xl p-3">{ item.title }</p>
                             <Card.Content>
                                 {/* { item.content.map(m => { return (<Label content={ m.content } />) }) } */ }
-                                <div>提案人：{ item.f_name.map(item => { return (<><Label >{ item }</Label></>) }) }</div>
-                                <div>{ item.c_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }</div>
+                                <div class="text-black">提案人：{ item.f_name.map(item => { return (<><Label>{ item }</Label></>) }) }</div>
+                                <div class="text-black mt-3">{ item.c_name.map(item => { return (item != null ? <Label>{ item }</Label> : <></>) }) }</div>
                             </Card.Content>
                         </Card>
 
@@ -560,12 +569,12 @@ class MyMsgRecord extends React.Component {
 
                     </>)
                 }) : <></> }</Card.Group>
-            <MsgModal title={ this.state.title }
+            <MsgModal>             
+                title={ this.state.title } 
                 data={ this.state.data }
                 open={ this.state.open }
                 close={ this.close }
-
-            />
+            </MsgModal>
 
         </>);
     }
