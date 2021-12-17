@@ -102,6 +102,9 @@ class PolicyContent extends React.Component {
                     this.getMsg()
 
                 }
+                else{
+                    this.showNoteModal(response.message)
+                }
             })
         )
     }
