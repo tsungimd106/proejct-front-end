@@ -343,8 +343,8 @@ class Pprofile extends React.Component {
             </div></Segment>
 
             {/* 第二行：分數圖表 */ }
-            <Segment><div class="grid grid-rows-1 grid-cols-3 gap-4 p-4 bg-white my-3">
-                <div><p class="text-center">政見評分分數</p>
+            <Segment><div class="grid grid-rows-1 grid-cols-4 gap-4 p-4 bg-white my-3">
+                <div><p class="text-center w-20">政見分數</p>
                     <div class="h-full flex" >
                         <div title="您在乎的政治人物有履行政見承諾嗎？
                                         政要RUN整合投票數據，並將運算過程公布此區，讓您更清楚了解分數來由。"
@@ -358,22 +358,22 @@ class Pprofile extends React.Component {
                     </div>
                 </div>
                 <div><p class="text-center">正負向比例</p>
-                    <Thermometer className={ style.thermometer }
+                    <Thermometer 
                         theme="light"
-                        value={ this.state.message ? this.state.message[0].score * 100 : 0 }
+                        value={ this.state.message ? parseInt(this.state.message[0].score * 100 ): 0 }
                         max="100"
                         steps="4"
                         format="%"
                         size="large"
                         height="300"
-                        width="200"
+                        width="100"
                     />
                 </div>
-                <div><p class="text-center">圓餅圖</p>
-                    <div class="row-start-3 w-full inset-0 sm:row-start-1 sm:col-start-8 sm:col-end-10 row-span-1 flex flex-col items-center justify-center bg-white p-4 shadow rounded-lg">
-                        <div>
+                <div className='span-2' ><p class="text-center ">圓餅圖</p>
+                    <div class="h-full flex">
+                        <div className='self-center	'>
                             { this.state.voteD ? <>
-                                <div><Chart options={ this.state.kpi.options } series={ this.state.voteD } type="donut" /></div>
+                                <div style={{width:"200%"}} ><Chart options={ this.state.kpi.options } series={ this.state.voteD } type="donut" /></div>
                             </> : <></> }
 
                         </div>
