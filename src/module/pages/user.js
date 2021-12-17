@@ -107,12 +107,12 @@ class MyProfile extends React.Component {
     // pswShow = (show) => this.setState({ pswShow: show })
     editName = () => {
         let name = document.getElementById("new_name").value
-        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { this.areaShow(); return res })
+        return MemberR.userEdit({ "name": name, "account": this.props.userName }).then(res => { if (res.data.success) document.location.reload() })
 
     }
     editArea = () => {
-        console.log(document.getElementById("sarea"))
-        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then()
+
+        return MemberR.userEdit({ "area_id": this.state.areaid, "account": this.props.userName }).then(res => { if (res.data.success) document.location.reload() })
 
     }
     getArea = (event, { value }) => {
@@ -148,7 +148,7 @@ class MyProfile extends React.Component {
             return copy
         });
     }
-   
+
 
     render() {
         return (<>
@@ -192,7 +192,7 @@ class MyProfile extends React.Component {
                             </>) }
                         /></div>
                     </Grid.Column>
-                  
+
                 </Grid.Row>
 
             </Grid>
@@ -335,7 +335,7 @@ class Pprofile extends React.Component {
                     <div class="col-start-1 col-end-4 row-start-5 row-end-5">
                         <div class="inline-flex items-center  bg-white leading-none text-black rounded-full p-2 shadow text-sm">
                             <span class="inline-flex bg-black text-white rounded-full h-6 px-3 justify-center items-center text-">委員會</span>
-                            <span class="inline-flex px-2">{ this.state.committee ? this.state.committee[0].name:""}</span>
+                            <span class="inline-flex px-2">{ this.state.committee ? this.state.committee[0].name : "" }</span>
                         </div>
                     </div>
 
@@ -529,8 +529,8 @@ class MyMsgRecord extends React.Component {
         this.setState({ data: d, title: t, open: true })
     }
     toContent = (id) => {
-        localStorage.setItem("proposal", id)
-        document.location.href = `.#/policyContent/${id.id}`
+
+        document.location.href = `.#/policyContent/${id.proposal_id}`
     }
 
 
@@ -543,7 +543,7 @@ class MyMsgRecord extends React.Component {
 
                     return (<>
                         <Card onClick={ () => this.openDatil(item.content, item.title) }>
-                            <button onClick={ () => { this.toContent(item) } } 
+                            <button onClick={ () => { this.toContent(item) } }
                                 class="flex-start bg-gray-400 rounded-full text-gray-200 p-2 transition duration-300 ease-in-out hover:bg-gray-500">
                                 點我到此提案
                             </button>
@@ -569,8 +569,8 @@ class MyMsgRecord extends React.Component {
 
                     </>)
                 }) : <></> }</Card.Group>
-            <MsgModal>             
-                title={ this.state.title } 
+            <MsgModal>
+                title={ this.state.title }
                 data={ this.state.data }
                 open={ this.state.open }
                 close={ this.close }
@@ -594,7 +594,7 @@ class MyVoteRecord extends React.Component {
                 <Table.HeaderCell>提案標題</Table.HeaderCell>
                 <Table.HeaderCell>投票立場</Table.HeaderCell>
             </Table.Row></Table.Header>
-                { this.props.proposal_vote !== undefined ? this.props.proposal_vote.map((item, index) => {
+                { this.props.proposal_vote !== undefined ? (this.props.proposal_vote.length > 0 ? this.props.proposal_vote.map((item, index) => {
                     return (<>
                         <Table.Body>
                             <Table.Row
@@ -605,7 +605,7 @@ class MyVoteRecord extends React.Component {
                                 <Table.Cell>{ item.type }</Table.Cell>
                             </Table.Row></Table.Body>
                     </>)
-                }) : <></> }
+                }) : <>尚未有提案投票紀錄</>) : <></> }
             </Table>
         </>);
     }
@@ -623,17 +623,16 @@ class MyScoreRecord extends React.Component {
 
         return (<>
             <Card.Group itemsPerRow={ 2 } >
-                { this.props.policy_vote !== undefined ? this.props.policy_vote.map((item, index) => {
+                { this.props.policy_vote !== undefined ? (this.props.policy_vote[0].c_name.length>0 ? this.props.policy_vote.map((item, index) => {
                     return (<>
                         <Card>
                             <Card.Content><Card.Header>{ item.content }</Card.Header></Card.Content>
                             <Card.Content>{ item.c_name.map(c => { return (<Label>{ c }</Label>) }) }</Card.Content>
-
                             <Card.Content>{ item.type }</Card.Content>
-
                         </Card>
                     </>)
-                }) : <></> }
+                }) : <>尚未有政見評分
+                </>) : <></> }
             </Card.Group>
         </>);
     }

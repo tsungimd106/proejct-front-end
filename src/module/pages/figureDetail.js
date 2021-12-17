@@ -692,7 +692,7 @@ class FigureDetail extends React.Component {
                                         <Card className={style.dashboardcard}>
                                             <div title="您在乎的政治人物有確實出席立法院會議嗎？
                                             政要RUN整合公民監督國會聯盟提供的院會出席率及委員會出席率，並取平均作為參考指標。歡迎您加以參考。"
-                                            className={style.scoreCircle + "hover:cursor-pointer"}><div class="text-xl mb-5">出席率</div>
+                                            className={style.scoreCircle}><div class="text-xl mb-5">出席率</div>
                                                 <CircularProgressbar value={this.state.attend} text={`${this.state.attend}%`} styles={buildStyles({
                                                     strokeLinecap: "butt",
                                                     pathColor: "#FEC240",
